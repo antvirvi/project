@@ -7,6 +7,7 @@
 
 int main (int argc, char **argv )
 {
-	int open = openinput("input.txt");
+	openinput("input.txt");
+	
 	return 0;	
 }
