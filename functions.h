@@ -1,6 +1,2 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-
 void printpanos(void);
+int openinput(char * filename);
