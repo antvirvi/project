@@ -1,0 +1,4 @@
+1) read words from input
+2) create trie
+3) add words in trie
+4) check if word already exists in trie
