@@ -1,2 +1,4 @@
-void printpanos(void);
+#include <stdio.h>
+
 int openinput(char * filename);
+char *getWord(FILE *fp);
