@@ -3,7 +3,10 @@
 
 extern int buffer_size;
 extern int word_size;
+extern int table_size;
 int reset = 0;
+
+
 
 char *getWord(FILE *fp)			//returns the contents of fp word by word, ignoring non alpharithmetic symbols
 {
@@ -42,16 +45,16 @@ return "error";
 }
 
 int openinput(char * filename)
-{	
+{
+	char **ptr_table = malloc(table_size*sizeof(char *));
+	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
 	char* buffer =  malloc(buffer_size*sizeof(char));  //creating a char table to store orders from input file
 	char word[100];
 
 	FILE* fd = fopen(filename, "r"); //opening input file
 	strcpy(buffer,"\0");
-	printf("buffer initialized\nlength of buffer= %ld\nbuffer capacity= %d\n",strlen(buffer),buffer_size);
-	printf("buffer initialized, length of buffer= %ld\n",strlen(buffer));
-	
+
 	if(fd == NULL)
 	{
 		perror("Error opening input file");
@@ -61,9 +64,12 @@ int openinput(char * filename)
 
 	while (flag!=4)
 	{
+		printf("Hello\n");
 		if(reset==1)
 		{
-			buffer = realloc(buffer,buffer_size*sizeof(char));
+			printf("reset bitzes!\n");
+			//buffer = realloc(buffer,buffer_size*sizeof(char));
+			//printf("Reseted buffer: %s\n",buffer);
 			//call some function to add, delete or search
 			reset = 0;
 		}
@@ -71,7 +77,7 @@ int openinput(char * filename)
 
 		if(strcmp(word,"Q")==0)
 		{
-			printf("\nQuestion:");
+			printf("\nQuestion:\n");
 			flag = 1;
 		}
 
@@ -102,8 +108,10 @@ int openinput(char * filename)
 
 			if(strlen(buffer)+strlen(word)>buffer_size)  // if we are about to overflow, we need to double the size
 			{
+				printf("world\n");
 				char * help_buf = malloc(buffer_size*sizeof(char));
 				strcpy(help_buf,buffer);
+
 				buffer_size *= 2;
 				buffer= realloc(buffer,buffer_size*sizeof(char));
 				buffer = strcat(help_buf,word);
@@ -111,8 +119,18 @@ int openinput(char * filename)
 			}
 			else
 			{
-//				strcpy(help_buf,buffer);
-				buffer = strcat(buffer,word);
+
+				if(words_in==table_size - 1)
+				{
+					printf("world2\n");
+					table_size*=2;
+					ptr_table = realloc(ptr_table,table_size*sizeof(char*));
+				}
+				printf("%s \n",word);
+				ptr_table[words_in] = malloc(word_size*sizeof(char));
+				strcpy(ptr_table[words_in],word);
+
+				words_in++;
 			}
 
 
@@ -122,6 +140,7 @@ int openinput(char * filename)
 				case 1 :
 					//search
 						printf("%s ",word);
+						
 //						insert_ngram
 						break;
 				case 2 :

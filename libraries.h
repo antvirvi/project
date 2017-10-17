@@ -6,4 +6,5 @@
 
 int buffer_size = 16;
 int word_size = 16;
+int table_size = 4;
 
