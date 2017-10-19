@@ -8,7 +8,7 @@ default: project
 # countwords.o, counter.o, and scanner.o:
 #
 project:  main.o functions.o 
-	$(CC) $(CFLAGS) -o project mgitain.o functions.o
+	$(CC) $(CFLAGS) -o project main.o functions.o
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
