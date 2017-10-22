@@ -7,8 +7,8 @@ default: project
 # To create the executable file count we need the object files
 # countwords.o, counter.o, and scanner.o:
 #
-project:  main.o functions.o 
-	$(CC) $(CFLAGS) -o project main.o functions.o
+project:  main.o functions.o stack.o
+	$(CC) $(CFLAGS) -o project main.o functions.o stack.o
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
@@ -19,6 +19,9 @@ main.o:  main.c functions.h
 
 functions.o:  functions.c functions.h 
 	$(CC) $(CFLAGS) -c functions.c
+
+stack.o:  stack.c stack.h 
+	$(CC) $(CFLAGS) -c stack.c
 
 clean: 
 	$(RM) count *.o *~
