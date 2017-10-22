@@ -1,7 +1,10 @@
 #include <stdio.h>
+<<<<<<< HEAD
 #include <stdlib.h>
 #include <string.h>
 #include "stack.h"
+=======
+>>>>>>> ec2bf7ae61c93922e7b02d4728a9cb475f034d69
 
 #define WORD_SIZE 25
 #define CHILD_NUM 10
@@ -11,6 +14,7 @@
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 
+<<<<<<< HEAD
 typedef struct trie_node{
 	char *word;
 	struct trie_node *children;
@@ -46,3 +50,8 @@ int check_exists_in_children(trie_node *node,char *word,int *pos);
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words);
 int append_word(trie_node *node,int pos,char *word,char is_final);
 void print_trie(trie_node *node,int level);
+=======
+
+int openinput(char * filename);
+char *getWord(FILE *fp);
+>>>>>>> ec2bf7ae61c93922e7b02d4728a9cb475f034d69

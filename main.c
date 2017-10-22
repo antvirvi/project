@@ -1,5 +1,6 @@
 #include "functions.h"
 
+<<<<<<< HEAD
 int main (void)
 {
 	int error;
@@ -52,4 +53,16 @@ int main (void)
 	printf("Error is %d\n",error);	
 	print_trie(root,0);
 	
+=======
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+
+int main (int argc, char **argv )
+{
+	openinput("input.txt");
+	
+	return 0;	
+>>>>>>> ec2bf7ae61c93922e7b02d4728a9cb475f034d69
 }
