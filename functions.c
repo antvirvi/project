@@ -1,4 +1,4 @@
-//#include "functions.h"
+#include "functions.h"
 #include "libraries.h"
 
 extern int buffer_size;
@@ -44,7 +44,7 @@ char *getWord(FILE *fp)			//returns the contents of fp word by word, ignoring no
 return "error";
 }
 
-int openinput(char * filename)
+int openinput(struct index *trie,char * filename)
 {
 
 	char **ptr_table = malloc(table_size*sizeof(char *));
@@ -55,14 +55,12 @@ int openinput(char * filename)
 
 	FILE* fd = fopen(filename, "r"); //opening input file
 	strcpy(buffer,"\0");
-
+	
 	if(fd == NULL)
 	{
 		perror("Error opening input file");
 		return -1;
 	}
-
-
 	while (flag!=4)
 	{
 		printf("Hello\n");
@@ -76,39 +74,29 @@ int openinput(char * filename)
 		}
 		strcpy(word,getWord(fd));
 
-		if(strcmp(word,"Q")==0)
-		{
+		if(strcmp(word,"Q")==0){
 			printf("\nQuestion:\n");
 			flag = 1;
 		}
-
-		else if(strcmp(word,"A")==0)
-		{
+		else if(strcmp(word,"A")==0){
 			printf("\nAddition:");
 			flag = 2;
 		}
-
-		else if(strcmp(word,"D")==0)
-		{
+		else if(strcmp(word,"D")==0){
 			printf("\nDeletion");
 			flag = 3;
 		}
-		else if(strcmp(word,"\n")==0)
-		{
+		else if(strcmp(word,"\n")==0){
 			printf("\nReset");
 			flag = 3;
 		}
-
-		else if(strcmp(word,"F")==0)
-		{
+		else if(strcmp(word,"F")==0){
 			printf("\nEnd of file\n");
 			flag = 4;
 		}
-		else
-		{
+		else{
 
-			if(strlen(buffer)+strlen(word)>buffer_size)  // if we are about to overflow, we need to double the size
-			{
+			if(strlen(buffer)+strlen(word)>buffer_size) { // if we are about to overflow, we need to double the size
 				printf("world\n");
 				char * help_buf = malloc(buffer_size*sizeof(char));
 				strcpy(help_buf,buffer);
@@ -118,11 +106,8 @@ int openinput(char * filename)
 				buffer = strcat(help_buf,word);
 //				printf("Prevented overflow by doubling buffer size to %d\n",buffer_size);
 			}
-			else
-			{
-
-				if(words_in==table_size - 1)
-				{
+			else{
+				if(words_in==table_size - 1){
 					printf("world2\n");
 					table_size*=2;
 					ptr_table = realloc(ptr_table,table_size*sizeof(char*));
@@ -135,21 +120,18 @@ int openinput(char * filename)
 			}
 
 
-			switch(flag)
-			{
-		
+			switch(flag){
 				case 1 :
 					//search
-						printf("%s ",word);
-						
-//						insert_ngram
+						printf("%s ",word);	
+//						insert_ngram append_trie_node(root,word,0,0); 	print_trie(root,0);
 						break;
 				case 2 :
-					//add
+						append_trie_node(trie->root,ptr_table,0,words_in-1);
 						printf("%s ",word);
 						break;
 				case 3 : 
-					//delete
+					//delete error=delete_ngram(root,word,0,3);//third argument is always 0 , fourth is lenof(words) -1
 						printf("%s ",word);
 						break;
 			}
@@ -209,7 +191,7 @@ trie_node *create_trie_node(char *word,char is_final){
 
 trie_node *init_trie_node(trie_node *node,char *word,char is_final){
 	printf("Inside init trie\n");
-	print_node(node);
+	//print_node(node);
 	node->word=malloc(WORD_SIZE*sizeof(char));
 	strcpy(node->word,word);
 	
@@ -393,54 +375,6 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 
 }
  
-/**
-stack *init_stack(){
-	stack *stack_=malloc(sizeof(struct stack));
-	if(stack_==NULL) return NULL;
-
-	stack_->pos_array=malloc(STACK_NUMBER*sizeof(int));
-	if(stack_->pos_array==NULL) return NULL;
-	stack_->top=0;
-	stack_->max_elements=STACK_NUMBER;
-	return stack_;
-}
-
-int push(stack *stack_,int pos){
-	if(stack_->top==stack_->max_elements){
-		stack_->pos_array=realloc(stack_->pos_array,2*stack_->max_elements*sizeof(int));
-		if(stack_->pos_array==NULL)	return ERROR;
-	}
-	int free_pos=stack_->top;
-	stack_->pos_array[free_pos]=pos;
-	stack_->top++;
-	return SUCCESS;
-}
-
-int pop(stack *stack_){
-	if(stack_->top==0) return STACK_EMPTY;
-	int pos=stack_->pos_array[stack_->top];
-	stack_->top--;
-	return pos;
-
-}
-
-void stack_destroy(stack *stack_){
-	free(stack_->pos_array);
-	stack_->pos_array=NULL;
-	stack_->top=-1;
-	free(stack_);
-
-}
-
-void print_stack(stack *stack_){
-	int i;
-	printf("Inside print stack\n");
-	for(i=0;i<stack_->top;i++){
-		printf("%d ",stack_->pos_array[i]);
-	}
-	printf("\n");
-}
-*/
 
 
 
