@@ -32,7 +32,7 @@ int init_input(struct index *trie,char * filename){
 	while ((read = getline(&line, &len, fd)) != -1){
 		words_in = 0;
 		word = strtok (line," \n");
-		while(words!=NULL)
+		while(word!=NULL)
 		{
 		//printf("Read this word: %s\n",word);
 			if(words_in==table_size - 1){
