@@ -31,8 +31,8 @@ int init_input(struct index *trie,char * filename){
 			
 	while ((read = getline(&line, &len, fd)) != -1){
 		words_in = 0;
-		word = strtok (line," ");
-		while(word!=NULL)
+		word = strtok (line," \n");
+		while(words!=NULL)
 		{
 		//printf("Read this word: %s\n",word);
 			if(words_in==table_size - 1){
@@ -48,14 +48,15 @@ int init_input(struct index *trie,char * filename){
 			}
 		//	ptr_table[words_in] = malloc(word_size*sizeof(char));
 			strcpy(ptr_table[words_in],word);
+			printf("Kuru word = %s\n",ptr_table[words_in]);
 			words_in++;
-			word=strtok(NULL," ");
+			word=strtok(NULL," \n");
 		}
 		printf("ptr_table %s %d\n",ptr_table[0],words_in);
 		append_trie_node(trie->root,ptr_table,0,words_in-1);	
 	}
 	free(line);
-	//cleanup(ptr_table);
+	cleanup(ptr_table);
 	return 0;	
 }
 
@@ -90,7 +91,7 @@ int test_input(struct index *trie,char * filename)
 	while ((read = getline(&line, &len, fd)) != -1) {	words_in = 0;
 	       // printf("Retrieved line of length %zu :\n", read);
 	       // printf("%s", line);
-		word = strtok (line," ");
+		word = strtok (line," \n");
 		while(word!=NULL){
 			
 			//printf("Read this word: %s\n",word);
@@ -124,7 +125,7 @@ int test_input(struct index *trie,char * filename)
 				strcpy(ptr_table[words_in],word);
 				words_in++;
 			}
-			word=strtok(NULL," ");		
+			word=strtok(NULL," \n");		
 			
 		}
 		switch(flag){
