@@ -14,7 +14,7 @@ project:  main.o functions.o stack.o
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
 #
-main.o:  main.c functions.h 
+main.o:  main.c functions.h
 	$(CC) $(CFLAGS) -c main.c
 
 

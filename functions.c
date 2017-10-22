@@ -54,6 +54,7 @@ int init_input(struct index *trie,char * filename){
 		}
 		append_trie_node(trie->root,ptr_table,0,words_in-1);	
 	}
+	printf ("free\n");
 	free(line);
 	cleanup(ptr_table);
 	return 0;	
@@ -83,16 +84,16 @@ int test_input(struct index *trie,char * filename)
 	char *word;
 	int command_error;
 
-	for(a=0;a<table_size;a++)
+	for(a=0;a<table_size-1;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
 
 
-	while ((read = getline(&line, &len, fd)) != -1) {	words_in = 0;
+	while ((read = getline(&line, &len, fd)) != -1) {
+		words_in = 1;
 	       // printf("Retrieved line of length %zu :\n", read);
 	       // printf("%s", line);
 		word = strtok (line," \n");
 		while(word!=NULL){
-			
 			//printf("Read this word: %s\n",word);
 			if(strcmp(word,"Q")==0){
 				flag=1;
@@ -108,25 +109,27 @@ int test_input(struct index *trie,char * filename)
 				exit(1);
 			}
 			else{
+			
 				
-				if(words_in==table_size - 1){
-					table_size*=2;
-					ptr_table = realloc(ptr_table,table_size*sizeof(char*));
-					for(a=(table_size/2);a<table_size;a++)
+				if(words_in==table_size){
+					table_size*=2;printf("Realloc fails after this line\n");
+					ptr_table = realloc(ptr_table,table_size*(sizeof(char*)+1));
+					//printf("\n\n\nDouble ptr table to %d words\n",table_size);
+					for(a=(table_size/2);a<table_size-1;a++)
 						ptr_table[a]=malloc(word_size*sizeof(char));
 				}
 				if(strlen(word)>word_size){
 					word_size*=2;
-					for(a=0;a<table_size;a++)
+					for(a=0;a<table_size-1;a++)
 						ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
-				}			
+				}		
 				//ptr_table[words_in] = malloc(word_size*sizeof(char));
-				strcpy(ptr_table[words_in],word);
+				strcpy(ptr_table[words_in-1],word);
 				words_in++;
 			}
-			word=strtok(NULL," \n");		
-			
+			word=strtok(NULL," \n");
 		}
+
 		switch(flag){
 			case 1 :
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
@@ -155,7 +158,7 @@ return 0;
 void cleanup(char ** ptr){
 	int a;
 	for(a=0;a<table_size;a++){
-		free(ptr[a]);
+	//	free(ptr[a]);
 	}
 	free(ptr);
 }
