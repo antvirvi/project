@@ -32,7 +32,7 @@ int init_input(struct index *trie,char * filename){
 	while ((read = getline(&line, &len, fd)) != -1){
 		words_in = 0;
 		word = strtok (line," \n");
-		while(words!=NULL)
+		while(word!=NULL)
 		{
 		//printf("Read this word: %s\n",word);
 			if(words_in==table_size - 1){
@@ -48,11 +48,10 @@ int init_input(struct index *trie,char * filename){
 			}
 		//	ptr_table[words_in] = malloc(word_size*sizeof(char));
 			strcpy(ptr_table[words_in],word);
-			printf("Kuru word = %s\n",ptr_table[words_in]);
+			//printf("Kuru word = %s\n",ptr_table[words_in]);
 			words_in++;
 			word=strtok(NULL," \n");
 		}
-		printf("ptr_table %s %d\n",ptr_table[0],words_in);
 		append_trie_node(trie->root,ptr_table,0,words_in-1);	
 	}
 	free(line);
@@ -82,7 +81,7 @@ int test_input(struct index *trie,char * filename)
 	size_t len = 0;
 	ssize_t read;
 	char *word;
-
+	int command_error;
 
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
@@ -130,14 +129,17 @@ int test_input(struct index *trie,char * filename)
 		}
 		switch(flag){
 			case 1 :
-				//add ptr_table to trie PANOS
-				//append_trie_node(root,word,0,0);
+				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				break;
 			case 2 :
-				//	error=delete_ngram(root,word,0,3);//third argument is always 0 , fourth is lenof(words) -1
+				printf("DELETE\n");
+				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);//third argument is always 0 , fourth is lenof(words) -1
 				//delete ptr_table from trie PANOS
 				break;
 			case 3 :
+				printf("SEARCH\n");
+				printf("ptr table: \" %s \" words : %d",ptr_table[0],words_in);
+				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				//search trie for this ptr_table PANOS
 				break; 
 		
