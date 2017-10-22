@@ -1,10 +1,7 @@
 #include <stdio.h>
-<<<<<<< HEAD
 #include <stdlib.h>
 #include <string.h>
 #include "stack.h"
-=======
->>>>>>> ec2bf7ae61c93922e7b02d4728a9cb475f034d69
 
 #define WORD_SIZE 25
 #define CHILD_NUM 10
