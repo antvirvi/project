@@ -5,7 +5,7 @@
 
 #define WORD_SIZE 25
 #define CHILD_NUM 10
-#define MAX_CHILDS 1
+#define MAX_CHILDS 10
 #define ERROR 1
 #define SUCCESS 0
 //#define STACK_NUMBER 10
@@ -32,5 +32,6 @@ int check_exists_in_children(trie_node *node,char *word,int *pos);
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words);
 int append_word(trie_node *node,int pos,char *word,char is_final);
 void print_trie(trie_node *node,int level);
-int openinput(struct index *trie,char * filename);
-char *getWord(FILE *fp);
+int init_input(struct index *trie,char * filename);
+int test_input(struct index *trie,char * filename);
+void cleanup(char ** ptr);

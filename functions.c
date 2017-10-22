@@ -8,139 +8,157 @@ int reset = 0;
 
 
 
-char *getWord(FILE *fp)			//returns the contents of fp word by word, ignoring non alpharithmetic symbols
-{
-	char ch;
-	char *buf = malloc(word_size*sizeof(char));
-	int i = 0, flag = 0;
+int init_input(struct index *trie,char * filename){
+	int a;
+	char **ptr_table = malloc(table_size*sizeof(char *));
+	int words_in = 0;
 
-	while(i<word_size)
-	{
-		ch = getc(fp);
-		if(ch == '\n')
-			reset = 1;				//flag stating that this is the last word of a line
-		if(!isalnum(ch))
-		{
-			if(flag == 1)
-				return buf;			//if it has read letters and then receives a space
-		}
-		else
-		{		
-			if(i==word_size-1) //criterion for double size buffer
-			{
-				char * help_buffer = malloc(word_size*sizeof(char));
-				word_size*=2;		//double the size
-				strcpy(help_buffer,buf);
-				buf=realloc(buf, word_size*sizeof(char));
-				strcpy(buf,help_buffer);
-				printf("Double the size of a word\n");
-			}
-			flag = 1;
-			buf[i] = ch;
-			i++;
-		}
-	
+	FILE* fd = fopen(filename, "r"); //opening input file
+	//strcpy(buffer,"\0");
+
+	if(fd == NULL){
+		perror("Error opening input file");
+		return -1;
 	}
-return "error";
+
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	char *word;
+
+	for(a=0;a<table_size;a++)
+		ptr_table[a]=malloc(word_size*sizeof(char));
+			
+	while ((read = getline(&line, &len, fd)) != -1){
+		words_in = 0;
+		word = strtok (line," ");
+		while(word!=NULL)
+		{
+		//printf("Read this word: %s\n",word);
+			if(words_in==table_size - 1){
+				table_size*=2;
+				ptr_table = realloc(ptr_table,table_size*sizeof(char*));
+				for(a=(table_size/2);a<table_size;a++)
+					ptr_table[a]=malloc(word_size*sizeof(char));
+			}
+			if(strlen(word)>word_size){
+				word_size*=2;
+				for(a=0;a<table_size;a++)
+					ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
+			}
+		//	ptr_table[words_in] = malloc(word_size*sizeof(char));
+			strcpy(ptr_table[words_in],word);
+			words_in++;
+			word=strtok(NULL," ");
+		}
+		printf("ptr_table %s %d\n",ptr_table[0],words_in);
+		append_trie_node(trie->root,ptr_table,0,words_in-1);	
+	}
+	free(line);
+	//cleanup(ptr_table);
+	return 0;	
 }
 
-int openinput(struct index *trie,char * filename)
-{
 
+
+int test_input(struct index *trie,char * filename)
+{	
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
-	char* buffer =  malloc(buffer_size*sizeof(char));  //creating a char table to store orders from input file
-	char word[100];
-
+	//char* buffer =  malloc(buffer_size*sizeof(char));  //creating a char table to store orders from input file
+	int a;
 	FILE* fd = fopen(filename, "r"); //opening input file
-	strcpy(buffer,"\0");
-	
+	//strcpy(buffer,"\0");
+
 	if(fd == NULL)
 	{
 		perror("Error opening input file");
 		return -1;
 	}
-	while (flag!=4)
-	{
-		printf("Hello\n");
-		if(reset==1)
-		{
-			printf("reset bitzes!\n");
-			//buffer = realloc(buffer,buffer_size*sizeof(char));
-			//printf("Reseted buffer: %s\n",buffer);
-			//call some function to add, delete or search
-			reset = 0;
-		}
-		strcpy(word,getWord(fd));
 
-		if(strcmp(word,"Q")==0){
-			printf("\nQuestion:\n");
-			flag = 1;
-		}
-		else if(strcmp(word,"A")==0){
-			printf("\nAddition:");
-			flag = 2;
-		}
-		else if(strcmp(word,"D")==0){
-			printf("\nDeletion");
-			flag = 3;
-		}
-		else if(strcmp(word,"\n")==0){
-			printf("\nReset");
-			flag = 3;
-		}
-		else if(strcmp(word,"F")==0){
-			printf("\nEnd of file\n");
-			flag = 4;
-		}
-		else{
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	char *word;
 
-			if(strlen(buffer)+strlen(word)>buffer_size) { // if we are about to overflow, we need to double the size
-				printf("world\n");
-				char * help_buf = malloc(buffer_size*sizeof(char));
-				strcpy(help_buf,buffer);
 
-				buffer_size *= 2;
-				buffer= realloc(buffer,buffer_size*sizeof(char));
-				buffer = strcat(help_buf,word);
-//				printf("Prevented overflow by doubling buffer size to %d\n",buffer_size);
+	for(a=0;a<table_size;a++)
+		ptr_table[a]=malloc(word_size*sizeof(char));
+
+
+	while ((read = getline(&line, &len, fd)) != -1) {	words_in = 0;
+	       // printf("Retrieved line of length %zu :\n", read);
+	       // printf("%s", line);
+		word = strtok (line," ");
+		while(word!=NULL){
+			
+			//printf("Read this word: %s\n",word);
+			if(strcmp(word,"Q")==0){
+				flag=1;
+			}
+			else if(strcmp(word,"A")==0){
+				flag=2;
+			}
+			else if(strcmp(word,"D")==0){
+				flag=3;
+			}
+			else if(strcmp(word,"F")==0){
+				cleanup(ptr_table);
+				exit(1);
 			}
 			else{
+				
 				if(words_in==table_size - 1){
-					printf("world2\n");
 					table_size*=2;
 					ptr_table = realloc(ptr_table,table_size*sizeof(char*));
+					for(a=(table_size/2);a<table_size;a++)
+						ptr_table[a]=malloc(word_size*sizeof(char));
 				}
-				printf("%s \n",word);
-				ptr_table[words_in] = malloc(word_size*sizeof(char));
+				if(strlen(word)>word_size){
+					word_size*=2;
+					for(a=0;a<table_size;a++)
+						ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
+				}			
+				//ptr_table[words_in] = malloc(word_size*sizeof(char));
 				strcpy(ptr_table[words_in],word);
-
 				words_in++;
 			}
-
-
-			switch(flag){
-				case 1 :
-					//search
-						printf("%s ",word);	
-//						insert_ngram append_trie_node(root,word,0,0); 	print_trie(root,0);
-						break;
-				case 2 :
-						append_trie_node(trie->root,ptr_table,0,words_in-1);
-						printf("%s ",word);
-						break;
-				case 3 : 
-					//delete error=delete_ngram(root,word,0,3);//third argument is always 0 , fourth is lenof(words) -1
-						printf("%s ",word);
-						break;
-			}
+			word=strtok(NULL," ");		
+			
 		}
+		switch(flag){
+			case 1 :
+				//add ptr_table to trie PANOS
+				//append_trie_node(root,word,0,0);
+				break;
+			case 2 :
+				//	error=delete_ngram(root,word,0,3);//third argument is always 0 , fourth is lenof(words) -1
+				//delete ptr_table from trie PANOS
+				break;
+			case 3 :
+				//search trie for this ptr_table PANOS
+				break; 
+		
+		}
+		flag=0;
+	}
+  	free(line);
+    
+return 0;
 
-    }
-
-	return 0;
 }
+
+void cleanup(char ** ptr){
+	int a;
+	for(a=0;a<table_size;a++){
+		free(ptr[a]);
+	}
+	free(ptr);
+}
+
+	
+				
 
 void print_node(trie_node *node){
 	printf("node word is %s\n",node->word);

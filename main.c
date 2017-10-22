@@ -8,7 +8,8 @@ int main (int argc, char **argv )
 {
 	struct index *trie=malloc(sizeof(struct index));
 	trie->root=init_trie();
-	openinput(trie,"input.txt");
+	init_input(trie,"test.init");
+	test_input(trie,"test.work");
 	print_trie(trie->root,0);
 	return 0;	
 }
