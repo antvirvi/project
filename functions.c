@@ -106,7 +106,7 @@ int test_input(struct index *trie,char * filename)
 			}
 			else if(strcmp(word,"F")==0){
 				cleanup(ptr_table);
-				exit(1);
+				return 1;
 			}
 			else{
 			
@@ -132,17 +132,19 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
+				printf("in search\n");
+				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				break;
 			case 2 :
-				printf("DELETE\n");
-				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);//third argument is always 0 , fourth is lenof(words) -1
-				//delete ptr_table from trie PANOS
+				printf("Add\n");
+				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
+				
 				break;
 			case 3 :
-				printf("SEARCH\n");
-				printf("ptr table: \" %s \" words : %d",ptr_table[0],words_in);
-				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+				printf("words in are %d \n",words_in);
+				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
+				printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
 				break; 
 		
@@ -250,7 +252,7 @@ int append_trie_node(trie_node *root,char **word,int word_number,int number_of_w
 		int exists=check_exists_in_children(root,word[word_number],&pos);
 		if (exists==1){
 			//make the node also final
-			(&(root->children[pos]))->is_final=is_final; 
+			if((&(root->children[pos]))->is_final!='y') (&(root->children[pos]))->is_final=is_final; //this change
 			append_trie_node(&(root->children[pos]),word,word_number+1,number_of_words);
 			}
 		else{	
@@ -264,7 +266,7 @@ int append_trie_node(trie_node *root,char **word,int word_number,int number_of_w
 }
 
 int check_exists_in_children(trie_node *node,char *word,int *pos){
-		int pivot; //pivor is integer so in the division it will rounf in the smaller absolute value 5/2=2
+		int pivot=0; //pivor is integer so in the division it will rounf in the smaller absolute value 5/2=2
 		int lower=0;
 		int upper=node->number_of_childs-1;
 		//printf("inside check exists\n");
@@ -276,13 +278,13 @@ int check_exists_in_children(trie_node *node,char *word,int *pos){
 				if(compare==0){
 					*pos=pivot;
 					return 1; //exact match
-				}	
-				*pos=(compare<0)? lower+1:lower;
+				}
+				printf("compare is %d\n",compare);	
+				*pos=(compare<0)? pivot+1:pivot; //lower+1:lower
 				return 0; //not exact match
 				}
 			else {
 				pivot=(upper+lower)/2;
-				//printf("pivot here is %d\n",pivot);
 				int compare=strcmp(node->children[pivot].word,word); // equal=0 children[i]<word: compare<0 children>word : compare>0
 				if(compare==0) {
 					*pos=pivot;
@@ -339,15 +341,20 @@ int append_word(trie_node *node,int pos,char *word,char is_final){
 
 int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words){
 		int error;
-		//printf("in delete ngram word %s\n",word[word_number]);
+		printf("in delete ngram word \"%s\"\n",word[word_number]);
 		if(word_number==number_of_words+1){
-			if(root->number_of_childs!=0) return ERROR; //check if there are childs ont the node and return error if there are 
+			if(root->number_of_childs!=0 && root->is_final!='y') return ERROR;
+			if(root->number_of_childs!=0 &&root->is_final=='y'){
+				root->is_final='n';
+				return 2;}  
 			return SUCCESS;//and return no error . the previous one is gonna delete it	
 		}
 		if(root->number_of_childs==0) return ERROR;
 		else{
 			int pos;
+			printf("before exists \"%s\"\n",word[word_number]);
 			int exists=check_exists_in_children(root,word[word_number],&pos);
+			printf("exists :%d ",exists);
 			if (exists==1){
 				error=delete_ngram(&(root->children[pos]),word,word_number+1,number_of_words);
 				if(error==0)
