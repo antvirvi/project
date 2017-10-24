@@ -7,6 +7,11 @@ extern int table_size;
 int reset = 0;
 
 
+void printtable(char **pt){
+	int a;
+	for(a=0;a<table_size;a++)
+		printf("Table: %s\n",pt[a]);
+}
 
 int init_input(struct index *trie,char * filename){
 	int a;
@@ -133,18 +138,22 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 				printf("in search\n");
+	printtable(ptr_table);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				break;
 			case 2 :
 				printf("Add\n");
+	printtable(ptr_table);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
 				break;
 			case 3 :
-				printf("words in are %d \n",words_in);
+			//	printf("words in are %d \n",words_in);
+
+	printtable(ptr_table);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
-				printf("error is %d \n",command_error);
+printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
 				break; 
 		
@@ -165,7 +174,6 @@ void cleanup(char ** ptr){
 	free(ptr);
 }
 
-	
 				
 
 void print_node(trie_node *node){

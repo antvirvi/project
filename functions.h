@@ -24,7 +24,7 @@ struct index{
 	trie_node *root;
 };
 
-
+void printtable(char ** pt);
 void printpanos(void);
 trie_node *init_trie();
 int search_in_trie(trie_node *root,char **word,int number_of_words);
