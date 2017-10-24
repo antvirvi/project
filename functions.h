@@ -23,10 +23,11 @@ typedef struct trie_node{
 struct index{
 	trie_node *root;
 };
-
+int delete_from_node(trie_node *node,int pos);
 void printtable(char ** pt,int num);
 void printpanos(void);
 trie_node *init_trie();
+int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
 int search_in_trie(trie_node *root,char **word,int number_of_words);
 int check_exists_in_children(trie_node *node,char *word,int *pos);
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words);
