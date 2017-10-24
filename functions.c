@@ -7,10 +7,11 @@ extern int table_size;
 int reset = 0;
 
 
-void printtable(char **pt){
+void printtable(char **pt, int num){
 	int a;
-	for(a=0;a<table_size;a++)
-		printf("Table: %s\n",pt[a]);
+	for(a=0;a<num;a++){
+		printf("\x1b[31m""#Table %d: %s %ld\n""\x1b[0m",num ,pt[a],strlen(pt[a]));
+	}
 }
 
 int init_input(struct index *trie,char * filename){
@@ -102,26 +103,33 @@ int test_input(struct index *trie,char * filename)
 			//printf("Read this word: %s\n",word);
 			if(strcmp(word,"Q")==0){
 				flag=1;
+				//printf("\x1b[36m""Question 1\n""\x1b[0m");
 			}
 			else if(strcmp(word,"A")==0){
+				//printf("\x1b[36m""Addition 2\n""\x1b[0m");
 				flag=2;
 			}
 			else if(strcmp(word,"D")==0){
+				//printf("\x1b[36m""Deletion 3\n""\x1b[0m");
 				flag=3;
 			}
 			else if(strcmp(word,"F")==0){
+				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
 				cleanup(ptr_table);
 				return 1;
+			}else if(strcmp(word,"\0")==0){
+				//printf("\x1b[36m""Empty word found as a countable word -1\n""\x1b[0m");
+				
 			}
 			else{
 			
 				
 				if(words_in==table_size){
-					table_size*=2;printf("Realloc fails after this line\n");
+					table_size*=2;
 					ptr_table = realloc(ptr_table,table_size*(sizeof(char*)+1));
-					//printf("\n\n\nDouble ptr table to %d words\n",table_size);
-					for(a=(table_size/2);a<table_size-1;a++)
+					for(a=(table_size/2);a<table_size;a++){
 						ptr_table[a]=malloc(word_size*sizeof(char));
+					}
 				}
 				if(strlen(word)>word_size){
 					word_size*=2;
@@ -130,6 +138,8 @@ int test_input(struct index *trie,char * filename)
 				}		
 				//ptr_table[words_in] = malloc(word_size*sizeof(char));
 				strcpy(ptr_table[words_in-1],word);
+				//printf("\x1b[32m""METROPOLIS %s\n",ptr_table[words_in-1]"\x1b[0m");
+								
 				words_in++;
 			}
 			word=strtok(NULL," \n");
@@ -138,22 +148,22 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 				printf("in search\n");
-	printtable(ptr_table);
+	//printtable(ptr_table, words_in-1);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				break;
 			case 2 :
 				printf("Add\n");
-	printtable(ptr_table);
+	//printtable(ptr_table, words_in);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
 				break;
 			case 3 :
 			//	printf("words in are %d \n",words_in);
 
-	printtable(ptr_table);
+	//printtable(ptr_table, words_in-1);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
-printf("error is %d \n",command_error);
+				printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
 				break; 
 		

@@ -12,6 +12,7 @@ int main (int argc, char **argv )
 	//print_trie(trie->root,0);
 	int pos;
 	int exists;
+	printf("\n\n\nSECOND Stage~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n");
 	exists=check_exists_in_children(trie->root,"clear",&pos);
 	printf("exists :%d , pos:%d\n",exists,pos);
 	//printf("children of root are %d\n",trie->root->number_of_childs);
