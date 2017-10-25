@@ -147,14 +147,14 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				printf("in search\n");
+				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 	//printtable(ptr_table, words_in-1);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
-				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				break;
 			case 2 :
 				printf("Add\n");
 	//printtable(ptr_table, words_in);
+				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
 				break;
@@ -234,7 +234,7 @@ trie_node *create_trie_node(char *word,char is_final){
 }
 
 trie_node *init_trie_node(trie_node *node,char *word,char is_final){
-	printf("Inside init trie\n");
+	//printf("Inside init trie\n");
 	//print_node(node);
 	node->word=malloc(WORD_SIZE*sizeof(char));
 	strcpy(node->word,word);
@@ -252,7 +252,7 @@ trie_node *init_trie_node(trie_node *node,char *word,char is_final){
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words){
 	int error;
 	if(word_number>number_of_words){  
-		printf("out of words to add\n");
+		//printf("out of words to add\n");
 		return SUCCESS;
 		}
 	printf("append trie node %d out of %d word: %s\n",word_number,number_of_words,word[word_number]);
@@ -297,7 +297,7 @@ int check_exists_in_children(trie_node *node,char *word,int *pos){
 					*pos=pivot;
 					return 1; //exact match
 				}
-				printf("compare is %d\n",compare);	
+				//printf("compare is %d\n",compare);	
 				*pos=(compare<0)? pivot+1:pivot; //lower+1:lower
 				return 0; //not exact match
 				}
@@ -315,11 +315,11 @@ int check_exists_in_children(trie_node *node,char *word,int *pos){
 }
 
 int append_word(trie_node *node,int pos,char *word,char is_final){
-		printf("inside append_word , pos %d\n",pos);
+		//printf("inside append_word , pos %d\n",pos);
 		if(node->number_of_childs==node->max_childs){
-				printf("I have to double the children\n");
+				//printf("I have to double the children\n");
 				node->children=realloc(node->children,node->max_childs*2*sizeof(trie_node));
-				printf("Done Realloc \n");
+				//printf("Done Realloc \n");
 				if(node->children==NULL) return ERROR;
 		        node->max_childs*=2;
 				//print_node(&(node->children[0]));	
@@ -401,22 +401,41 @@ int delete_from_node(trie_node *node,int pos){
 
 
 int search_in_trie(trie_node *root,char **word,int number_of_words){
-	
+	printf("Inside search\n");
 	stack *stack_=init_stack();
-	int word_number=0;
+	int word_number;
 	int exists;
 	int pos;
-	trie_node *node=root;
-	while(node->children!=NULL && word_number!=number_of_words){
-		exists=check_exists_in_children(node,word[word_number],&pos);
-		if(exists==0) break;
-		push(stack_,pos);
-		node=&(node->children[pos]);
+	trie_node *node;
+	int start=0;
+	while(start!=number_of_words+1){
+		word_number=start;
+		node=root;
+		while(node->children!=NULL){
+			printf("word number :%d %s\n",word_number,word[word_number]);
+			if(node->is_final=='y')	break; //I found it 
+			//check if node->children[pos].word==NULL
+			exists=check_exists_in_children(node,word[word_number],&pos);
+			if(exists==0) break;
+			printf("I am gonna push : %d\n",pos);
+			push(stack_,pos);
+			node=&(node->children[pos]);
+			word_number++;
+		}
+		if(exists==1){
+			printf("Found :\n");
+			print_stack(stack_);
+		}
+		reset_stack(stack_);
+		printf("reset\n");
+		start++;
 	}
+	printf("here\n");	
 	if(exists==0){
 		stack_destroy(stack_);
 		return ERROR;
 	}
+	printf("Printing stack::\n");
 	print_stack(stack_);
 	stack_destroy(stack_);
 	return SUCCESS;	

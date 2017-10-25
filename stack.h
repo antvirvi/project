@@ -17,4 +17,4 @@ int push(stack *stack_,int pos);
 int pop(stack *stack_);
 void stack_destroy(stack *stack_);
 void print_stack(stack *stack_);
-
+void reset_stack(stack *stack_);

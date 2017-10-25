@@ -13,17 +13,12 @@ int main (int argc, char **argv )
 	int pos;
 	int exists;
 	printf("\n\n\nSECOND Stage~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n");
-	exists=check_exists_in_children(trie->root,"clear",&pos);
-	printf("exists :%d , pos:%d\n",exists,pos);
+	//exists=check_exists_in_children(trie->root,"clear",&pos);
+	//printf("exists :%d , pos:%d\n",exists,pos);
 	//printf("children of root are %d\n",trie->root->number_of_childs);
 	test_input(trie,"test.work");
-	//printf("children of root are %d\n",trie->root->number_of_childs);
-	int i;
-	/*for(i=0;i<trie->root->number_of_childs;i++){
-		exists=check_exists_in_children(trie->root,trie->root->children[i].word,&pos);
-		if(exists==0) printf("FALSE %d %s %d %d\n",i,trie->root->children[i].word,exists,pos);
-	}*/
-	printf("Print trie \n");
+	//int i;
+	//printf("Print trie \n");
 	print_trie(trie->root,0);
 	return 0;	
 }

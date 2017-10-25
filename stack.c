@@ -30,6 +30,10 @@ int pop(stack *stack_){
 
 }
 
+void reset_stack(stack *stack_){
+	stack_->top=0;
+}
+
 void stack_destroy(stack *stack_){
 	free(stack_->pos_array);
 	stack_->pos_array=NULL;
