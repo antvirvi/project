@@ -5,6 +5,6 @@
 #include <errno.h>
 
 int buffer_size = 16;
-int word_size = 16;
+int word_size = 8;
 int table_size = 4;
 

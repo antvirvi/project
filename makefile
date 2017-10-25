@@ -26,3 +26,6 @@ stack.o:  stack.c stack.h
 
 clean: 
 	$(RM) count *.o *~
+
+run:
+	  valgrind --leak-check=yes ./project

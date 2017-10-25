@@ -171,13 +171,13 @@ int test_input(struct index *trie,char * filename)
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
 				printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
-				break; 
+				break;
 		
 		}
 		flag=0;
 	}
   	free(line);
-    
+    	cleanup(ptr_table);
 return 0;
 
 }
@@ -185,7 +185,7 @@ return 0;
 void cleanup(char ** ptr){
 	int a;
 	for(a=0;a<table_size;a++){
-	//	free(ptr[a]);
+		free(ptr[a]);
 	}
 	free(ptr);
 }
