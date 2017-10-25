@@ -32,6 +32,7 @@ int check_exists_in_children(trie_node *node,char *word,int *pos);
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words);
 int append_word(trie_node *node,int pos,char *word,char is_final);
 void print_trie(trie_node *node,int level);
+void print_nodes_from_stack(trie_node *root,stack *stack_);
 int init_input(struct index *trie,char * filename);
 int test_input(struct index *trie,char * filename);
 void cleanup(char ** ptr);

@@ -408,26 +408,24 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	int pos;
 	trie_node *node;
 	int start=0;
-	while(start!=number_of_words+1){
+	while(start!=number_of_words) {
 		word_number=start;
 		node=root;
-		while(node->children!=NULL){
-			printf("word number :%d %s\n",word_number,word[word_number]);
-			if(node->is_final=='y')	break; //I found it 
-			//check if node->children[pos].word==NULL
+		while(node->number_of_childs!=0) {
+			//printf("word number :%d %s\n",word_number,word[word_number]);
+			if(node->is_final=='y') print_nodes_from_stack(root,stack_);//break; //I found it 
 			exists=check_exists_in_children(node,word[word_number],&pos);
 			if(exists==0) break;
-			printf("I am gonna push : %d\n",pos);
+			//printf("I am gonna push : %d\n",pos);
 			push(stack_,pos);
 			node=&(node->children[pos]);
 			word_number++;
 		}
-		if(exists==1){
-			printf("Found :\n");
-			print_stack(stack_);
+		if(exists==1) {
+			print_nodes_from_stack(root,stack_);
 		}
 		reset_stack(stack_);
-		printf("reset\n");
+		//printf("reset\n");
 		start++;
 	}
 	printf("here\n");	
@@ -441,6 +439,19 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	return SUCCESS;	
 
 
+}
+
+void print_nodes_from_stack(trie_node *root,stack *stack_){
+	int number=get_stack_number(stack_);
+	int i ,pos;
+	trie_node *node=root;
+	printf("Found N gram: ");
+	for(i=0;i<number;i++){
+		pos=get_stack_elements(stack_,i);
+		node=&(node->children[pos]);
+		printf("%s ",node->word);
+	}
+	printf("\n");
 }
  
 
