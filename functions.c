@@ -252,8 +252,8 @@ trie_node *init_trie_node(trie_node *node,char *word,char is_final){
 
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words){
 	int error;
-	number_of_words--; //PANOS proxeiri lysi. ftiakste to kalytera
-	if(word_number>number_of_words){  
+	//number_of_words--; //PANOS proxeiri lysi. ftiakste to kalytera
+	if(word_number>=number_of_words){ // edw to allaksa se >= enw prin itan >  
 		//printf("out of words to add\n");
 		return SUCCESS;
 		}
