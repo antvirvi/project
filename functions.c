@@ -97,7 +97,7 @@ int test_input(struct index *trie,char * filename)
 	while ((read = getline(&line, &len, fd)) != -1) {
 		//words_in = 1;
 		words_in = 0;
-		printf("New line read with words_in :%d\n",words_in);
+		//printf("New line read with words_in :%d\n",words_in);
 	       // printf("Retrieved line of length %zu :\n", read);
 	       // printf("%s", line);
 		word = strtok (line," \n");
@@ -143,7 +143,7 @@ int test_input(struct index *trie,char * filename)
 				strcpy(ptr_table[words_in],word);
 				//printf("METROPOLIS %s\n",ptr_table[words_in-1]);
 				//printf("METROPOLIS 2 %s\n",word);
-				printf("\nStatus report:\nWords-in: %d\nWord: %s\nPtr_word: %s\n",words_in,word,ptr_table[words_in]);
+			//	printf("\nStatus report:\nWords-in: %d\nWord: %s\nPtr_word: %s\n",words_in,word,ptr_table[words_in]);
 
 				words_in++;				
 			}
@@ -152,22 +152,22 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
-	//printtable(ptr_table, words_in-1);
+	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
+				printf("Searc'n\n");
+	printtable(ptr_table, words_in-1);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				break;
 			case 2 :
 				printf("Add\n");
-	printf("Kouzina %d words in\n",words_in);
 	printtable(ptr_table, words_in-1);
-				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
+	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
 				break;
 			case 3 :
 			//	printf("words in are %d \n",words_in);
-
-	//printtable(ptr_table, words_in-1);
+			printf("Deletee\n");
+	printtable(ptr_table, words_in-1);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
 				printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
