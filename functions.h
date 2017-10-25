@@ -3,11 +3,25 @@
 #include <string.h>
 #include "stack.h"
 
+#ifndef WORD_SIZE
 #define WORD_SIZE 25
+#endif
+
+#ifndef CHILD_NUM
 #define CHILD_NUM 10
+#endif
+
+#ifndef MAX_CHILDS
 #define MAX_CHILDS 10
+#endif
+
+#ifndef ERROR
 #define ERROR 1
+#endif
+
+#ifndef SUCCESS
 #define SUCCESS 0
+#endif
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 
