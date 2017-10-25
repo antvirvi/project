@@ -9,7 +9,7 @@ int reset = 0;
 
 void printtable(char **pt, int num){
 	int a;
-	for(a=0;a<num;a++){
+	for(a=0;a<=num;a++){
 		printf("\x1b[31m""#Table %d: %s %ld\n""\x1b[0m",num ,pt[a],strlen(pt[a]));
 	}
 }
@@ -95,7 +95,9 @@ int test_input(struct index *trie,char * filename)
 
 
 	while ((read = getline(&line, &len, fd)) != -1) {
-		words_in = 1;
+		//words_in = 1;
+		words_in = 0;
+		printf("New line read with words_in :%d\n",words_in);
 	       // printf("Retrieved line of length %zu :\n", read);
 	       // printf("%s", line);
 		word = strtok (line," \n");
@@ -136,12 +138,14 @@ int test_input(struct index *trie,char * filename)
 					for(a=0;a<table_size-1;a++)
 						ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
 				}		
-				ptr_table[words_in-1] = malloc(word_size*sizeof(char));
-				strcpy(ptr_table[words_in-1],word);
+
+				ptr_table[words_in] = malloc(word_size*sizeof(char));
+				strcpy(ptr_table[words_in],word);
 				//printf("METROPOLIS %s\n",ptr_table[words_in-1]);
-				//printf("METROPOLIS 2%s\n",word);
-								
-				words_in++;
+				//printf("METROPOLIS 2 %s\n",word);
+				printf("\nStatus report:\nWords-in: %d\nWord: %s\nPtr_word: %s\n",words_in,word,ptr_table[words_in]);
+
+				words_in++;				
 			}
 			word=strtok(NULL," \n");
 		}
@@ -154,6 +158,7 @@ int test_input(struct index *trie,char * filename)
 				break;
 			case 2 :
 				printf("Add\n");
+	printf("Kouzina %d words in\n",words_in);
 	printtable(ptr_table, words_in-1);
 				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
@@ -253,7 +258,7 @@ trie_node *init_trie_node(trie_node *node,char *word,char is_final){
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words){
 	int error;
 	//number_of_words--; //PANOS proxeiri lysi. ftiakste to kalytera
-	if(word_number>=number_of_words){ // edw to allaksa se >= enw prin itan >  
+	if(word_number>number_of_words){ // edw to allaksa se >= enw prin itan >  
 		//printf("out of words to add\n");
 		return SUCCESS;
 		}
