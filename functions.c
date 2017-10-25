@@ -153,12 +153,12 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
-				printf("Searc'n\n");
+	//			printf("Searc'n\n");
 	printtable(ptr_table, words_in-1);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				break;
 			case 2 :
-				printf("Add\n");
+	//			printf("Add\n");
 	printtable(ptr_table, words_in-1);
 	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
@@ -166,7 +166,7 @@ int test_input(struct index *trie,char * filename)
 				break;
 			case 3 :
 			//	printf("words in are %d \n",words_in);
-			printf("Deletee\n");
+	//		printf("Deletee\n");
 	printtable(ptr_table, words_in-1);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
 				printf("error is %d \n",command_error);
