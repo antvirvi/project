@@ -33,8 +33,8 @@ int main (int argc, char **argv )
 	int pos;
 	int exists;
 	printf("before test input\n");
-	//if(test_input(trie,query_file))
-		//return -1;
+	if(test_input(trie,query_file))
+		return -1;
 	
 //	printf("Print trie \n");
 //=======

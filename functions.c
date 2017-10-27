@@ -157,20 +157,20 @@ int test_input(struct index *trie,char * filename)
 				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 	//			printf("Searc'n\n");
 				//printtable(ptr_table, words_in-1);
-				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				break;
 			case 2 :
 				printf("Add\n");
 				//printtable(ptr_table, words_in-1);
 	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
-				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
+				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
 				break;
 			case 3 :
 				printf("words in are %d \n",words_in);
 	//		printf("Deletee\n");
 				//printtable(ptr_table, words_in-1);
-				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
+				//command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
 				printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
 				break;
@@ -434,13 +434,13 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	int pos;
 	trie_node *node;
 	int start=0;
-	paths *paths_=init_paths(2,10); //rows columns
+	//paths *paths_=init_paths(2,10); //rows columns
 	while(start!=number_of_words) {
 		word_number=start;
 		node=root;
 		while(node->number_of_childs!=0) {
 			//printf("word number :%d %s\n",word_number,word[word_number]);
-			if(node->is_final=='y') check_in_paths(paths_,stack_,root);//I found it ////print_nodes_from_stack(root,stack_);
+			if(node->is_final=='y') print_nodes_from_stack(root,stack_);//check_in_paths(paths_,stack_,root);//I found it ////print_nodes_from_stack(root,stack_);
 			exists=check_exists_in_children(node,word[word_number],&pos);
 			if(exists==0) break;
 			//printf("I am gonna push : %d\n",pos);
@@ -449,8 +449,8 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 			word_number++;
 		}
 		if(exists==1) {
-			check_in_paths(paths_,stack_,root);
-			//print_nodes_from_stack(root,stack_);
+			//check_in_paths(paths_,stack_,root);
+			print_nodes_from_stack(root,stack_);
 		}
 		reset_stack(stack_);
 		//printf("reset\n");
@@ -458,7 +458,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	}
 
 	stack_destroy(stack_);
-	delete_paths(paths_); //rows	
+	//delete_paths(paths_); //rows	
 	if(exists==0) return ERROR;
 
 	return SUCCESS;	
