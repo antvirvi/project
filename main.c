@@ -17,7 +17,6 @@ int main (int argc, char **argv )
 	//printf("exists :%d , pos:%d\n",exists,pos);
 	//printf("children of root are %d\n",trie->root->number_of_childs);
 	test_input(trie,"test.work");
-//<<<<<<< HEAD
 	//printf("children of root are %d\n",trie->root->number_of_childs);
 	//int i;
 	/*for(i=0;i<trie->root->number_of_childs;i++){
@@ -28,7 +27,6 @@ int main (int argc, char **argv )
 //=======
 	//int i;
 	//printf("Print trie \n");
-//>>>>>>> 440105cb5a95476d60a45b9ad0cf07a83cfe181d
 	//print_trie(trie->root,0);
 	return 0;	
 }
