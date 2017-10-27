@@ -21,11 +21,9 @@
 
 #ifndef SUCCESS
 #define SUCCESS 0
-<<<<<<< HEAD
 #endif
-=======
+
 #define PATH_COLUMN 10
->>>>>>> search
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 

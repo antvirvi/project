@@ -153,14 +153,14 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
+				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 	//			printf("Searc'n\n");
-	printtable(ptr_table, words_in-1);
+				printtable(ptr_table, words_in-1);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				break;
 			case 2 :
 	//			printf("Add\n");
-	printtable(ptr_table, words_in-1);
+				printtable(ptr_table, words_in-1);
 	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
@@ -168,7 +168,7 @@ int test_input(struct index *trie,char * filename)
 			case 3 :
 			//	printf("words in are %d \n",words_in);
 	//		printf("Deletee\n");
-	printtable(ptr_table, words_in-1);
+				printtable(ptr_table, words_in-1);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
 				printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
@@ -517,11 +517,12 @@ void add_to_paths(paths *paths_, stack *stack_){
 }
 
 int double_paths(paths *paths_){
+	printf("In double paths\n");
 	int **temp;
 	int i;
 	paths_->paths_array=
-	temp=realloc(paths_->paths_array,2*paths_->max_words*sizeof(int*));
-	if(temp==NULL) return ERROR;
+	paths_->paths_array=realloc(paths_->paths_array,2*paths_->max_words*sizeof(int*));
+	if(paths_->paths_array==NULL) return ERROR;
 	for(i=paths_->max_words;i<2*paths_->max_words;i++){
 		paths_->paths_array[i]=malloc(PATH_COLUMN*sizeof(int));
 		if(paths_->paths_array[i]==NULL) return ERROR;	
