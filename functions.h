@@ -41,9 +41,7 @@ typedef struct trie_node{
 struct index{
 	trie_node *root;
 };
-<<<<<<< HEAD
-int delete_from_node(trie_node *node,int pos);
-=======
+
 
 typedef struct paths{
 
@@ -53,7 +51,6 @@ typedef struct paths{
 }paths;
 
 
->>>>>>> search
 void printtable(char ** pt,int num);
 void printpanos(void);
 trie_node *init_trie();
