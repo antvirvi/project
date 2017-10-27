@@ -71,6 +71,7 @@ int init_input(struct index *trie,char * filename){
 
 int test_input(struct index *trie,char * filename)
 {	
+	printf("test input\n");
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
@@ -155,20 +156,20 @@ int test_input(struct index *trie,char * filename)
 			case 1 :
 				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 	//			printf("Searc'n\n");
-				printtable(ptr_table, words_in-1);
+				//printtable(ptr_table, words_in-1);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				break;
 			case 2 :
-	//			printf("Add\n");
-				printtable(ptr_table, words_in-1);
+				printf("Add\n");
+				//printtable(ptr_table, words_in-1);
 	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
 				break;
 			case 3 :
-			//	printf("words in are %d \n",words_in);
+				printf("words in are %d \n",words_in);
 	//		printf("Deletee\n");
-				printtable(ptr_table, words_in-1);
+				//printtable(ptr_table, words_in-1);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
 				printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
@@ -418,7 +419,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	int pos;
 	trie_node *node;
 	int start=0;
-	paths *paths_=init_paths(1,10); //rows columns
+	paths *paths_=init_paths(2,10); //rows columns
 	while(start!=number_of_words) {
 		word_number=start;
 		node=root;
