@@ -228,6 +228,12 @@ trie_node *init_trie(){
 	return root;
 }
 
+void delete_trie(struct index *trie){
+	free(trie->root);
+	free(trie);
+
+}
+
 trie_node *create_trie_node(char *word,char is_final){
 	trie_node *node=malloc(sizeof(trie_node));
 	node->word=malloc(WORD_SIZE*sizeof(char));
@@ -521,7 +527,6 @@ int double_paths(paths *paths_){
 	printf("In double paths\n");
 	int **temp;
 	int i;
-	paths_->paths_array=
 	paths_->paths_array=realloc(paths_->paths_array,2*paths_->max_words*sizeof(int*));
 	if(paths_->paths_array==NULL) return ERROR;
 	for(i=paths_->max_words;i<2*paths_->max_words;i++){

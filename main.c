@@ -33,13 +33,14 @@ int main (int argc, char **argv )
 	int pos;
 	int exists;
 	printf("before test input\n");
-	if(test_input(trie,query_file))
-		return -1;
+	//if(test_input(trie,query_file))
+		//return -1;
 	
 //	printf("Print trie \n");
 //=======
 	//int i;
 	//printf("Print trie \n");
 	//print_trie(trie->root,0);
+	delete_trie(trie);
 	return 0;	
 }
