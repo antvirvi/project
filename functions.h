@@ -8,6 +8,7 @@
 #define MAX_CHILDS 10
 #define ERROR 1
 #define SUCCESS 0
+#define PATH_COLUMN 10
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 
@@ -26,9 +27,9 @@ struct index{
 
 typedef struct paths{
 
-int **paths_array;//[10][10];
-int words_in;
-int max_words;
+	int **paths_array;//[10][10];
+	int words_in;
+	int max_words;
 }paths;
 
 

@@ -461,7 +461,7 @@ paths *init_paths(int rows,int columns){
 	if(paths_->paths_array==NULL) return NULL;
 	
 	for(i=0;i<columns;i++) {
-		paths_->paths_array[i]=malloc(columns*sizeof(int));
+		paths_->paths_array[i]=malloc(PATH_COLUMN*sizeof(int));
 		if(paths_->paths_array[i]==NULL) return NULL;
 	}	
 	paths_->max_words=rows;
@@ -507,8 +507,15 @@ void add_to_paths(paths *paths_, stack *stack_){
 }
 
 int double_paths(paths *paths_){
-	paths_->paths_array=realloc(paths_->paths_array,2*paths_->max_words*sizeof(int*));
-	if(paths_->paths_array==NULL) return ERROR;
+	int **temp;
+	int i;
+	paths_->paths_array=
+	temp=realloc(paths_->paths_array,2*paths_->max_words*sizeof(int*));
+	if(temp==NULL) return ERROR;
+	for(i=paths_->max_words;i<2*paths_->max_words;i++){
+		paths_->paths_array[i]=malloc(PATH_COLUMN*sizeof(int));
+		if(paths_->paths_array[i]==NULL) return ERROR;	
+	}
 	paths_->max_words*=2;
 	return SUCCESS;
 }
