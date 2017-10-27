@@ -28,4 +28,7 @@ clean:
 	$(RM) count *.o *~
 
 run:
-	  valgrind --leak-check=yes ./project
+	  valgrind --leak-check=yes ./project -q test.work -i test.init 
+
+pipe:
+	  valgrind --leak-check=yes ./project -q test.work -i test.init > results.txt

@@ -63,6 +63,7 @@ int init_input(struct index *trie,char * filename){
 	printf ("free\n");
 	free(line);
 	cleanup(ptr_table);
+	fclose(fd);
 	return 0;	
 }
 
@@ -178,6 +179,8 @@ int test_input(struct index *trie,char * filename)
 	}
   	free(line);
     	cleanup(ptr_table);
+
+	fclose(fd);
 return 0;
 
 }
