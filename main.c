@@ -40,7 +40,7 @@ int main (int argc, char **argv )
 //=======
 	//int i;
 	//printf("Print trie \n");
-	//print_trie(trie->root,0);
+	print_trie(trie->root,0);
 	delete_trie(trie);
 	return 0;	
 }

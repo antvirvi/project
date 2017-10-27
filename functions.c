@@ -228,7 +228,16 @@ trie_node *init_trie(){
 	return root;
 }
 
+void destroy_childs(trie_node *node){
+	int i;
+	for(i=0;i<node->number_of_childs;i++){
+		destroy_childs(&(node->children[i]));
+		free(node->children[i].word);	
+	}
+	free(node->children);
+}
 void delete_trie(struct index *trie){
+	destroy_childs(trie->root);
 	free(trie->root);
 	free(trie);
 

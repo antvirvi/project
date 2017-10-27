@@ -53,6 +53,7 @@ void printtable(char ** pt,int num);
 void printpanos(void);
 trie_node *init_trie();
 void delete_trie(struct index *trie);
+void destroy_childs(trie_node *node);
 int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
 int search_in_trie(trie_node *root,char **word,int number_of_words);
 int check_exists_in_children(trie_node *node,char *word,int *pos);
