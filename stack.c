@@ -51,3 +51,12 @@ void print_stack(stack *stack_){
 	printf("\n");
 }
 
+int get_stack_number(stack *stack_){
+	return stack_->top;
+}
+
+int get_stack_elements(stack *stack_,int pos){
+	if(pos>stack_->top) return STACK_OVERFLOW;
+	return stack_->pos_array[pos];
+}
+

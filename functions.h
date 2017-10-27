@@ -21,7 +21,11 @@
 
 #ifndef SUCCESS
 #define SUCCESS 0
+<<<<<<< HEAD
 #endif
+=======
+#define PATH_COLUMN 10
+>>>>>>> search
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 
@@ -37,7 +41,19 @@ typedef struct trie_node{
 struct index{
 	trie_node *root;
 };
+<<<<<<< HEAD
 int delete_from_node(trie_node *node,int pos);
+=======
+
+typedef struct paths{
+
+	int **paths_array;//[10][10];
+	int words_in;
+	int max_words;
+}paths;
+
+
+>>>>>>> search
 void printtable(char ** pt,int num);
 void printpanos(void);
 trie_node *init_trie();
@@ -45,8 +61,18 @@ int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words
 int search_in_trie(trie_node *root,char **word,int number_of_words);
 int check_exists_in_children(trie_node *node,char *word,int *pos);
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words);
+int delete_from_node(trie_node *node,int pos);
+int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
 int append_word(trie_node *node,int pos,char *word,char is_final);
 void print_trie(trie_node *node,int level);
+void print_nodes_from_stack(trie_node *root,stack *stack_);
 int init_input(struct index *trie,char * filename);
 int test_input(struct index *trie,char * filename);
+
+int double_paths(paths *paths_);
+void delete_paths(struct paths *paths_);
+int check_in_paths(struct paths *paths_, stack *stack_,trie_node *node);
+void add_to_paths(struct paths *paths_, stack *stack_);
+struct paths *init_paths(int rows,int columns);
+
 void cleanup(char ** ptr);

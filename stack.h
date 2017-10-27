@@ -5,6 +5,7 @@
 #define SUCCESS 0
 #define STACK_NUMBER 10
 #define STACK_EMPTY -1
+#define STACK_OVERFLOW -2
 
 typedef struct stack{
 	int *pos_array;
@@ -18,3 +19,5 @@ int pop(stack *stack_);
 void stack_destroy(stack *stack_);
 void print_stack(stack *stack_);
 void reset_stack(stack *stack_);
+int get_stack_elements(stack *stack_,int pos);
+int get_stack_number(stack *stack_);
