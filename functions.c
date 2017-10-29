@@ -63,7 +63,7 @@ int init_input(struct index *trie,char * filename){
 	}
 	printf ("free\n");
 	free(line);
-	cleanup2(ptr_table);
+	cleanup(ptr_table);
 	fclose(fd);
 
 	printf("\x1b[32m""INIT_INPUT end\n""\x1b[0m");
@@ -176,7 +176,7 @@ int test_input(struct index *trie,char * filename)
 }
 	//it is supposed that control never reaches this point, due to F signal
   	free(line);
-	cleanup2(ptr_table);
+	cleanup(ptr_table);
 	fclose(fd);
 	printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
 	
@@ -185,26 +185,11 @@ return 0;
 }
 
 void cleanup(char ** ptr){
-	printf("CleanUp 1, table_size:%d\n",table_size);
 	int a;
 	for(a=0;a<table_size;a++){
-printf("\x1b[32m""CleanUp 1, %d\n""\x1b[0m",a);
 		free(ptr[a]);
 	}
 	free(ptr);
-	
-}
-		
-void cleanup2(char ** ptr){
-
-	printf("CleanUp 2, table_size:%d\n",table_size);
-	int a;
-	for(a=0;a<table_size;a++){
-		printf("\x1b[33m""CleanUp 2, %d\n""\x1b[0m",a);	
-		free(ptr[a]);
-		}
-	free(ptr);
-	
 }	
 
 void print_node(trie_node *node){
@@ -396,7 +381,7 @@ int append_word(trie_node *node,int pos,char *word,char is_final){
 
 int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words){
 		int error;
-		printf("in delete ngram word \"%s\"\n",word[word_number]);
+		//printf("in delete ngram word \"%s\"\n",word[word_number]);
 		if(word_number==number_of_words+1){
 			if(root->number_of_childs!=0 && root->is_final!='y') return ERROR;
 			if(root->number_of_childs!=0 &&root->is_final=='y'){
@@ -501,7 +486,7 @@ paths *init_paths(int rows,int columns){
 	paths_->paths_array=malloc(rows*sizeof(int*));
 	if(paths_->paths_array==NULL) return NULL;
 	
-	for(i=0;i<columns;i++) {
+	for(i=0;i<rows;i++) {
 		paths_->paths_array[i]=malloc(PATH_COLUMN*sizeof(int));
 		if(paths_->paths_array[i]==NULL) return NULL;
 	}	
@@ -564,6 +549,7 @@ int double_paths(paths *paths_){
 void delete_paths(paths *paths_){
 	int i;
 	for(i=0;i<paths_->max_words;i++){
+		printf("freed\n");
 		free(paths_->paths_array[i]);
 	}
 	free(paths_->paths_array);
