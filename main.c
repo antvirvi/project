@@ -5,13 +5,6 @@
 #include <errno.h>
 
 
-
-
-
-
-
-
-
 int main (int argc, char **argv )
 {	clock_t begin = clock();
 	int c;
