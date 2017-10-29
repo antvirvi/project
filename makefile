@@ -28,10 +28,10 @@ clean:
 	$(RM) count *.o *~
 
 run:
-	  valgrind --leak-check=yes ./project -q test.work -i test.init 
+	  valgrind --leak-check=yes ./project -q small.work -i small.init 
 
 pipe:
-	  valgrind --leak-check=yes ./project -q test.work -i test.init > results.txt
+	  valgrind --leak-check=yes ./project -q small.work -i small.init > results.txt
 
 small:
 	valgrind --leak-check=yes ./project -q small.work -i small.init 
