@@ -169,7 +169,6 @@ int test_input(struct index *trie,char * filename)
 				//printtable(ptr_table, words_in-1);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
 				printf("error is %d \n",command_error);
-				//search trie for this ptr_table PANOS
 				break;
 		
 		}
@@ -408,9 +407,9 @@ int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words
 		if(root->number_of_childs==0) return ERROR;
 		else{
 			int pos;
-			printf("before exists \"%s\"\n",word[word_number]);
+			//printf("before exists \"%s\"\n",word[word_number]);
 			int exists=check_exists_in_children(root,word[word_number],&pos);
-			printf("exists :%d ",exists);
+			//printf("exists :%d ",exists);
 			if (exists==1){
 				error=delete_ngram(&(root->children[pos]),word,word_number+1,number_of_words);
 				if(error==0)
@@ -431,9 +430,13 @@ int delete_from_node(trie_node *node,int pos){
 		//printf("in delete node pos %d word to delete is %s\n",pos,node->children[pos].word);
 
 		trie_node * backup=node->children;
+		trie_node *node_to_delete=&(node->children[pos]);
+		destroy_childs(node_to_delete);
+		free(node_to_delete->word);
 		memmove(node->children,backup,pos*sizeof(trie_node));
 		memmove(node->children+pos,backup+pos+1,(node->number_of_childs-(pos+1))*sizeof(trie_node));
 		//printf("out of delete\n");
+		//free(node_to_delete->children);
 		return SUCCESS ; //zero e-rrors
 }
 
@@ -446,13 +449,13 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	int pos;
 	trie_node *node;
 	int start=0;
-	//paths *paths_=init_paths(2,10); //rows columns
+	paths *paths_=init_paths(2,10); //rows columns
 	while(start!=number_of_words) {
 		word_number=start;
 		node=root;
 		while(node->number_of_childs!=0) {
 			//printf("word number :%d %s\n",word_number,word[word_number]);
-			if(node->is_final=='y') print_nodes_from_stack(root,stack_);//check_in_paths(paths_,stack_,root);//I found it ////print_nodes_from_stack(root,stack_);
+			if(node->is_final=='y') check_in_paths(paths_,stack_,root); //print_nodes_from_stack(root,stack_);//I found it ////
 			exists=check_exists_in_children(node,word[word_number],&pos);
 			if(exists==0) break;
 			//printf("I am gonna push : %d\n",pos);
@@ -461,8 +464,8 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 			word_number++;
 		}
 		if(exists==1) {
-			//check_in_paths(paths_,stack_,root);
-			print_nodes_from_stack(root,stack_);
+			check_in_paths(paths_,stack_,root);
+			//print_nodes_from_stack(root,stack_);
 		}
 		reset_stack(stack_);
 		//printf("reset\n");
@@ -470,7 +473,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	}
 
 	stack_destroy(stack_);
-	//delete_paths(paths_); //rows	
+	delete_paths(paths_); //rows	
 	if(exists==0) return ERROR;
 
 	return SUCCESS;	
