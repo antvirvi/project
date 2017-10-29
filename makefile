@@ -27,9 +27,11 @@ stack.o:  stack.c stack.h
 clean: 
 	$(RM) count *.o *~
 
-run:
+testrun:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init 
 
+run:
+	./project -q small.work -i small.init 
 pipe:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init > results.txt
 
