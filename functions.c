@@ -116,11 +116,14 @@ int test_input(struct index *trie,char * filename)
 			}
 			else if(strcmp(word,"F")==0){
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
+				/*
 				cleanup(ptr_table);
 				free(line);
 				fclose(fd);
 				printf("\x1b[32m""TEST_INPUT end\n""\x1b[0m");
 				return 1;
+				*/
+				printf("\x1b[32m""F -> print paths\n""\x1b[0m");	
 			}else if(strcmp(word,"\0")==0){
 				//printf("\x1b[36m""Empty word found as a countable word -1\n""\x1b[0m");
 				
@@ -534,7 +537,7 @@ void add_to_paths(paths *paths_, stack *stack_){
 
 int double_paths(paths *paths_){
 	printf("In double paths\n");
-	int **temp;
+	//int **temp;
 	int i;
 	paths_->paths_array=realloc(paths_->paths_array,2*paths_->max_words*sizeof(int*));
 	if(paths_->paths_array==NULL) return ERROR;

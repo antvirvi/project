@@ -1,7 +1,0 @@
-1) open/read n grams from input Antonis
-2) trie_node*​ ​ init_trie(​ ​ );​ Panos
-3) trie_node*​ ​ create_trie_node(​ ​ );
-4) OK_SUCCESS​ ​ insert_ngram(index*​ ​ ind,​ ​...​ ​ )
-5) OK_SUCCESS​ ​ delete_ngram(index*​ ​ ind,​ ​...​ ​ )
-6) char*​ ​ search(index*​ ​ ind,​ ​... )
-

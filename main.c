@@ -1,8 +1,6 @@
 #include "functions.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <errno.h>
+#include <time.h>
 
 
 int main (int argc, char **argv )
@@ -42,6 +40,6 @@ int main (int argc, char **argv )
 	delete_trie(trie);
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("Programm executed in %ld seconds\n",time_spent)	
+	printf("Programm executed in %f seconds\n",time_spent);
 	return 0;	
 }

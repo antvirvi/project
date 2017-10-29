@@ -32,3 +32,6 @@ run:
 
 pipe:
 	  valgrind --leak-check=yes ./project -q test.work -i test.init > results.txt
+
+small:
+	valgrind --leak-check=yes ./project -q small.work -i small.init 
