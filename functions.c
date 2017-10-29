@@ -15,7 +15,7 @@ void printtable(char **pt, int num){
 }
 
 int init_input(struct index *trie,char * filename){
-	printf("\x1b[32m""INIT_INPUT start\n""\x1b[0m");
+	//printf("\x1b[32m""INIT_INPUT start\n""\x1b[0m");
 	int a;
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
@@ -66,7 +66,7 @@ int init_input(struct index *trie,char * filename){
 	cleanup(ptr_table);
 	fclose(fd);
 
-	printf("\x1b[32m""INIT_INPUT end\n""\x1b[0m");
+	//printf("\x1b[32m""INIT_INPUT end\n""\x1b[0m");
 	return 0;	
 }
 
@@ -74,7 +74,7 @@ int init_input(struct index *trie,char * filename){
 
 int test_input(struct index *trie,char * filename)
 {	
-	printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
+	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
@@ -116,11 +116,14 @@ int test_input(struct index *trie,char * filename)
 			}
 			else if(strcmp(word,"F")==0){
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
+				/*
 				cleanup(ptr_table);
 				free(line);
 				fclose(fd);
 				printf("\x1b[32m""TEST_INPUT end\n""\x1b[0m");
 				return 1;
+				*/
+				//printf("\x1b[32m""F -> print paths\n""\x1b[0m");	
 			}else if(strcmp(word,"\0")==0){
 				//printf("\x1b[36m""Empty word found as a countable word -1\n""\x1b[0m");
 				
@@ -151,24 +154,24 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
-	//			printf("Searc'n\n");
+				printf("\n"); 
 				//printtable(ptr_table, words_in-1);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+				if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
-				printf("Add\n");
+				//printf("Add\n");
 				//printtable(ptr_table, words_in-1);
 	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
 				break;
 			case 3 :
-				printf("words in are %d \n",words_in);
+				//printf("words in are %d \n",words_in);
 	//		printf("Deletee\n");
 				//printtable(ptr_table, words_in-1);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
-				printf("error is %d \n",command_error);
+				//printf("error is %d \n",command_error);
 				break;
 		
 		}
@@ -178,7 +181,7 @@ int test_input(struct index *trie,char * filename)
   	free(line);
 	cleanup(ptr_table);
 	fclose(fd);
-	printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
+	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
 	
 return 0;
 
@@ -277,7 +280,7 @@ int append_trie_node(trie_node *root,char **word,int word_number,int number_of_w
 		//printf("out of words to add\n");
 		return SUCCESS;
 		}
-	printf("append trie node %d out of %d word: %s\n",word_number,number_of_words,word[word_number]);
+	//printf("append trie node %d out of %d word: %s\n",word_number,number_of_words,word[word_number]);
 	char is_final='n';
 	if(word_number==number_of_words) is_final='y';
 
@@ -455,11 +458,13 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 		reset_stack(stack_);
 		start++;
 	}
-
+	int found=SUCCESS;
+	if(paths_->words_in==0) found=-1;
 	stack_destroy(stack_);
 	delete_paths(paths_); //rows	
+	return found;
 	if(exists==0) return ERROR;
-
+	
 	return SUCCESS;	
 
 
@@ -469,13 +474,13 @@ void print_nodes_from_stack(trie_node *root,stack *stack_){
 	int number=get_stack_number(stack_);
 	int i ,pos;
 	trie_node *node=root;
-	printf("Found N gram: ");
+	//printf("Found N gram: ");
 	for(i=0;i<number;i++){
 		pos=get_stack_elements(stack_,i);
 		node=&(node->children[pos]);
 		printf("%s ",node->word);
 	}
-	printf("\n");
+	printf("|");
 }
 
 paths *init_paths(int rows,int columns){
@@ -495,7 +500,7 @@ paths *init_paths(int rows,int columns){
 } 
 
 int check_in_paths(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
-	printf("inside check in paths\n");
+	//printf("inside check in paths\n");
 	int number=get_stack_number(stack_);
 	int path_pos=0;
 	int found=1;
@@ -522,18 +527,19 @@ void add_to_paths(paths *paths_, stack *stack_){
 	if(path_num==paths_->max_words) double_paths(paths_);
 	int number=get_stack_number(stack_);
 	int i ,pos;
-	printf("Found N gram: ");
+	//printf("Found N gram: ");
 	for(i=0;i<number;i++){
 		pos=get_stack_elements(stack_,i);
 		paths_->paths_array[path_num][i]=pos;
 	}
+	//printf("|");
 	paths_->words_in++;
 
 }
 
 int double_paths(paths *paths_){
-	printf("In double paths\n");
-	int **temp;
+	//printf("In double paths\n");
+	//int **temp;
 	int i;
 	paths_->paths_array=realloc(paths_->paths_array,2*paths_->max_words*sizeof(int*));
 	if(paths_->paths_array==NULL) return ERROR;
@@ -548,7 +554,7 @@ int double_paths(paths *paths_){
 void delete_paths(paths *paths_){
 	int i;
 	for(i=0;i<paths_->max_words;i++){
-		printf("freed\n");
+		//printf("freed\n");
 		free(paths_->paths_array[i]);
 	}
 	free(paths_->paths_array);

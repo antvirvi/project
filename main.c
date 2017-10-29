@@ -1,11 +1,10 @@
 #include "functions.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <errno.h>
+#include <time.h>
+
 
 int main (int argc, char **argv )
-{	
+{	clock_t begin = clock();
 	int c;
 	char init_file[16];
 	char query_file[16];
@@ -37,7 +36,10 @@ int main (int argc, char **argv )
 		return -1;
 	//int i;
 	//printf("Print trie \n");
-	print_trie(trie->root,0);
+	//print_trie(trie->root,0);
 	delete_trie(trie);
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("\nProgram executed in %f seconds\n",time_spent);
 	return 0;	
 }
