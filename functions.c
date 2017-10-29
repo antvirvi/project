@@ -453,7 +453,6 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 			//print_nodes_from_stack(root,stack_);
 		}
 		reset_stack(stack_);
-		//printf("reset\n");
 		start++;
 	}
 
