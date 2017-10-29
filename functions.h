@@ -48,7 +48,7 @@ typedef struct paths{
 	int max_words;
 }paths;
 
-
+void cleanup2(char ** ptr);
 void printtable(char ** pt,int num);
 void printpanos(void);
 trie_node *init_trie();

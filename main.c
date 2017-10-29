@@ -28,16 +28,13 @@ int main (int argc, char **argv )
 
 	struct index *trie=malloc(sizeof(struct index));
 	trie->root=init_trie();
-	if(init_input(trie,init_file)) return -1;
+	if(init_input(trie,init_file)<0) return -1;
 	//print_trie(trie->root,0);
-	int pos;
-	int exists;
+//	int pos;
+//	int exists;
 	printf("before test input\n");
-	if(test_input(trie,query_file))
+	if(test_input(trie,query_file)<0)
 		return -1;
-	
-//	printf("Print trie \n");
-//=======
 	//int i;
 	//printf("Print trie \n");
 	print_trie(trie->root,0);

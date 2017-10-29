@@ -15,6 +15,7 @@ void printtable(char **pt, int num){
 }
 
 int init_input(struct index *trie,char * filename){
+	printf("\x1b[32m""INIT_INPUT start\n""\x1b[0m");
 	int a;
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
@@ -41,7 +42,7 @@ int init_input(struct index *trie,char * filename){
 		while(word!=NULL)
 		{
 		//printf("Read this word: %s\n",word);
-			if(words_in==table_size - 1){
+			if(words_in==table_size){
 				table_size*=2;
 				ptr_table = realloc(ptr_table,table_size*sizeof(char*));
 				for(a=(table_size/2);a<table_size;a++)
@@ -62,8 +63,10 @@ int init_input(struct index *trie,char * filename){
 	}
 	printf ("free\n");
 	free(line);
-	cleanup(ptr_table);
+	cleanup2(ptr_table);
 	fclose(fd);
+
+	printf("\x1b[32m""INIT_INPUT end\n""\x1b[0m");
 	return 0;	
 }
 
@@ -71,15 +74,12 @@ int init_input(struct index *trie,char * filename){
 
 int test_input(struct index *trie,char * filename)
 {	
-	printf("test input\n");
+	printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
-	//char* buffer =  malloc(buffer_size*sizeof(char));  //creating a char table to store orders from input file
 	int a;
 	FILE* fd = fopen(filename, "r"); //opening input file
-	//strcpy(buffer,"\0");
-
 	if(fd == NULL)
 	{
 		perror("Error opening input file");
@@ -92,16 +92,13 @@ int test_input(struct index *trie,char * filename)
 	char *word;
 	int command_error;
 
-	for(a=0;a<table_size-1;a++)
+	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
-
 
 	while ((read = getline(&line, &len, fd)) != -1) {
 		//words_in = 1;
 		words_in = 0;
-		//printf("New line read with words_in :%d\n",words_in);
-	       // printf("Retrieved line of length %zu :\n", read);
-	       // printf("%s", line);
+		
 		word = strtok (line," \n");
 		while(word!=NULL){
 			//printf("Read this word: %s\n",word);
@@ -120,6 +117,9 @@ int test_input(struct index *trie,char * filename)
 			else if(strcmp(word,"F")==0){
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
 				cleanup(ptr_table);
+				free(line);
+				fclose(fd);
+				printf("\x1b[32m""TEST_INPUT end\n""\x1b[0m");
 				return 1;
 			}else if(strcmp(word,"\0")==0){
 				//printf("\x1b[36m""Empty word found as a countable word -1\n""\x1b[0m");
@@ -128,25 +128,22 @@ int test_input(struct index *trie,char * filename)
 			else{
 			
 				
-				if(words_in==table_size){
+				if(words_in==table_size-1){
 					table_size*=2;
-					ptr_table = realloc(ptr_table,table_size*(sizeof(char*)+1));
-					for(a=(table_size/2);a<table_size;a++){
+					ptr_table = realloc(ptr_table,table_size*(sizeof(char*)));
+					for(a=table_size/2;a<table_size;a++){
 						ptr_table[a]=malloc(word_size*sizeof(char));
 					}
 				}
-				if(strlen(word)>word_size){
+				if(strlen(word)>=word_size){
 					word_size*=2;
-					for(a=0;a<table_size-1;a++)
+					for(a=0;a<table_size;a++)
 						ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
 				}		
 
-				ptr_table[words_in] = malloc(word_size*sizeof(char));
-				strcpy(ptr_table[words_in],word);
-				//printf("METROPOLIS %s\n",ptr_table[words_in-1]);
-				//printf("METROPOLIS 2 %s\n",word);
-			//	printf("\nStatus report:\nWords-in: %d\nWord: %s\nPtr_word: %s\n",words_in,word,ptr_table[words_in]);
-
+				//ptr_table[words_in] = malloc(word_size*sizeof(char));
+			strcpy(ptr_table[words_in],word);
+				
 				words_in++;				
 			}
 			word=strtok(NULL," \n");
@@ -157,44 +154,59 @@ int test_input(struct index *trie,char * filename)
 				printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
 	//			printf("Searc'n\n");
 				//printtable(ptr_table, words_in-1);
-				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				break;
 			case 2 :
 				printf("Add\n");
 				//printtable(ptr_table, words_in-1);
 	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
-				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
+				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				
 				break;
 			case 3 :
 				printf("words in are %d \n",words_in);
 	//		printf("Deletee\n");
 				//printtable(ptr_table, words_in-1);
-				//command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
+				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
 				printf("error is %d \n",command_error);
 				//search trie for this ptr_table PANOS
 				break;
 		
 		}
-		flag=0;
-	}
+		flag=0;	
+}
+	//it is supposed that control never reaches this point, due to F signal
   	free(line);
-    	cleanup(ptr_table);
-
+	cleanup2(ptr_table);
 	fclose(fd);
+	printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
+	
 return 0;
 
 }
 
 void cleanup(char ** ptr){
+	printf("CleanUp 1, table_size:%d\n",table_size);
 	int a;
 	for(a=0;a<table_size;a++){
+printf("\x1b[32m""CleanUp 1, %d\n""\x1b[0m",a);
 		free(ptr[a]);
 	}
 	free(ptr);
+	
 }
+		
+void cleanup2(char ** ptr){
 
-				
+	printf("CleanUp 2, table_size:%d\n",table_size);
+	int a;
+	for(a=0;a<table_size;a++){
+		printf("\x1b[33m""CleanUp 2, %d\n""\x1b[0m",a);	
+		free(ptr[a]);
+		}
+	free(ptr);
+	
+}	
 
 void print_node(trie_node *node){
 	printf("node word is %s\n",node->word);
