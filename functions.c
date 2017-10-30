@@ -430,7 +430,7 @@ int delete_from_node(trie_node *node,int pos){
 
 
 int search_in_trie(trie_node *root,char **word,int number_of_words){
-	printf("Inside search\n");
+	//printf("Inside search\n");
 	stack *stack_=init_stack();
 	int word_number;
 	int exists;
@@ -478,7 +478,7 @@ void print_nodes_from_stack(trie_node *root,stack *stack_){
 	for(i=0;i<number;i++){
 		pos=get_stack_elements(stack_,i);
 		node=&(node->children[pos]);
-		printf("%s ",node->word);
+		printf("%s",node->word);
 	}
 	printf("|");
 }

@@ -25,7 +25,7 @@ stack.o:  stack.c stack.h
 	$(CC) $(CFLAGS) -c stack.c
 
 clean: 
-	$(RM) count *.o *~
+	$(RM) count *.o *~ diffs
 
 testrun:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init 
@@ -33,7 +33,14 @@ testrun:
 run:
 	./project -q small.work -i small.init 
 pipe:
+	  ./project -q small.work -i small.init > results.txt
+
+testpipe:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init > results.txt
 
 small:
 	valgrind --leak-check=yes ./project -q small.work -i small.init 
+
+diffs:
+	gcc diffs.c -o diffs 
+	./diffs 
