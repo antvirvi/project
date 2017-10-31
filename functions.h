@@ -70,6 +70,10 @@ int double_paths(paths *paths_);
 void delete_paths(struct paths *paths_);
 int check_in_paths(struct paths *paths_, stack *stack_,trie_node *node);
 void add_to_paths(struct paths *paths_, stack *stack_);
+
+int check_in_paths3(struct paths *paths_, stack *stack_,trie_node *node);
+void print_paths(paths *paths_);
+//void add_to_paths2(struct paths *paths_, stack *stack_);
 struct paths *init_paths(int rows,int columns);
 
 void cleanup(char ** ptr);

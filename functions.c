@@ -437,13 +437,13 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	int pos;
 	trie_node *node;
 	int start=0;
-	paths *paths_=init_paths(2,10); //rows columns
+	paths *paths_=init_paths(4,10); //rows columns
 	while(start!=number_of_words) {
 		word_number=start;
 		node=root;
 		while(node->number_of_childs!=0) {
 			//printf("word number :%d %s\n",word_number,word[word_number]);
-			if(node->is_final=='y') check_in_paths(paths_,stack_,root); //print_nodes_from_stack(root,stack_);//I found it ////
+			if(node->is_final=='y') check_in_paths3(paths_,stack_,root);  //print_nodes_from_stack(root,stack_);check_in_paths(paths_,stack_,root); //print_nodes_from_stack(root,stack_);//I found it ////
 			exists=check_exists_in_children(node,word[word_number],&pos);
 			if(exists==0) break;
 			//printf("I am gonna push : %d\n",pos);
@@ -452,7 +452,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 			word_number++;
 		}
 		if(exists==1) {
-			check_in_paths(paths_,stack_,root);
+			check_in_paths3(paths_,stack_,root);
 			//print_nodes_from_stack(root,stack_);
 		}
 		reset_stack(stack_);
@@ -460,6 +460,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	}
 	int found=SUCCESS;
 	if(paths_->words_in==0) found=-1;
+	//print_paths(paths_);
 	stack_destroy(stack_);
 	delete_paths(paths_); //rows	
 	return found;
@@ -475,11 +476,14 @@ void print_nodes_from_stack(trie_node *root,stack *stack_){
 	int i ,pos;
 	trie_node *node=root;
 	//printf("Found N gram: ");
-	for(i=0;i<number;i++){
+	for(i=0;i<number-1;i++){
 		pos=get_stack_elements(stack_,i);
 		node=&(node->children[pos]);
-		printf("%s",node->word);
+		printf("%s ",node->word);
 	}
+	pos=get_stack_elements(stack_,i);
+	node=&(node->children[pos]);
+	printf("%s",node->word);
 	printf("|");
 }
 
@@ -499,7 +503,7 @@ paths *init_paths(int rows,int columns){
 	return paths_;
 } 
 
-int check_in_paths(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
+/*int check_in_paths(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
 	//printf("inside check in paths\n");
 	int number=get_stack_number(stack_);
 	int path_pos=0;
@@ -508,7 +512,10 @@ int check_in_paths(paths *paths_, stack *stack_,trie_node *root){//initialize pa
 	for(i=0;i<number;i++){
 		pos=get_stack_elements(stack_,i);
 		for(j=0;j<paths_->words_in;j++){
-			if(paths_->paths_array[j][path_pos]==pos){path_pos++; break;} //if it finds it continue with the next word
+			if(paths_->paths_array[j][path_pos]==pos){
+				path_pos++;
+				break;
+			} //if it finds it continue with the next word
 		}
 		if(j==paths_->words_in) {found=0; break;} //if it doesnt find one node f the path then leave
  			
@@ -519,8 +526,93 @@ int check_in_paths(paths *paths_, stack *stack_,trie_node *root){//initialize pa
 		
 	}
 	return found;
+}*/
+
+int check_in_paths3(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
+	//printf("inside check in paths\n");
+	int number=get_stack_number(stack_);
+	int found=0;
+	int pos,i,j;
+	for(i=0;i<paths_->words_in;i++){
+		for(j=0;j<number;j++){
+			pos=get_stack_elements(stack_,j);
+			if(paths_->paths_array[i][j]!=pos){
+				break;
+			} //if it finds it continue with the next word
+		}
+		if(j==number) {found=1; break;} //if it doesnt find one node f the path then leave
+ 			
+	}
+	if(found==0) {
+		add_to_paths(paths_,stack_); //add to paths and print it
+		print_nodes_from_stack(root,stack_);
+		
+	}
+	return found;
 }
 
+/*int check_in_paths2(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
+	//printf("inside check in paths\n");
+	int number=get_stack_number(stack_); //how many words the phrase has
+	int path_pos=0; //in which word on the paths i am in 
+	int found=0; //if the phrase path is found in paths
+	int pos; //pos in trie of the word of the phrase    
+	int i=0;
+	int j=0;
+	int first_pos=get_stack_elements(stack_,i);
+	while(paths_->paths_array[j][path_pos]<=first_pos && j!=paths_->words_in){
+		for(i=1;i<number;i++){
+			pos=get_stack_elements(stack_,i);
+			if(paths_->paths_array[j][i]!=pos) break; //if it finds it continue with the next word
+			}
+		if(i==number) {found=1; break;}
+		j++;
+		}
+	
+ 	if(found==0) {
+		add_to_paths2(paths_,stack_); //add to paths and print it
+		print_nodes_from_stack(root,stack_);
+	}		
+	return found;
+}
+
+
+void add_to_paths2(paths *paths_, stack *stack_){
+	int path_num=paths_->words_in;
+	if(path_num==paths_->max_words) double_paths(paths_);
+	int number=get_stack_number(stack_);
+	int i ,pos;
+	i=0;
+	//printf("Found N gram: ");
+	pos=get_stack_elements(stack_,i);
+	if(i==paths_->words_in)i=0;
+	else{
+		while(paths_->paths_array[i][0]<pos && i<paths_->words_in) i++; //find first position
+		}
+	
+
+	path_num=i;
+	printf("\npath num is %d\n",path_num);
+	printf("words_in are %d\n",paths_->words_in);
+	if(path_num!=paths_->words_in && paths_->words_in!=0){
+		//printf("in move : %d\n",(paths_->words_in-path_num));
+		int **backup=paths_->paths_array;
+		//memmove(paths_->paths_array,backup,path_num*sizeof(backup[0]));
+		memmove(paths_->paths_array+(path_num+1),backup+path_num,(paths_->words_in-(path_num))*sizeof(backup[0]));
+
+	}
+	//paths_->words_in++;
+	//print_paths(paths_);
+	for(i=0;i<number;i++){
+		pos=get_stack_elements(stack_,i);
+		paths_->paths_array[path_num][i]=pos;
+	}
+	//printf("|");
+	paths_->words_in++;
+	print_paths(paths_);
+}
+
+*/
 
 void add_to_paths(paths *paths_, stack *stack_){
 	int path_num=paths_->words_in;
@@ -561,6 +653,13 @@ void delete_paths(paths *paths_){
 	free(paths_);
 }
 
-
+void print_paths(paths *paths_){
+	printf("\nin print paths\n");
+	printf("words in are %d\n",paths_->words_in);
+	int i;
+	for(i=0;i<paths_->words_in;i++){
+		printf("%d\n",paths_->paths_array[i][0]);
+	}
+}
 
 

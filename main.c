@@ -36,10 +36,12 @@ int main (int argc, char **argv )
 		return -1;
 	//int i;
 	//printf("Print trie \n");
+	printf("\n");
 	//print_trie(trie->root,0);
 	delete_trie(trie);
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("\nProgram executed in %f seconds\n",time_spent);
+	//print_trie(trie->root,0);
 	return 0;	
 }
