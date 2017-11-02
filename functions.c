@@ -59,9 +59,9 @@ int init_input(struct index *trie,char * filename){
 			words_in++;
 			word=strtok(NULL," \n");
 		}
-		append_trie_node(trie->root,ptr_table,0,words_in-1);	
+		append_trie_node(trie->root,ptr_table,0,words_in-1);
 	}
-	printf ("free\n");
+	//printf ("free\n");
 	free(line);
 	cleanup(ptr_table);
 	fclose(fd);
@@ -91,6 +91,8 @@ int test_input(struct index *trie,char * filename)
 	ssize_t read;
 	char *word;
 	int command_error;
+
+	//paths *paths_=init_paths(4,10); 
 
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
@@ -156,6 +158,9 @@ int test_input(struct index *trie,char * filename)
 			case 1 :
 				printf("\n"); 
 				//printtable(ptr_table, words_in-1);
+				//int pos;
+				//int exists=check_exists_in_children(trie->root,"the",&pos);
+				//printf("\nexists %d pos of word is %d\n",exists,pos);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
@@ -402,10 +407,11 @@ int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words
 				error=delete_ngram(&(root->children[pos]),word,word_number+1,number_of_words);
 				if(error==0)
 				{
-					if(root->children[pos].is_final=='y' && word_number!=number_of_words) return 2; //return 2 if  i am del half 
+					if(root->children[pos].is_final=='y' && word_number!=number_of_words ) return 2; //return 2 if  i am del half 
 					error=delete_from_node(root,pos);
 					root->number_of_childs--;
 				}
+				if(error!=1 && root->number_of_childs!=0) return 2; //dont delete the node if it has more childs 
 				return error; 
 			}
 			else return ERROR;	//return error if the word is not on the trie , so the ngram is not in the trie
@@ -438,12 +444,15 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	trie_node *node;
 	int start=0;
 	paths *paths_=init_paths(4,10); //rows columns
-	while(start!=number_of_words) {
+	while(start!=number_of_words+1) {
 		word_number=start;
 		node=root;
 		while(node->number_of_childs!=0) {
 			//printf("word number :%d %s\n",word_number,word[word_number]);
-			if(node->is_final=='y') check_in_paths3(paths_,stack_,root);  //print_nodes_from_stack(root,stack_);check_in_paths(paths_,stack_,root); //print_nodes_from_stack(root,stack_);//I found it ////
+			if(node->is_final=='y') {
+				//print_nodes_from_stack(root,stack_);
+				check_in_paths3(paths_,stack_,root); //I found it
+				}
 			exists=check_exists_in_children(node,word[word_number],&pos);
 			if(exists==0) break;
 			//printf("I am gonna push : %d\n",pos);
@@ -624,6 +633,7 @@ void add_to_paths(paths *paths_, stack *stack_){
 		pos=get_stack_elements(stack_,i);
 		paths_->paths_array[path_num][i]=pos;
 	}
+	for(i=number;i<PATH_COLUMN; i++) paths_->paths_array[path_num][i]=-1;
 	//printf("|");
 	paths_->words_in++;
 
@@ -657,8 +667,12 @@ void print_paths(paths *paths_){
 	printf("\nin print paths\n");
 	printf("words in are %d\n",paths_->words_in);
 	int i;
+	int j;
 	for(i=0;i<paths_->words_in;i++){
-		printf("%d\n",paths_->paths_array[i][0]);
+		for(j=0;j<3;j++){
+		printf("%d -> ",paths_->paths_array[i][j]);
+		}
+		printf("\n");
 	}
 }
 

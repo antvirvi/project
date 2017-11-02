@@ -28,8 +28,9 @@ int main(char * name1, char * name2){
 	size_t len = 0;
 	ssize_t read;
 	char *word;
-
+	int line=0;
 	while ((read = getline(&lineIn, &len, in)) != -1){
+		line++;
 		read = getline(&lineOut, &len, out);
 		wordIn = strtok (lineIn,"|");
 		wordOut = strtok (lineOut,"|");
@@ -39,6 +40,8 @@ int main(char * name1, char * name2){
 				printf("Difference\n");
 				printf("Words: \"%s\" <-> \"%s\" \n",wordIn,wordOut);
 				difs++;
+				printf("In line %d\n",line);
+				return -1;
 			}
 			//
 			wordIn=strtok(NULL,"|");
