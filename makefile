@@ -44,12 +44,4 @@ run:
 pipe:
 	  ./project -q small.work -i small.init > results.txt
 
-testpipe:
-	  valgrind --leak-check=yes ./project -q small.work -i small.init > results.txt
 
-small:
-	valgrind --leak-check=yes ./project -q small.work -i small.init 
-
-diffs:
-	gcc diffs.c -o diffs 
-	./diffs 

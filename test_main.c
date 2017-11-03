@@ -6,6 +6,7 @@
 int main (int argc, char **argv )
 {
 	int i;
+	char init_file[16];
 	struct index *trie=malloc(sizeof(struct index));
 	trie->root=init_trie();
 
@@ -15,11 +16,13 @@ int main (int argc, char **argv )
 		if(test_words[i]==NULL)	return -1;	
 	}
 
-	strcpy(test_words[0],"panos");
-	test_add(trie,test_words,1);
+	strcpy(init_file,"test.init");
+	if(init_test_input(trie,init_file)<0) return -1;
+	
+
 	tests_for_binary(trie);
 
-	//print_trie(trie->root,0);
+	print_trie(trie->root,0);
 	delete_trie(trie);
 	
 	return 0;	

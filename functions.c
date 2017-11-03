@@ -59,14 +59,13 @@ int init_input(struct index *trie,char * filename){
 			words_in++;
 			word=strtok(NULL," \n");
 		}
+		//append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
 		append_trie_node(trie->root,ptr_table,0,words_in-1);
 	}
 	//printf ("free\n");
 	free(line);
 	cleanup(ptr_table);
 	fclose(fd);
-
-	//printf("\x1b[32m""INIT_INPUT end\n""\x1b[0m");
 	return 0;	
 }
 
@@ -157,10 +156,6 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 				printf("\n"); 
-				//printtable(ptr_table, words_in-1);
-				//int pos;
-				//int exists=check_exists_in_children(trie->root,"the",&pos);
-				//printf("\nexists %d pos of word is %d\n",exists,pos);
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
@@ -168,11 +163,10 @@ int test_input(struct index *trie,char * filename)
 				//printf("Add\n");
 				//printtable(ptr_table, words_in-1);
 	//			printf("in search ptr_table:%s %d\n",ptr_table[0],words_in-1);
+				//command_error=append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
 				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
-				
 				break;
 			case 3 :
-				//printf("words in are %d \n",words_in);
 	//		printf("Deletee\n");
 				//printtable(ptr_table, words_in-1);
 				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
@@ -249,9 +243,15 @@ void delete_trie(struct index *trie){
 
 trie_node *create_trie_node(char *word,char is_final){
 	trie_node *node=malloc(sizeof(trie_node));
-	node->word=malloc(WORD_SIZE*sizeof(char));
-	strcpy(node->word,word);
-	
+	if(strlen(word)+2>WORD_SIZE){
+		node->word=malloc((strlen(word)+2)*sizeof(char));
+		strcpy(node->word,word);
+		memset(node->static_word,0,WORD_SIZE);
+	}
+	else{
+		strcpy(node->static_word,word);
+		node->word=node->static_word;
+	}
 	node->is_final=is_final;
 	node->number_of_childs=0;
 	node->max_childs=MAX_CHILDS;
@@ -280,8 +280,7 @@ trie_node *init_trie_node(trie_node *node,char *word,char is_final){
 
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words){
 	int error;
-	//number_of_words--; //PANOS proxeiri lysi. ftiakste to kalytera
-	if(word_number>number_of_words){ // edw to allaksa se >= enw prin itan >  
+	if(word_number>number_of_words){
 		//printf("out of words to add\n");
 		return SUCCESS;
 		}
@@ -313,11 +312,53 @@ int append_trie_node(trie_node *root,char **word,int word_number,int number_of_w
 	return SUCCESS; //0 errors
 }
 
+int append_trie_node_iterative(trie_node *root,char **word,int word_number,int number_of_words){
+	int error;
+	char is_final;
+	trie_node *node=root;
+	int pos,exists;
+	for(word_number=0;word_number<=number_of_words;word_number++){
+		is_final='n';
+		if(word_number==number_of_words) is_final='y';
+		
+		if(node->number_of_childs==0){
+			error=append_word(node,0,word[word_number],is_final);
+			if(error==ERROR) return ERROR;
+			node->number_of_childs++;
+			node=&(node->children[0]);
+		}
+		else{
+			exists=check_exists_in_children(node,word[word_number],&pos);
+			if (exists==1){
+				if((&(node->children[pos]))->is_final!='y') (&(node->children[pos]))->is_final=is_final; //this change
+				node=&(node->children[pos]);
+				}
+			else{	
+				error=append_word(node,pos,word[word_number],is_final);
+				if(error==ERROR) return ERROR;
+				node->number_of_childs++;
+				node=&(node->children[pos]);
+				}
+			}
+				
+	}
+	if(word_number>number_of_words){
+		//printf("out of words to add\n");
+		return SUCCESS;
+		}
+
+
+	
+	return SUCCESS; //0 errors
+}
+
+
 int check_exists_in_children(trie_node *node,char *word,int *pos){
 		int pivot=0; //pivor is integer so in the division it will rounf in the smaller absolute value 5/2=2
 		int lower=0;
 		int upper=node->number_of_childs-1;
 		//printf("inside check exists\n");
+		//if(upper==-1) return 0; //i made this change
 		while(1!=0){
 			//printf("upper %d lower %d pivot %d\n",upper,lower,pivot);
 			if(upper<=lower){
