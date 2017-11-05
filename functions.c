@@ -69,6 +69,127 @@ int init_input(struct index *trie,char * filename){
 	return 0;	
 }
 
+//=====================================================================================Unit testing last function
+
+
+int test_delete(struct index *trie,char * filename){	
+	char **ptr_table = malloc(table_size*sizeof(char *));
+	int words_in = 0;
+	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
+	int a;
+	FILE* fd = fopen(filename, "r"); //opening input file
+	if(fd == NULL)
+	{
+		perror("Error opening input file");
+		return -1;
+	}
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	char *word;
+	int command_error;
+
+	//paths *paths_=init_paths(4,10); 
+
+	for(a=0;a<table_size;a++)
+		ptr_table[a]=malloc(word_size*sizeof(char));
+
+	while ((read = getline(&line, &len, fd)) != -1) {
+		//words_in = 1;
+		words_in = 0;
+		
+		word = strtok (line," \n");
+		while(word!=NULL){
+			//printf("Read this word: %s\n",word);
+			if(strcmp(word,"Q")==0){
+				flag=1;
+				//printf("\x1b[36m""Question 1\n""\x1b[0m");
+			}
+			else if(strcmp(word,"A")==0){
+				//printf("\x1b[36m""Addition 2\n""\x1b[0m");
+				flag=2;
+			}
+			else if(strcmp(word,"D")==0){
+				//printf("\x1b[36m""Deletion 3\n""\x1b[0m");
+				flag=3;
+			}
+			else if(strcmp(word,"F")==0){
+				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
+				/*
+				cleanup(ptr_table);
+				free(line);
+				fclose(fd);
+				printf("\x1b[32m""TEST_INPUT end\n""\x1b[0m");
+				return 1;
+				*/
+				//printf("\x1b[32m""F -> print paths\n""\x1b[0m");	
+			}else if(strcmp(word,"\0")==0){				
+			}
+			else{
+			
+				
+				if(words_in==table_size-1){
+					table_size*=2;
+					ptr_table = realloc(ptr_table,table_size*(sizeof(char*)));
+					for(a=table_size/2;a<table_size;a++){
+						ptr_table[a]=malloc(word_size*sizeof(char));
+					}
+				}
+				if(strlen(word)>=word_size){
+					word_size*=2;
+					for(a=0;a<table_size;a++)
+						ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
+				}		
+
+				//ptr_table[words_in] = malloc(word_size*sizeof(char));
+			strcpy(ptr_table[words_in],word);
+			words_in++;				
+			}
+			word=strtok(NULL," \n");
+		}
+
+
+//edw einai to kommati pou sendiaferei VV
+
+int expected_result = ptr_table[words_in-1][0];  //kratasei ton teleytaio arithmo apo tin seira pou diabase
+	words_in --;  									//meiwnei to words_in gia na min lifthei upopsin o teleytaios arithmos
+
+		switch(flag){
+			case 1 :
+				printf("\n"); 
+				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+				if(command_error==-1) printf("%d\n",command_error);
+				break;
+			case 2 :
+				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
+				break;
+			case 3 :
+				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
+				if(command_error==expected_result)
+					printf("Successful function\n");
+				else
+					printf("NOT successful function\n");
+				break;
+
+//mexri edw einai to kommati pou sendiaferei ^^
+		
+		}
+		flag=0;	
+	}
+
+
+	//it is supposed that control never reaches this point, due to F signal
+  	free(line);
+	cleanup(ptr_table);
+	fclose(fd);
+	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
+	
+return 0;
+
+}
+//========================================================================================================================================
+
+
 
 
 int test_input(struct index *trie,char * filename)

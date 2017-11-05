@@ -1,7 +1,0 @@
-//Remote -> Gihub
-//local ->my machine
-
-1) commit -> save localy
-2) push -> upload to github
-
-3) pull -> update local to match remote
