@@ -1,6 +1,8 @@
 #include "functions.h"
 #include "libraries.h"
 
+//Second Part of Project
+
 extern int buffer_size;
 extern int word_size;
 extern int table_size;
