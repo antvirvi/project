@@ -768,8 +768,36 @@ int  hash_function(int hash_buckets, char *word)
 
 }*/
 
-int destroyLinearHash(){
-	return 0;
+void destroyLinearHash(hash_layer *hash){
+	int i;
+	hash_bucket *bucket;
+	for(i=0;i<hash->buckets_number;i++){
+		bucket=&(hash->buckets[i]);
+		printf("bucket %d\n",i);
+		destroy_buckets(bucket,0);
+		
+	}
+	return ;
+}
+
+void destroy_buckets(hash_bucket *bucket,int test){
+	if(bucket==NULL) return;
+	destroy_buckets(bucket->overflow_bucket,test++);
+	printf("overflow_bucket %d\n",test);
+	destroy_bucket_nodes(bucket);
+	free(bucket);
+	return;
+}
+
+void destroy_bucket_nodes(hash_bucket *bucket){
+	trie_node *node;
+	int j;
+	for(j=0;j<bucket->children_number;j++){
+		node=&(bucket->children[j]);
+		destroy_childs(node);
+		free(node);
+		}
+
 }
 
 int insertTrieNode(hash_layer *hash,char **words,int word_number){

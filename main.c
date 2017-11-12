@@ -40,6 +40,7 @@ int main (int argc, char **argv )
 	insertTrieNode(hash,words,2);
 	insertTrieNode(hash,words,3);
 	print_hash(hash);
+	destroyLinearHash(hash);
 //	printf("Init %s\nQueries %s\n",init_file,query_file);
 
 	/*struct index *trie=malloc(sizeof(struct index));
