@@ -24,6 +24,7 @@
 #endif
 
 #define PATH_COLUMN 10
+#define M 1024 //size of  bitvector bloomfilter in bits
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 
@@ -79,3 +80,8 @@ void print_paths(paths *paths_);
 struct paths *init_paths(int rows,int columns);
 
 void cleanup(char ** ptr);
+
+
+//part 2
+
+unsigned long hash(unsigned char *str);

@@ -2,6 +2,7 @@
 #include <errno.h>
 #include <time.h>
 
+#define hash_length 1024
 
 int main (int argc, char **argv )
 {	clock_t begin = clock();
@@ -41,5 +42,30 @@ int main (int argc, char **argv )
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("\nProgram executed in %f seconds\n",time_spent);
 	//print_trie(trie->root,0);
+unsigned long hs;
+	hs = hash((unsigned char *)"antonsi vrivilis");
+	hs = hs%hash_length;
+	printf("--> %ld\n",hs);
+
+	hs = hash((unsigned char *)"antonsi vrivilik");
+	hs = hs%hash_length;
+	printf("--> %ld\n",hs);
+
+	hs = hash((unsigned char *)"antonsivasd siou");
+	hs = hs%hash_length;
+	printf("--> %ld\n",hs);
+
+	hs = hash((unsigned char *)"antonsi vrivilis4");
+	hs = hs%hash_length;
+	printf("--> %ld\n",hs);
+
+	hs = hash((unsigned char *)"antonsi vrivilis5");
+	hs = hs%hash_length;
+	printf("--> %ld\n",hs);
+
+	hs = hash((unsigned char *)"antonsi vrivilis6");
+	hs = hs%hash_length;
+	printf("--> %ld\n",hs);
+
 	return 0;	
 }

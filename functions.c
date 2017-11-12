@@ -71,13 +71,28 @@ int init_input(struct index *trie,char * filename){
 	return 0;	
 }
 
+void init_bloomfilter(unsigned char * bloom){
+	int i;
+	for(i=0;i<M/sizeof(unsigned char);i++){
+		bloom[i] &= 0;
+	}
+
+}
+
+int add_bloomfilter(unsigned char * bloom, char * ngram){ //add a ngram to bloomfilter
 
 
+}
+
+int check_bloomfilter(unsigned char * bloom, char * ngram){
 
 
+}
 
 int test_input(struct index *trie,char * filename)
-{	
+{
+	unsigned char bitvector[M/sizeof(unsigned char)];
+	init_bloomfilter(bitvector); 
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
@@ -716,5 +731,35 @@ void print_paths(paths *paths_){
 		printf("\n");
 	}
 }
+
+unsigned long hash(unsigned char *str){
+    unsigned long hash = 5381;
+    int c;
+
+    while (c = *str++)
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+    return hash;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
