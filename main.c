@@ -38,7 +38,7 @@ int main (int argc, char **argv )
 	insertTrieNode(hash,&(words[3]),2);
 	insertTrieNode(hash,words,1);
 	insertTrieNode(hash,words,2);
-	insertTrieNode(hash,words,4);
+	//insertTrieNode(hash,words,4);
 	print_hash(hash);
 //	printf("Init %s\nQueries %s\n",init_file,query_file);
 

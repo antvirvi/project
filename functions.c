@@ -780,7 +780,9 @@ int insertTrieNode(hash_layer *hash,char **words,int word_number){
 	node=add_to_backet(hash,hash_val,words[0],is_final); //node gets the value of the first trie node
 	//print_node(node);
 	printf("node word is %s\n",node->word);
-	if(word_number>1) append_trie_node(node,words,1,word_number-1);	
+	if(word_number>1){ 
+		printf("appending more words\n");
+		append_trie_node(node,words,1,word_number-1);}	
 	
 	return 0;
 }
@@ -815,7 +817,7 @@ trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final)
 	*last=*last+1;
 	hash->total_children++;
 	//check for splitting
-	if((hash->total_children/(float)hash->buckets_number) > hash->load_factor){
+	/*if((hash->total_children/(float)hash->buckets_number) > hash->load_factor){
 		printf("attempting to expand buckets\n");
 		hash->buckets=realloc(hash->buckets,(hash->buckets_number+1)*sizeof(hash_bucket)); //add bucket lineat
 		if(hash->buckets==NULL){
@@ -830,6 +832,7 @@ trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final)
 		bucket=&(hash->buckets[hash->bucket_to_split]); //re arranging bucket to split
 		int new_hash_val=-1;
 		stack *stack_=init_stack();
+		print_stack(stack_);
 
 		if(bucket->children_number==0){
 			hash->bucket_to_split=(hash->bucket_to_split+1)%(hash->split_round*C);// 
@@ -839,29 +842,99 @@ trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final)
 		//re arange buucket
 		while(bucket!=NULL || new_hash_val==-1){ //bucket->overflow_bucket!=NULL
 			printf("attempting to re arrange bucket %d and %d\n",hash->bucket_to_split,hash->buckets_number-1);
-			push(stack_,i);
+			push(stack_,-1);
+			print_stack(stack_);
 			for(i=0;i<bucket->children_number;i++){
 
 				new_hash_val=hash_function(C*(hash->split_round+1),bucket->children[i].word);
 				if(new_hash_val==hash_val) continue; //if hash value is the same then no need to change bucket
-				memmove(&(new_bucket->children[new_bucket->children_number]),&(bucket->children[i]),sizeof(bucket->children[i])); //copy nod
-				push(stack_,i);		
 
-				memmove(&(bucket->children[i]),&(bucket->children[i+1]),sizeof(trie_node));
+				if(new_bucket->children_number==hash->bucket_capacity){	//if new bucket fills then create an overflow bucket
+					new_bucket->overflow_bucket=malloc(sizeof(hash_bucket));
+					if(new_bucket->overflow_bucket==NULL) return NULL;	
+					initialize_bucket(new_bucket->overflow_bucket,hash->bucket_capacity);
+					new_bucket=new_bucket->overflow_bucket;
+				}
+
+				memmove(&(new_bucket->children[new_bucket->children_number]),&(bucket->children[i]),sizeof(trie_node)); //copy nod
+				push(stack_,i);		
+				print_stack(stack_);
+				
 				new_bucket->children_number++;
-				//bucket->children_number--;
 				
 			}
 			bucket=bucket->overflow_bucket;
 		}
-		//reduce bucket->children_number here
+
+		print_stack(stack_);
+		shrink_buckets(&(hash->buckets[hash->bucket_to_split]),stack_);
+		hash->bucket_to_split=(hash->bucket_to_split+1)%(hash->split_round*C);//
+		printf("hash after arrange\n");
+		print_hash(hash);
+	}*/
+	resize_hash(hash,hash_val);
+	return node;
+	//return SUCCESS;
+}
+
+int resize_hash(hash_layer *hash,int hash_val){
+	hash_bucket *bucket;
+	if((hash->total_children/(float)hash->buckets_number) > hash->load_factor){
+		printf("attempting to expand buckets\n");
+		hash->buckets=realloc(hash->buckets,(hash->buckets_number+1)*sizeof(hash_bucket)); //add bucket lineat
+		if(hash->buckets==NULL){
+			printf("error in realloc\n");
+			return ERROR;
+		}
+		hash->buckets_number++;
+		//initialize bucket
+		initialize_bucket(&(hash->buckets[hash->buckets_number-1]),hash->bucket_capacity);
+		int i;
+		hash_bucket *new_bucket=&(hash->buckets[hash->buckets_number-1]); //pointer to the new bucket
+		bucket=&(hash->buckets[hash->bucket_to_split]); //re arranging bucket to split
+		int new_hash_val=-1;
+		stack *stack_=init_stack();
+		print_stack(stack_);
+
+		if(bucket->children_number==0){
+			hash->bucket_to_split=(hash->bucket_to_split+1)%(hash->split_round*C);// 
+			return SUCCESS;
+			} // no need for rearranging bucket
+
+		//re arange buucket
+		while(bucket!=NULL || new_hash_val==-1){ //bucket->overflow_bucket!=NULL
+			printf("attempting to re arrange bucket %d and %d\n",hash->bucket_to_split,hash->buckets_number-1);
+			push(stack_,-1);
+			print_stack(stack_);
+			for(i=0;i<bucket->children_number;i++){
+
+				new_hash_val=hash_function(C*(hash->split_round+1),bucket->children[i].word);
+				if(new_hash_val==hash_val) continue; //if hash value is the same then no need to change bucket
+
+				if(new_bucket->children_number==hash->bucket_capacity){	//if new bucket fills then create an overflow bucket
+					new_bucket->overflow_bucket=malloc(sizeof(hash_bucket));
+					if(new_bucket->overflow_bucket==NULL) return ERROR;	
+					initialize_bucket(new_bucket->overflow_bucket,hash->bucket_capacity);
+					new_bucket=new_bucket->overflow_bucket;
+				}
+
+				memmove(&(new_bucket->children[new_bucket->children_number]),&(bucket->children[i]),sizeof(trie_node)); //copy nod
+				push(stack_,i);		
+				print_stack(stack_);
+				
+				new_bucket->children_number++;
+				
+			}
+			bucket=bucket->overflow_bucket;
+		}
+
+		print_stack(stack_);
 		shrink_buckets(&(hash->buckets[hash->bucket_to_split]),stack_);
 		hash->bucket_to_split=(hash->bucket_to_split+1)%(hash->split_round*C);//
 		printf("hash after arrange\n");
 		print_hash(hash);
 	}
-	return node;
-	//return SUCCESS;
+	return SUCCESS;
 }
 
 void shrink_buckets(hash_bucket *bucket,stack *stack_){
@@ -871,9 +944,11 @@ void shrink_buckets(hash_bucket *bucket,stack *stack_){
 	//hash_bucket *temp=bucket;
 	for(i=1;i<stack_->top;i++){ //first is always -1
 		pos=get_stack_elements(stack_,i);
+		printf("shrink_buckets pos %d\n",pos);
 		if(pos==-1 && first-i!=1){
 			shrink_bucket(bucket,stack_,first,i);
-			bucket->children_number=bucket->children_number-(i-first)-1; //new children number
+			bucket->children_number=bucket->children_number-(i-first-1); //new children number
+			printf("Now children left on the bucket are %d\n",bucket->children_number);
 			first=i;
 			bucket=bucket->overflow_bucket;
 		}
@@ -884,10 +959,12 @@ void shrink_bucket(hash_bucket *bucket,stack *stack_,int first,int last){
 	//delete nod from the old bucket
 				//if the next is not the last then memove whats left
 				//otherwise dont do it 
-	int i;
+	int i,pos;
 	int total=bucket->children_number;
+	printf("total number here %d\n",total);
 	for(i=last-1;i>first;i--){ //this may cause problem
-		memmove(&(bucket->children[i]),&(bucket->children[i+1]),(total-i+1)*sizeof(trie_node));
+		pos=get_stack_elements(stack_,i);
+		memmove(&(bucket->children[pos]),&(bucket->children[pos+1]),(total-(pos+1))*sizeof(trie_node));
 	}
 }
 

@@ -111,3 +111,4 @@ trie_node *add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final)
 void shrink_buckets(hash_bucket *bucket,stack *stack_);
 void shrink_bucket(hash_bucket *bucket,stack *stack_,int first,int last);
 void print_hash(hash_layer *hash);
+int resize_hash(hash_layer *hash,int hash_val);
