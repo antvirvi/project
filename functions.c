@@ -715,4 +715,208 @@ void print_paths(paths *paths_){
 	}
 }
 
+void initialize_bucket(hash_bucket *bucket,int m){
+	bucket->children=malloc(m*sizeof(trie_node));
+	bucket->overflow_bucket=NULL;
+	bucket->children_number=0;
+}
 
+hash_layer	*createLinearHash(int c ,int m){ //c is number of buckets ,m is number of cells per bucket
+	int i;
+	hash_layer *hash=malloc(sizeof(hash_layer));
+	if(hash==NULL) return NULL;
+
+	hash->bucket_capacity=m;
+	hash->buckets_number=c;
+	hash->load_factor=0.5;
+	hash->total_children=0;
+	hash->bucket_to_split=0;
+	hash->split_round=1;
+	hash->buckets=malloc(c*sizeof(hash_bucket));
+	if(hash->buckets==NULL) return NULL;
+	
+	for(i=0;i<c;i++){
+		initialize_bucket(&(hash->buckets[i]),m);
+	}
+	return hash;
+}
+
+int  hash_function(int hash_buckets, char *word)
+{
+    unsigned long hash = 5381;
+    int c;
+
+    while (c = *word++)
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+    return hash%hash_buckets;
+}
+
+
+/*int hash_function(int hash_buckets,char *word){  //check 
+	unsigned long int hashval;
+	int i = 0;
+
+
+	while( hashval < 100 && i < strlen(word) ) {
+		hashval = hashval << 8;
+		hashval += word[i];
+		i++;
+	}
+
+	return hashval % hash_buckets;
+
+}*/
+
+int destroyLinearHash(){
+	return 0;
+}
+
+int insertTrieNode(hash_layer *hash,char **words,int word_number){
+	char is_final='n';
+	if(word_number==1) is_final='y';
+	int hash_val=hash_function(C*hash->split_round,words[0]);
+	trie_node *node;
+	node=add_to_backet(hash,hash_val,words[0],is_final); //node gets the value of the first trie node
+	//print_node(node);
+	printf("node word is %s\n",node->word);
+	if(word_number>1) append_trie_node(node,words,1,word_number-1);	
+	
+	return 0;
+}
+
+
+
+trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final){
+	//hash_layer *hash=root->hash;
+	hash_bucket *bucket=&(hash->buckets[hash_val]);
+	
+	int *last=&(bucket->children_number);
+	trie_node *node;
+
+	//check if the word already exists
+
+	//this happens only once make it happen as it needs
+	while(bucket->overflow_bucket!=NULL) bucket=bucket->overflow_bucket; //going to the last bucket
+
+	if(*last==hash->bucket_capacity && bucket->overflow_bucket==NULL){ //initializing overflow bucket
+		bucket->overflow_bucket=malloc(sizeof(hash_bucket));
+		if(bucket->overflow_bucket==NULL) return NULL;
+		initialize_bucket(bucket->overflow_bucket,hash->bucket_capacity);
+		printf("I made a new overflow bucket at bucket %d\n",hash_val);
+	} 
+	if(*last==hash->bucket_capacity && bucket->overflow_bucket!=NULL) { //*las>capacity
+		bucket=bucket->overflow_bucket;
+		last=&(bucket->children_number);
+	}
+
+	node=&(bucket->children[*last]);
+	init_trie_node(node,word,is_final);
+	*last=*last+1;
+	hash->total_children++;
+	//check for splitting
+	if((hash->total_children/(float)hash->buckets_number) > hash->load_factor){
+		printf("attempting to expand buckets\n");
+		hash->buckets=realloc(hash->buckets,(hash->buckets_number+1)*sizeof(hash_bucket)); //add bucket lineat
+		if(hash->buckets==NULL){
+			printf("error in realloc\n");
+			return NULL;
+		}
+		hash->buckets_number++;
+		//initialize bucket
+		initialize_bucket(&(hash->buckets[hash->buckets_number-1]),hash->bucket_capacity);
+		int i;
+		hash_bucket *new_bucket=&(hash->buckets[hash->buckets_number-1]); //pointer to the new bucket
+		bucket=&(hash->buckets[hash->bucket_to_split]); //re arranging bucket to split
+		int new_hash_val=-1;
+		stack *stack_=init_stack();
+
+		if(bucket->children_number==0){
+			hash->bucket_to_split=(hash->bucket_to_split+1)%(hash->split_round*C);// 
+			return node;
+			} // no need for rearranging bucket
+
+		//re arange buucket
+		while(bucket!=NULL || new_hash_val==-1){ //bucket->overflow_bucket!=NULL
+			printf("attempting to re arrange bucket %d and %d\n",hash->bucket_to_split,hash->buckets_number-1);
+			push(stack_,i);
+			for(i=0;i<bucket->children_number;i++){
+
+				new_hash_val=hash_function(C*(hash->split_round+1),bucket->children[i].word);
+				if(new_hash_val==hash_val) continue; //if hash value is the same then no need to change bucket
+				memmove(&(new_bucket->children[new_bucket->children_number]),&(bucket->children[i]),sizeof(bucket->children[i])); //copy nod
+				push(stack_,i);		
+
+				memmove(&(bucket->children[i]),&(bucket->children[i+1]),sizeof(trie_node));
+				new_bucket->children_number++;
+				//bucket->children_number--;
+				
+			}
+			bucket=bucket->overflow_bucket;
+		}
+		//reduce bucket->children_number here
+		shrink_buckets(&(hash->buckets[hash->bucket_to_split]),stack_);
+		hash->bucket_to_split=(hash->bucket_to_split+1)%(hash->split_round*C);//
+		printf("hash after arrange\n");
+		print_hash(hash);
+	}
+	return node;
+	//return SUCCESS;
+}
+
+void shrink_buckets(hash_bucket *bucket,stack *stack_){
+	int i;
+	int pos;
+	int first=0;
+	//hash_bucket *temp=bucket;
+	for(i=1;i<stack_->top;i++){ //first is always -1
+		pos=get_stack_elements(stack_,i);
+		if(pos==-1 && first-i!=1){
+			shrink_bucket(bucket,stack_,first,i);
+			bucket->children_number=bucket->children_number-(i-first)-1; //new children number
+			first=i;
+			bucket=bucket->overflow_bucket;
+		}
+	}
+}
+
+void shrink_bucket(hash_bucket *bucket,stack *stack_,int first,int last){
+	//delete nod from the old bucket
+				//if the next is not the last then memove whats left
+				//otherwise dont do it 
+	int i;
+	int total=bucket->children_number;
+	for(i=last-1;i>first;i--){ //this may cause problem
+		memmove(&(bucket->children[i]),&(bucket->children[i+1]),(total-i+1)*sizeof(trie_node));
+	}
+}
+
+void print_hash(hash_layer *hash){
+	int i,j;
+	hash_bucket bucket;
+	trie_node node;
+	for(i=0;i<hash->buckets_number;i++){
+		bucket=hash->buckets[i];
+		printf("Bucket[%d]::",i);
+		for(j=0;j<bucket.children_number;j++){
+			node=bucket.children[j];
+			printf("%s(%c)->",node.word,node.is_final);
+			print_trie(&node,0);
+		}
+		while(bucket.overflow_bucket!=NULL){ //prit overflow buckets
+			printf("-overflow-");
+			bucket=*(bucket.overflow_bucket);
+			for(j=0;j<bucket.children_number;j++){
+				node=bucket.children[j];
+				printf("%s(%c)->",node.word,node.is_final);
+				print_trie(&node,0);
+			} 
+		}
+		printf("\n");
+	}
+}
+
+
+int lookupTrieNode(){
+	return 0;
+}

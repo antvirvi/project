@@ -23,7 +23,10 @@
 #define SUCCESS 0
 #endif
 
+#define EMPTY_POINTER NULL
 #define PATH_COLUMN 10
+
+#define C 4
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 
@@ -37,10 +40,6 @@ typedef struct trie_node{
 
 }trie_node;
 
-struct index{
-	trie_node *root;
-};
-
 
 typedef struct paths{
 
@@ -48,6 +47,27 @@ typedef struct paths{
 	int words_in;
 	int max_words;
 }paths;
+
+typedef struct hash_bucket{
+	struct hash_bucket *overflow_bucket;
+	trie_node *children;
+	int children_number;
+}hash_bucket;
+
+typedef struct hash_layer{
+	int bucket_capacity;
+	hash_bucket *buckets;
+	int buckets_number;
+	double load_factor;
+	int total_children;
+	int bucket_to_split;
+	int split_round;
+}hash_layer;
+
+struct index{
+	trie_node *root;
+	hash_layer *hash;
+};
 
 void cleanup2(char ** ptr);
 void printtable(char ** pt,int num);
@@ -79,3 +99,15 @@ void print_paths(paths *paths_);
 struct paths *init_paths(int rows,int columns);
 
 void cleanup(char ** ptr);
+
+
+hash_layer	*createLinearHash(int c ,int m);
+int destroyLinearHash();
+int insertTrieNode(hash_layer *hash,char **words,int word_number);
+int lookupTrieNode();
+
+trie_node *add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final);
+
+void shrink_buckets(hash_bucket *bucket,stack *stack_);
+void shrink_bucket(hash_bucket *bucket,stack *stack_,int first,int last);
+void print_hash(hash_layer *hash);
