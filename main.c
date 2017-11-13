@@ -2,7 +2,8 @@
 #include <errno.h>
 #include <time.h>
 
-#define hash_length 1024
+//#define hash_length 1024
+#define bitsint sizeof(int)*8
 
 int main (int argc, char **argv )
 {	clock_t begin = clock();
@@ -43,29 +44,26 @@ int main (int argc, char **argv )
 	printf("\nProgram executed in %f seconds\n",time_spent);
 	//print_trie(trie->root,0);
 unsigned long hs;
-	hs = hash((unsigned char *)"antonsi vrivilis");
-	hs = hs%hash_length;
+	hs = hash((unsigned char *)"antonsi vrivilis",1);
+	printf("--> %ld\n",hs);
+	hs = hash((unsigned char *)"antonsi vrivilis",2);
+	printf("--> %ld\n",hs);
+	hs = hash((unsigned char *)"antonsi vrivilis",3);
+	printf("--> %ld\n",hs);
+	hs = hash((unsigned char *)"antonsi vrivilis",4);
+	printf("--> %ld\n",hs);
+	hs = hash((unsigned char *)"antonsi vrivilis",5);
+	printf("--> %ld\n",hs);
+	hs = hash((unsigned char *)"antonsi vrivilis",6);
+	printf("--> %ld\n",hs);
+	hs = hash((unsigned char *)"antonsi vrivilis",7);
+	printf("--> %ld\n",hs);
+	hs = hash((unsigned char *)"antonsi vrivilis",8);
 	printf("--> %ld\n",hs);
 
-	hs = hash((unsigned char *)"antonsi vrivilik");
-	hs = hs%hash_length;
-	printf("--> %ld\n",hs);
 
-	hs = hash((unsigned char *)"antonsivasd siou");
-	hs = hs%hash_length;
-	printf("--> %ld\n",hs);
-
-	hs = hash((unsigned char *)"antonsi vrivilis4");
-	hs = hs%hash_length;
-	printf("--> %ld\n",hs);
-
-	hs = hash((unsigned char *)"antonsi vrivilis5");
-	hs = hs%hash_length;
-	printf("--> %ld\n",hs);
-
-	hs = hash((unsigned char *)"antonsi vrivilis6");
-	hs = hs%hash_length;
-	printf("--> %ld\n",hs);
-
+printf("Marahia Carrey %lu\n",bitsint);
+//int * array[(M/sizeof(int))/8];
+//init_bloomfilter(array);
 	return 0;	
 }

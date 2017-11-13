@@ -24,7 +24,9 @@
 #endif
 
 #define PATH_COLUMN 10
-#define M 1024 //size of  bitvector bloomfilter in bits
+#define M 8192 //size of  bitvector bloomfilter in bits, should be good for ut to 8000 words
+
+
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 
@@ -84,4 +86,4 @@ void cleanup(char ** ptr);
 
 //part 2
 
-unsigned long hash(unsigned char *str);
+unsigned long hash(unsigned char *str, int key);

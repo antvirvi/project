@@ -3,10 +3,15 @@
 
 //Second Part of Project
 
+//#define ClearBit(A,k)   ( A[(k/sizeof(int))] &= ~(1 << (k%sizeof(int))) )
+//#define TestBit(A,k)    ( A[(k/sizeof(int))] & (1 << (k%sizeof(int))) ) 
+//#define SetBit(A,k)     ( A[(k/sizeof(int))] |= (1 << (k%sizeof(int))) )
+
 extern int buffer_size;
 extern int word_size;
 extern int table_size;
 int reset = 0;
+
 
 
 void printtable(char **pt, int num){
@@ -24,9 +29,10 @@ int init_input(struct index *trie,char * filename){
 
 	FILE* fd = fopen(filename, "r"); //opening input file
 	//strcpy(buffer,"\0");
-
+		
 	if(fd == NULL){
 		perror("Error opening input file");
+		printf("File name %s\n",filename);
 		return -1;
 	}
 
@@ -71,40 +77,92 @@ int init_input(struct index *trie,char * filename){
 	return 0;	
 }
 
-void init_bloomfilter(unsigned char * bloom){
+void Setbit(int *A, int k){
+	int i = k/32;            // i = array index (use: A[i])
+	int pos = k%32;          // pos = bit position in A[i]
+	unsigned int flag = 1;   // flag = 0000.....00001
+	flag = flag << pos;      // flag = 0000...010...000   (shifted k positions)
+	A[i] = A[i] | flag;      // Set the bit at the k-th position in A[i]
+}
+
+void ClearBit(int *A,int k){
+	int i = k/32;
+	int pos = k%32;
+	unsigned int flag = 1;  // flag = 0000.....00001
+	flag = flag << pos;     // flag = 0000...010...000   (shifted k positions)
+	flag = ~flag;           // flag = 1111...101..111
+	A[i] = A[i] & flag;     // RESET the bit at the k-th position in A[i]
+}
+
+
+int TestBit(int *A,int k){
+	int i = k/32;
+	int pos = k%32;
+	unsigned int flag = 1;  // flag = 0000.....00001
+	flag = flag << pos;     // flag = 0000...010...000   (shifted k positions)
+	if ( A[i] & flag )      // Test the bit at the k-th position in A[i]
+		return 1;
+	else
+		return 0;
+}
+
+int TestAllBits(int *bloom){
 	int i;
-	for(i=0;i<M/sizeof(unsigned char);i++){
-		bloom[i] &= 0;
+	int a=M;
+	a/=8;
+	a/=sizeof(int);
+	for (i=0;i<a;i++){
+		if(TestBit(bloom,i)!=0)
+			return -1;
 	}
-
+return 0;
 }
 
-int add_bloomfilter(unsigned char * bloom, char * ngram){ //add a ngram to bloomfilter
 
-
-}
-
-int check_bloomfilter(unsigned char * bloom, char * ngram){
-
+void init_bloomfilter(int * bloom){
+	int i;/*
+	printf("size ison %lu\n",sizeof(bloom));
+	//for(i=0;i<((M/sizeof(int))/8);i++){
+for (i=0;i<M;i++){
+		ClearBit(bloom,i);
+		if(TestBit(bloom,i)==0)
+			printf(GREEN"Good\n"RESET);
+		else{
+			printf(RED"Bad\n"RESET);
+			
+		}
+	}
+*/
+	int a=M;
+	a/=8;
+	a/=sizeof(int);
+memset(bloom,0,a);
+if(TestAllBits(bloom)==0)	
+			printf(BLUE"Freat Job %d %d\n"RESET,a,sizeof(int));
+		else printf("Crap\n");
 
 }
 
 int test_input(struct index *trie,char * filename)
 {
-	unsigned char bitvector[M/sizeof(unsigned char)];
-	init_bloomfilter(bitvector); 
+	int bloomfilterbytes = ((M/sizeof(int))/8);
+//	int  bloomfilter[bloomfilterbits];
+	int * bloomfilter = malloc(bloomfilterbytes);
+	init_bloomfilter(bloomfilter); 
+
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	char **ptr_table = malloc(table_size*sizeof(char *));
+
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
 	int a;
+
 	FILE* fd = fopen(filename, "r"); //opening input file
 	if(fd == NULL)
 	{
 		perror("Error opening input file");
 		return -1;
 	}
-
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
@@ -119,7 +177,10 @@ int test_input(struct index *trie,char * filename)
 	while ((read = getline(&line, &len, fd)) != -1) {
 		//words_in = 1;
 		words_in = 0;
+		init_bloomfilter(bloomfilter);	//in every read of line we zero the bloom filter.
 		
+		//printf(YELLOW"Reset bloomfilter\n"RESET);
+		//free(bloomfilter);
 		word = strtok (line," \n");
 		while(word!=NULL){
 			//printf("Read this word: %s\n",word);
@@ -175,8 +236,8 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				printf("\n"); 
-				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+//				printf("\n"); 
+			//	command_error=search_in_trie(trie->root,ptr_table,words_in-1);   AYTO EDW NA VGEI APO COMMENTS
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
@@ -418,31 +479,6 @@ int append_word(trie_node *node,int pos,char *word,char is_final){
 		return SUCCESS ; //zero errors
 }
 
-/**int delete_ngram(trie_node *node,char **word,int word_number,int number_of_words){
-		int error;
-		stack *stack_=init_stack();
-		trie_node *root=node;
-		printf("in delete ngram\n");
-		while(word_number!=number_of_words){
-			printf("word is %s\n",word[word_number]);
-			if(node->number_of_childs==0) return ERROR;
-			else{
-				int pos;
-				int exists=check_exists_in_children(node,word[word_number],&pos);
-				if (exists==1){
-					push(stack_,pos); //push the position on the stack to remove it later
-					node=&(node->children[pos]);
-					word_number=word_number+1;
-				}
-				else error=1;	//error is 1 if the word is not on the trie , so the ngram is not in the trie
-				}
-		}
-		print_stack_(stack_);
-		if(node->number_of_childs!=0) return ERROR; //check if there are childs ont the node and return error if there are
-		 
-		return SUCCESS;//and return no error . the previous one is gonna delete it
-}*/
-
 int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words){
 		int error;
 		//printf("in delete ngram word \"%s\"\n",word[word_number]);
@@ -568,31 +604,6 @@ paths *init_paths(int rows,int columns){
 	return paths_;
 } 
 
-/*int check_in_paths(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
-	//printf("inside check in paths\n");
-	int number=get_stack_number(stack_);
-	int path_pos=0;
-	int found=1;
-	int pos,i,j;
-	for(i=0;i<number;i++){
-		pos=get_stack_elements(stack_,i);
-		for(j=0;j<paths_->words_in;j++){
-			if(paths_->paths_array[j][path_pos]==pos){
-				path_pos++;
-				break;
-			} //if it finds it continue with the next word
-		}
-		if(j==paths_->words_in) {found=0; break;} //if it doesnt find one node f the path then leave
- 			
-	}
-	if(found==0) {
-		add_to_paths(paths_,stack_); //add to paths and print it
-		print_nodes_from_stack(root,stack_);
-		
-	}
-	return found;
-}*/
-
 int check_in_paths3(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
 	//printf("inside check in paths\n");
 	int number=get_stack_number(stack_);
@@ -615,70 +626,6 @@ int check_in_paths3(paths *paths_, stack *stack_,trie_node *root){//initialize p
 	}
 	return found;
 }
-
-/*int check_in_paths2(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
-	//printf("inside check in paths\n");
-	int number=get_stack_number(stack_); //how many words the phrase has
-	int path_pos=0; //in which word on the paths i am in 
-	int found=0; //if the phrase path is found in paths
-	int pos; //pos in trie of the word of the phrase    
-	int i=0;
-	int j=0;
-	int first_pos=get_stack_elements(stack_,i);
-	while(paths_->paths_array[j][path_pos]<=first_pos && j!=paths_->words_in){
-		for(i=1;i<number;i++){
-			pos=get_stack_elements(stack_,i);
-			if(paths_->paths_array[j][i]!=pos) break; //if it finds it continue with the next word
-			}
-		if(i==number) {found=1; break;}
-		j++;
-		}
-	
- 	if(found==0) {
-		add_to_paths2(paths_,stack_); //add to paths and print it
-		print_nodes_from_stack(root,stack_);
-	}		
-	return found;
-}
-
-
-void add_to_paths2(paths *paths_, stack *stack_){
-	int path_num=paths_->words_in;
-	if(path_num==paths_->max_words) double_paths(paths_);
-	int number=get_stack_number(stack_);
-	int i ,pos;
-	i=0;
-	//printf("Found N gram: ");
-	pos=get_stack_elements(stack_,i);
-	if(i==paths_->words_in)i=0;
-	else{
-		while(paths_->paths_array[i][0]<pos && i<paths_->words_in) i++; //find first position
-		}
-	
-
-	path_num=i;
-	printf("\npath num is %d\n",path_num);
-	printf("words_in are %d\n",paths_->words_in);
-	if(path_num!=paths_->words_in && paths_->words_in!=0){
-		//printf("in move : %d\n",(paths_->words_in-path_num));
-		int **backup=paths_->paths_array;
-		//memmove(paths_->paths_array,backup,path_num*sizeof(backup[0]));
-		memmove(paths_->paths_array+(path_num+1),backup+path_num,(paths_->words_in-(path_num))*sizeof(backup[0]));
-
-	}
-	//paths_->words_in++;
-	//print_paths(paths_);
-	for(i=0;i<number;i++){
-		pos=get_stack_elements(stack_,i);
-		paths_->paths_array[path_num][i]=pos;
-	}
-	//printf("|");
-	paths_->words_in++;
-	print_paths(paths_);
-}
-
-*/
-
 void add_to_paths(paths *paths_, stack *stack_){
 	int path_num=paths_->words_in;
 	if(path_num==paths_->max_words) double_paths(paths_);
@@ -732,34 +679,40 @@ void print_paths(paths *paths_){
 	}
 }
 
-unsigned long hash(unsigned char *str){
-    unsigned long hash = 5381;
+unsigned long hash(unsigned char *str,int key){
+    unsigned long hash;
+
+	switch(key){
+		case 1 :
+			hash = 5381;		
+			break;
+		case 2 :
+			hash = 8377;			
+			break;
+		case 3 :
+			hash = 6607;			
+			break;
+		case 4 :
+			hash = 10061;			
+			break;
+		case 5 :
+			hash = 9133;			
+			break;
+		case 6 :
+			hash = 5981;			
+			break;
+		case 7 :
+			hash = 3163;			
+			break;
+		case 8 :
+			hash = 7127;			
+			break;
+}
     int c;
 
     while (c = *str++)
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 
-    return hash;
+    return hash%M;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
