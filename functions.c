@@ -111,7 +111,7 @@ int TestAllBits(int *bloom){
 	int a=M;
 	a/=8;
 	a/=sizeof(int);
-	for (i=0;i<a;i++){
+	for (i=0;i<M;i++){
 		if(TestBit(bloom,i)!=0)
 			return -1;
 	}
@@ -119,8 +119,11 @@ return 0;
 }
 
 
+
+
+
 void init_bloomfilter(int * bloom){
-	int i;/*
+	/*int i;
 	printf("size ison %lu\n",sizeof(bloom));
 	//for(i=0;i<((M/sizeof(int))/8);i++){
 for (i=0;i<M;i++){
@@ -133,18 +136,56 @@ for (i=0;i<M;i++){
 		}
 	}
 */
+//working 1
+/*
 	int a=M;
 	a/=8;
 	a/=sizeof(int);
 memset(bloom,0,a);
-//if(TestAllBits(bloom)==0)	
-		//	printf(BLUE"Freat Job %d %d\n"RESET,a,sizeof(int));
-		//else printf("Crap\n");
+if(TestAllBits(bloom)==0)	
+			printf(BLUE"Freat Job %d %lu\n"RESET,a,sizeof(int));
+		else printf("Crap\n");
+*/
+//end 1
 
+// not working 2
+/*
+int a = ((M/sizeof(int))/8);//cells in a int table
+int j;
+for(j=0;j<a;j++)
+	bloom[j] &=0;
+
+*/
+//end 2
+
+//not working 3
+/*
+	//for(i=0;i<((M/sizeof(int))/8);i++){
+int i;
+	for (i=0;i<M;i++){
+		ClearBit(bloom,i);
+		if(TestBit(bloom,i)!=0)
+			printf(GREEN"Good\n"RESET);
+		else
+			{
+			printf(RED"Bad\n"RESET);
+			
+			}
+}
+*/
+//end 3
+//wornking 4
+
+int i;
+for (i=0;i<M;i++){
+ClearBit(bloom,i);
+}
+
+//end 4
 }
 
 
-unsigned long hash(unsigned char *str,int key){
+unsigned long hash(/*unsigned*/ char *str,int key){
     unsigned long hash;
 
 	switch(key){
@@ -198,73 +239,34 @@ int i;
 for(i=1;i<=8;i++)
 {
 	a=hash(message,i);
-	if(TestBit(bloom,a))
-		printf(YELLOW"Bit is 1\n"RESET);
-	else printf("not well enough\n");
+	if(TestBit(bloom,a)==0)
+		printf(YELLOW"Bit is 0\n"RESET);
+	else 
+		printf(RED"Bit is 1\n"RESET);
 	
 }
 return 1;
 }
-/* Code that was coppied from not working part of the project. Check for differences
 
-
-
-void init_bloomfilter(int * bloom){
-	int i;
-
-//MK1
-	//for(i=0;i<((M/sizeof(int))/8);i++){
-	for (i=0;i<M;i++){
-		ClearBit(bloom,i);
-		if(TestBit(bloom,i)!=0)
-			//printf(GREEN"Good\n"RESET);
-		//else
-			{
-			printf(RED"Bad\n"RESET);
-			
-			}
-	}
-//*/MK2
-/*
-	int a=M;
-	a/=8;
-	a/=sizeof(int);
-//memset(bloom,0,a);
-//if(TestAllBits(bloom)==0)	
-		//	printf(BLUE"Freat Job %d %d\n"RESET,a,sizeof(int));
-		//else printf("Crap\n");
-*/
-
-
-//MK3
-/*
-int a = ((M/sizeof(int))/8);//cells in a int table
-int j;
-for(j=0;j<a;j++)
-	bloom[j] &=0;
-
-*/
-}
-
-
-
-*/
 
 int test_input(struct index *trie,char * filename)
 {
-	int bloomfilterbytes = ((M/sizeof(int))/8);
+	int bloomfilterbytes = (M/8);
+	printf("SHould keep %lu cells\n",(M/sizeof(int))/8);
 //	int  bloomfilter[bloomfilterbits];
 	int * bloomfilter = malloc(bloomfilterbytes);
 	init_bloomfilter(bloomfilter); 
 
-printf("\n\n\n\n\nstart\n");
+ printf("\n\n\n\n\nstart\n");
 	test("antonis and banos is good",bloomfilter);
-testcheck("antonis and banos is good",bloomfilter);
+ testcheck("antonis and banos is good",bloomfilter);
 init_bloomfilter(bloomfilter);
 printf("middle\n");
 printf("%d\n",TestAllBits(bloomfilter));
-testcheck("antonis and banos is good",bloomfilter);
+ testcheck("antonis and banos is good",bloomfilter);
 printf("\nend\n\n\n\n\n");
+
+
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	char **ptr_table = malloc(table_size*sizeof(char *));
 
@@ -278,6 +280,8 @@ printf("\nend\n\n\n\n\n");
 		perror("Error opening input file");
 		return -1;
 	}
+
+
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
@@ -289,10 +293,11 @@ printf("\nend\n\n\n\n\n");
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
 
+//edw skaei memory corryption
 	while ((read = getline(&line, &len, fd)) != -1) {
 		//words_in = 1;
 		words_in = 0;
-		init_bloomfilter(bloomfilter);	//in every read of line we zero the bloom filter.
+		//init_bloomfilter(bloomfilter);	//in every read of line we zero the bloom filter.
 		
 		//printf(YELLOW"Reset bloomfilter\n"RESET);
 		//free(bloomfilter);

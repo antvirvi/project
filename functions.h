@@ -86,4 +86,4 @@ void cleanup(char ** ptr);
 
 //part 2
 
-unsigned long hash(unsigned char *str, int key);
+unsigned long hash(/*unsigned*/ char *str, int key);

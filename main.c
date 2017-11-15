@@ -44,21 +44,21 @@ int main (int argc, char **argv )
 	printf("\nProgram executed in %f seconds\n",time_spent);
 	//print_trie(trie->root,0);
 unsigned long hs;
-	hs = hash((unsigned char *)"antonsi vrivilis",1);
+	hs = hash("antonsi vrivilis",1);
 	printf("--> %ld\n",hs);
-	hs = hash((unsigned char *)"antonsi vrivilis",2);
+	hs = hash("antonsi vrivilis",2);
 	printf("--> %ld\n",hs);
-	hs = hash((unsigned char *)"antonsi vrivilis",3);
+	hs = hash("antonsi vrivilis",3);
 	printf("--> %ld\n",hs);
-	hs = hash((unsigned char *)"antonsi vrivilis",4);
+	hs = hash("antonsi vrivilis",4);
 	printf("--> %ld\n",hs);
-	hs = hash((unsigned char *)"antonsi vrivilis",5);
+	hs = hash("antonsi vrivilis",5);
 	printf("--> %ld\n",hs);
-	hs = hash((unsigned char *)"antonsi vrivilis",6);
+	hs = hash("antonsi vrivilis",6);
 	printf("--> %ld\n",hs);
-	hs = hash((unsigned char *)"antonsi vrivilis",7);
+	hs = hash("antonsi vrivilis",7);
 	printf("--> %ld\n",hs);
-	hs = hash((unsigned char *)"antonsi vrivilis",8);
+	hs = hash("antonsi vrivilis",8);
 	printf("--> %ld\n",hs);
 
 
