@@ -9,10 +9,10 @@ default: project
 #
 
 project:  main.o functions.o stack.o
-	$(CC) $(CFLAGS) -o project main.o functions.o stack.o
+	$(CC) $(CFLAGS) -o project main.o functions.o stack.o -lm
 
 test_project:  test_main.o functions.o stack.o test.o
-	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o test.o
+	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o test.o -lm
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
@@ -38,6 +38,8 @@ clean:
 testrun:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init 
 
+testrun2:
+	  valgrind --leak-check=yes ./project -q test.work -i test.init 
 
 run:
 	./project -q small.work -i small.init 

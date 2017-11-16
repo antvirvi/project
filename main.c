@@ -28,7 +28,7 @@ int main (int argc, char **argv )
 	for(i=0;i<6;i++){
 		words[i]=malloc(15*sizeof(char));
 	}
-	strcpy(words[0],"test");
+	/*strcpy(words[0],"test");
 	strcpy(words[1],"this");
 	strcpy(words[2],"is");
 	strcpy(words[3],"a");
@@ -39,19 +39,57 @@ int main (int argc, char **argv )
 	insertTrieNode(hash,words,1);
 	insertTrieNode(hash,words,2);
 	insertTrieNode(hash,words,3);
-	print_hash(hash);
-	destroyLinearHash(hash);
-//	printf("Init %s\nQueries %s\n",init_file,query_file);
 
-	/*struct index *trie=malloc(sizeof(struct index));
-	trie->root=init_trie();
+	insertTrieNode(hash,&(words[1]),2);
+	insertTrieNode(hash,&(words[2]),2);
+	insertTrieNode(hash,&(words[4]),1);
+	print_hash(hash);
+	strcpy(words[0],"lets");
+	strcpy(words[1],"see");
+	strcpy(words[2],"whats");
+	strcpy(words[3],"happening");
+	strcpy(words[4],"now");
+	insertTrieNode(hash,words,5);
+	insertTrieNode(hash,&(words[3]),2);
+	insertTrieNode(hash,words,1);
+	insertTrieNode(hash,words,2);
+	insertTrieNode(hash,words,3);
+
+	insertTrieNode(hash,&(words[1]),2);
+	insertTrieNode(hash,&(words[2]),2);
+	insertTrieNode(hash,&(words[4]),1);
+	print_hash(hash);
+	int error=deleteTrieNode(hash,words,5);
+	printf("delete error is %d\n",error);
+	error=deleteTrieNode(hash,words,1);
+	printf("delete error is %d\n",error);
+	error=deleteTrieNode(hash,&(words[4]),1);
+	printf("delete error is %d\n",error);
+	print_hash(hash);
+	destroyLinearHash(hash);*/
+
+
+	for(i=0;i<6;i++){
+		free(words[i]);
+	}
+	free(words);
+	printf("Init %s\nQueries %s\n",init_file,query_file);
+
+	struct index *trie=malloc(sizeof(struct index));
+	trie->hash=createLinearHash(16,10);
+	//trie->root=init_trie();
 	if(init_input(trie,init_file)<0) return -1;
 
 	printf("before test input\n");
+	//print_hash(trie->hash);
 	if(test_input(trie,query_file)<0)
 		return -1;
-	
-
+	print_hash(trie->hash);
+	int hash_val=hash_function(trie->hash,"population");
+	printf("hash_val is %d\n",hash_val);
+	destroyLinearHash(trie->hash);
+	free(trie);
+	/*
 	printf("\n");
 	//print_trie(trie->root,0);
 	delete_trie(trie);

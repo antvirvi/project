@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "stack.h"
-#include "math.h"
 
 #ifndef WORD_SIZE
 #define WORD_SIZE 25
@@ -50,10 +49,9 @@ typedef struct paths{
 }paths;
 
 typedef struct hash_bucket{
-	//struct hash_bucket *overflow_bucket;
+	struct hash_bucket *overflow_bucket;
 	trie_node *children;
 	int children_number;
-	int capacity;
 }hash_bucket;
 
 typedef struct hash_layer{
@@ -106,17 +104,13 @@ void cleanup(char ** ptr);
 hash_layer	*createLinearHash(int c ,int m);
 void destroyLinearHash(hash_layer *hash);
 int insertTrieNode(hash_layer *hash,char **words,int word_number);
-int lookupTrieNode(hash_layer *hash,char **words,int word_number);
+int lookupTrieNode();
 
 trie_node *add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final);
 
 void shrink_buckets(hash_bucket *bucket,stack *stack_);
 void shrink_bucket(hash_bucket *bucket,stack *stack_,int first,int last);
 void print_hash(hash_layer *hash);
-int resize_hash(hash_layer *hash);
+int resize_hash(hash_layer *hash,int hash_val);
 void destroy_bucket_nodes(hash_bucket *bucket);
 void destroy_buckets(hash_bucket *bucket,int level);
-
-trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos);
-int deleteTrieNode(hash_layer *hash,char **words,int number_of_words);
-int  hash_function(hash_layer *hash, char *word);
