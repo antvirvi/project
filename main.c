@@ -1,3 +1,4 @@
+#include "bloomfilter.h"
 #include "functions.h"
 #include <errno.h>
 #include <time.h>
@@ -43,26 +44,15 @@ int main (int argc, char **argv )
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("\nProgram executed in %f seconds\n",time_spent);
 	//print_trie(trie->root,0);
-unsigned long hs;
-	hs = hash("antonsi vrivilis",1);
-	printf("--> %ld\n",hs);
-	hs = hash("antonsi vrivilis",2);
-	printf("--> %ld\n",hs);
-	hs = hash("antonsi vrivilis",3);
-	printf("--> %ld\n",hs);
-	hs = hash("antonsi vrivilis",4);
-	printf("--> %ld\n",hs);
-	hs = hash("antonsi vrivilis",5);
-	printf("--> %ld\n",hs);
-	hs = hash("antonsi vrivilis",6);
-	printf("--> %ld\n",hs);
-	hs = hash("antonsi vrivilis",7);
-	printf("--> %ld\n",hs);
-	hs = hash("antonsi vrivilis",8);
-	printf("--> %ld\n",hs);
+printf("Here\n");
+	char * str =  malloc(sizeof("antonis")+1);
+	str = strcpy(str, "Antonis");
+	str = myappend(str, "and");
+	str = myappend(str, "Panos");
+	str = myappend(str, "work");
+	str = myappend(str, "together");
+	printf("Myappend: %s\n",str);
 
-
-printf("Marahia Carrey %lu\n",bitsint);
 //int * array[(M/sizeof(int))/8];
 //init_bloomfilter(array);
 	return 0;	

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "stack.h"
+//#include "bloomfilter.h"
 
 #ifndef WORD_SIZE
 #define WORD_SIZE 25
@@ -24,7 +25,7 @@
 #endif
 
 #define PATH_COLUMN 10
-#define M 8192 //size of  bitvector bloomfilter in bits, should be good for ut to 8000 words
+
 
 
 //#define STACK_NUMBER 10
@@ -85,5 +86,5 @@ void cleanup(char ** ptr);
 
 
 //part 2
-
-unsigned long hash(/*unsigned*/ char *str, int key);
+char * myappend(char * word, char * string);
+//unsigned long hash(/*unsigned*/ char *str, int key);

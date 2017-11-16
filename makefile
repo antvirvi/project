@@ -8,11 +8,11 @@ default: project
 # countwords.o, counter.o, and scanner.o:
 #
 
-project:  main.o functions.o stack.o
-	$(CC) $(CFLAGS) -o project main.o functions.o stack.o
+project:  main.o functions.o stack.o bloomfilter.o
+	$(CC) $(CFLAGS) -o project main.o functions.o stack.o bloomfilter.o
 
-test_project:  test_main.o functions.o stack.o test.o
-	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o test.o
+test_project:  test_main.o functions.o stack.o test.o bloomfilter.o
+	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o test.o bloomfilter.o
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
@@ -28,6 +28,9 @@ test.o: test.c functions.h
 
 functions.o:  functions.c functions.h 
 	$(CC) $(CFLAGS) -c functions.c
+
+bloomfilter.o:  bloomfilter.c bloomfilter.h 
+	$(CC) $(CFLAGS) -c bloomfilter.c
 
 stack.o:  stack.c stack.h 
 	$(CC) $(CFLAGS) -c stack.c
