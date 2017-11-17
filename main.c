@@ -76,7 +76,7 @@ int main (int argc, char **argv )
 	printf("Init %s\nQueries %s\n",init_file,query_file);
 
 	struct index *trie=malloc(sizeof(struct index));
-	trie->hash=createLinearHash(16,10);
+	trie->hash=createLinearHash(C,1);
 	//trie->root=init_trie();
 	if(init_input(trie,init_file)<0) return -1;
 
@@ -84,15 +84,13 @@ int main (int argc, char **argv )
 	//print_hash(trie->hash);
 	if(test_input(trie,query_file)<0)
 		return -1;
-	print_hash(trie->hash);
-	int hash_val=hash_function(trie->hash,"population");
-	printf("hash_val is %d\n",hash_val);
+	//print_hash(trie->hash);
 	destroyLinearHash(trie->hash);
 	free(trie);
-	/*
+	
 	printf("\n");
 	//print_trie(trie->root,0);
-	delete_trie(trie);
+	//delete_trie(trie);
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("\nProgram executed in %f seconds\n",time_spent);

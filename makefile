@@ -43,6 +43,8 @@ testrun2:
 
 run:
 	./project -q small.work -i small.init 
+run2:
+	./project -q test.work -i test.init 
 pipe:
 	  ./project -q small.work -i small.init > results.txt
 
