@@ -75,14 +75,12 @@ int init_input(struct index *trie,char * filename){
 			}
 		//	ptr_table[words_in] = malloc(word_size*sizeof(char));
 			strcpy(ptr_table[words_in],word);
-			//printf("Kuru word = %s\n",ptr_table[words_in]);
 			words_in++;
 			word=strtok(NULL," \n");
 		}
 		//append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
 		append_trie_node(trie->root,ptr_table,0,words_in-1);
 	}
-	//printf ("free\n");
 	free(line);
 	cleanup(ptr_table);
 	fclose(fd);
@@ -139,7 +137,6 @@ int test_input(struct index *trie,char * filename)
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
 
-//edw skaei memory corryption
 	while ((read = getline(&line, &len, fd)) != -1) {
 		//words_in = 1;
 		words_in = 0;
@@ -194,6 +191,7 @@ int test_input(struct index *trie,char * filename)
 
 				//ptr_table[words_in] = malloc(word_size*sizeof(char));
 			strcpy(ptr_table[words_in],word);
+//			printf("|%s",word);
 				
 				words_in++;				
 			}
@@ -202,7 +200,7 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-//				printf("\n"); 
+				//printf("\n"); 
 				command_error=search_in_trie(trie->root,ptr_table,words_in-1);   //AYTO EDW NA VGEI APO COMMENTS
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
@@ -510,13 +508,14 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 
 	while(start!=number_of_words+1) {
 		str=malloc(20*sizeof(char));
+		strcpy(str,"");
 		word_number=start;
 		node=root;
 		while(node->number_of_childs!=0) {
 			//printf("word number :%d %s\n",word_number,word[word_number]);
 			if(node->is_final=='y') {
 					if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s\n",str); 
+						printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
 					}
 				}
@@ -529,7 +528,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 		}
 		if(exists==1) {
 			if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s\n",str); 
+						printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
 					}
 		}
@@ -539,6 +538,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 		//reset_stack(stack_);
 		start++;
 	}
+	printf("\n");
 	int found=SUCCESS;
 	if(TestAllBits(bloomfilter)==0) found=-1;
 	//print_paths(paths_);
@@ -677,7 +677,6 @@ char * myappend_1(char * string, char * word){
 }
 
 char * myappend(char * string, char * word){
-	printf("START: %s|%s\n",string,word);
 	if(string==NULL) 
 		string = malloc(0);
 	size_t new_length = strlen(string)+strlen(word)+2;
@@ -689,8 +688,15 @@ char * myappend(char * string, char * word){
 //	string =  realloc(string,new_length);
 //	strcpy(string,string2);
 	free(string);
-	printf("END  : %s\n\n",string2);
+
+	if(string2[0] == ' ') //lets chop off the first space in each n gram
+	{
+		int i;
+		for(i=0;i<strlen(string2);i++)
+			string2[i]=string2[i+1];
+	}
 	return string2;
+
 }
 
 
