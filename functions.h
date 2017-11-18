@@ -25,8 +25,12 @@
 #endif
 
 #define PATH_COLUMN 10
+/*
 
-
+int buffer_size = 16;
+int word_size = 8;
+int table_size = 4;
+*/
 
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
@@ -87,4 +91,5 @@ void cleanup(char ** ptr);
 
 //part 2
 char * myappend(char * word, char * string);
+char * myappend1(char * word, char * string);
 //unsigned long hash(/*unsigned*/ char *str, int key);

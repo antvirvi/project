@@ -2,6 +2,17 @@
 #include "bloomfilter.h"
 //#include "libraries.h"
 
+
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CYAN    "\x1b[36m"
+#define RESET   "\x1b[0m"
+
+
+
 //Second Part of Project
 
 //#define ClearBit(A,k)   ( A[(k/sizeof(int))] &= ~(1 << (k%sizeof(int))) )
@@ -80,7 +91,7 @@ int init_input(struct index *trie,char * filename){
 
 
 int test_input(struct index *trie,char * filename)
-{
+{/*
 	int bloomfilterbytes = (M/8);
 	printf("SHould keep %lu cells\n",(M/sizeof(int))/8);
 //	int  bloomfilter[bloomfilterbits];
@@ -90,7 +101,7 @@ int test_input(struct index *trie,char * filename)
 
 	bloomfilter_add("antonis and banos is good",bloomfilter); //add a message to bloomfilter
 // 	testcheck("2antonis and banos is good",bloomfilter); //check if a message is stored in bloomfilter
-	if(bloomfilter_check("Αntonis and banos is good",bloomfilter)==0)
+	if(bloomfilter_check("antonis and banos is good",bloomfilter)==0)
 		printf("The test message is not stored\n");
 	else
 		printf("the string may be stored\n");
@@ -101,7 +112,7 @@ int test_input(struct index *trie,char * filename)
 		printf("The test message is not stored\n");
 	else
 		printf("the string may be stored\n");
-
+*/
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	char **ptr_table = malloc(table_size*sizeof(char *));
 
@@ -175,7 +186,7 @@ int test_input(struct index *trie,char * filename)
 						ptr_table[a]=malloc(word_size*sizeof(char));
 					}
 				}
-				if(strlen(word)>=word_size){
+				while(strlen(word)>=word_size){
 					word_size*=2;
 					for(a=0;a<table_size;a++)
 						ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
@@ -192,7 +203,7 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 //				printf("\n"); 
-			//	command_error=search_in_trie(trie->root,ptr_table,words_in-1);   AYTO EDW NA VGEI APO COMMENTS
+				command_error=search_in_trie(trie->root,ptr_table,words_in-1);   //AYTO EDW NA VGEI APO COMMENTS
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
@@ -484,43 +495,58 @@ int delete_from_node(trie_node *node,int pos){
 
 int search_in_trie(trie_node *root,char **word,int number_of_words){
 	//printf("Inside search\n");
-	stack *stack_=init_stack();
+	//stack *stack_=init_stack();
+
+	size_t bloomfilterbytes = (M/8);
+	int * bloomfilter = malloc(bloomfilterbytes);
+	bloomfilter_init(bloomfilter);
+
+	char *str;;
 	int word_number;
 	int exists;
 	int pos;
 	trie_node *node;
 	int start=0;
-	paths *paths_=init_paths(4,10); //rows columns
+
 	while(start!=number_of_words+1) {
+		str=malloc(20*sizeof(char));
 		word_number=start;
 		node=root;
 		while(node->number_of_childs!=0) {
 			//printf("word number :%d %s\n",word_number,word[word_number]);
 			if(node->is_final=='y') {
-				//print_nodes_from_stack(root,stack_);
-				check_in_paths3(paths_,stack_,root); //I found it
+					if(bloomfilter_check(str,bloomfilter)==0){
+						printf("%s\n",str); 
+						bloomfilter_add(str,bloomfilter);
+					}
 				}
 			exists=check_exists_in_children(node,word[word_number],&pos);
-			if(exists==0) break;
-			//printf("I am gonna push : %d\n",pos);
-			push(stack_,pos);
+			if(exists==0) 
+				break;
+			str = myappend(str,word[word_number]);
 			node=&(node->children[pos]);
 			word_number++;
 		}
 		if(exists==1) {
-			check_in_paths3(paths_,stack_,root);
-			//print_nodes_from_stack(root,stack_);
+			if(bloomfilter_check(str,bloomfilter)==0){
+						printf("%s\n",str); 
+						bloomfilter_add(str,bloomfilter);
+					}
 		}
-		reset_stack(stack_);
+//		memset(0,str,sizeof(str));
+//		str[0]='\0';
+		free(str);
+		//reset_stack(stack_);
 		start++;
 	}
 	int found=SUCCESS;
-	if(paths_->words_in==0) found=-1;
+	if(TestAllBits(bloomfilter)==0) found=-1;
 	//print_paths(paths_);
-	stack_destroy(stack_);
-	delete_paths(paths_); //rows	
+//	free(str);
+	free(bloomfilter);
 	return found;
 	if(exists==0) return ERROR;
+//	free(str);
 	
 	return SUCCESS;	
 
@@ -634,13 +660,37 @@ void print_paths(paths *paths_){
 	}
 }
 
-
-char * myappend(char * string, char * word){
-	if(sizeof(string)<(strlen(string)+strlen(word)+1))
-		string = realloc(string, sizeof(string)+sizeof(word)+sizeof(char));
-	strcat(string," ");
-	strcat(string,word);
+char * myappend_1(char * string, char * word){
+	if(string==NULL) 
+		string = malloc(0);
+	char *string2;
+	string2 = malloc(strlen(string)+strlen(word)+2);
+	strcpy(string2,string);
+	strcat(string2," ");
+	strcat(string2,word);
+	size_t new_length = strlen(string)+strlen(word)+2;
+	string =  realloc(string,new_length);
+	strcpy(string,string2);
+	free(string2);
 
 	return string;
-
 }
+
+char * myappend(char * string, char * word){
+	printf("START: %s|%s\n",string,word);
+	if(string==NULL) 
+		string = malloc(0);
+	size_t new_length = strlen(string)+strlen(word)+2;
+	char *string2;
+	string2 = malloc(new_length);
+	strcpy(string2,string);
+	strcat(string2," ");
+	strcat(string2,word);
+//	string =  realloc(string,new_length);
+//	strcpy(string,string2);
+	free(string);
+	printf("END  : %s\n\n",string2);
+	return string2;
+}
+
+

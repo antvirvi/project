@@ -1,5 +1,6 @@
 #include "bloomfilter.h"
 #include "functions.h"
+
 #include <errno.h>
 #include <time.h>
 
@@ -43,17 +44,5 @@ int main (int argc, char **argv )
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("\nProgram executed in %f seconds\n",time_spent);
-	//print_trie(trie->root,0);
-printf("Here\n");
-	char * str =  malloc(sizeof("antonis")+1);
-	str = strcpy(str, "Antonis");
-	str = myappend(str, "and");
-	str = myappend(str, "Panos");
-	str = myappend(str, "work");
-	str = myappend(str, "together");
-	printf("Myappend: %s\n",str);
-
-//int * array[(M/sizeof(int))/8];
-//init_bloomfilter(array);
 	return 0;	
 }

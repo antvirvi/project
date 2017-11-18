@@ -3,7 +3,9 @@
 #include <string.h>
 #include <ctype.h>
 #include <errno.h>
-//#include "libraries.h"
+
+
+#define BITSINT 32 //number of bitds in an int
 
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
@@ -12,9 +14,6 @@
 #define MAGENTA "\x1b[35m"
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
-
-#define BITSINT 32 //number of bitds in an int
-
 
 int buffer_size = 16;
 int word_size = 8;

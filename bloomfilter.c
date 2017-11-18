@@ -1,6 +1,8 @@
 #include "bloomfilter.h"
 #include "libraries.h"
 
+
+
 void SetBit(int *A, int k){
 	int i = k/32;            // i = array index (use: A[i])
 	int pos = k%32;          // pos = bit position in A[i]
@@ -37,9 +39,9 @@ int TestAllBits(int *bloom){
 	a/=sizeof(int);
 	for (i=0;i<M;i++){
 		if(TestBit(bloom,i)!=0)
-			return -1;
+			return 1; //paizei kai na uparxei
 	}
-return 0;
+return 0; //sigoura den uparxei
 }
 
 
@@ -110,7 +112,7 @@ ClearBit(bloom,i);
 
 
 unsigned long hash( char *str,int key){
-    unsigned long hash;
+    unsigned long hash=0;
 
 	switch(key){
 		case 1 :
@@ -164,12 +166,12 @@ int bloomfilter_check(char * message,int *bloom){
 	{
 		a=hash(message,i);
 		if(TestBit(bloom,a)==0){
-			printf(RED"The string is not storred\n"RESET);
+	//		printf(RED"The string is not storred\n"RESET);
 			return 0;
 		}
 	//returns 0 if there is one bit 0, or 1 if all of them are 1.	
 	}
-printf(YELLOW"The string may be storred\n"RESET);
+//printf(YELLOW"The string may be storred\n"RESET);
 return 1;
 }
 
