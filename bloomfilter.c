@@ -1,7 +1,8 @@
 #include "bloomfilter.h"
 #include "libraries.h"
-
-
+#include "murmur3.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void SetBit(int *A, int k){
 	int i = k/32;            // i = array index (use: A[i])
@@ -148,29 +149,112 @@ unsigned long hash( char *str,int key){
     return hash%M;
 }
 
-int bloomfilter_add(char * message,int *bloom){
-unsigned long a;
-int i;
-for(i=1;i<=8;i++)
+/*
+int ModuloByDigits(int previousValue, int modulo)
+    {
+        return ((previousValue * 10) % modulo);
+    }
+    
+
+void mod(char * input){
+        int modulo = 97;
+//        char * input = "100020778788920323232343433";
+        int result = 0;
+        int lastRowValue = 1;
+		char c;
+        for (int i = 0; i < strlen(input); i++){
+		
+            if (i > 0){
+                lastRowValue = ModuloByDigits(lastRowValue, modulo);
+            }
+			c = input[i];
+            result += lastRowValue * (c-48);
+        }
+        result = result % modulo;
+		printf("Input : %s\n",input);
+        printf("Result: %d\n", result);
+}*/
+int mymod(char * input,int mod)
 {
-	a=hash(message,i);
-	SetBit(bloom,a);
-	
-}return 0;
+	int a = 0;
+	int len = strlen(input);
+	int ret = 0;
+	int c;
+	int dec = 0;
+
+	for(a=0;a<len;a++){
+		if(input[a]>57)
+			c = (input[a]-'a');
+		else 
+			c = (input[a]-'0');
+		
+		ret += (c*16);
+		ret = ret % mod;
+		dec +=(c*16);
+printf("%d %s %d %d\n",ret, input, dec, mod);
+	}
+
+return ret;
 }
 
+
+void hash2(const void *in_string, int *ptr, int key){
+
+	uint64_t * hash =  malloc(2*sizeof(uint64_t));
+
+	MurmurHash3_x64_128(in_string,strlen(in_string),key,hash);
+	//uint64_t var = hash[0]%M;
+//	printf("Sofina Lazaraki%lu\n",var);
+	ptr[0] = hash[0]%M;
+	ptr[1] = hash[1]%M;
+	//printf("Sofina %d %d\n",ptr[0],ptr[1]);
+
+}
+
+
+
+int bloomfilter_add(char * message,int *bloom){
+	int *hashvalue1 = malloc(2*sizeof(int));
+	int *hashvalue2 = malloc(2*sizeof(int));
+	int *hashvalue3 = malloc(2*sizeof(int));
+
+		hash2(message,hashvalue1,16);
+		hash2(message,hashvalue2,32);
+		hash2(message,hashvalue3,64);
+
+		SetBit(bloom,hashvalue1[0]);
+		SetBit(bloom,hashvalue1[1]);
+
+		SetBit(bloom,hashvalue2[0]);
+		SetBit(bloom,hashvalue2[1]);
+
+		SetBit(bloom,hashvalue3[0]);
+		SetBit(bloom,hashvalue3[1]);
+return 0;
+}
+
+
 int bloomfilter_check(char * message,int *bloom){
-	unsigned long a;
-	int i;
-	for(i=1;i<=8;i++)
-	{
-		a=hash(message,i);
-		if(TestBit(bloom,a)==0){
+	int *hashvalue1 = malloc(2*sizeof(uint64_t));
+	int *hashvalue2 = malloc(2*sizeof(uint64_t));
+	int *hashvalue3 = malloc(2*sizeof(uint64_t));
+
+		hash2(message,hashvalue1,16);
+		hash2(message,hashvalue2,32);
+		hash2(message,hashvalue3,64);
+
+		if((TestBit(bloom,hashvalue1[0])==0)
+		  ||(TestBit(bloom,hashvalue1[1])==0)
+		  ||(TestBit(bloom,hashvalue2[0])==0)
+		  ||(TestBit(bloom,hashvalue2[1])==0)
+		  ||(TestBit(bloom,hashvalue3[0])==0)
+		  ||(TestBit(bloom,hashvalue3[1])==0))
+		{
 	//		printf(RED"The string is not storred\n"RESET);
 			return 0;
 		}
 	//returns 0 if there is one bit 0, or 1 if all of them are 1.	
-	}
+	
 //printf(YELLOW"The string may be storred\n"RESET);
 return 1;
 }

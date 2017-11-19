@@ -489,6 +489,51 @@ int delete_from_node(trie_node *node,int pos){
 		//free(node_to_delete->children);
 		return SUCCESS ; //zero e-rrors
 }
+int search_in_trie_without_blfilter(trie_node *root,char **word,int number_of_words){
+	//printf("Inside search\n");
+	stack *stack_=init_stack();
+	int word_number;
+	int exists;
+	int pos;
+	trie_node *node;
+	int start=0;
+	paths *paths_=init_paths(4,10); //rows columns
+	while(start!=number_of_words+1) {
+		word_number=start;
+		node=root;
+		while(node->number_of_childs!=0) {
+			//printf("word number :%d %s\n",word_number,word[word_number]);
+			if(node->is_final=='y') {
+				//print_nodes_from_stack(root,stack_);
+				check_in_paths3(paths_,stack_,root); //I found it
+				}
+			exists=check_exists_in_children(node,word[word_number],&pos);
+			if(exists==0) break;
+			//printf("I am gonna push : %d\n",pos);
+			push(stack_,pos);
+			node=&(node->children[pos]);
+			word_number++;
+		}
+		if(exists==1) {
+			check_in_paths3(paths_,stack_,root);
+			//print_nodes_from_stack(root,stack_);
+		}
+		reset_stack(stack_);
+		start++;
+	}
+	printf("\n");
+	int found=SUCCESS;
+	if(paths_->words_in==0) found=-1;
+	//print_paths(paths_);
+	stack_destroy(stack_);
+	delete_paths(paths_); //rows	
+	return found;
+	if(exists==0) return ERROR;
+	
+	return SUCCESS;	
+
+
+}
 
 
 int search_in_trie(trie_node *root,char **word,int number_of_words){

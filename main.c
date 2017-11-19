@@ -8,7 +8,7 @@
 #define bitsint sizeof(int)*8
 
 int main (int argc, char **argv )
-{	clock_t begin = clock();
+{//	clock_t begin = clock();
 	int c;
 	char init_file[16];
 	char query_file[16];
@@ -33,16 +33,16 @@ int main (int argc, char **argv )
 	trie->root=init_trie();
 	if(init_input(trie,init_file)<0) return -1;
 
-	printf("before test input\n");
 	if(test_input(trie,query_file)<0)
 		return -1;
-	
-
+	printf("O panos einai xondros kai trwei\n");
+//char * sss= "c84d445d fb3eee5d f5f41cb7 0f2b494c";
+//mymod(sss,8192);
 	printf("\n");
 	//print_trie(trie->root,0);
 	delete_trie(trie);
-	clock_t end = clock();
-	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("\nProgram executed in %f seconds\n",time_spent);
+//	clock_t end = clock();
+//	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+//	printf("\nProgram executed in %f seconds\n",time_spent);
 	return 0;	
 }
