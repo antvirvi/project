@@ -25,7 +25,6 @@ extern int table_size;
 int reset = 0;
 
 
-
 void printtable(char **pt, int num){
 	int a;
 	for(a=0;a<=num;a++){
