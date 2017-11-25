@@ -1,7 +1,7 @@
 #include "functions.h"
 #include "top.h"
 #include "bloomfilter.h"
-//#include "libraries.h"
+#include "libraries.h"
 
 
 #define RED     "\x1b[31m"
@@ -20,6 +20,9 @@
 //#define TestBit(A,k)    ( A[(k/sizeof(int))] & (1 << (k%sizeof(int))) ) 
 //#define SetBit(A,k)     ( A[(k/sizeof(int))] |= (1 << (k%sizeof(int))) )
 
+/*extern*/ int buffer_size = 16;
+/*extern*/ int word_size = 8;
+/*extern*/ int table_size = 4;
 
 int reset = 0;
 
@@ -742,4 +745,23 @@ char * myappend(char * string, char * word){
 
 }
 
+void test(void){  //test function to call other functions instead of main
 
+kframes *kfrm=NULL;
+kfrm = create_gram_table(kfrm);
+
+kfrm = init_gram_table(kfrm);
+kfrm = add_gram_table(kfrm, "antonis");
+kfrm = add_gram_table(kfrm, "thanasis");
+kfrm = add_gram_table(kfrm, "panos");
+end_gram_table(kfrm);
+kfrm = add_gram_table(kfrm, "thima");
+kfrm = add_gram_table(kfrm, "panda");
+kfrm = add_gram_table(kfrm, "panda2");
+kfrm = add_gram_table(kfrm, "panda3");
+kfrm = add_gram_table(kfrm, "panda4");
+kfrm = add_gram_table(kfrm, "panda5");
+end_gram_table(kfrm);
+print_gram_table(kfrm);
+
+}

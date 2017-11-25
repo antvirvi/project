@@ -1,12 +1,17 @@
+#ifndef VAR
+#define VAR
 #include "libraries.h"
+#endif
 
-int table_ngram_size = 100;
+extern int table_ngram_size;
 
 typedef struct kframes{
 int capacity;
 int occupied;
 char ** ngrams;
 int  *  k;
+int   q;
+int * ends;
 }kframes;
 
 
@@ -27,6 +32,6 @@ return kf;
 }
 */
 void print_gram_table(kframes *kf);
-
+void end_gram_table(kframes *kf);
 
 void erase_gram_table(kframes * kf);

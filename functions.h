@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "stack.h"
+
 //#include "bloomfilter.h"
 
 #ifndef WORD_SIZE
@@ -26,11 +27,6 @@
 
 #define PATH_COLUMN 10
 
-/*
-extern int buffer_size;
-extern int word_size;
-extern int table_size;
-*/
 
 typedef struct trie_node{
 	char static_word[WORD_SIZE];
@@ -90,3 +86,4 @@ void cleanup(char ** ptr);
 char * myappend(char * word, char * string);
 char * myappend1(char * word, char * string);
 //unsigned long hash(/*unsigned*/ char *str, int key);
+void test(void);

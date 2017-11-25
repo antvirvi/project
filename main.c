@@ -1,6 +1,5 @@
 //#include "bloomfilter.h"
 #include "functions.h"
-
 #include <errno.h>
 #include <time.h>
 
@@ -8,7 +7,7 @@
 #define bitsint sizeof(int)*8
 
 int main (int argc, char **argv )
-{//	clock_t begin = clock();
+{	clock_t begin = clock();
 	int c;
 	char init_file[16];
 	char query_file[16];
@@ -41,8 +40,11 @@ int main (int argc, char **argv )
 	printf("\n");
 	//print_trie(trie->root,0);
 	delete_trie(trie);
-//	clock_t end = clock();
-//	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-//	printf("\nProgram executed in %f seconds\n",time_spent);
+
+printf("boom\n");
+test();
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("____________________________________\nProgram executed in %f seconds\n",time_spent);
 	return 0;	
 }

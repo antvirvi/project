@@ -1,13 +1,16 @@
 #include "top.h"
 
-//extern int table_ngram_size;
+ int table_ngram_size = 30;
 /*
 typedef struct kframes{
 int capacity;
 int occupied;
 char ** ngrams;
 int  *  k;
-};
+int   q;
+int * ends;
+}kframes;
+
 */
 //table holding all the ngramms
 kframes *create_gram_table(kframes * kf){
@@ -17,6 +20,8 @@ kframes *create_gram_table(kframes * kf){
 	kf->k = malloc(table_ngram_size*sizeof(int));
 	kf->capacity = table_ngram_size;
 	kf->occupied = 0;
+	kf->q = 0;
+	kf->ends = malloc(sizeof(int*));
 
 return kf;
 }
@@ -33,6 +38,7 @@ return kf;
 kframes *init_gram_table(kframes * kf){
 
 	kf->occupied = 0;
+	kf->q = 0;
 
 return kf;
 }
@@ -62,11 +68,26 @@ return kf;
 void print_gram_table(kframes *kf){
 
 	int i;
-	for(i=0;i<kf->capacity;i++){
-		printf("%s",kf->ngrams[i]);
+	int j=0;
+	int * ptr;
+	ptr = kf->ends;
+	for(i=0;i<kf->occupied;i++){ 
+		printf("%s",kf->ngrams[i]);  //ean ftasoume sto telos enos q prepei na orisoume tin allagi gramis kai to oxi "|"
+		if(ptr[j]==i){
+			printf("\n");
+			j++;
+		}
+		else
+			printf("|");
 	}
 }
 
+void end_gram_table(kframes *kf){
+	kf->ends[kf->q]=(kf->occupied)-1;
+	kf->ends = realloc(kf->ends,((kf->q)+1)*(sizeof(int)));
+	kf->ends[(kf->q)+1] = -1;
+	kf->q++;
+}
 
 void erase_gram_table(kframes * kf){
 	int i;
