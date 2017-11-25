@@ -1,4 +1,5 @@
 #include "functions.h"
+#include "top.h"
 #include "bloomfilter.h"
 //#include "libraries.h"
 
@@ -19,9 +20,7 @@
 //#define TestBit(A,k)    ( A[(k/sizeof(int))] & (1 << (k%sizeof(int))) ) 
 //#define SetBit(A,k)     ( A[(k/sizeof(int))] |= (1 << (k%sizeof(int))) )
 
-extern int buffer_size;
-extern int word_size;
-extern int table_size;
+
 int reset = 0;
 
 

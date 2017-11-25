@@ -1,4 +1,4 @@
-#include "bloomfilter.h"
+//#include "bloomfilter.h"
 #include "functions.h"
 
 #include <errno.h>

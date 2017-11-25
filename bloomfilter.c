@@ -1,6 +1,5 @@
 #include "bloomfilter.h"
-#include "libraries.h"
-#include "murmur3.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 

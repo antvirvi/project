@@ -25,15 +25,12 @@
 #endif
 
 #define PATH_COLUMN 10
+
 /*
-
-int buffer_size = 16;
-int word_size = 8;
-int table_size = 4;
+extern int buffer_size;
+extern int word_size;
+extern int table_size;
 */
-
-//#define STACK_NUMBER 10
-//#define STACK_EMPTY -1
 
 typedef struct trie_node{
 	char static_word[WORD_SIZE];
