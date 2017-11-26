@@ -1,7 +1,5 @@
 #include "functions.h"
-#include "top.h"
-#include "bloomfilter.h"
-#include "libraries.h"
+
 
 
 #define RED     "\x1b[31m"
@@ -126,13 +124,16 @@ int test_input(struct index *trie,char * filename)
 		return -1;
 	}
 
+	kframes *kfrm=NULL;  //struct for the top k frames and printing after F
+	kfrm = create_gram_table(kfrm);
+	kfrm = init_gram_table(kfrm);
 
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
 	char *word;
 	int command_error;
-
+//	char * ngram;
 	//paths *paths_=init_paths(4,10); 
 
 	for(a=0;a<table_size;a++)
@@ -161,6 +162,7 @@ int test_input(struct index *trie,char * filename)
 				flag=3;
 			}
 			else if(strcmp(word,"F")==0){
+				print_gram_table(kfrm);
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
 				/*
 				cleanup(ptr_table);
@@ -202,7 +204,7 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 				//printf("\n"); 
-				command_error=search_in_trie(trie->root,ptr_table,words_in-1);   //AYTO EDW NA VGEI APO COMMENTS
+				command_error=search_in_trie(trie->root,ptr_table,words_in-1,kfrm);   //AYTO EDW NA VGEI APO COMMENTS
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
@@ -537,7 +539,7 @@ int search_in_trie_without_blfilter(trie_node *root,char **word,int number_of_wo
 }
 
 
-int search_in_trie(trie_node *root,char **word,int number_of_words){
+int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf){
 	//printf("Inside search\n");
 	//stack *stack_=init_stack();
 
@@ -561,8 +563,10 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 			//printf("word number :%d %s\n",word_number,word[word_number]);
 			if(node->is_final=='y') {
 					if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s|",str); 
+					//	printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
+						kf = add_gram_table(kf,str);
+									
 					}
 				}
 			exists=check_exists_in_children(node,word[word_number],&pos);
@@ -574,17 +578,20 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 		}
 		if(exists==1) {
 			if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s|",str); 
+					//	printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
+						kf = add_gram_table(kf,str);
 					}
 		}
 //		memset(0,str,sizeof(str));
 //		str[0]='\0';
+		end_gram_table(kf);
 		free(str);
 		//reset_stack(stack_);
 		start++;
 	}
 	printf("\n");
+//	end_gram_table(kf);
 	int found=SUCCESS;
 	if(TestAllBits(bloomfilter)==0) found=-1;
 	//print_paths(paths_);
@@ -743,6 +750,14 @@ char * myappend(char * string, char * word){
 	}
 	return string2;
 
+}
+
+char * detableize(char * str, char ** table){
+	int i;
+	for (i=0;i<table_size;i++)
+		str = myappend(str,table[i]);
+
+return str;
 }
 
 void test(void){  //test function to call other functions instead of main

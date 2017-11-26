@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "stack.h"
+#include "top.h"
+#include "bloomfilter.h"
+#include "libraries.h"
 
 //#include "bloomfilter.h"
 
@@ -57,7 +60,7 @@ trie_node *init_trie();
 void delete_trie(struct index *trie);
 void destroy_childs(trie_node *node);
 int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
-int search_in_trie(trie_node *root,char **word,int number_of_words);
+int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf);
 int check_exists_in_children(trie_node *node,char *word,int *pos);
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words);
 int delete_from_node(trie_node *node,int pos);
@@ -87,3 +90,4 @@ char * myappend(char * word, char * string);
 char * myappend1(char * word, char * string);
 //unsigned long hash(/*unsigned*/ char *str, int key);
 void test(void);
+char * detableize(char * str, char ** table);
