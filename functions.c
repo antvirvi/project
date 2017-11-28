@@ -223,6 +223,7 @@ int test_input(struct index *trie,char * filename)
   	free(line);
 	cleanup(ptr_table);
 	fclose(fd);
+	erase_gram_table(kfrm);
 	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
 	
 return 0;
@@ -585,13 +586,13 @@ int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf)
 		}
 //		memset(0,str,sizeof(str));
 //		str[0]='\0';
-		end_gram_table(kf);
+//		end_gram_table(kf);
 		free(str);
 		//reset_stack(stack_);
 		start++;
 	}
-	printf("\n");
-//	end_gram_table(kf);
+	//printf("\n");
+	end_gram_table(kf);
 	int found=SUCCESS;
 	if(TestAllBits(bloomfilter)==0) found=-1;
 	//print_paths(paths_);

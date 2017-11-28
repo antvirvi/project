@@ -206,13 +206,14 @@ void hash2(const void *in_string, int *ptr, int key){
 //	printf("Sofina Lazaraki%lu\n",var);
 	ptr[0] = hash[0]%M;
 	ptr[1] = hash[1]%M;
+free(hash);
 	//printf("Sofina %d %d\n",ptr[0],ptr[1]);
 
 }
 
 
 
-int bloomfilter_add(char * message,int *bloom){
+void bloomfilter_add(char * message,int *bloom){
 	int *hashvalue1 = malloc(2*sizeof(int));
 	int *hashvalue2 = malloc(2*sizeof(int));
 	int *hashvalue3 = malloc(2*sizeof(int));
@@ -229,7 +230,11 @@ int bloomfilter_add(char * message,int *bloom){
 
 		SetBit(bloom,hashvalue3[0]);
 		SetBit(bloom,hashvalue3[1]);
-return 0;
+
+	free(hashvalue1);
+	free(hashvalue2);
+	free(hashvalue3);
+//return 0;
 }
 
 
@@ -250,10 +255,15 @@ int bloomfilter_check(char * message,int *bloom){
 		  ||(TestBit(bloom,hashvalue3[1])==0))
 		{
 	//		printf(RED"The string is not storred\n"RESET);
+			free(hashvalue1);
+			free(hashvalue2);
+			free(hashvalue3);
 			return 0;
 		}
 	//returns 0 if there is one bit 0, or 1 if all of them are 1.	
-	
+	free(hashvalue1);
+	free(hashvalue2);
+	free(hashvalue3);
 //printf(YELLOW"The string may be storred\n"RESET);
 return 1;
 }

@@ -49,6 +49,9 @@ clean:
 testrun:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init 
 
+testrunv:
+	  valgrind --leak-check=yes -v ./project -q small.work -i small.init 
+
 testrun2:
 	  valgrind --leak-check=yes ./project -q test.work -i test.init 
 

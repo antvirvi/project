@@ -6,12 +6,12 @@
 extern int table_ngram_size;
 
 typedef struct kframes{
-int capacity; //posa xwrane
-int occupied; //posa exoume mesa
+int capacity; 	//posa xwrane
+int occupied; 	//posa exoume mesa
 char ** ngrams; //deiktis se pinaka me ta ngrams
-int  *  k; //pinakas me counter emfanisewn gia ta top k
-int   q; //counter gia to posa q exoun perasaei
-int * ends; //pinakas me counter gia to pou typwnetai i allagi gramis
+int  *  k; 		//pinakas me counter emfanisewn gia ta top k
+int   q; 		//counter gia to posa q exoun perasaei. diladi poses allages grammis anamesa se 2 "F"
+int * ends;		//pinakas me counter gia to meta apo poses lekseis allazei to guery
 }kframes;
 
 

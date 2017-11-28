@@ -42,7 +42,8 @@ int main (int argc, char **argv )
 	delete_trie(trie);
 
 printf("boom\n");
-test();
+//test();
+printf("aftertest\n");
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("____________________________________\nProgram executed in %f seconds\n",time_spent);

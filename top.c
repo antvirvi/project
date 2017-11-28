@@ -44,16 +44,15 @@ return kf;
 }
 
 kframes *add_gram_table(kframes * kf,char * ngram){ //prosthiki enos n gram stonpinaka
-	if(kf->occupied==kf->capacity)
+	if(kf->occupied==(kf->capacity))
 		kf = extend_gram_table(kf);
-
-	kf->ngrams[kf->occupied] = malloc(sizeof(ngram));
+	printf("cap %d occ %d ngr %s \n",kf->capacity,kf->occupied,ngram);
+	kf->ngrams[kf->occupied] = malloc(strlen(ngram)+1);
 	strcpy(kf->ngrams[kf->occupied],ngram);
 	kf->occupied++;
-	printf("occupied %d\n",kf->occupied);
-
 return kf;
 }
+
 /*
 kframes *newline_gram_table(kframes * kf){
 	if(occupied==capacity)
@@ -83,11 +82,12 @@ void print_gram_table(kframes *kf){ //ektypwnei ola ta ngrams me
 	}
 }
 
-void end_gram_table(kframes *kf){ //simeiwnoume oti edw teleiwnei to Q
+void end_gram_table(kframes *kf){ //simeiwnoume oti edw teleiwnei to Q, ara prepei stin ektypwsi na valoume allagi grammis
 //	printf("End gram table %d %d\n",kf->q,kf->ends[kf->q]);
-	kf->ends[kf->q]=(kf->occupied);
-	kf->ends = realloc(kf->ends,((kf->q)+1)*(sizeof(int)));
-	printf("End gram table %d %d\n",kf->q,kf->ends[kf->q]);
+//	printf("test end gram%d\n",kf->ends[kf->q]);
+	kf->ends[kf->q] = kf->occupied;
+	kf->ends = realloc(kf->ends,((kf->q)+1)*(sizeof(int*)));
+//	printf("End gram table Q:%d end:%d\n",kf->q,kf->ends[kf->q]);
 	kf->q++;
 	kf->ends[kf->q] = -1;
 
@@ -98,6 +98,8 @@ void erase_gram_table(kframes * kf){
 	for(i=0;i<kf->capacity;i++){
 		free(kf->ngrams[i]);
 	}
+	free(kf->ngrams);
+	free(kf->ends);
 	free(kf->k);
 	free(kf);
 }
