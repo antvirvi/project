@@ -109,6 +109,7 @@ void erase_gram_table(kframes * kf){
 	int i;
 	for(i=0;i<kf->capacity;i++){
 		free(kf->ngrams[i]);
+	printf("freed %d\n",i);
 	}
 	free(kf->ngrams);
 	free(kf->ends);
