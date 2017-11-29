@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifndef STACK_H
+#define STACK_H
 #include "stack.h"
+#endif
+
 #include "math.h"
+
+
 
 #ifndef WORD_SIZE
 #define WORD_SIZE 25
@@ -25,9 +32,9 @@
 #endif
 
 #define EMPTY_POINTER NULL
-#define PATH_COLUMN 10
+#define PATH_COLUMN 20
 
-#define C 4
+#define C 8
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 

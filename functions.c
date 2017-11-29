@@ -1,4 +1,8 @@
+#ifndef FUNC_H
+#define FUNC_H
 #include "functions.h"
+#endif
+
 #include "libraries.h"
 
 extern int buffer_size;
@@ -50,8 +54,8 @@ int init_input(struct index *trie,char * filename){
 			}
 			if(strlen(word)>word_size){
 				word_size*=2;
-				for(a=0;a<table_size;a++)
-					ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
+				for(a=words_in;a<table_size;a++) //a=0
+					ptr_table[a] = realloc(ptr_table[a],(word_size+1)*sizeof(char));
 			}
 		//	ptr_table[words_in] = malloc(word_size*sizeof(char));
 			strcpy(ptr_table[words_in],word);
@@ -76,10 +80,9 @@ int init_input(struct index *trie,char * filename){
 
 
 
-int test_input(struct index *trie,char * filename)
+/*int test_input(struct index *trie,char * filename)
 {	
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
-	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
 	int a;
@@ -89,15 +92,14 @@ int test_input(struct index *trie,char * filename)
 		perror("Error opening input file");
 		return -1;
 	}
-
+	printf("word_size here %d",word_size);
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
 	char *word;
 	int command_error;
 
-	//paths *paths_=init_paths(4,10); 
-
+	char **ptr_table = malloc(table_size*sizeof(char *));
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
 
@@ -106,29 +108,24 @@ int test_input(struct index *trie,char * filename)
 		words_in = 0;
 		
 		word = strtok (line," \n");
+
+
 		while(word!=NULL){
 			//printf("Read this word: %s\n",word);
 			if(strcmp(word,"Q")==0){
 				flag=1;
-				//printf("\x1b[36m""Question 1\n""\x1b[0m");
 			}
 			else if(strcmp(word,"A")==0){
-				//printf("\x1b[36m""Addition 2\n""\x1b[0m");
 				flag=2;
 			}
 			else if(strcmp(word,"D")==0){
-				//printf("\x1b[36m""Deletion 3\n""\x1b[0m");
 				flag=3;
 			}
 			else if(strcmp(word,"F")==0){
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
-				/*
-				cleanup(ptr_table);
-				free(line);
-				fclose(fd);
-				printf("\x1b[32m""TEST_INPUT end\n""\x1b[0m");
-				return 1;
-				*/
+				
+				//cleanup(ptr_table);
+				
 				//printf("\x1b[32m""F -> print paths\n""\x1b[0m");	
 			}else if(strcmp(word,"\0")==0){
 				//printf("\x1b[36m""Empty word found as a countable word -1\n""\x1b[0m");
@@ -138,16 +135,24 @@ int test_input(struct index *trie,char * filename)
 			
 				
 				if(words_in==table_size-1){
-					table_size*=2;
-					ptr_table = realloc(ptr_table,table_size*(sizeof(char*)));
-					for(a=table_size/2;a<table_size;a++){
+					//table_size*=2;
+					ptr_table = realloc(ptr_table,table_size*2*sizeof(char*));
+					if(ptr_table==NULL) exit(-1);
+					for(a=table_size;a<(table_size*2);a++){
 						ptr_table[a]=malloc(word_size*sizeof(char));
+						if(ptr_table[a]==NULL) exit(-1);
 					}
+				table_size*=2;
 				}
-				if(strlen(word)>=word_size){
-					word_size*=2;
-					for(a=0;a<table_size;a++)
+				while(strlen(word)>=word_size){
+					printf("word size before is %d and strlen %d\n",word_size,strlen(word));
+					word_size=word_size*2;
+					printf("word size is %d and strlen %d\n",word_size,strlen(word));
+					for(a=0;a<table_size;a++){
+						//printf("a is %d\n",a);
 						ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
+						if(ptr_table[a]==NULL) exit(-1);
+						}
 				}		
 
 				//ptr_table[words_in] = malloc(word_size*sizeof(char));
@@ -156,6 +161,106 @@ int test_input(struct index *trie,char * filename)
 				words_in++;				
 			}
 			word=strtok(NULL," \n");
+		}
+
+		switch(flag){
+			case 1 :
+				printf("\n"); 
+				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+				command_error=lookupTrieNode(trie->hash,ptr_table,words_in-1);
+				//if(command_error==-1) printf("%d\n",command_error);
+				break;
+			case 2 :
+				//command_error=append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
+				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
+				command_error=insertTrieNode(trie->hash,ptr_table,words_in);
+				break;
+			case 3 :
+				//command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
+				command_error=deleteTrieNode(trie->hash,ptr_table,words_in);
+				//printf("delete error is word (%s) is %d \n",ptr_table[0],command_error);
+				break;
+		
+		}
+		flag=0;	
+}
+	//it is supposed that control never reaches this point, due to F signal
+  	free(line);
+	cleanup(ptr_table);
+	fclose(fd);
+	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
+	
+return 0;
+
+}*/
+
+int test_input(struct index *trie,char * filename)
+{	
+	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
+	int words_in = 0;
+	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
+	int a;
+	FILE* fd = fopen(filename, "r"); //opening input file
+	if(fd == NULL)
+	{
+		perror("Error opening input file");
+		return -1;
+	}
+	printf("word_size here %d",word_size);
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	char *word;
+	int command_error;
+
+	char **ptr_table = malloc(table_size*sizeof(char *));
+	for(a=0;a<table_size;a++)
+		ptr_table[a]=malloc(word_size*sizeof(char));
+
+	while ((read = getline(&line, &len, fd)) != -1) {
+		//words_in = 1;
+		words_in = 0;
+		
+		word = strtok (line," \n");
+		
+		if(strcmp(word,"Q")==0) flag=1;
+		else if(strcmp(word,"A")==0) flag=2;
+		else if(strcmp(word,"D")==0) flag=3;
+		else if(strcmp(word,"F")==0){
+				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
+				
+				//cleanup(ptr_table);
+				
+				//printf("\x1b[32m""F -> print paths\n""\x1b[0m");	
+			}
+		else if(strcmp(word,"\0")==0) continue;
+		word=strtok(NULL," \n");
+		while(word!=NULL){
+				
+			if(words_in==table_size-1){
+				//table_size*=2;
+				ptr_table = realloc(ptr_table,table_size*2*sizeof(char*));
+				if(ptr_table==NULL) exit(-1);
+				for(a=table_size;a<(table_size*2);a++){
+					ptr_table[a]=malloc(word_size*sizeof(char));
+					if(ptr_table[a]==NULL) exit(-1);
+					}
+				table_size*=2;
+				}
+			while(strlen(word)>=word_size){
+				word_size=word_size*2;
+				for(a=0;a<table_size;a++){
+					ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
+					if(ptr_table[a]==NULL) exit(-1);
+					}
+			}		
+
+				//ptr_table[words_in] = malloc(word_size*sizeof(char));
+		strcpy(ptr_table[words_in],word);
+				
+		words_in++;				
+			
+		word=strtok(NULL," \n");
 		}
 
 		switch(flag){
@@ -583,31 +688,6 @@ paths *init_paths(int rows,int columns){
 	return paths_;
 } 
 
-/*int check_in_paths(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
-	//printf("inside check in paths\n");
-	int number=get_stack_number(stack_);
-	int path_pos=0;
-	int found=1;
-	int pos,i,j;
-	for(i=0;i<number;i++){
-		pos=get_stack_elements(stack_,i);
-		for(j=0;j<paths_->words_in;j++){
-			if(paths_->paths_array[j][path_pos]==pos){
-				path_pos++;
-				break;
-			} //if it finds it continue with the next word
-		}
-		if(j==paths_->words_in) {found=0; break;} //if it doesnt find one node f the path then leave
- 			
-	}
-	if(found==0) {
-		add_to_paths(paths_,stack_); //add to paths and print it
-		print_nodes_from_stack(root,stack_);
-		
-	}
-	return found;
-}*/
-
 int check_in_paths3(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
 	//printf("inside check in paths\n");
 	int number=get_stack_number(stack_);
@@ -653,68 +733,6 @@ int check_in_paths4(paths *paths_, stack *stack_,hash_layer *hash){//trie_node *
 	return found;
 }
 
-/*int check_in_paths2(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
-	//printf("inside check in paths\n");
-	int number=get_stack_number(stack_); //how many words the phrase has
-	int path_pos=0; //in which word on the paths i am in 
-	int found=0; //if the phrase path is found in paths
-	int pos; //pos in trie of the word of the phrase    
-	int i=0;
-	int j=0;
-	int first_pos=get_stack_elements(stack_,i);
-	while(paths_->paths_array[j][path_pos]<=first_pos && j!=paths_->words_in){
-		for(i=1;i<number;i++){
-			pos=get_stack_elements(stack_,i);
-			if(paths_->paths_array[j][i]!=pos) break; //if it finds it continue with the next word
-			}
-		if(i==number) {found=1; break;}
-		j++;
-		}
-	
- 	if(found==0) {
-		add_to_paths2(paths_,stack_); //add to paths and print it
-		print_nodes_from_stack(root,stack_);
-	}		
-	return found;
-}
-
-
-void add_to_paths2(paths *paths_, stack *stack_){
-	int path_num=paths_->words_in;
-	if(path_num==paths_->max_words) double_paths(paths_);
-	int number=get_stack_number(stack_);
-	int i ,pos;
-	i=0;
-	//printf("Found N gram: ");
-	pos=get_stack_elements(stack_,i);
-	if(i==paths_->words_in)i=0;
-	else{
-		while(paths_->paths_array[i][0]<pos && i<paths_->words_in) i++; //find first position
-		}
-	
-
-	path_num=i;
-	printf("\npath num is %d\n",path_num);
-	printf("words_in are %d\n",paths_->words_in);
-	if(path_num!=paths_->words_in && paths_->words_in!=0){
-		//printf("in move : %d\n",(paths_->words_in-path_num));
-		int **backup=paths_->paths_array;
-		//memmove(paths_->paths_array,backup,path_num*sizeof(backup[0]));
-		memmove(paths_->paths_array+(path_num+1),backup+path_num,(paths_->words_in-(path_num))*sizeof(backup[0]));
-
-	}
-	//paths_->words_in++;
-	//print_paths(paths_);
-	for(i=0;i<number;i++){
-		pos=get_stack_elements(stack_,i);
-		paths_->paths_array[path_num][i]=pos;
-	}
-	//printf("|");
-	paths_->words_in++;
-	print_paths(paths_);
-}
-
-*/
 
 void add_to_paths(paths *paths_, stack *stack_){
 	int path_num=paths_->words_in;
@@ -782,7 +800,7 @@ hash_layer *createLinearHash(int c ,int m){ //c is number of buckets ,m is numbe
 
 	hash->bucket_capacity=m;
 	hash->buckets_number=c;
-	hash->load_factor=0.5;
+	hash->load_factor=0.9;
 	hash->total_children=0;
 	hash->bucket_to_split=0;
 	hash->split_round=0;
@@ -855,7 +873,10 @@ int insertTrieNode(hash_layer *hash,char **words,int word_number){
 
 	//int hash_val=hash_function(hash,words[0]);
 
-	if((hash->total_children/(float)hash->buckets_number) > hash->load_factor){
+	if((hash->total_children/((float)hash->buckets_number*hash->bucket_capacity)) > hash->load_factor){
+		printf("total children are %d, buckets_number are %d\n",hash->total_children,hash->buckets_number);
+        printf("load factor: %f \n",(hash->total_children/((float)hash->buckets_number*hash->bucket_capacity)));
+		printf("capacity: %d \n",hash->bucket_capacity);
 		int resize_error=resize_hash(hash);
 		if(resize_error==ERROR) return ERROR;
 	}
@@ -1088,7 +1109,7 @@ void print_hash(hash_layer *hash){
 		printf("Bucket[%d]::",i);
 		for(j=0;j<bucket.children_number;j++){
 			node=bucket.children[j];
-			printf("%s(%c)->",node.word,node.is_final);
+			printf("-%s(%c)->",node.word,node.is_final);
 			print_trie(&node,0);
 		}
 		printf("\n");
@@ -1160,7 +1181,3 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 	return 0;
 }
 
-int compress(hash_layer *hash){
-	
-
-}

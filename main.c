@@ -1,13 +1,17 @@
+
+#ifndef FUNC_H
+#define FUNC_H
 #include "functions.h"
+#endif
+#include "static_functions.h"
 #include <errno.h>
 #include <time.h>
 
-
-int main (int argc, char **argv )
-{	clock_t begin = clock();
+int main (int argc, char **argv ) {
+	clock_t begin = clock();
 	int c;
-	char init_file[16];
-	char query_file[16];
+	char init_file[25];
+	char query_file[25];
 	
 	if(argc<5){
 		printf("Wrong quantity of arguments\n");
@@ -28,45 +32,6 @@ int main (int argc, char **argv )
 	for(i=0;i<6;i++){
 		words[i]=malloc(15*sizeof(char));
 	}
-	/*strcpy(words[0],"test");
-	strcpy(words[1],"this");
-	strcpy(words[2],"is");
-	strcpy(words[3],"a");
-	strcpy(words[4],"cat");
-	hash_layer *hash=createLinearHash(4,1);
-	insertTrieNode(hash,words,5);
-	insertTrieNode(hash,&(words[3]),2);
-	insertTrieNode(hash,words,1);
-	insertTrieNode(hash,words,2);
-	insertTrieNode(hash,words,3);
-
-	insertTrieNode(hash,&(words[1]),2);
-	insertTrieNode(hash,&(words[2]),2);
-	insertTrieNode(hash,&(words[4]),1);
-	print_hash(hash);
-	strcpy(words[0],"lets");
-	strcpy(words[1],"see");
-	strcpy(words[2],"whats");
-	strcpy(words[3],"happening");
-	strcpy(words[4],"now");
-	insertTrieNode(hash,words,5);
-	insertTrieNode(hash,&(words[3]),2);
-	insertTrieNode(hash,words,1);
-	insertTrieNode(hash,words,2);
-	insertTrieNode(hash,words,3);
-
-	insertTrieNode(hash,&(words[1]),2);
-	insertTrieNode(hash,&(words[2]),2);
-	insertTrieNode(hash,&(words[4]),1);
-	print_hash(hash);
-	int error=deleteTrieNode(hash,words,5);
-	printf("delete error is %d\n",error);
-	error=deleteTrieNode(hash,words,1);
-	printf("delete error is %d\n",error);
-	error=deleteTrieNode(hash,&(words[4]),1);
-	printf("delete error is %d\n",error);
-	print_hash(hash);
-	destroyLinearHash(hash);*/
 
 
 	for(i=0;i<6;i++){
@@ -76,18 +41,32 @@ int main (int argc, char **argv )
 	printf("Init %s\nQueries %s\n",init_file,query_file);
 
 	struct index *trie=malloc(sizeof(struct index));
-	trie->hash=createLinearHash(C,1);
+	trie->hash=createLinearHash(C,10);
 	//trie->root=init_trie();
 	if(init_input(trie,init_file)<0) return -1;
 
 	printf("before test input\n");
 	//print_hash(trie->hash);
-	if(test_input(trie,query_file)<0)
-		return -1;
+	//if(test_input(trie,query_file)<0)
+		//return -1;
 	//print_hash(trie->hash);
+	printf("hash buckets are %d\n",trie->hash->buckets_number);
+	static_hash_layer *static_hash=compress(trie->hash);
 	destroyLinearHash(trie->hash);
 	free(trie);
+
+	struct static_index *static_trie=malloc(sizeof(struct static_index));	
+	static_trie->hash=static_hash;
+	//init_static_input(static_trie,init_file);
+	print_static_hash(static_hash);
+	if(test_static_input(static_trie,"static_test.work")<0)
+		return -1;
 	
+	print_static_hash(static_hash);
+	destroy_static_hash(static_hash);
+
+	free(static_trie);
+
 	printf("\n");
 	//print_trie(trie->root,0);
 	//delete_trie(trie);
