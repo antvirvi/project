@@ -15,6 +15,20 @@ int * ends;		//pinakas me counter gia to meta apo poses lekseis allazei to guery
 }kframes;
 
 
+typedef struct freq{
+	int *  frequency;
+	char ** ngram;
+}freq;
+
+
+typedef struct index_table{
+	freq * fr;
+	char ** ngram;
+}index_table;
+
+
+
+
 kframes *create_gram_table(kframes * kf);
 kframes *extend_gram_table(kframes * kf);
 kframes *init_gram_table(kframes * kf);

@@ -761,22 +761,7 @@ return str;
 }
 
 void test(void){  //test function to call other functions instead of main
-
-kframes *kfrm=NULL;
-kfrm = create_gram_table(kfrm);
-
-kfrm = init_gram_table(kfrm);
-kfrm = add_gram_table(kfrm, "antonis");
-kfrm = add_gram_table(kfrm, "thanasis");
-kfrm = add_gram_table(kfrm, "panos");
-end_gram_table(kfrm);
-kfrm = add_gram_table(kfrm, "thima");
-kfrm = add_gram_table(kfrm, "panda");
-kfrm = add_gram_table(kfrm, "panda2");
-kfrm = add_gram_table(kfrm, "panda3");
-kfrm = add_gram_table(kfrm, "panda4");
-kfrm = add_gram_table(kfrm, "panda5");
-end_gram_table(kfrm);
-print_gram_table(kfrm);
-
+char * str ="antonis";
+if(str[1]=='a')
+	printf("hot chocolate\n");
 }

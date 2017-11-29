@@ -3,13 +3,26 @@
  int table_ngram_size = 20;
 /*
 typedef struct kframes{
-int capacity;
-int occupied;
-char ** ngrams;
-int  *  k;
-int   q;
-int * ends;
+int capacity; 	//posa xwrane
+int occupied; 	//posa exoume mesa
+char ** ngrams; //deiktis se pinaka me ta ngrams
+int  *  k; 		//pinakas me counter emfanisewn gia ta top k
+int   q; 		//counter gia to posa q exoun perasaei. diladi poses allages grammis anamesa se 2 "F"
+int * ends;		//pinakas me counter gia to meta apo poses lekseis allazei to guery
 }kframes;
+
+
+typedef struct freq{
+	int *  frequency;
+	char ** ngram;
+}freq;
+
+
+typedef struct index_table{
+	freq * fr;
+	char ** ngram;
+}index_table;
+
 
 */
 //table holding all the ngramms
@@ -22,7 +35,7 @@ int * ends;
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
-
+//__________________________________________ngram table
 kframes *create_gram_table(kframes * kf){
 	kf = malloc(sizeof(kframes));
 	kf->ngrams = malloc(table_ngram_size*sizeof(char *));
@@ -31,7 +44,6 @@ kframes *create_gram_table(kframes * kf){
 	kf->occupied = 0;
 	kf->q = 0;
 	kf->ends = malloc(sizeof(int*));
-
 return kf;
 }
 
@@ -67,7 +79,6 @@ return kf;
 }
 
 void erase_gram_table(kframes * kf){
-	int i;
 	free(kf->ngrams);
 	free(kf->ends);
 	free(kf->k);  
@@ -98,11 +109,45 @@ void end_gram_table(kframes *kf){ //simeiwnoume oti edw teleiwnei to Q, ara prep
 
 }
 
-//table holding the top appearances
-void create_top_table(){
+
+
+//__________________________________________frequency
+void create_freq_index(freq * fr){
+	fr = malloc(gram_table_size*(sizeof(freq)));
+	int i;
+	
+	for(i=0;i<table_ngram_size-1;i++){
+		frequency[i] = malloc(sizeof(int));
+		frequency[i] = 0;
+		}
+
+}
+
+void init_freq_index(freq* fr){
+
+	for(i=0;i<table_ngram_size-1;i++){
+		frequency[i] = 0;
+		}
+
+}
+
+void erase_freq_index(freq* fr){
+
+	for(i=0;i<table_ngram_size-1;i++){
+		free(frequency[i]);
+		}
+
+}
+
+//__________________________________________hash table
+
+void create_hash_index(index_table* it){
 
 
 }
 
+void init_hash_index(index_table* it){
 
+
+}
 
