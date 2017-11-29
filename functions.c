@@ -160,7 +160,7 @@ int test_input(struct index *trie,char * filename)
 			else if(strcmp(word,"F")==0){
 				print_gram_table(kfrm);
 //				erase_gram_table(kfrm);
-//				init_gram_table(kfrm);
+				init_gram_table(kfrm);
 				
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
 				/*
@@ -220,9 +220,9 @@ int test_input(struct index *trie,char * filename)
 }
 	//it is supposed that control never reaches this point, due to F signal
   	free(line);
+	erase_gram_table(kfrm);
 	cleanup(ptr_table);
 	fclose(fd);
-	erase_gram_table(kfrm);
 	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
 	
 return 0;

@@ -6,8 +6,8 @@
 //#define hash_length 1024
 #define bitsint sizeof(int)*8
 
-int main (int argc, char **argv )
-{	clock_t begin = clock();
+int main (int argc, char **argv ){	
+//	clock_t begin = clock();
 	int c;
 	char init_file[16];
 	char query_file[16];
@@ -34,18 +34,12 @@ int main (int argc, char **argv )
 
 	if(test_input(trie,query_file)<0)
 		return -1;
-	printf("O panos einai xondros kai trwei\n");
-//char * sss= "c84d445d fb3eee5d f5f41cb7 0f2b494c";
-//mymod(sss,8192);
-	printf("\n");
+//	printf("\n");
 	//print_trie(trie->root,0);
 	delete_trie(trie);
 
-printf("boom\n");
-//test();
-printf("aftertest\n");
-	clock_t end = clock();
-	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("____________________________________\nProgram executed in %f seconds\n",time_spent);
+//	clock_t end = clock();
+//	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+//	printf("____________________________________\nProgram executed in %f seconds\n",time_spent);
 	return 0;	
 }
