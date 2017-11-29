@@ -39,7 +39,6 @@ int table_size = 4;
 */
 
 #define EMPTY_POINTER NULL
-#define PATH_COLUMN 20
 
 #define C 8
 //#define STACK_NUMBER 10

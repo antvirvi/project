@@ -3,7 +3,6 @@
 #include "functions.h"
 
 #include "bloomfilter.h"
-//#include "libraries.h"
 
 
 #define RED     "\x1b[31m"
@@ -27,9 +26,9 @@
 #include "libraries.h"
 
 
-extern int buffer_size;
-extern int word_size;
-extern int table_size;
+int buffer_size;
+int word_size;
+int table_size;
 int reset = 0;
 
 
@@ -172,7 +171,7 @@ int test_input(struct index *trie,char * filename)
 			case 1 :
 				printf("\n"); 
 				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
-				command_error=lookupTrieNode(trie->hash,ptr_table,words_in-1);
+				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1);
 				//if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
@@ -462,6 +461,7 @@ int delete_from_node(trie_node *node,int pos){
 		//free(node_to_delete->children);
 		return SUCCESS ; //zero e-rrors
 }
+
 int search_in_trie_without_blfilter(trie_node *root,char **word,int number_of_words){
 	//printf("Inside search\n");
 	stack *stack_=init_stack();
@@ -517,7 +517,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words){
 	int * bloomfilter = malloc(bloomfilterbytes);
 	bloomfilter_init(bloomfilter);
 
-	char *str;;
+	char *str;
 	int word_number;
 	int exists;
 	int pos;
@@ -804,14 +804,7 @@ int  hash_function(hash_layer *hash, char *word)
 	//printf("hash is %ld\n",hash_int);
 
 	hash_value=hash_int%(C*(int)pow(2,hash->split_round));
-	//printf("old hash value  is %ld with split bucket %d split round %d\n",hash_value,hash->bucket_to_split,hash->split_round);
-	//printf("mod value is %d ",C*(int)pow(2,hash->split_round));
-	//printf("Total buckets are %d bucket to spilt %d\n", hash->buckets_number,hash->bucket_to_split);
-	//printf("hash value before is %ld split round %d\n",hash_value,hash->split_round);
-	/*if(hash_value < hash->bucket_to_split || ((hash_value+1)*2)<hash->buckets_number){
-		printf("here\n");
-		hash_value=hash_int%(C*(int)pow(2,hash->split_round+1));
-	}*/
+
 	int temp=hash_int%(C*(int)pow(2,hash->split_round+1));
 	if(temp<hash->buckets_number) return temp;
 	//printf("new hash value after is %ld\n",hash_value);
@@ -854,9 +847,9 @@ int insertTrieNode(hash_layer *hash,char **words,int word_number){
 	//int hash_val=hash_function(hash,words[0]);
 
 	if((hash->total_children/((float)hash->buckets_number*hash->bucket_capacity)) > hash->load_factor){
-		printf("total children are %d, buckets_number are %d\n",hash->total_children,hash->buckets_number);
-        printf("load factor: %f \n",(hash->total_children/((float)hash->buckets_number*hash->bucket_capacity)));
-		printf("capacity: %d \n",hash->bucket_capacity);
+		//printf("total children are %d, buckets_number are %d\n",hash->total_children,hash->buckets_number);
+        //printf("load factor: %f \n",(hash->total_children/((float)hash->buckets_number*hash->bucket_capacity)));
+		//printf("capacity: %d \n",hash->bucket_capacity);
 		int resize_error=resize_hash(hash);
 		if(resize_error==ERROR) return ERROR;
 	}
@@ -1161,3 +1154,135 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 	return 0;
 }
 
+int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words){
+	//printf("Inside search,number of words is %d\n",number_of_words);
+	size_t bloomfilterbytes = (M/8);
+	int * bloomfilter = malloc(bloomfilterbytes);
+	bloomfilter_init(bloomfilter);
+
+	char *str;	
+
+	int word_number;
+	int exists;
+	int pos;
+	trie_node *node;
+	int start=0;
+
+	while(start!=number_of_words+1) {
+		str=malloc(20*sizeof(char));
+		word_number=start;
+		
+		int hash_val=hash_function(hash,words[start]);
+
+		hash_bucket *bucket=&(hash->buckets[hash_val]);
+		exists=check_exists_in_bucket(bucket,words[start],&pos);
+		//printf("exists is %d\n",exists);
+		if(exists==0){ 
+			start++;
+			continue;
+			}
+
+		node=&(bucket->children[pos]);
+		str = myappend(str,words[start]);
+		while(node->number_of_childs!=0) {
+			
+			if(node->is_final=='y') { //found ngram
+				if(bloomfilter_check(str,bloomfilter)==0){
+						printf("%s|",str); 
+						bloomfilter_add(str,bloomfilter);
+					}
+				}
+			//printf("word_number is %d\n",word_number);
+			word_number++;
+			if(word_number>number_of_words) break;
+			exists=check_exists_in_children(node,words[word_number],&pos);
+			if(exists==0) break;
+			//printf("I am gonna push : %d\n",pos);
+			str=myappend(str,words[word_number]);
+			node=&(node->children[pos]);
+			//word_number++;
+		}
+		if(exists==1 && word_number<=number_of_words) {
+			if(bloomfilter_check(str,bloomfilter)==0){
+						printf("%s|",str); 
+						bloomfilter_add(str,bloomfilter);
+					}
+		}
+		free(str);
+		start++;
+	}
+	int found=SUCCESS;
+	free(str);
+	free(bloomfilter);	
+	return found;
+	if(TestAllBits(bloomfilter)==0) found=-1;
+	if(exists==0) return ERROR;
+	
+	return SUCCESS;	
+
+
+	return 0;
+}
+
+/**int search_in_trie(trie_node *root,char **word,int number_of_words){
+	//printf("Inside search\n");
+	//stack *stack_=init_stack();
+
+	size_t bloomfilterbytes = (M/8);
+	int * bloomfilter = malloc(bloomfilterbytes);
+	bloomfilter_init(bloomfilter);
+
+	char *str;
+	int word_number;
+	int exists;
+	int pos;
+	trie_node *node;
+	int start=0;
+
+	while(start!=number_of_words+1) {
+		str=malloc(20*sizeof(char));
+		strcpy(str,"");
+		word_number=start;
+		node=root;
+		while(node->number_of_childs!=0) {
+			//printf("word number :%d %s\n",word_number,word[word_number]);
+			if(node->is_final=='y') {
+					if(bloomfilter_check(str,bloomfilter)==0){
+						printf("%s|",str); 
+						bloomfilter_add(str,bloomfilter);
+					}
+				}
+			exists=check_exists_in_children(node,word[word_number],&pos);
+			if(exists==0) 
+				break;
+			str = myappend(str,word[word_number]);
+			node=&(node->children[pos]);
+			word_number++;
+		}
+		if(exists==1) {
+			if(bloomfilter_check(str,bloomfilter)==0){
+						printf("%s|",str); 
+						bloomfilter_add(str,bloomfilter);
+					}
+		}
+//		memset(0,str,sizeof(str));
+//		str[0]='\0';
+		free(str);
+		//reset_stack(stack_);
+		start++;
+	}
+	printf("\n");
+	int found=SUCCESS;
+	if(TestAllBits(bloomfilter)==0) found=-1;
+	//print_paths(paths_);
+//	free(str);
+	free(bloomfilter);
+	return found;
+	if(exists==0) return ERROR;
+//	free(str);
+	
+	return SUCCESS;	
+
+
+}
+*/

@@ -53,25 +53,26 @@ int main (int argc, char **argv ) {
 
 	if(test_input(trie,query_file)<0)
 		return -1;
-	printf("before test input\n");
+	printf("\nbefore test input\n");
 	//print_hash(trie->hash);
 
-	static_hash_layer *static_hash=compress(trie->hash);
+	//static_hash_layer *static_hash=compress(trie->hash);
 	destroyLinearHash(trie->hash);
 	free(trie);
-
+	
+	/**
 	struct static_index *static_trie=malloc(sizeof(struct static_index));	
 	static_trie->hash=static_hash;
-	//init_static_input(static_trie,init_file);
+	init_static_input(static_trie,init_file);
 	print_static_hash(static_hash);
 	if(test_static_input(static_trie,"static_test.work")<0)
-		return -1;
+		//return -1;
 	
 	print_static_hash(static_hash);
 	destroy_static_hash(static_hash);
 
 	free(static_trie);
-
+	*/
 	printf("\n");
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;

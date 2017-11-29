@@ -14,7 +14,3 @@
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
-int buffer_size = 16;
-int word_size = 8;
-int table_size = 4;
-
