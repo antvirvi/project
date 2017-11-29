@@ -1,7 +1,5 @@
 #include "functions.h"
 
-
-
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
 #define YELLOW  "\x1b[33m"
@@ -9,8 +7,6 @@
 #define MAGENTA "\x1b[35m"
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
-
-
 
 //Second Part of Project
 
@@ -163,6 +159,9 @@ int test_input(struct index *trie,char * filename)
 			}
 			else if(strcmp(word,"F")==0){
 				print_gram_table(kfrm);
+//				erase_gram_table(kfrm);
+//				init_gram_table(kfrm);
+				
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
 				/*
 				cleanup(ptr_table);
@@ -620,7 +619,7 @@ void print_nodes_from_stack(trie_node *root,stack *stack_){
 	pos=get_stack_elements(stack_,i);
 	node=&(node->children[pos]);
 	printf("%s",node->word);
-	printf("|");
+	printf(YELLOW"|"RESET);
 }
 
 paths *init_paths(int rows,int columns){
