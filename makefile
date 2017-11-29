@@ -9,12 +9,11 @@ default: project
 #
 
 
-project:  main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o
-	$(CC) $(CFLAGS) -o project main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o -lm
+project:  main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o
+	$(CC) $(CFLAGS) -o project main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o -lm
 
-test_project:  test_main.o functions.o stack.o test.o bloomfilter.o murmur3.o
+test_project:  test_main.o functions.o stack.o test.o bloomfilter.o murmur3.o top.o
 	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o test.o bloomfilter.o murmur3.o -lm
-
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
@@ -44,6 +43,9 @@ stack.o:  stack.c stack.h
 
 murmur3.o:  murmur3.c murmur3.h
 	$(CC) $(CFLAGS) -c murmur3.c
+
+top.o:  top.c top.h
+	$(CC) $(CFLAGS) -c top.c
 	
 
 
@@ -52,6 +54,9 @@ clean:
 
 testrun:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init 
+
+testrunv:
+	  valgrind --leak-check=yes -v ./project -q small.work -i small.init 
 
 testrun2:
 	  valgrind --leak-check=yes ./project -q test.work -i test.init 

@@ -14,3 +14,21 @@
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
+
+#ifndef VAR
+#define VAR
+/*
+int buffer_size = 16;
+int word_size = 8;
+int table_size = 4;
+*/
+typedef struct kframes{
+int capacity;
+int occupied;
+char ** ngrams;
+int  *  k;
+int   q;
+int * ends;
+}kframes;
+#endif
+

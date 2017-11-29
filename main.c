@@ -12,8 +12,8 @@
 #define bitsint sizeof(int)*8
 
 
-int main (int argc, char **argv ) {
-	clock_t begin = clock();
+int main (int argc, char **argv ){	
+//	clock_t begin = clock();
 	int c;
 	char init_file[25];
 	char query_file[25];
@@ -53,7 +53,6 @@ int main (int argc, char **argv ) {
 
 	if(test_input(trie,query_file)<0)
 		return -1;
-	printf("\nbefore test input\n");
 	//print_hash(trie->hash);
 
 	//static_hash_layer *static_hash=compress(trie->hash);
@@ -73,9 +72,10 @@ int main (int argc, char **argv ) {
 
 	free(static_trie);
 	*/
-	printf("\n");
-	clock_t end = clock();
-	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("\nProgram executed in %f seconds\n",time_spent);
+//	delete_trie(trie); // na tsekarw an uparxei
+
+//	clock_t end = clock();
+//	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+//	printf("____________________________________\nProgram executed in %f seconds\n",time_spent);
 	return 0;	
 }

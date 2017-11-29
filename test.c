@@ -3,8 +3,8 @@
 
 int init_test_input(struct index *trie,char * filename){
 	//printf("\x1b[32m""INIT_INPUT start\n""\x1b[0m");
-	int table_size=10;
-	int word_size=25;
+	int table_size = 10;
+	int word_size = 25;
 	int a;
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;

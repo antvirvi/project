@@ -9,6 +9,9 @@
 #include "stack.h"
 #endif
 
+#include "top.h"
+#include "bloomfilter.h"
+#include "libraries.h"
 
 #ifndef WORD_SIZE
 #define WORD_SIZE 25
@@ -31,12 +34,6 @@
 #endif
 
 #define PATH_COLUMN 10
-/*
-
-int buffer_size = 16;
-int word_size = 8;
-int table_size = 4;
-*/
 
 #define EMPTY_POINTER NULL
 
@@ -91,7 +88,7 @@ trie_node *init_trie();
 void delete_trie(struct index *trie);
 void destroy_childs(trie_node *node);
 int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
-int search_in_trie(trie_node *root,char **word,int number_of_words);
+int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf);
 int check_exists_in_children(trie_node *node,char *word,int *pos);
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words);
 int delete_from_node(trie_node *node,int pos);
@@ -139,3 +136,6 @@ void destroy_buckets(hash_bucket *bucket,int level);
 trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos);
 int deleteTrieNode(hash_layer *hash,char **words,int number_of_words);
 int  hash_function(hash_layer *hash, char *word);
+void test(void);
+char * detableize(char * str, char ** table);
+int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words);
