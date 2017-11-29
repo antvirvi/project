@@ -1,31 +1,5 @@
-#ifndef FUNC_H
-#define FUNC_H
 #include "functions.h"
-
-#include "bloomfilter.h"
-//#include "libraries.h"
-
-
-#define RED     "\x1b[31m"
-#define GREEN   "\x1b[32m"
-#define YELLOW  "\x1b[33m"
-#define BLUE    "\x1b[34m"
-#define MAGENTA "\x1b[35m"
-#define CYAN    "\x1b[36m"
-#define RESET   "\x1b[0m"
-
-
-
-//Second Part of Project
-
-//#define ClearBit(A,k)   ( A[(k/sizeof(int))] &= ~(1 << (k%sizeof(int))) )
-//#define TestBit(A,k)    ( A[(k/sizeof(int))] & (1 << (k%sizeof(int))) ) 
-//#define SetBit(A,k)     ( A[(k/sizeof(int))] |= (1 << (k%sizeof(int))) )
-
-#endif
-
 #include "libraries.h"
-
 
 extern int buffer_size;
 extern int word_size;
@@ -48,10 +22,9 @@ int init_input(struct index *trie,char * filename){
 
 	FILE* fd = fopen(filename, "r"); //opening input file
 	//strcpy(buffer,"\0");
-		
+
 	if(fd == NULL){
 		perror("Error opening input file");
-		printf("File name %s\n",filename);
 		return -1;
 	}
 
@@ -77,19 +50,19 @@ int init_input(struct index *trie,char * filename){
 			}
 			if(strlen(word)>word_size){
 				word_size*=2;
-				for(a=words_in;a<table_size;a++) //a=0
-					ptr_table[a] = realloc(ptr_table[a],(word_size+1)*sizeof(char));
+				for(a=0;a<table_size;a++)
+					ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
 			}
 		//	ptr_table[words_in] = malloc(word_size*sizeof(char));
 			strcpy(ptr_table[words_in],word);
+			//printf("Kuru word = %s\n",ptr_table[words_in]);
 			words_in++;
 			word=strtok(NULL," \n");
 		}
 		//append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
-		//append_trie_node(trie->root,ptr_table,0,words_in-1);
-		insertTrieNode(trie->hash,ptr_table,words_in);
-		//print_hash(trie->hash);
+		append_trie_node(trie->root,ptr_table,0,words_in-1);
 	}
+	//printf ("free\n");
 	free(line);
 	cleanup(ptr_table);
 	fclose(fd);
@@ -99,9 +72,12 @@ int init_input(struct index *trie,char * filename){
 
 
 
+
+
 int test_input(struct index *trie,char * filename)
 {	
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
+	char **ptr_table = malloc(table_size*sizeof(char *));
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
 	int a;
@@ -111,14 +87,15 @@ int test_input(struct index *trie,char * filename)
 		perror("Error opening input file");
 		return -1;
 	}
-	printf("word_size here %d",word_size);
+
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
 	char *word;
 	int command_error;
 
-	char **ptr_table = malloc(table_size*sizeof(char *));
+	//paths *paths_=init_paths(4,10); 
+
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
 
@@ -127,63 +104,71 @@ int test_input(struct index *trie,char * filename)
 		words_in = 0;
 		
 		word = strtok (line," \n");
-		
-		if(strcmp(word,"Q")==0) flag=1;
-		else if(strcmp(word,"A")==0) flag=2;
-		else if(strcmp(word,"D")==0) flag=3;
-		else if(strcmp(word,"F")==0){
-				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
-				
-				//cleanup(ptr_table);
-				
-				//printf("\x1b[32m""F -> print paths\n""\x1b[0m");	
-			}
-		else if(strcmp(word,"\0")==0) continue;
-		word=strtok(NULL," \n");
 		while(word!=NULL){
+			//printf("Read this word: %s\n",word);
+			if(strcmp(word,"Q")==0){
+				flag=1;
+				//printf("\x1b[36m""Question 1\n""\x1b[0m");
+			}
+			else if(strcmp(word,"A")==0){
+				//printf("\x1b[36m""Addition 2\n""\x1b[0m");
+				flag=2;
+			}
+			else if(strcmp(word,"D")==0){
+				//printf("\x1b[36m""Deletion 3\n""\x1b[0m");
+				flag=3;
+			}
+			else if(strcmp(word,"F")==0){
+				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
+				/*
+				cleanup(ptr_table);
+				free(line);
+				fclose(fd);
+				printf("\x1b[32m""TEST_INPUT end\n""\x1b[0m");
+				return 1;
+				*/
+				//printf("\x1b[32m""F -> print paths\n""\x1b[0m");	
+			}else if(strcmp(word,"\0")==0){
+				//printf("\x1b[36m""Empty word found as a countable word -1\n""\x1b[0m");
 				
-			if(words_in==table_size-1){
-				//table_size*=2;
-				ptr_table = realloc(ptr_table,table_size*2*sizeof(char*));
-				if(ptr_table==NULL) exit(-1);
-				for(a=table_size;a<(table_size*2);a++){
-					ptr_table[a]=malloc(word_size*sizeof(char));
-					if(ptr_table[a]==NULL) exit(-1);
+			}
+			else{
+			
+				
+				if(words_in==table_size-1){
+					table_size*=2;
+					ptr_table = realloc(ptr_table,table_size*(sizeof(char*)));
+					for(a=table_size/2;a<table_size;a++){
+						ptr_table[a]=malloc(word_size*sizeof(char));
 					}
-				table_size*=2;
 				}
-			while(strlen(word)>=word_size){
-				word_size=word_size*2;
-				for(a=0;a<table_size;a++){
-					ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
-					if(ptr_table[a]==NULL) exit(-1);
-					}
-			}		
+				if(strlen(word)>=word_size){
+					word_size*=2;
+					for(a=0;a<table_size;a++)
+						ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
+				}		
 
 				//ptr_table[words_in] = malloc(word_size*sizeof(char));
-		strcpy(ptr_table[words_in],word);
+			strcpy(ptr_table[words_in],word);
 				
-		words_in++;				
-			
-		word=strtok(NULL," \n");
+				words_in++;				
+			}
+			word=strtok(NULL," \n");
 		}
 
 		switch(flag){
 			case 1 :
 				printf("\n"); 
-				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
-				command_error=lookupTrieNode(trie->hash,ptr_table,words_in-1);
-				//if(command_error==-1) printf("%d\n",command_error);
+				command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+				if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
 				//command_error=append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
-				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
-				command_error=insertTrieNode(trie->hash,ptr_table,words_in);
+				command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
 				break;
 			case 3 :
-				//command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
-				command_error=deleteTrieNode(trie->hash,ptr_table,words_in);
-				//printf("delete error is word (%s) is %d \n",ptr_table[0],command_error);
+				command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
+				//printf("error is %d \n",command_error);
 				break;
 		
 		}
@@ -276,7 +261,7 @@ trie_node *create_trie_node(char *word,char is_final){
 }
 
 trie_node *init_trie_node(trie_node *node,char *word,char is_final){
-	//printf(" init trie\n");
+	//printf("Inside init trie\n");
 	//print_node(node);
 	node->word=malloc(WORD_SIZE*sizeof(char));
 	strcpy(node->word,word);
@@ -416,6 +401,31 @@ int append_word(trie_node *node,int pos,char *word,char is_final){
 		return SUCCESS ; //zero errors
 }
 
+/**int delete_ngram(trie_node *node,char **word,int word_number,int number_of_words){
+		int error;
+		stack *stack_=init_stack();
+		trie_node *root=node;
+		printf("in delete ngram\n");
+		while(word_number!=number_of_words){
+			printf("word is %s\n",word[word_number]);
+			if(node->number_of_childs==0) return ERROR;
+			else{
+				int pos;
+				int exists=check_exists_in_children(node,word[word_number],&pos);
+				if (exists==1){
+					push(stack_,pos); //push the position on the stack to remove it later
+					node=&(node->children[pos]);
+					word_number=word_number+1;
+				}
+				else error=1;	//error is 1 if the word is not on the trie , so the ngram is not in the trie
+				}
+		}
+		print_stack_(stack_);
+		if(node->number_of_childs!=0) return ERROR; //check if there are childs ont the node and return error if there are
+		 
+		return SUCCESS;//and return no error . the previous one is gonna delete it
+}*/
+
 int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words){
 		int error;
 		//printf("in delete ngram word \"%s\"\n",word[word_number]);
@@ -462,7 +472,9 @@ int delete_from_node(trie_node *node,int pos){
 		//free(node_to_delete->children);
 		return SUCCESS ; //zero e-rrors
 }
-int search_in_trie_without_blfilter(trie_node *root,char **word,int number_of_words){
+
+
+int search_in_trie(trie_node *root,char **word,int number_of_words){
 	//printf("Inside search\n");
 	stack *stack_=init_stack();
 	int word_number;
@@ -494,7 +506,6 @@ int search_in_trie_without_blfilter(trie_node *root,char **word,int number_of_wo
 		reset_stack(stack_);
 		start++;
 	}
-	printf("\n");
 	int found=SUCCESS;
 	if(paths_->words_in==0) found=-1;
 	//print_paths(paths_);
@@ -502,69 +513,6 @@ int search_in_trie_without_blfilter(trie_node *root,char **word,int number_of_wo
 	delete_paths(paths_); //rows	
 	return found;
 	if(exists==0) return ERROR;
-	
-	return SUCCESS;	
-
-
-}
-
-
-int search_in_trie(trie_node *root,char **word,int number_of_words){
-	//printf("Inside search\n");
-	//stack *stack_=init_stack();
-
-	size_t bloomfilterbytes = (M/8);
-	int * bloomfilter = malloc(bloomfilterbytes);
-	bloomfilter_init(bloomfilter);
-
-	char *str;;
-	int word_number;
-	int exists;
-	int pos;
-	trie_node *node;
-	int start=0;
-
-	while(start!=number_of_words+1) {
-		str=malloc(20*sizeof(char));
-		strcpy(str,"");
-		word_number=start;
-		node=root;
-		while(node->number_of_childs!=0) {
-			//printf("word number :%d %s\n",word_number,word[word_number]);
-			if(node->is_final=='y') {
-					if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s|",str); 
-						bloomfilter_add(str,bloomfilter);
-					}
-				}
-			exists=check_exists_in_children(node,word[word_number],&pos);
-			if(exists==0) 
-				break;
-			str = myappend(str,word[word_number]);
-			node=&(node->children[pos]);
-			word_number++;
-		}
-		if(exists==1) {
-			if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s|",str); 
-						bloomfilter_add(str,bloomfilter);
-					}
-		}
-//		memset(0,str,sizeof(str));
-//		str[0]='\0';
-		free(str);
-		//reset_stack(stack_);
-		start++;
-	}
-	printf("\n");
-	int found=SUCCESS;
-	if(TestAllBits(bloomfilter)==0) found=-1;
-	//print_paths(paths_);
-//	free(str);
-	free(bloomfilter);
-	return found;
-	if(exists==0) return ERROR;
-//	free(str);
 	
 	return SUCCESS;	
 
@@ -587,32 +535,6 @@ void print_nodes_from_stack(trie_node *root,stack *stack_){
 	printf("|");
 }
 
-void print_nodes_from_hash(hash_layer *hash,stack *stack_){
-	int number=get_stack_number(stack_);
-	int i ,pos;
-	trie_node *node;
-	//printf("Found N gram: ");
-	pos=get_stack_elements(stack_,0);
-	hash_bucket *bucket=&(hash->buckets[pos]);
-	pos=get_stack_elements(stack_,1);
-	node=&(bucket->children[pos]);
-	if(number==2){
-		printf("%s|",node->word);
-		return;
-	}
-	printf("%s ",node->word); 
-	for(i=2;i<number-1;i++){
-		pos=get_stack_elements(stack_,i);
-		node=&(node->children[pos]);
-		printf("%s ",node->word);
-	}
-	
-	pos=get_stack_elements(stack_,i);
-	node=&(node->children[pos]);
-	printf("%s",node->word);
-	printf("|");
-}
-
 paths *init_paths(int rows,int columns){
 	int i;
 	paths* paths_=malloc(sizeof(paths));
@@ -628,6 +550,31 @@ paths *init_paths(int rows,int columns){
 	paths_->words_in=0;
 	return paths_;
 } 
+
+/*int check_in_paths(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
+	//printf("inside check in paths\n");
+	int number=get_stack_number(stack_);
+	int path_pos=0;
+	int found=1;
+	int pos,i,j;
+	for(i=0;i<number;i++){
+		pos=get_stack_elements(stack_,i);
+		for(j=0;j<paths_->words_in;j++){
+			if(paths_->paths_array[j][path_pos]==pos){
+				path_pos++;
+				break;
+			} //if it finds it continue with the next word
+		}
+		if(j==paths_->words_in) {found=0; break;} //if it doesnt find one node f the path then leave
+ 			
+	}
+	if(found==0) {
+		add_to_paths(paths_,stack_); //add to paths and print it
+		print_nodes_from_stack(root,stack_);
+		
+	}
+	return found;
+}*/
 
 int check_in_paths3(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
 	//printf("inside check in paths\n");
@@ -646,33 +593,74 @@ int check_in_paths3(paths *paths_, stack *stack_,trie_node *root){//initialize p
 	}
 	if(found==0) {
 		add_to_paths(paths_,stack_); //add to paths and print it
-		//print_nodes_from_stack2(root,stack_);
 		print_nodes_from_stack(root,stack_);
+		
 	}
 	return found;
 }
 
-int check_in_paths4(paths *paths_, stack *stack_,hash_layer *hash){//trie_node *root){//initialize paths in -1
+/*int check_in_paths2(paths *paths_, stack *stack_,trie_node *root){//initialize paths in -1
 	//printf("inside check in paths\n");
-	int number=get_stack_number(stack_);
-	int found=0;
-	int pos,i,j;
-	for(i=0;i<paths_->words_in;i++){
-		for(j=0;j<number;j++){
-			pos=get_stack_elements(stack_,j);
-			if(paths_->paths_array[i][j]!=pos){
-				break;
-			} //if it finds it continue with the next word
+	int number=get_stack_number(stack_); //how many words the phrase has
+	int path_pos=0; //in which word on the paths i am in 
+	int found=0; //if the phrase path is found in paths
+	int pos; //pos in trie of the word of the phrase    
+	int i=0;
+	int j=0;
+	int first_pos=get_stack_elements(stack_,i);
+	while(paths_->paths_array[j][path_pos]<=first_pos && j!=paths_->words_in){
+		for(i=1;i<number;i++){
+			pos=get_stack_elements(stack_,i);
+			if(paths_->paths_array[j][i]!=pos) break; //if it finds it continue with the next word
+			}
+		if(i==number) {found=1; break;}
+		j++;
 		}
-		if(j==number) {found=1; break;} //if it doesnt find one node f the path then leave
- 			
-	}
-	if(found==0) {
-		add_to_paths(paths_,stack_); //add to paths and print it
-		print_nodes_from_hash(hash,stack_);
-	}
+	
+ 	if(found==0) {
+		add_to_paths2(paths_,stack_); //add to paths and print it
+		print_nodes_from_stack(root,stack_);
+	}		
 	return found;
 }
+
+
+void add_to_paths2(paths *paths_, stack *stack_){
+	int path_num=paths_->words_in;
+	if(path_num==paths_->max_words) double_paths(paths_);
+	int number=get_stack_number(stack_);
+	int i ,pos;
+	i=0;
+	//printf("Found N gram: ");
+	pos=get_stack_elements(stack_,i);
+	if(i==paths_->words_in)i=0;
+	else{
+		while(paths_->paths_array[i][0]<pos && i<paths_->words_in) i++; //find first position
+		}
+	
+
+	path_num=i;
+	printf("\npath num is %d\n",path_num);
+	printf("words_in are %d\n",paths_->words_in);
+	if(path_num!=paths_->words_in && paths_->words_in!=0){
+		//printf("in move : %d\n",(paths_->words_in-path_num));
+		int **backup=paths_->paths_array;
+		//memmove(paths_->paths_array,backup,path_num*sizeof(backup[0]));
+		memmove(paths_->paths_array+(path_num+1),backup+path_num,(paths_->words_in-(path_num))*sizeof(backup[0]));
+
+	}
+	//paths_->words_in++;
+	//print_paths(paths_);
+	for(i=0;i<number;i++){
+		pos=get_stack_elements(stack_,i);
+		paths_->paths_array[path_num][i]=pos;
+	}
+	//printf("|");
+	paths_->words_in++;
+	print_paths(paths_);
+}
+
+*/
 
 void add_to_paths(paths *paths_, stack *stack_){
 	int path_num=paths_->words_in;
@@ -727,63 +715,23 @@ void print_paths(paths *paths_){
 	}
 }
 
-
-char * myappend_1(char * string, char * word){
-	if(string==NULL) 
-		string = malloc(0);
-	char *string2;
-	string2 = malloc(strlen(string)+strlen(word)+2);
-	strcpy(string2,string);
-	strcat(string2," ");
-	strcat(string2,word);
-	size_t new_length = strlen(string)+strlen(word)+2;
-	string =  realloc(string,new_length);
-	strcpy(string,string2);
-	free(string2);
-
-	return string;
-}
-
-char * myappend(char * string, char * word){
-	if(string==NULL) 
-		string = malloc(0);
-	size_t new_length = strlen(string)+strlen(word)+2;
-	char *string2;
-	string2 = malloc(new_length);
-	strcpy(string2,string);
-	strcat(string2," ");
-	strcat(string2,word);
-//	string =  realloc(string,new_length);
-//	strcpy(string,string2);
-	free(string);
-
-	if(string2[0] == ' ') //lets chop off the first space in each n gram
-	{
-		int i;
-		for(i=0;i<strlen(string2);i++)
-			string2[i]=string2[i+1];
-	}
-	return string2;
-
-}
-
 void initialize_bucket(hash_bucket *bucket,int m){
 	bucket->children=malloc(m*sizeof(trie_node));
+	bucket->overflow_bucket=NULL;
 	bucket->children_number=0;
-	bucket->capacity=m;
 }
 
-hash_layer *createLinearHash(int c ,int m){ //c is number of buckets ,m is number of cells per bucket
+hash_layer	*createLinearHash(int c ,int m){ //c is number of buckets ,m is number of cells per bucket
 	int i;
 	hash_layer *hash=malloc(sizeof(hash_layer));
 	if(hash==NULL) return NULL;
 
 	hash->bucket_capacity=m;
 	hash->buckets_number=c;
-	hash->load_factor=0.9;
+	hash->load_factor=0.5;
 	hash->total_children=0;
 	hash->bucket_to_split=0;
-	hash->split_round=0;
+	hash->split_round=1;
 	hash->buckets=malloc(c*sizeof(hash_bucket));
 	if(hash->buckets==NULL) return NULL;
 	
@@ -793,29 +741,15 @@ hash_layer *createLinearHash(int c ,int m){ //c is number of buckets ,m is numbe
 	return hash;
 }
 
-int  hash_function(hash_layer *hash, char *word)
-{	
-	int hash_value;
-    unsigned long hash_int = 5381;
+int  hash_function(int hash_buckets, char *word)
+{
+    unsigned long hash = 5381;
     int c;
 
     while (c = *word++)
-        hash_int = ((hash_int << 5) + hash_int) + c; /* hash * 33 + c */
-	//printf("hash is %ld\n",hash_int);
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 
-	hash_value=hash_int%(C*(int)pow(2,hash->split_round));
-	//printf("old hash value  is %ld with split bucket %d split round %d\n",hash_value,hash->bucket_to_split,hash->split_round);
-	//printf("mod value is %d ",C*(int)pow(2,hash->split_round));
-	//printf("Total buckets are %d bucket to spilt %d\n", hash->buckets_number,hash->bucket_to_split);
-	//printf("hash value before is %ld split round %d\n",hash_value,hash->split_round);
-	/*if(hash_value < hash->bucket_to_split || ((hash_value+1)*2)<hash->buckets_number){
-		printf("here\n");
-		hash_value=hash_int%(C*(int)pow(2,hash->split_round+1));
-	}*/
-	int temp=hash_int%(C*(int)pow(2,hash->split_round+1));
-	if(temp<hash->buckets_number) return temp;
-	//printf("new hash value after is %ld\n",hash_value);
-    return hash_value;
+    return hash%hash_buckets;
 }
 
 
@@ -824,14 +758,23 @@ void destroyLinearHash(hash_layer *hash){
 	hash_bucket *bucket;
 	for(i=0;i<hash->buckets_number;i++){
 		bucket=&(hash->buckets[i]);
-		//printf("bucket %d\n",i);
-		destroy_bucket_nodes(bucket);
-		//destroy_buckets(bucket,0);
+		printf("bucket %d\n",i);
+		destroy_buckets(bucket,0);
 		//free(bucket->children);
 	}
 	free(hash->buckets);
 	free(hash);
 	return ;
+}
+
+void destroy_buckets(hash_bucket *bucket,int level){
+	if(bucket==NULL) return;
+	destroy_buckets(bucket->overflow_bucket,level+1);
+	printf("deleting overflow bucket %d\n",level);
+	destroy_bucket_nodes(bucket);
+	if(level!=0){
+		free(bucket);}
+	return;
 }
 
 void destroy_bucket_nodes(hash_bucket *bucket){
@@ -847,44 +790,34 @@ void destroy_bucket_nodes(hash_bucket *bucket){
 }
 
 int insertTrieNode(hash_layer *hash,char **words,int word_number){
-	//printf("appending %s\n",words[0]);
 	char is_final='n';
 	if(word_number==1) is_final='y';
-
-	//int hash_val=hash_function(hash,words[0]);
-
-	if((hash->total_children/((float)hash->buckets_number*hash->bucket_capacity)) > hash->load_factor){
-		printf("total children are %d, buckets_number are %d\n",hash->total_children,hash->buckets_number);
-        printf("load factor: %f \n",(hash->total_children/((float)hash->buckets_number*hash->bucket_capacity)));
-		printf("capacity: %d \n",hash->bucket_capacity);
-		int resize_error=resize_hash(hash);
-		if(resize_error==ERROR) return ERROR;
-	}
-	
-	int hash_val=hash_function(hash,words[0]);
-	
-
+	int hash_val=hash_function(C*hash->split_round,words[0]);
 	trie_node *node;
 	node=add_to_backet(hash,hash_val,words[0],is_final); //node gets the value of the first trie node
-
+	//print_node(node);
+	printf("node word is %s\n",node->word);
 	if(word_number>1){ 
-		append_trie_node(node,words,1,word_number-1);
-		//node->number_of_childs++;
-		return 0;	
-	}	
+		printf("appending more words\n");
+		append_trie_node(node,words,1,word_number-1);}	
 	
-	if(node->is_final=='n') node->is_final=is_final;
 	return 0;
 }
 
 
+int check_exists_in_bucket(hash_layer *hash,int hash_val,char *word,int *pos){
+	hash_bucket *bucket=&(hash->bucket[hash_val];)
+	int exists=check_exists_in_bucket(bucket,word,pos);
+	while(exists==0 && *pos==hash->bucket_capacity){
+		exists=check_exists_in_bucket(bucket->overflow_bucket,word,pos);
+		bucket=bucket->overflow_bucket;
+	}
+	
+}
+
 int check_exists_in_bucket(hash_bucket *bucket,char *word,int *pos){
 		int pivot=0; //pivor is integer so in the division it will rounf in the smaller absolute value 5/2=2
 		int lower=0;
-		if(bucket->children_number==0) {
-			*pos=0;
-			return 0;
-		}
 		int upper=bucket->children_number-1;
 		//printf("inside check exists\n");
 		//if(upper==-1) return 0; //i made this change
@@ -917,43 +850,55 @@ int check_exists_in_bucket(hash_bucket *bucket,char *word,int *pos){
 
 
 trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final){
-	//printf("In add to bucket %s\n",word);
-	
+	//hash_layer *hash=root->hash;
+
+	int resize_error;
+	if((hash->total_children/(float)hash->buckets_number) > hash->load_factor){
+		resize_error=resize_hash(hash,hash_val);
+		if(resize_error==ERROR) return NULL;
+	}	
 	
 	hash_bucket *bucket=&(hash->buckets[hash_val]);
 	
 	int *last=&(bucket->children_number);
 	trie_node *node;
 
+	//check if the word already exists
+	int i;
+	for(i=0;i<bucket->children_number;i++){
+		if(strcmp(bucket->children[i].word,word)==0){
+			node=&(bucket->children[i]);
+			printf("FOUND IT\n");
+			return node;
+		}
+		
+	}
 
-	if(*last==bucket->capacity){ //initializing overflow bucket
-		bucket->children=realloc(bucket->children,2*bucket->children_number*sizeof(trie_node));
-		if(bucket->children==NULL) return NULL;
-		bucket->capacity=bucket->capacity*2;
-		//printf("I made an overflow at bucket %d\n",hash_val);
+	while(bucket->overflow_bucket!=NULL && *last==hash->bucket_capacity ) bucket=bucket->overflow_bucket;
+ //going to the last bucket
+
+	if(*last==hash->bucket_capacity && bucket->overflow_bucket==NULL){ //initializing overflow bucket
+		bucket->overflow_bucket=malloc(sizeof(hash_bucket));
+		if(bucket->overflow_bucket==NULL) return NULL;
+		initialize_bucket(bucket->overflow_bucket,hash->bucket_capacity);
+		printf("I made a new overflow bucket at bucket %d\n",hash_val);
 	} 
+	if(*last==hash->bucket_capacity && bucket->overflow_bucket!=NULL) { //*las>capacity
+		bucket=bucket->overflow_bucket;
+		last=&(bucket->children_number);
+	}
 
-	int pos;
-	int exists=check_exists_in_bucket(bucket,word,&pos);
-
-	node=&(bucket->children[pos]);
-	if(exists==1) return node;
-	//memove nodes to the right
-	trie_node *backup=bucket->children;
-	memmove(bucket->children,backup,pos*sizeof(trie_node));
-	memmove(bucket->children+(pos+1),backup+(pos),(bucket->children_number-pos)*sizeof(trie_node));//
+	node=&(bucket->children[*last]);
 	init_trie_node(node,word,is_final);
-
 	*last=*last+1;
 	hash->total_children++;
-	//int resize_error;
-	//printf("children now %d\n",*last);
+
 	return node;
 }
 
-int resize_hash(hash_layer *hash){
+int resize_hash(hash_layer *hash,int hash_val){
 	hash_bucket *bucket;
-	//printf("attempting to expand buckets\n");
+	printf("attempting to expand buckets\n");
 	hash->buckets=realloc(hash->buckets,(hash->buckets_number+1)*sizeof(hash_bucket)); //add bucket lineat
 	if(hash->buckets==NULL){
 		printf("error in realloc\n");
@@ -967,42 +912,48 @@ int resize_hash(hash_layer *hash){
 	bucket=&(hash->buckets[hash->bucket_to_split]); //re arranging bucket to split
 	int new_hash_val=-1;
 	stack *stack_=init_stack();
-	//print_stack(stack_);
+	print_stack(stack_);
 
 	if(bucket->children_number==0){
-		//printf("Bucket to split is %d and split round %d empty\n",hash->bucket_to_split,hash->split_round);
-		hash->bucket_to_split=(hash->bucket_to_split+1)%(C*(int)pow(2,hash->split_round));//
-		if(hash->bucket_to_split==0 && hash->buckets_number>C) hash->split_round++;
+		hash->bucket_to_split=(hash->bucket_to_split+1)%(hash->split_round*C);//
 		stack_destroy(stack_); 
 		return SUCCESS;
 	} // no need for rearranging bucket
-	
-	//printf("Bucket to split is %d and split round %d in bucket %d\n",hash->bucket_to_split,hash->split_round,hash->buckets_number-1);
-	//printf("children in bucket is %d\n",bucket->children_number);
-	int previous=hash->bucket_to_split;
-	hash->bucket_to_split=(hash->bucket_to_split+1)%(C*(int)pow(2,hash->split_round));//
-	for(i=0;i<bucket->children_number;i++){
 
-		new_hash_val=hash_function(hash,bucket->children[i].word);
-		//printf("new hash val is %d \n",new_hash_val);
-		if(new_hash_val==previous) continue; //if hash value is the same then no need to change bucket
-		if(new_bucket->children_number==new_bucket->capacity){	//if new bucket fills then create an overflow bucket
-			new_bucket->children=realloc(new_bucket->children,bucket->capacity*2*sizeof(trie_node));
-			if(new_bucket->children==NULL){
-				stack_destroy(stack_); 
-				return ERROR;
+	//re arange buucket
+	while(bucket!=NULL || new_hash_val==-1){ //bucket->overflow_bucket!=NULL
+		printf("attempting to re arrange bucket %d and %d\n",hash->bucket_to_split,hash->buckets_number-1);
+		push(stack_,-1);
+		print_stack(stack_);
+		for(i=0;i<bucket->children_number;i++){
+
+			new_hash_val=hash_function(C*(hash->split_round+1),bucket->children[i].word);
+			if(new_hash_val==hash_val) continue; //if hash value is the same then no need to change bucket
+
+			if(new_bucket->children_number==hash->bucket_capacity){	//if new bucket fills then create an overflow bucket
+				new_bucket->overflow_bucket=malloc(sizeof(hash_bucket));
+				if(new_bucket->overflow_bucket==NULL){
+					stack_destroy(stack_); 
+					return ERROR;
+				}	
+				initialize_bucket(new_bucket->overflow_bucket,hash->bucket_capacity);
+				new_bucket=new_bucket->overflow_bucket;
 			}
-			new_bucket->capacity=new_bucket->capacity*2;	
-		}
-		memmove(&(new_bucket->children[new_bucket->children_number]),&(bucket->children[i]),sizeof(trie_node)); //copy nod
-		push(stack_,i);		
-		new_bucket->children_number++;	
-	}
 
-	//print_stack(stack_);
-	shrink_buckets(&(hash->buckets[previous]),stack_);
-	//hash->bucket_to_split=(hash->bucket_to_split+1)%(C*(int)pow(2,hash->split_round));//
-	if(hash->bucket_to_split==0 && hash->buckets_number>C) hash->split_round++;
+			memmove(&(new_bucket->children[new_bucket->children_number]),&(bucket->children[i]),sizeof(trie_node)); //copy nod
+			push(stack_,i);		
+			print_stack(stack_);
+			new_bucket->children_number++;	
+			}
+			bucket=bucket->overflow_bucket;
+		}
+
+	print_stack(stack_);
+	push(stack_,-1);
+	shrink_buckets(&(hash->buckets[hash->bucket_to_split]),stack_);
+	hash->bucket_to_split=(hash->bucket_to_split+1)%(hash->split_round*C);//
+	printf("hash after arrange\n");
+	print_hash(hash);
 	stack_destroy(stack_); 
 	return SUCCESS;
 }
@@ -1010,74 +961,45 @@ int resize_hash(hash_layer *hash){
 void shrink_buckets(hash_bucket *bucket,stack *stack_){
 	int i;
 	int pos;
-	int *total=&(bucket->children_number);
-	for(i=stack_->top-1;i>=0;i--){
+	int first=0;
+	int bucket_number=1;
+	hash_bucket *previous=NULL;
+	for(i=1;i<stack_->top;i++){ //first is always -1
 		pos=get_stack_elements(stack_,i);
-		//printf("shrink_buckets pos %d\n",pos);
+		printf("shrink_buckets pos %d\n",pos);
 		
-		memmove(&(bucket->children[pos]),&(bucket->children[pos+1]),(*total-(pos+1))*sizeof(trie_node));
-		//printf("INSIDE\n");
-		*total=*total-1;
-		//printf("Now children left on the bucket are %d\n",bucket->children_number);
+		if(pos==-1 && first-i!=1){
+			shrink_bucket(bucket,stack_,first,i);
+			bucket->children_number=bucket->children_number-(i-first-1); //new children number
+			printf("Now children left on the bucket are %d , bucket number %d\n",bucket->children_number,bucket_number);
+			first=i;
+			if(bucket->children_number==0 && bucket_number!=1){ //freeing the buckets that are empty in between expept the first
+				previous->overflow_bucket=bucket->overflow_bucket;
+				free(bucket->children);
+				free(bucket);
+				bucket=previous->overflow_bucket;
+				bucket_number++;
+				continue;
+			}
+			printf("bucket number here %d\n",bucket_number);
+			previous=bucket;
+			bucket=bucket->overflow_bucket;
+			bucket_number++;
 		}
-	/*if(*total<bucket->capacity-hash->bucket_capacity){ //freeing the realloced extra tries
-			bucket->children=realloc(bucket->children,hash*sizeof(trie_node));
-			}*/
+	}
 }
 
-int deleteTrieNode(hash_layer *hash,char **words,int word_number){
-	int error;
-
-	int hash_val=hash_function(hash,words[0]);
-	//printf("hash val is %d\n",hash_val);
-
-	trie_node *node;
-	int pos;
-	node=delete_from_backet(hash,hash_val,words[0],&pos); //node gets the value of the first trie node
-	if(node==NULL) return ERROR;
-	if(word_number>1){ 
-		//printf("deleting more words\n");
-		error=delete_ngram(node,words,1,word_number-1);
-		if(error!=SUCCESS){
-			return error;
-		}
-	
-		if(node->number_of_childs!=0 || node->is_final=='y') return 2;
-		hash_bucket *bucket=&(hash->buckets[hash_val]);
-		int total=bucket->children_number;
-		free(node->word);
-		free(node->children);
-		memmove(&(bucket->children[pos]),&(bucket->children[pos+1]),(total-(pos+1))*sizeof(trie_node));
-		bucket->children_number--;
-		return SUCCESS;
-	}
-	if(node->is_final=='n') return ERROR;
-	if(node->number_of_childs!=0){ 
-		node->is_final='n';
-		return 2;
-	}
-
-	hash_bucket *bucket=&(hash->buckets[hash_val]);
+void shrink_bucket(hash_bucket *bucket,stack *stack_,int first,int last){
+	//delete nod from the old bucket
+				//if the next is not the last then memove whats left
+				//otherwise dont do it 
+	int i,pos;
 	int total=bucket->children_number;
-	free(node->word);
-	free(node->children);
-	memmove(&(bucket->children[pos]),&(bucket->children[pos+1]),(total-(pos+1))*sizeof(trie_node));
-	bucket->children_number--;
-	hash->total_children--;
-	
-	
-	return SUCCESS;
-}
-
-trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos){
-	hash_bucket *bucket=&(hash->buckets[hash_val]);
-
-	trie_node *node;
-	int exists=check_exists_in_bucket(bucket,word,pos);
-	//printf("exists in delete is %d and word is %s and hash_val is %d\n",exists,word,hash_val);
-	if(exists==0) return NULL;
-	node=&(bucket->children[*pos]);
-	return node;
+	printf("total number here %d\n",total);
+	for(i=last-1;i>first;i--){ //this may cause problem
+		pos=get_stack_elements(stack_,i);
+		memmove(&(bucket->children[pos]),&(bucket->children[pos+1]),(total-(pos+1))*sizeof(trie_node));
+	}
 }
 
 void print_hash(hash_layer *hash){
@@ -1089,75 +1011,23 @@ void print_hash(hash_layer *hash){
 		printf("Bucket[%d]::",i);
 		for(j=0;j<bucket.children_number;j++){
 			node=bucket.children[j];
-			printf("-%s(%c)->",node.word,node.is_final);
+			printf("%s(%c)->",node.word,node.is_final);
 			print_trie(&node,0);
+		}
+		while(bucket.overflow_bucket!=NULL){ //prit overflow buckets
+			printf("-overflow-");
+			bucket=*(bucket.overflow_bucket);
+			for(j=0;j<bucket.children_number;j++){
+				node=bucket.children[j];
+				printf("%s(%c)->",node.word,node.is_final);
+				print_trie(&node,0);
+			} 
 		}
 		printf("\n");
 	}
 }
 
 
-int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
-	//printf("Inside search,number of words is %d\n",number_of_words);
-	stack *stack_=init_stack();
-	int word_number;
-	int exists;
-	int pos;
-	trie_node *node;
-	int start=0;
-	paths *paths_=init_paths(4,10); //rows columns
-	while(start!=number_of_words+1) {
-		//printf("\nstart with %s\n",words[start]);
-		word_number=start;
-		
-		int hash_val=hash_function(hash,words[start]);
-
-		hash_bucket *bucket=&(hash->buckets[hash_val]);
-		exists=check_exists_in_bucket(bucket,words[start],&pos);
-		//printf("exists is %d\n",exists);
-		if(exists==0){ 
-			start++;
-			continue;
-			}
-
-		node=&(bucket->children[pos]);
-		push(stack_,hash_val);
-		push(stack_,pos);
-		while(node->number_of_childs!=0) {
-			//printf("here\n");
-			//printf("word number :%d %s\n",word_number,words[word_number]);
-			if(node->is_final=='y') {
-				//print_stack(stack_);
-				check_in_paths4(paths_,stack_,hash); //I found it
-				}
-			//printf("word_number is %d\n",word_number);
-			word_number++;
-			if(word_number>number_of_words) break;
-			exists=check_exists_in_children(node,words[word_number],&pos);
-			if(exists==0) break;
-			//printf("I am gonna push : %d\n",pos);
-			push(stack_,pos);
-			node=&(node->children[pos]);
-			//word_number++;
-		}
-		if(exists==1 && word_number<=number_of_words) {
-			//print_stack(stack_);
-			check_in_paths4(paths_,stack_,hash);
-			//print_nodes_from_hash(hash,stack_);
-		}
-		reset_stack(stack_);
-		start++;
-	}
-	int found=SUCCESS;
-	if(paths_->words_in==0) found=-1;
-	stack_destroy(stack_);
-	delete_paths(paths_); //rows	
-	return found;
-	if(exists==0) return ERROR;
-	
-	return SUCCESS;	
-
-
+int lookupTrieNode(){
 	return 0;
 }
-

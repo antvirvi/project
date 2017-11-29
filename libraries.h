@@ -4,7 +4,6 @@
 #include <ctype.h>
 #include <errno.h>
 
-
 #define BITSINT 32 //number of bitds in an int
 
 #define RED     "\x1b[31m"

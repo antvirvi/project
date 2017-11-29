@@ -8,11 +8,13 @@ default: project
 # countwords.o, counter.o, and scanner.o:
 #
 
-project:  main.o functions.o stack.o bloomfilter.o murmur3.o
-	$(CC) $(CFLAGS) -o project main.o functions.o stack.o bloomfilter.o murmur3.o
+
+project:  main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o
+	$(CC) $(CFLAGS) -o project main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o -lm
 
 test_project:  test_main.o functions.o stack.o test.o bloomfilter.o murmur3.o
-	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o test.o bloomfilter.o murmur3.o
+	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o test.o bloomfilter.o murmur3.o -lm
+
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
@@ -23,8 +25,13 @@ main.o:  main.c functions.h
 test_main.o:  test_main.c functions.h
 	$(CC) $(CFLAGS) -c test_main.c
 
+
+
 test.o: test.c functions.h
 	$(CC) $(CFLAGS) -c test.c
+
+static_functions.o:  static_functions.c static_functions.h 
+	$(CC) $(CFLAGS) -c static_functions.c
 
 functions.o:  functions.c functions.h 
 	$(CC) $(CFLAGS) -c functions.c
@@ -49,8 +56,18 @@ testrun:
 testrun2:
 	  valgrind --leak-check=yes ./project -q test.work -i test.init 
 
+
+testrun3:
+	  valgrind --tool=callgrind ./project -q medium_dynamic.work -i medium_dynamic.init 
+
 run:
 	time ./project -q small.work -i small.init 
+run2:
+	./project -q test.work -i test.init 
+
+run3:
+	time ./project -q medium_dynamic.work -i medium_dynamic.init 
+
 pipe:
 	time ./project -q small.work -i small.init > results.txt
 

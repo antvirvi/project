@@ -1,14 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "math.h"
-
-
-#ifndef STACK_H
-#define STACK_H
 #include "stack.h"
-#endif
-
 
 #ifndef WORD_SIZE
 #define WORD_SIZE 25
@@ -30,18 +23,10 @@
 #define SUCCESS 0
 #endif
 
-#define PATH_COLUMN 10
-/*
-
-int buffer_size = 16;
-int word_size = 8;
-int table_size = 4;
-*/
-
 #define EMPTY_POINTER NULL
-#define PATH_COLUMN 20
+#define PATH_COLUMN 10
 
-#define C 8
+#define C 4
 //#define STACK_NUMBER 10
 //#define STACK_EMPTY -1
 
@@ -64,10 +49,9 @@ typedef struct paths{
 }paths;
 
 typedef struct hash_bucket{
-	//struct hash_bucket *overflow_bucket;
+	struct hash_bucket *overflow_bucket;
 	trie_node *children;
 	int children_number;
-	int capacity;
 }hash_bucket;
 
 typedef struct hash_layer{
@@ -109,8 +93,7 @@ void delete_paths(struct paths *paths_);
 int check_in_paths(struct paths *paths_, stack *stack_,trie_node *node);
 void add_to_paths(struct paths *paths_, stack *stack_);
 
-int check_in_paths3(struct paths *paths_, stack *stack_,trie_node *root);
-int check_in_paths4(paths *paths_, stack *stack_,hash_layer *hash);
+int check_in_paths3(struct paths *paths_, stack *stack_,trie_node *node);
 void print_paths(paths *paths_);
 //void add_to_paths2(struct paths *paths_, stack *stack_);
 struct paths *init_paths(int rows,int columns);
@@ -118,25 +101,16 @@ struct paths *init_paths(int rows,int columns);
 void cleanup(char ** ptr);
 
 
-
-//part 2
-char * myappend(char * word, char * string);
-char * myappend1(char * word, char * string);
-//unsigned long hash(/*unsigned*/ char *str, int key);
 hash_layer	*createLinearHash(int c ,int m);
 void destroyLinearHash(hash_layer *hash);
 int insertTrieNode(hash_layer *hash,char **words,int word_number);
-int lookupTrieNode(hash_layer *hash,char **words,int word_number);
+int lookupTrieNode();
 
 trie_node *add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final);
 
 void shrink_buckets(hash_bucket *bucket,stack *stack_);
 void shrink_bucket(hash_bucket *bucket,stack *stack_,int first,int last);
 void print_hash(hash_layer *hash);
-int resize_hash(hash_layer *hash);
+int resize_hash(hash_layer *hash,int hash_val);
 void destroy_bucket_nodes(hash_bucket *bucket);
 void destroy_buckets(hash_bucket *bucket,int level);
-
-trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos);
-int deleteTrieNode(hash_layer *hash,char **words,int number_of_words);
-int  hash_function(hash_layer *hash, char *word);

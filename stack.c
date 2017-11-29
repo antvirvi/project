@@ -46,7 +46,7 @@ void print_stack(stack *stack_){
 	int i;
 	printf("Inside print stack\n");
 	for(i=0;i<stack_->top;i++){
-		printf("%d ",stack_->pos_array[i]);
+		printf("%d ,",stack_->pos_array[i]);
 	}
 	printf("\n");
 }
