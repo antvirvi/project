@@ -52,10 +52,19 @@ int init_input(struct index *trie,char * filename){
 	size_t len = 0;
 	ssize_t read;
 	char *word;
+	int static_flag=0;
 
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
 			
+	//read first word
+	if((read = getline(&line, &len, fd)) != -1){
+		words_in = 0;
+		word = strtok (line," \n");
+		if(strcmp(word,"STATIC")==0) static_flag=1;
+	}
+
+	rewind(fd);
 	while ((read = getline(&line, &len, fd)) != -1){
 		words_in = 0;
 		word = strtok (line," \n");
@@ -81,12 +90,11 @@ int init_input(struct index *trie,char * filename){
 		//append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
 		//append_trie_node(trie->root,ptr_table,0,words_in-1);
 		insertTrieNode(trie->hash,ptr_table,words_in);
-		//print_hash(trie->hash);
 	}
 	free(line);
 	cleanup(ptr_table);
 	fclose(fd);
-	return 0;	
+	return static_flag;	
 }
 
 
@@ -1216,9 +1224,9 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 
 	while(start!=number_of_words+1) {
 
-		str=malloc(5*sizeof(char)); //check this size
+		str=malloc(20*sizeof(char)); //check this size
 		strcpy(str,"");
-		str_size=5;
+		str_size=20;
 		word_number=start;
 		
 		int hash_val=hash_function(hash,words[start]);
@@ -1235,8 +1243,7 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 		node=&(bucket->children[pos]);
 		//printf("words start %d , %s\n",start,words[start]);
 		myappend_pan(&str,&str_size,words[start]);
-		//printf("word after append is %s with len %d\n",str,strlen(str));
-		//printf("str here %s\n",str);
+		
 		while(node->number_of_childs!=0) {
 			
 			if(node->is_final=='y') { //found ngram

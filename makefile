@@ -63,7 +63,7 @@ testrun2:
 
 
 testrun3:
-	  valgrind --tool=callgrind ./project -q medium_dynamic.work -i medium_dynamic.init 
+	  valgrind --leak-check=yes ./project -q medium_dynamic.work -i medium_dynamic.init 
 
 run:
 	time ./project -q small.work -i small.init 
@@ -71,7 +71,10 @@ run2:
 	./project -q test.work -i test.init 
 
 run3:
-	time ./project -q medium_dynamic.work -i medium_dynamic.init 
+	time ./project -q medium_dynamic.work -i medium_dynamic.init
+
+run_static:
+	 time ./project -q medium_static.work -i medium_static.init  
 
 pipe:
 	time ./project -q small.work -i small.init > results.txt

@@ -17,6 +17,7 @@ int main (int argc, char **argv ){
 	int c;
 	char init_file[25];
 	char query_file[25];
+	int init_result;
 	
 	if(argc<5){
 		printf("Wrong quantity of arguments\n");
@@ -38,34 +39,29 @@ int main (int argc, char **argv ){
 	struct index *trie=malloc(sizeof(struct index));
 	trie->hash=createLinearHash(C,10);
 	//trie->root=init_trie();
-	if(init_input(trie,init_file)<0) return -1;
-
-
-	if(test_input(trie,query_file)<0)
-		return -1;
-	//print_hash(trie->hash);
-
-	//static_hash_layer *static_hash=compress(trie->hash);
-	destroyLinearHash(trie->hash);
+	init_result=init_input(trie,init_file);
+	if(init_result<0) return -1;
+	else if(init_result==1){//static
+			printf("in static\n");
+			struct static_index *static_trie=malloc(sizeof(struct static_index));	
+			static_hash_layer *static_hash=compress(trie->hash);
+			static_trie->hash=static_hash;
+			if(test_static_input(static_trie,query_file)<0) return -1;
+			//print_static_hash(static_hash);
+			destroy_static_hash(static_hash);
+			free(static_trie);
+	}
+	else{//no static
+		printf("not in static\n");
+		if(test_input(trie,query_file)<0) return -1;
+	
+	}
+	destroyLinearHash(trie->hash); //in all the cases i have to delete it
 	free(trie);
-	
 	/**
-	struct static_index *static_trie=malloc(sizeof(struct static_index));	
-	static_trie->hash=static_hash;
 	init_static_input(static_trie,init_file);
-	print_static_hash(static_hash);
-	if(test_static_input(static_trie,"static_test.work")<0)
-		//return -1;
 	
-	print_static_hash(static_hash);
-	destroy_static_hash(static_hash);
-
-	free(static_trie);
 	*/
-//	delete_trie(trie); // na tsekarw an uparxei
 
-//	clock_t end = clock();
-//	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-//	printf("____________________________________\nProgram executed in %f seconds\n",time_spent);
 	return 0;	
 }

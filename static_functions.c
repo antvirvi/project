@@ -64,14 +64,14 @@ int compress_node(trie_node *node,static_trie_node *static_node){
 		merge_true=compress_node(&(node->children[i]),&(static_node->children[i]));
 
 		if(node->number_of_childs!=1) continue;
-		printf("merged\n");
+		//printf("merged\n");
 		merge_nodes(static_node,node,&(static_node->children[0]));
 		//printf("static_node word result is is %s\n",static_node->word);
 		//free(static_node->children);
 
 		}
 		
-	printf("childs are %d\n",static_node->number_of_childs);
+	//printf("childs are %d\n",static_node->number_of_childs);
 	return merge_true;
 }
 
@@ -313,8 +313,6 @@ int test_static_input(struct static_index *trie,char * filename)
 		word = strtok (line," \n");
 		
 		if(strcmp(word,"Q")==0) flag=1;
-		else if(strcmp(word,"A")==0) flag=2;
-		else if(strcmp(word,"D")==0) flag=3;
 		else if(strcmp(word,"F")==0){
 				print_gram_table(kfrm);
 //				erase_gram_table(kfrm);
@@ -352,21 +350,8 @@ int test_static_input(struct static_index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				printf("\n"); 
-				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
-				//command_error=lookupTrieNode(trie->hash,ptr_table,words_in-1);
 				command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,kfrm);
 				//if(command_error==-1) printf("%d\n",command_error);
-				break;
-			case 2 :
-				//command_error=append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
-				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
-				command_error=insert_staticTrieNode(trie->hash,ptr_table,words_in);
-				break;
-			case 3 :
-				//command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
-				//command_error=deleteTrieNode(trie->hash,ptr_table,words_in);
-				//printf("delete error is word (%s) is %d \n",ptr_table[0],command_error);
 				break;
 		
 		}
@@ -582,7 +567,6 @@ int check_exists_in_static_children(static_trie_node *node,char *word,int *pos){
 			//printf("upper %d lower %d pivot %d\n",upper,lower,pivot);
 			if(upper<=lower){
 				pivot=(upper+lower)/2;
-				printf("temp word is %s\n",temp_word);
 				get_i_word(&(node->children[pivot]),0,temp_word);				
 				int compare=strcmp(temp_word,word);
 				if(compare==0){
@@ -833,7 +817,7 @@ void shrink_static_buckets(static_hash_bucket *bucket,stack *stack_){
 
 
 int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_words,kframes * kf){
-	printf("Inside search,number of words is %d\n",number_of_words);
+	//printf("Inside search,number of words is %d\n",number_of_words);
 	
 	size_t bloomfilterbytes = (M/8);
 	int * bloomfilter = malloc(bloomfilterbytes);
@@ -906,7 +890,7 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 				if(strcmp(temp_word,words[word_number])==0) exists=1;
 				//printf("temp word is %s , words[word_number]: %s\n",temp_word,words[word_number]);
 				if(exists==0) break;
-				stat_myappend_pan(&str,&str_size,words[word_number]);
+				stat_myappend_pan_with_space(&str,&str_size,words[word_number]);
 			}
 		}
 		if(exists==1 && word_number<=number_of_words) {
