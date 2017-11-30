@@ -37,10 +37,9 @@ int main (int argc, char **argv ){
 //	printf("\n");
 	//print_trie(trie->root,0);
 	delete_trie(trie);
-
 //	clock_t end = clock();
 //	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 //	printf("____________________________________\nProgram executed in %f seconds\n",time_spent);
-test();
+//test();
 	return 0;	
 }

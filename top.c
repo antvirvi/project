@@ -2,6 +2,7 @@
 
  int table_ngram_size = 20;
 /*
+
 typedef struct kframes{
 int capacity; 	//posa xwrane
 int occupied; 	//posa exoume mesa
@@ -19,10 +20,10 @@ typedef struct freq{
 
 
 typedef struct index_table{
-	freq * fr;
-	char ** ngram;
+	int fr_index;
+	int ngram;
+	struct index_table * next;
 }index_table;
-
 
 */
 //table holding all the ngramms
@@ -35,7 +36,22 @@ typedef struct index_table{
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
+
+
+int hash_gram(char * ngram){ //epistrefei ena noumero gia kathe rpwto gramma eos ngram
+if((ngram[0]>='a')&&(ngram[0]<='z'))
+	return ngram[0]-'a';
+else if((ngram[0]>='A')&&(ngram[0]<='Z'))
+	return ngram[0]-'A';
+else if((ngram[0]>='0')&&(ngram[0]<='9'))
+	return 26;
+else{ 
+	printf("Something strange in hash_gram %s\n",ngram);
+	return -1;
+	}
+}
 //__________________________________________ngram table
+
 kframes *create_gram_table(kframes * kf){
 	kf = malloc(sizeof(kframes));
 	kf->ngrams = malloc(table_ngram_size*sizeof(char *));
@@ -47,23 +63,29 @@ kframes *create_gram_table(kframes * kf){
 return kf;
 }
 
-kframes *extend_gram_table(kframes * kf){
+kframes *extend_gram_table(kframes * kf,freq * fre,index_table** it){
 	table_ngram_size*=2;
 	kf->capacity = table_ngram_size;
 	kf->ngrams = (char **)realloc(kf->ngrams,kf->capacity*sizeof(char *));
 	kf->k = realloc(kf->k,kf->capacity*sizeof(int));
+	fre = realloc(fre,table_ngram_size*(sizeof(int)));
 //	kf->capacity = table_ngram_size;
 
 return kf;
 }
 
-kframes *add_gram_table(kframes * kf,char * ngram){ //prosthiki enos n gram stonpinaka
-	if(kf->occupied==(kf->capacity))
-		kf = extend_gram_table(kf);
+kframes *add_gram_table(kframes * kf,char * ngram,freq * fre,index_table** it){ //prosthiki enos n gram stonpinaka
+	if(kf->occupied==(kf->capacity)){
+		kf = extend_gram_table(kf,fre,it);
+	}
 //	printf("cap %d occ %d ngr %s \n\n\n_\n",kf->capacity,kf->occupied,ngram);
 	kf->ngrams[kf->occupied] = malloc((strlen(ngram)+1)*sizeof(char));
 	strcpy(kf->ngrams[kf->occupied],ngram);
+	fre->frequency++;
+	fre->ngram = kf->occupied;
 	kf->occupied++;
+	
+	
 return kf;
 }
 
@@ -113,37 +135,45 @@ void end_gram_table(kframes *kf){ //simeiwnoume oti edw teleiwnei to Q, ara prep
 
 //__________________________________________frequency
 void create_freq_index(freq * fr){
-	fr = malloc(gram_table_size*(sizeof(freq)));
+	fr = malloc(table_ngram_size*(sizeof(freq)));
+	fr->frequency = malloc(table_ngram_size*sizeof(int));
 	int i;
-	
 	for(i=0;i<table_ngram_size-1;i++){
-		frequency[i] = malloc(sizeof(int));
-		frequency[i] = 0;
+		fr->frequency[i] = 0;
 		}
-
+	
 }
 
 void init_freq_index(freq* fr){
-
+int i;
 	for(i=0;i<table_ngram_size-1;i++){
-		frequency[i] = 0;
+		fr->frequency[i] = 0;
 		}
 
 }
 
 void erase_freq_index(freq* fr){
-
-	for(i=0;i<table_ngram_size-1;i++){
-		free(frequency[i]);
-		}
+		free(fr->frequency);
 
 }
 
+
+void update_frequency(char * ngram){
+
+	//int a = hash_gram(ngram);
+
+}
+
+
 //__________________________________________hash table
 
-void create_hash_index(index_table* it){
-
-
+void create_hash_index(index_table** it){
+	int i;
+	it = malloc(27*sizeof(struct index_table *));
+	for(i=0;i<27;i++){
+		it[i] = malloc(sizeof(index_table));
+		it[i]= NULL;
+	}
 }
 
 void init_hash_index(index_table* it){
@@ -151,3 +181,10 @@ void init_hash_index(index_table* it){
 
 }
 
+void insert_hash_index(char * ngram, index_table * it){
+//int i = hash_gram(ngram);
+
+//if(it[i]==NULL)
+//	strcpy(it[i]->ngram
+//
+}

@@ -108,7 +108,7 @@ int test_input(struct index *trie,char * filename)
 */
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	char **ptr_table = malloc(table_size*sizeof(char *));
-
+	index_table * it =  malloc(27*sizeof(index_table*)); //pinakas me listes index table. mia gia kathe gramma AZ kai mia gia oti allo(px noumera)
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
 	int a;
@@ -123,6 +123,7 @@ int test_input(struct index *trie,char * filename)
 	kframes *kfrm=NULL;  //struct for the top k frames and printing after F
 	kfrm = create_gram_table(kfrm);
 	kfrm = init_gram_table(kfrm);
+	//int frequency[gram_table_size]
 
 	char *line = NULL;
 	size_t len = 0;
@@ -761,7 +762,19 @@ return str;
 }
 
 void test(void){  //test function to call other functions instead of main
-char * str ="antonis";
-if(str[1]=='a')
-	printf("hot chocolate\n");
+	char * str ="antonis";
+	printf("--->%d<---\n",hash_gram("natnonis"));
+	printf("--->%d<---\n",hash_gram("obtnonis"));
+	printf("--->%d<---\n",hash_gram("pctnonis"));
+	printf("--->%d<---\n",hash_gram("qdtnonis"));
+	printf("--->%d<---\n",hash_gram("retnonis"));
+	printf("--->%d<---\n",hash_gram("sftnonis"));
+	printf("--->%d<---\n",hash_gram("tgnonis"));
+	printf("--->%d<---\n",hash_gram("uhtnonis"));
+	printf("--->%d<---\n",hash_gram("vitnonis"));
+	printf("--->%d<---\n",hash_gram("wjhanasis"));
+	printf("--->%d<---\n",hash_gram("xkntonis"));
+	printf("--->%d<---\n",hash_gram("ylTThanasis"));
+	printf("--->%d<---\n",hash_gram("9m23"));
+	printf("--->%d<---\n",hash_gram("0m23"));
 }
