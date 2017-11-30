@@ -14,13 +14,6 @@ int * ends;
 */
 //table holding all the ngramms
 
-#define RED     "\x1b[31m"
-#define GREEN   "\x1b[32m"
-#define YELLOW  "\x1b[33m"
-#define BLUE    "\x1b[34m"
-#define MAGENTA "\x1b[35m"
-#define CYAN    "\x1b[36m"
-#define RESET   "\x1b[0m"
 
 
 kframes *create_gram_table(kframes * kf){
@@ -57,6 +50,7 @@ return kf;
 
 kframes *init_gram_table(kframes * kf){
 	int i ;
+
 	for(i=0;i<kf->occupied;i++){
 		free(kf->ngrams[i]);
 	}
@@ -67,7 +61,8 @@ return kf;
 }
 
 void erase_gram_table(kframes * kf){
-	int i;
+	
+
 	free(kf->ngrams);
 	free(kf->ends);
 	free(kf->k);  
@@ -79,8 +74,16 @@ void print_gram_table(kframes *kf){ //ektypwnei ola ta ngrams me
 	int j=0;
 	//int * ptr;
 //	ptr = kf->ends;
+	
+	//printf("PRINT ends with kf->q %d\n",kf->q);
+	//for(i=0;i<kf->q;i++) {
+		//printf("%d - ",kf->ends[i]);
+	//}
+	//printf("\n");
+	
 	for(i=0;i<kf->occupied;i++){ 
 		printf("%s",kf->ngrams[i]);  //ean ftasoume sto telos enos q prepei na orisoume tin allagi gramis kai to oxi "|"
+		//printf("ends is %d with j %d\n",kf->ends[j],j);		
 		if(kf->ends[j]==i){
 			printf("\n");
 			j++;
@@ -95,7 +98,7 @@ void end_gram_table(kframes *kf){ //simeiwnoume oti edw teleiwnei to Q, ara prep
 	kf->ends = realloc(kf->ends,((kf->q)+1)*(sizeof(int*)));
 	kf->q++;
 	kf->ends[kf->q] = -1;
-
+	
 }
 
 //table holding the top appearances

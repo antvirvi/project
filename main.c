@@ -33,16 +33,6 @@ int main (int argc, char **argv ){
 	}
 	
 	int i;
-	char **words=malloc(6*sizeof(char*));
-	for(i=0;i<6;i++){
-		words[i]=malloc(15*sizeof(char));
-	}
-
-
-	for(i=0;i<6;i++){
-		free(words[i]);
-	}
-	free(words);
 	printf("Init %s\nQueries %s\n",init_file,query_file);
 
 	struct index *trie=malloc(sizeof(struct index));

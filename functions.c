@@ -178,9 +178,8 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 //<<<<<<< HEAD
-				printf("\n"); 
 				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
-				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1);
+				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,kfrm);
 				if(command_error==-1) printf("%d\n",command_error);
 /*=======
 				//printf("\n"); 
@@ -787,6 +786,33 @@ char * myappend(char * string, char * word){
 
 }
 
+void  myappend_pan(char **string,int *str_size, char * word){
+	//printf("str len str: %d\n",strlen(string));
+	if((*str_size)<=strlen(*string)+strlen(word)+1){
+		//printf("REALLOCED\n");
+		(*str_size)=(*str_size)*2;
+		while(*str_size<=strlen(*string)+strlen(word)+1) *str_size=(*str_size)*2;
+		//printf("size is %d\n",*str_size);
+		*string=realloc(*string, (*str_size)*sizeof(char));
+	}
+	strcat(*string,word);
+	//printf("word in append is %s with len %d\n",*string,strlen(string));
+}
+
+void  myappend_pan_with_space(char **string,int *str_size, char * word){
+	//printf("str len str: %d\n",strlen(string));
+	if((*str_size)<=strlen(*string)+strlen(word)+1){
+		//printf("REALLOCED\n");
+		(*str_size)=(*str_size)*2;
+		while(*str_size<=strlen(*string)+strlen(word)+1) *str_size=(*str_size)*2;
+		//printf("size is %d\n",*str_size);
+		*string=realloc(*string, (*str_size)*sizeof(char));
+	}
+	strcat(*string," ");
+	strcat(*string,word);
+	//printf("word in append is %s with len %d\n",*string,strlen(string));
+}
+
 void initialize_bucket(hash_bucket *bucket,int m){
 	bucket->children=malloc(m*sizeof(trie_node));
 	bucket->children_number=0;
@@ -1174,14 +1200,14 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 	return 0;
 }
 
-int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words){
+int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,kframes * kf){
 	//printf("Inside search,number of words is %d\n",number_of_words);
 	size_t bloomfilterbytes = (M/8);
 	int * bloomfilter = malloc(bloomfilterbytes);
 	bloomfilter_init(bloomfilter);
 
 	char *str;	
-
+	int str_size;
 	int word_number;
 	int exists;
 	int pos;
@@ -1189,7 +1215,10 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words)
 	int start=0;
 
 	while(start!=number_of_words+1) {
-		str=malloc(20*sizeof(char));
+
+		str=malloc(5*sizeof(char)); //check this size
+		strcpy(str,"");
+		str_size=5;
 		word_number=start;
 		
 		int hash_val=hash_function(hash,words[start]);
@@ -1199,17 +1228,23 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words)
 		//printf("exists is %d\n",exists);
 		if(exists==0){ 
 			start++;
+			free(str);
 			continue;
 			}
 
 		node=&(bucket->children[pos]);
-		str = myappend(str,words[start]);
+		//printf("words start %d , %s\n",start,words[start]);
+		myappend_pan(&str,&str_size,words[start]);
+		//printf("word after append is %s with len %d\n",str,strlen(str));
+		//printf("str here %s\n",str);
 		while(node->number_of_childs!=0) {
 			
 			if(node->is_final=='y') { //found ngram
+				//printf("here\n");
 				if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s|",str); 
+						//printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
+						kf = add_gram_table(kf,str);						
 					}
 				}
 			//printf("word_number is %d\n",word_number);
@@ -1217,22 +1252,26 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words)
 			if(word_number>number_of_words) break;
 			exists=check_exists_in_children(node,words[word_number],&pos);
 			if(exists==0) break;
-			//printf("I am gonna push : %d\n",pos);
-			str=myappend(str,words[word_number]);
+
+			myappend_pan_with_space(&str,&str_size,words[word_number]);
+					//printf("word after append is \"%s\" with len %d\n",str,strlen(str));
 			node=&(node->children[pos]);
 			//word_number++;
 		}
 		if(exists==1 && word_number<=number_of_words) {
+			//printf("str here %s\n",str);
 			if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s|",str); 
+						//printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
-					}
+						kf = add_gram_table(kf,str);
+			}
 		}
 		free(str);
 		start++;
 	}
+	end_gram_table(kf);
 	int found=SUCCESS;
-	free(str);
+	//free(str);
 	free(bloomfilter);	
 	return found;
 	if(TestAllBits(bloomfilter)==0) found=-1;
@@ -1244,7 +1283,7 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words)
 	return 0;
 }
 
-/**int search_in_trie(trie_node *root,char **word,int number_of_words){
+/**int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf){
 	//printf("Inside search\n");
 	//stack *stack_=init_stack();
 
@@ -1268,8 +1307,10 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words)
 			//printf("word number :%d %s\n",word_number,word[word_number]);
 			if(node->is_final=='y') {
 					if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s|",str); 
+					//	printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
+						kf = add_gram_table(kf,str);
+									
 					}
 				}
 			exists=check_exists_in_children(node,word[word_number],&pos);
@@ -1281,17 +1322,20 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words)
 		}
 		if(exists==1) {
 			if(bloomfilter_check(str,bloomfilter)==0){
-						printf("%s|",str); 
+					//	printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
+						kf = add_gram_table(kf,str);
 					}
 		}
 //		memset(0,str,sizeof(str));
 //		str[0]='\0';
+//		end_gram_table(kf);
 		free(str);
 		//reset_stack(stack_);
 		start++;
 	}
-	printf("\n");
+	//printf("\n");
+	end_gram_table(kf);
 	int found=SUCCESS;
 	if(TestAllBits(bloomfilter)==0) found=-1;
 	//print_paths(paths_);
@@ -1304,8 +1348,8 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words)
 	return SUCCESS;	
 
 
-}
-*/
+}*/
+
 char * detableize(char * str, char ** table){
 	int i;
 	for (i=0;i<table_size;i++)

@@ -291,6 +291,11 @@ int test_static_input(struct static_index *trie,char * filename)
 		return -1;
 	}
 	//printf("word_size here %d",word_size);
+	
+	kframes *kfrm=NULL;  //struct for the top k frames and printing after F
+	kfrm = create_gram_table(kfrm);
+	kfrm = init_gram_table(kfrm);
+	
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
@@ -311,11 +316,9 @@ int test_static_input(struct static_index *trie,char * filename)
 		else if(strcmp(word,"A")==0) flag=2;
 		else if(strcmp(word,"D")==0) flag=3;
 		else if(strcmp(word,"F")==0){
-				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
-				
-				//cleanup(ptr_table);
-				
-				//printf("\x1b[32m""F -> print paths\n""\x1b[0m");	
+				print_gram_table(kfrm);
+//				erase_gram_table(kfrm);
+				init_gram_table(kfrm);
 			}
 		else if(strcmp(word,"\0")==0) continue;
 		word=strtok(NULL," \n");
@@ -352,7 +355,7 @@ int test_static_input(struct static_index *trie,char * filename)
 				printf("\n"); 
 				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				//command_error=lookupTrieNode(trie->hash,ptr_table,words_in-1);
-				command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1);
+				command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,kfrm);
 				//if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
@@ -371,6 +374,7 @@ int test_static_input(struct static_index *trie,char * filename)
 }
 	//it is supposed that control never reaches this point, due to F signal
   	free(line);
+	erase_gram_table(kfrm);
 	cleanup(ptr_table);
 	fclose(fd);
 	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
@@ -828,22 +832,31 @@ void shrink_static_buckets(static_hash_bucket *bucket,stack *stack_){
 
 
 
-int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_words){
+int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_words,kframes * kf){
 	printf("Inside search,number of words is %d\n",number_of_words);
-	char *string=malloc(100*sizeof(char));
-	strcpy(string,"");
+	
+	size_t bloomfilterbytes = (M/8);
+	int * bloomfilter = malloc(bloomfilterbytes);
+	bloomfilter_init(bloomfilter);
 
-	stack *stack_=init_stack();
+
 	char *temp_word=malloc(WORD_SIZE*sizeof(char));
 	int word_number;
 	int exists;
 	int pos;
+	char *str;
+	int str_size;
 	static_trie_node *node;
 	int start=0;
 	int node_word;
-	paths *paths_=init_paths(4,10); //rows columns
+
 	while(start!=number_of_words+1) {
 		//printf("\nstart with %s\n",words[start]);
+		
+		str=malloc(20*sizeof(char));
+		strcpy(str,"");
+		str_size=20;		
+		
 		word_number=start;
 		
 		int hash_val=static_hash_function(hash,words[start]);
@@ -853,19 +866,24 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 		//printf("exists is %d\n",exists);
 		if(exists==0){ 
 			start++;
+			free(str);
 			continue;
 		}
 		node_word=0;
 		node=&(bucket->children[pos]);
-		strcat(string,words[start]);
+
+		stat_myappend_pan(&str,&str_size,words[start]);
+
 		while(node->number_of_childs!=0 || node_word!=node->number_of_words) {
-			//printf("here\n");
-			//printf("word number :%d %s\n",word_number,words[word_number]);
-			//printf("node word %d\n",node_word);
+			
 			if(node->is_final[node_word]<0) { //is final
-				//print_stack(stack_);
-				printf("Found %s\n",string);
-				//check_in_static_paths(paths_,stack_,hash); //I found it
+
+				if(bloomfilter_check(str,bloomfilter)==0){
+						//printf("%s|",str); 
+						bloomfilter_add(str,bloomfilter);
+						kf = add_gram_table(kf,str);						
+					}
+
 				}
 			//printf("word_number is %d\n",word_number);
 			node_word++;
@@ -878,8 +896,7 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 				node_word=0;
 				if(exists==0) break;
 				node=&(node->children[pos]);
-				strcat(string," ");
-				strcat(string,words[word_number]);
+				stat_myappend_pan_with_space(&str,&str_size,words[word_number]);
 			}
 			else{
 				//printf("same node\n");
@@ -889,23 +906,24 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 				if(strcmp(temp_word,words[word_number])==0) exists=1;
 				//printf("temp word is %s , words[word_number]: %s\n",temp_word,words[word_number]);
 				if(exists==0) break;
-				strcat(string," ");
-				strcat(string,words[word_number]);
+				stat_myappend_pan(&str,&str_size,words[word_number]);
 			}
 		}
 		if(exists==1 && word_number<=number_of_words) {
-			printf("Finished Found %s\n",string);
-			//check_in_static_paths(paths_,stack_,hash);
+			if(bloomfilter_check(str,bloomfilter)==0){
+						//printf("%s|",str); 
+						bloomfilter_add(str,bloomfilter);
+						kf = add_gram_table(kf,str);						
+					}
 		}
-		reset_stack(stack_);
+
 		start++;
+		free(str);
 	}
+	end_gram_table(kf);
 	int found=SUCCESS;
-	if(paths_->words_in==0) found=-1;
-	stack_destroy(stack_);
-	delete_paths(paths_); //rows
+	free(bloomfilter);	
 	free(temp_word);	
-	free(string);
 	return found;
 	if(exists==0) return ERROR;
 	
@@ -953,7 +971,7 @@ void print_nodes_from_static_hash(static_hash_layer *hash,stack *stack_){
 		printf("%s ",temp_word);
 	}
 	if(number==3){
-		printf("|",temp_word);
+		printf("|");
 		free(temp_word);
 		return;
 	}
@@ -974,4 +992,31 @@ void print_nodes_from_static_hash(static_hash_layer *hash,stack *stack_){
 	printf("|");
 	free(temp_word);
 	printf("\n");
+}
+
+void  stat_myappend_pan(char **string,int *str_size, char * word){
+	//printf("str len str: %d\n",strlen(string));
+	if((*str_size)<=strlen(*string)+strlen(word)+1){
+		//printf("REALLOCED\n");
+		(*str_size)=(*str_size)*2;
+		while(*str_size<=strlen(*string)+strlen(word)+1) *str_size=(*str_size)*2;
+		//printf("size is %d\n",*str_size);
+		*string=realloc(*string, (*str_size)*sizeof(char));
+	}
+	strcat(*string,word);
+	//printf("word in append is %s with len %d\n",*string,strlen(string));
+}
+
+void  stat_myappend_pan_with_space(char **string,int *str_size, char * word){
+	//printf("str len str: %d\n",strlen(string));
+	if((*str_size)<=strlen(*string)+strlen(word)+1){
+		//printf("REALLOCED\n");
+		(*str_size)=(*str_size)*2;
+		while(*str_size<=strlen(*string)+strlen(word)+1) *str_size=(*str_size)*2;
+		//printf("size is %d\n",*str_size);
+		*string=realloc(*string, (*str_size)*sizeof(char));
+	}
+	strcat(*string," ");
+	strcat(*string,word);
+	//printf("word in append is %s with len %d\n",*string,strlen(string));
 }
