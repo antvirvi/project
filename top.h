@@ -16,8 +16,8 @@ int * ends;		//pinakas me counter gia to meta apo poses lekseis allazei to guery
 
 
 typedef struct freq{
-	int *  frequency;
-	int ngram;
+	int * frequency;
+	int * ngram;
 }freq;
 
 
@@ -27,12 +27,12 @@ typedef struct index_table{
 	struct index_table * next;
 }index_table;
 
-
+/*
 kframes *create_gram_table(kframes * kf);
 kframes *extend_gram_table(kframes * kf,freq * fre,index_table** it);
 kframes *init_gram_table(kframes * kf);
 kframes *add_gram_table(kframes * kf,char * ngram,freq * fre,index_table** it);
-/*
+
 kframes *newline_gram_table(kframes * kf){
 	if(occupied==capacity)
 		kf = extend_gram_table(kf);
@@ -44,8 +44,26 @@ kframes *newline_gram_table(kframes * kf){
 return kf;
 }
 */
-void print_gram_table(kframes *kf);
+
+//__________________________________________ngram table
+
+
+void swap(int a, int b);
+void create_top(kframes * kf,freq * fre, index_table ** it);
+void extend_top(kframes * kf,freq * fre,index_table** it);
+
+void add_top(kframes * kf,char * ngram,freq * fre,index_table** it);
+
+void init_top(kframes * kf,freq * fr, index_table** it);
+
+void erase_top(kframes * kf,freq * fr, index_table ** it);
+
+void print_print(kframes *kf);
+
+void print_top(kframes *kf,freq * fr,index_table ** it,int k);
+
+void sort_frequencies(kframes *kf, freq* fr,	index_table ** it);
+
 void end_gram_table(kframes *kf);
 
-void erase_gram_table(kframes * kf);
-int hash_gram(char * ngram);
+void increase_frequency(char * ngram,kframes *kf, freq* fr,	index_table ** it);

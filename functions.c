@@ -108,7 +108,7 @@ int test_input(struct index *trie,char * filename)
 */
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	char **ptr_table = malloc(table_size*sizeof(char *));
-	index_table * it =  malloc(27*sizeof(index_table*)); //pinakas me listes index table. mia gia kathe gramma AZ kai mia gia oti allo(px noumera)
+//	index_table * it =  malloc(27*sizeof(index_table*)); //pinakas me listes index table. mia gia kathe gramma AZ kai mia gia oti allo(px noumera)
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
 	int a;
@@ -121,8 +121,12 @@ int test_input(struct index *trie,char * filename)
 	}
 
 	kframes *kfrm=NULL;  //struct for the top k frames and printing after F
-	kfrm = create_gram_table(kfrm);
-	kfrm = init_gram_table(kfrm);
+	freq * fre;
+	index_table ** it;
+	create_top(kfrm,fre,it);
+	init_top(kfrm,fre,it);
+
+
 	//int frequency[gram_table_size]
 
 	char *line = NULL;
@@ -159,9 +163,15 @@ int test_input(struct index *trie,char * filename)
 				flag=3;
 			}
 			else if(strcmp(word,"F")==0){
-				print_gram_table(kfrm);
-//				erase_gram_table(kfrm);
-				init_gram_table(kfrm);
+				flag=4; //useless
+				print_print(kfrm);
+//				erase_top(kfrm);
+				sort_frequencies(kfrm,fre,it);
+				word=strtok(NULL," \n");
+				int k = atoi(word);
+				print_top(kfrm,fre,it,k);
+				init_top(kfrm,fre,it);
+				
 				
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
 				/*
@@ -204,7 +214,7 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 				//printf("\n"); 
-				command_error=search_in_trie(trie->root,ptr_table,words_in-1,kfrm);   //AYTO EDW NA VGEI APO COMMENTS
+				command_error = search_in_trie(trie->root,ptr_table,words_in-1,kfrm,fre,it);   //AYTO EDW NA VGEI APO COMMENTS
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
@@ -221,7 +231,7 @@ int test_input(struct index *trie,char * filename)
 }
 	//it is supposed that control never reaches this point, due to F signal
   	free(line);
-	erase_gram_table(kfrm);
+	erase_top(kfrm,fre,it);
 	cleanup(ptr_table);
 	fclose(fd);
 	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
@@ -540,7 +550,7 @@ int search_in_trie_without_blfilter(trie_node *root,char **word,int number_of_wo
 }
 
 
-int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf){
+int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf,freq * fre,index_table ** it){
 	//printf("Inside search\n");
 	//stack *stack_=init_stack();
 
@@ -566,8 +576,11 @@ int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf)
 					if(bloomfilter_check(str,bloomfilter)==0){
 					//	printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
-						kf = add_gram_table(kf,str);
+						add_top(kf,str,fre,it);
 									
+					}
+					else{
+						increase_frequency(str,kf,fre,it);
 					}
 				}
 			exists=check_exists_in_children(node,word[word_number],&pos);
@@ -581,12 +594,15 @@ int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf)
 			if(bloomfilter_check(str,bloomfilter)==0){
 					//	printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
-						kf = add_gram_table(kf,str);
+						add_top(kf,str,fre,it);
+					}
+					else{
+						increase_frequency(str,kf,fre,it);
 					}
 		}
 //		memset(0,str,sizeof(str));
 //		str[0]='\0';
-//		end_gram_table(kf);
+//		end_top(kf);
 		free(str);
 		//reset_stack(stack_);
 		start++;
@@ -762,7 +778,6 @@ return str;
 }
 
 void test(void){  //test function to call other functions instead of main
-	char * str ="antonis";
 	printf("--->%d<---\n",hash_gram("natnonis"));
 	printf("--->%d<---\n",hash_gram("obtnonis"));
 	printf("--->%d<---\n",hash_gram("pctnonis"));
