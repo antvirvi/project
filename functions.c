@@ -21,7 +21,15 @@
 #endif
 
 #include "libraries.h"
-
+//
+/* For the size of the file. */
+#include <sys/stat.h>
+/* This contains the mmap calls. */
+#include <sys/mman.h> 
+/* This is for open. */
+#include <fcntl.h>
+#include <stdio.h>
+//
 /*extern*/ int buffer_size = 16;
 /*extern*/ int word_size = 8;
 /*extern*/ int table_size = 4;
@@ -107,12 +115,25 @@ int test_input(struct index *trie,char * filename)
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
 	int a;
 	FILE* fd = fopen(filename, "r"); //opening input file
-	if(fd == NULL)
+    //int fd = open(filename, O_RDONLY, 0);
+	if(fd == -1)//NULL)
 	{
 		perror("Error opening input file");
 		return -1;
 	}
+	//experiment
+	
+	/*struct stat s;
+	 size_t size;
+	int status;
+	status = fstat (fd, & s);
+    if(status < 0) printf("stat failed: %s", strerror (errno));
+    size = s.st_size;		
 
+	const char * mapped;
+	mapped = mmap (0, size, PROT_READ, 0, fd, 0);
+	*/
+	//
 	kframes *kfrm=NULL;  //struct for the top k frames and printing after F
 	kfrm = create_gram_table(kfrm);
 	kfrm = init_gram_table(kfrm);
@@ -165,6 +186,7 @@ int test_input(struct index *trie,char * filename)
 					ptr_table[a]=malloc(word_size*sizeof(char));
 					if(ptr_table[a]==NULL) exit(-1);
 					}
+				//printf("word_size here %d\n",word_size);
 				table_size*=2;
 			}
 			while(strlen(word)>=word_size){
@@ -173,8 +195,14 @@ int test_input(struct index *trie,char * filename)
 					ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
 					if(ptr_table[a]==NULL) exit(-1);
 					}
-			}		
-
+			}
+			/**if(strlen(word)>=word_size){ 
+				while(strlen(word)>=word_size){ word_size=word_size*2;}		
+				//for(a=0;a<table_size;a++){
+				ptr_table[words_in] = realloc(ptr_table[words_in],word_size*sizeof(char));
+						if(ptr_table[words_in]==NULL) exit(-1);
+					//	}
+			}*/
 				//ptr_table[words_in] = malloc(word_size*sizeof(char));
 		strcpy(ptr_table[words_in],word);
 				
@@ -214,6 +242,7 @@ int test_input(struct index *trie,char * filename)
 	erase_gram_table(kfrm);
 	cleanup(ptr_table);
 	fclose(fd);
+	//close(fd);
 	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
 	
 return 0;
@@ -297,8 +326,8 @@ trie_node *create_trie_node(char *word,char is_final){
 }
 
 trie_node *init_trie_node(trie_node *node,char *word,char is_final){
-	//printf(" init trie\n");
-	//print_node(node);
+	
+	
 	node->word=malloc(WORD_SIZE*sizeof(char));
 	strcpy(node->word,word);
 	

@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "static_functions.h"
 #include <errno.h>
 #include <time.h>
 
@@ -8,25 +8,32 @@ int main (int argc, char **argv )
 	int i;
 	char file_name[16];
 	struct index *trie=malloc(sizeof(struct index));
-	trie->root=init_trie();
+	trie->hash=createLinearHash(C,10);
 
-	char **test_words=malloc(10*sizeof(char*));
-	for(i=0;i<10;i++){
-		test_words[i]=malloc(15*sizeof(char));
-		if(test_words[i]==NULL)	return -1;	
-	}
-
-	strcpy(file_name,"unit_test.init");
-	if(init_test_input(trie,file_name)<0) return -1;
 	
+	
+	strcpy(file_name,"unit_test.init");
+	test_hash_function(trie,file_name);
+	if(init_test_input(trie,file_name,"add")<0) return -1;
+	//print_hash(trie->hash);
+	//--------------------testing static--------------------------//
+	printf("Testing static trie\n");
+	
+	//tests_for_binary(trie);
+	struct static_index *static_trie=malloc(sizeof(struct static_index));	
+	static_hash_layer *static_hash=compress(trie->hash);
+	static_trie->hash=static_hash;
+	test_compress(static_trie->hash);
+	test_everything_exists(static_trie,"unit_test.init");
+	print_static_hash(static_trie->hash);
+	//print_static_hash(static_hash);
+	destroy_static_hash(static_hash);
+//-----------------------done testing stativ------------------//
 	strcpy(file_name,"unit_test.work");
 	if(tests_from_file(trie,file_name)<0) return -1;
-	
+	free(static_trie);
 
-	//tests_for_binary(trie);
-
-	print_trie(trie->root,0);
-	delete_trie(trie);
-	
+	destroyLinearHash(trie->hash); //in all the cases i have to delete it
+	free(trie);
 	return 0;	
 }

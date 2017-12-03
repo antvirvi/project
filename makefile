@@ -12,8 +12,8 @@ default: project
 project:  main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o
 	$(CC) $(CFLAGS) -o project main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o -lm
 
-test_project:  test_main.o functions.o stack.o test.o bloomfilter.o murmur3.o top.o
-	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o test.o bloomfilter.o murmur3.o -lm
+test_project:  test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o
+	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o -lm
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
