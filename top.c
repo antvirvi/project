@@ -60,112 +60,123 @@ void swap(int a, int b){
 }
 
 //__________________________________________ngram table
+topk *  create_top(topk * top){
+	top->kf = malloc(sizeof(kframes));
+	top->kf->ngrams = malloc(table_ngram_size*sizeof(char *));
+	top->kf->k = malloc(table_ngram_size*sizeof(int));
+	top->kf->capacity = table_ngram_size;
+	top->kf->occupied = 0;
+	top->kf->q = 0;
+	top->kf->ends = malloc(sizeof(int*));
 
-void create_top(kframes * kf, freq * fr, index_table ** it){
-	kf = malloc(sizeof(kframes));
-	kf->ngrams = malloc(table_ngram_size*sizeof(char *));
-	kf->k = malloc(table_ngram_size*sizeof(int));
-	kf->capacity = table_ngram_size;
-	kf->occupied = 0;
-	kf->q = 0;
-	kf->ends = malloc(sizeof(int*));
+	top->fr = malloc(table_ngram_size*(sizeof(freq)));
+	top->fr->frequency = malloc(table_ngram_size*sizeof(int));
+	top->fr->ngram = malloc(table_ngram_size*sizeof(int));
 
-	fr = malloc(table_ngram_size*(sizeof(freq)));
-	fr->frequency = malloc(table_ngram_size*sizeof(int));
-	fr->ngram = malloc(table_ngram_size*sizeof(int));
-	/*for(i=0;i<table_ngram_size-1;i++){
-		fr->frequency[i] = -1;
-		fr->ngram[i] = -1;
-	}
+	int i;
+	top->it = malloc(27*sizeof(topk **));	
 
-	it = malloc(27*sizeof(struct index_table *));//26 for the letters and 1 for the numbers
 	for(i=0;i<27;i++){
-		it[i] = malloc(sizeof(index_table));
-		it[i]= NULL;
-	}
-*/
+		top->it[i] = malloc(sizeof(topk *));
+		top->it[i]->fr_index = malloc(table_ngram_size*sizeof(int));
+		top->it[i]->ngram_index = malloc(table_ngram_size*sizeof(int));
+		}
+return top;
 }
 
-void extend_top(kframes * kf,freq * fre,index_table** it){
+topk *  init_top(topk* top){
+	int i;
+	for(i=0;i<top->kf->capacity;i++){
+		if(i<top->kf->occupied)
+			free(top->kf->ngrams[i]);
+		top->fr->frequency[i] = -1;
+		top->fr->ngram[i] = -1;
+	}
+
+	int j;
+	for(i=0;i<27;i++){
+		for(j=0;j<table_ngram_size;j++){
+
+			top->it[i]->fr_index[j] = -1;
+			top->it[i]->ngram_index[j] = -1;
+		}
+	}
+	top->kf->occupied = 0;
+	top->kf->q = 0;
+	return top;
+	}
+
+
+topk *  extend_top(topk * top){
 	table_ngram_size*=2;
-	kf->capacity = table_ngram_size;
-	kf->ngrams = (char **)realloc(kf->ngrams,kf->capacity*sizeof(char *));
-	kf->k = realloc(kf->k,kf->capacity*sizeof(int));
 
-	fre = realloc(fre,table_ngram_size*(sizeof(int)));
+	top->kf->capacity = table_ngram_size;
+	top->kf->ngrams = (char **)realloc(top->kf->ngrams,top->kf->capacity*sizeof(char *));
+	top->kf->k = realloc(top->kf->k,top->kf->capacity*sizeof(int));
+
+	top->fr = realloc(top->fr,table_ngram_size*(sizeof(int)));
+
+	int i;
+	for(i=0;i<27;i++){
+		top->it[i]->fr_index = realloc(top->it[i]->fr_index,table_ngram_size*sizeof(int));
+		top->it[i]->ngram_index = realloc(top->it[i]->ngram_index,table_ngram_size*sizeof(int));
+	}
+//	top = init_top(top);
+	return top;
 }
 
-void add_top(kframes * kf,char * ngram,freq * fre,index_table** it){ //prosthiki enos n gram stous pinakes
-	if(kf->occupied==(kf->capacity)){
-		extend_top(kf,fre,it);
+topk * add_top(topk * top,char * ngram){ //prosthiki enos n gram stous pinakes
+	if(top->kf->occupied==(top->kf->capacity)){
+		extend_top(top);
+		init_top(top);
 	}
-	kf->ngrams[kf->occupied] = malloc((strlen(ngram)+1)*sizeof(char));
-	strcpy(kf->ngrams[kf->occupied],ngram);
+	top->kf->ngrams[top->kf->occupied] = malloc((strlen(ngram)+1)*sizeof(char));
+	strcpy(top->kf->ngrams[top->kf->occupied],ngram);
 
 	int i = 0;
-	while(fre->frequency[i] != -1)
+	while(top->fr->frequency[i] != -1)
 		i++;
-	fre->frequency[i] = 1;
-	fre->ngram[i] = kf->occupied;
+	top->fr->frequency[i] = 1;
+	top->fr->ngram[i] = top->kf->occupied;
 
-	kf->occupied++;
 	
-	index_table * ptr = it[hash_gram(ngram)];
-	while(ptr!=NULL)
-		ptr=ptr->next;
+	int j;
+	while(top->it[hash_gram(ngram)]->fr_index[j]!=-1)
+		j++;
+
+	top->it[hash_gram(ngram)]->fr_index[j]= i ;
+	top->it[hash_gram(ngram)]->ngram_index[j] = top->kf->occupied;
 	
-	ptr->fr_index = i;
-	ptr->ngram = kf->occupied-1;
-	ptr->next = malloc(sizeof(index_table));
-	ptr->next = NULL;
+//	print_hashtable(top);
+//	printf(YELLOW"Report: ngram: %s\nFrequency: %d\nPosition: %d\nngram: %s\n\n"RESET,ngram,top->fr->frequency[i],top->fr->ngram[i],top->kf->ngrams[top->fr->ngram[i]]);
+	top->kf->occupied++;
+	return top;
 }
 
-void init_top(kframes * kf,freq * fr, index_table** it){
+topk *  erase_top(topk * top){
 	int i;
-	for(i=0;i<kf->occupied;i++){
-		free(kf->ngrams[i]);
-		fr->frequency[i] = -1;
-		fr->ngram[i] = -1;
-	}
-
-	it = malloc(27*sizeof(struct index_table *));//26 for the letters and 1 for the numbers
 	for(i=0;i<27;i++){
-		it[i] = malloc(sizeof(index_table));
-		it[i]= NULL;
+		free(top->it[i]->fr_index);
+		free(top->it[i]->ngram_index);
+		free(top->it[i]);
 	}
 
-	kf->occupied = 0;
-	kf->q = 0;
+	free(top->fr->frequency);
+	free(top->fr->ngram);
+
+	free(top->kf->ngrams);
+	free(top->kf->ends);
+	free(top->kf->k);  
+	free(top->kf);
+	return top;
 }
 
-void erase_top(kframes * kf,freq * fr, index_table ** it){
-	int i;
-	index_table * ptr, *pre_ptr;
-	for(i=0;i<27;i++){
-		ptr = it[i];
-		while(ptr!=NULL){
-			pre_ptr = ptr;
-			ptr = ptr->next;
-			free(pre_ptr);
-		}
-	free(ptr);
-	}
-
-	free(fr->frequency);
-	free(fr->ngram);
-
-	free(kf->ngrams);
-	free(kf->ends);
-	free(kf->k);  
-	free(kf);
-}
-
-void print_print(kframes *kf){ //ektypwnei ola ta ngrams me
+void print_print(topk * top){ //ektypwnei ola ta ngrams me
 	int i;
 	int j=0;
-	for(i=0;i<kf->occupied;i++){
-		printf("%s",kf->ngrams[i]);  //ean ftasoume sto telos enos q prepei na orisoume tin allagi gramis kai to oxi "|"
-		if(kf->ends[j]==i){
+	for(i=0;i<top->kf->occupied;i++){
+		printf("%s",top->kf->ngrams[i]);  //ean ftasoume sto telos enos q prepei na orisoume tin allagi gramis kai to oxi "|"
+		if(top->kf->ends[j]==i){
 			printf("\n");
 			j++;
 		}
@@ -174,49 +185,73 @@ void print_print(kframes *kf){ //ektypwnei ola ta ngrams me
 	}
 }
 
-void print_top(kframes *kf,freq * fr,index_table ** it,int k){ //ektypwnei ola ta ngrams me
+void print_top(topk*top,int k){ //ektypwnei ola ta ngrams me
 	int i;
 	printf("Top: ");
 	for(i=0;i<k;i++){
-		printf("%s",kf->ngrams[fr->ngram[i]]);
-		if(i==k-1)	break;
+		printf("%s",top->kf->ngrams[top->fr->ngram[i]]);
+		if(i==k-1)	
+			break;
 		printf("|");
 		}
+printf("\n");
 }
-void sort_frequencies(kframes *kf, freq* fr,	index_table ** it){
+
+void print_frequencies(topk*top){ //ektypwnei ola ta ngrams me
+	int i;
+	for(i=0;i<top->kf->capacity;i++){
+		printf("Freq %d %d\n",top->fr->frequency[i],top->fr->ngram[i]);
+		}
+
+}
+
+void print_hashtable(topk*top){ //ektypwnei ola ta ngrams me
+	int i;
+	for(i=0;i<27;i++){
+		printf("%c_______________\n",'A'+i);
+		int j=0;
+		while(top->it[i]->fr_index[j]!=-1){
+			printf("It %d %d\n",top->it[i]->fr_index[j],top->it[i]->ngram_index[j]);
+		}
+	}
+
+}
+
+//stoped here
+topk *  sort_frequencies(topk* top){
 
 	int i;
 	int flag = 1;
 	while(flag){
 		flag = 0;
-		for(i=0;i<kf->occupied-1;i++){
-			if(fr->frequency[i]<fr->frequency[i+1]){
-				swap(fr->frequency[i],fr->frequency[i+1]);
-				swap(fr->ngram[i],fr->ngram[i+1]);
+		for(i=0;i<top->kf->occupied-1;i++){
+			if(top->fr->frequency[i]<top->fr->frequency[i+1]){
+				swap(top->fr->frequency[i],top->fr->frequency[i+1]);
+				swap(top->fr->ngram[i],top->fr->ngram[i+1]);
 				flag = 1;
 			}
 		}
 	}
+	return top;
 }
 
-void increase_frequency(char * ngram,kframes *kf, freq* fr,	index_table ** it){
-
-	int a = hash_gram("ngram");
-	index_table* ptr = it[a];
-	while(strcmp(kf->ngrams[ptr->ngram],ngram)!=0){
-		ptr = ptr->next;
-	if(ptr==NULL){printf("Something went wrong in increase frequency\n");return;}
-
-	}
-	if(strcmp(kf->ngrams[ptr->ngram],ngram)==0){
-		fr->frequency[ptr->fr_index]++;
-	}
+topk * increase_frequency(topk* top, char * ngram){
+	int a = hash_gram(ngram);
+	int j = 0;
+	while((top->it[a]->fr_index[j]!=-1)&&(j<top->kf->occupied)){
+		if(strcmp(top->kf->ngrams[top->it[a]->ngram_index[j]],ngram)==0){
+			top->fr->frequency[top->it[a]->fr_index[j]]++;
+			return top;
+		}
+	j++;
+	}printf(RED"Frequency not updated\n"RESET);
+	return top;
 }
 
-void end_gram_table(kframes *kf){ //simeiwnoume oti edw teleiwnei to Q, ara prepei stin ektypwsi na valoume allagi grammis
-	kf->ends[kf->q] = kf->occupied-1;
-	kf->ends = realloc(kf->ends,((kf->q)+1)*(sizeof(int*)));
-	kf->q++;
-	kf->ends[kf->q] = -1;
-
+topk *  end_gram_table(topk * top){ //simeiwnoume oti edw teleiwnei to Q, ara prepei stin ektypwsi na valoume allagi grammis
+	top->kf->ends[top->kf->q] = top->kf->occupied-1;
+	top->kf->ends = realloc(top->kf->ends,((top->kf->q)+1)*(sizeof(int*)));
+	top->kf->q++;
+	top->kf->ends[top->kf->q] = -1;
+	return top;
 }

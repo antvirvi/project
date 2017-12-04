@@ -120,11 +120,15 @@ int test_input(struct index *trie,char * filename)
 		return -1;
 	}
 
-	kframes *kfrm=NULL;  //struct for the top k frames and printing after F
+	topk * top;
+	top = malloc(sizeof(topk));
+	/*kframes *kfrm=NULL;  //struct for the top k frames and printing after F
 	freq * fre;
 	index_table ** it;
 	create_top(kfrm,fre,it);
-	init_top(kfrm,fre,it);
+	init_top(kfrm,fre,it);*/
+	top = create_top(top);
+	top = init_top(top);
 
 
 	//int frequency[gram_table_size]
@@ -164,13 +168,16 @@ int test_input(struct index *trie,char * filename)
 			}
 			else if(strcmp(word,"F")==0){
 				flag=4; //useless
-				print_print(kfrm);
+		//		print_print(top);
+
 //				erase_top(kfrm);
-				sort_frequencies(kfrm,fre,it);
-				word=strtok(NULL," \n");
+
+			//	top = sort_frequencies(top);
+				word = strtok(NULL," \n");
 				int k = atoi(word);
-				print_top(kfrm,fre,it,k);
-				init_top(kfrm,fre,it);
+				print_top(top,k);
+
+				top = init_top(top);
 				
 				
 				//printf("\x1b[36m""EOF -1\n""\x1b[0m");
@@ -214,7 +221,7 @@ int test_input(struct index *trie,char * filename)
 		switch(flag){
 			case 1 :
 				//printf("\n"); 
-				command_error = search_in_trie(trie->root,ptr_table,words_in-1,kfrm,fre,it);   //AYTO EDW NA VGEI APO COMMENTS
+				command_error = search_in_trie(trie->root,ptr_table,words_in-1,top);   //AYTO EDW NA VGEI APO COMMENTS
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
@@ -231,7 +238,7 @@ int test_input(struct index *trie,char * filename)
 }
 	//it is supposed that control never reaches this point, due to F signal
   	free(line);
-	erase_top(kfrm,fre,it);
+	erase_top(top);
 	cleanup(ptr_table);
 	fclose(fd);
 	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
@@ -550,7 +557,7 @@ int search_in_trie_without_blfilter(trie_node *root,char **word,int number_of_wo
 }
 
 
-int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf,freq * fre,index_table ** it){
+int search_in_trie(trie_node *root,char **word,int number_of_words,topk *top){
 	//printf("Inside search\n");
 	//stack *stack_=init_stack();
 
@@ -576,11 +583,11 @@ int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf,
 					if(bloomfilter_check(str,bloomfilter)==0){
 					//	printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
-						add_top(kf,str,fre,it);
+						top = add_top(top,str);
 									
 					}
 					else{
-						increase_frequency(str,kf,fre,it);
+						top = increase_frequency(top,str);
 					}
 				}
 			exists=check_exists_in_children(node,word[word_number],&pos);
@@ -594,10 +601,10 @@ int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf,
 			if(bloomfilter_check(str,bloomfilter)==0){
 					//	printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter);
-						add_top(kf,str,fre,it);
+						top = add_top(top,str);
 					}
 					else{
-						increase_frequency(str,kf,fre,it);
+						top = increase_frequency(top,str);
 					}
 		}
 //		memset(0,str,sizeof(str));
@@ -608,7 +615,7 @@ int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf,
 		start++;
 	}
 	//printf("\n");
-	end_gram_table(kf);
+	end_gram_table(top);
 	int found=SUCCESS;
 	if(TestAllBits(bloomfilter)==0) found=-1;
 	//print_paths(paths_);

@@ -22,10 +22,15 @@ typedef struct freq{
 
 
 typedef struct index_table{
-	int fr_index;
-	int ngram;
-	struct index_table * next;
+	int * fr_index;
+	int * ngram_index;
 }index_table;
+
+typedef struct topk{
+	kframes * kf;
+	freq * fr;
+	index_table ** it;
+}topk;
 
 /*
 kframes *create_gram_table(kframes * kf);
@@ -46,24 +51,31 @@ return kf;
 */
 
 //__________________________________________ngram table
-
+int hash_gram(char * ngram);
 
 void swap(int a, int b);
-void create_top(kframes * kf,freq * fre, index_table ** it);
-void extend_top(kframes * kf,freq * fre,index_table** it);
 
-void add_top(kframes * kf,char * ngram,freq * fre,index_table** it);
+topk * create_top(topk * top);
 
-void init_top(kframes * kf,freq * fr, index_table** it);
+topk *extend_top(topk * top);
 
-void erase_top(kframes * kf,freq * fr, index_table ** it);
+topk *add_top(topk * top,char * ngram);
 
-void print_print(kframes *kf);
+topk *init_top(topk * top);
 
-void print_top(kframes *kf,freq * fr,index_table ** it,int k);
+topk *erase_top(topk * top);
 
-void sort_frequencies(kframes *kf, freq* fr,	index_table ** it);
+void print_print(topk * top);
 
-void end_gram_table(kframes *kf);
+void print_top(topk * top,int k);
 
-void increase_frequency(char * ngram,kframes *kf, freq* fr,	index_table ** it);
+topk *sort_frequencies(topk * top);
+
+topk *end_gram_table(topk * top);
+
+topk *increase_frequency(topk * top,char * ngram);
+
+void print_frequencies(topk*top);
+
+void print_hashtable(topk*top);
+
