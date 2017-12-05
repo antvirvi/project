@@ -69,6 +69,11 @@ int init_input(struct index *trie,char * filename){
 					ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
 			}
 		//	ptr_table[words_in] = malloc(word_size*sizeof(char));
+//			printf("%s\n",ptr_table[words_in]);
+	//		printf("%s\n",word);
+			char arr[100];
+			strcpy(arr,ptr_table[words_in]);
+			strcpy(arr,word);
 			strcpy(ptr_table[words_in],word);
 			words_in++;
 			word=strtok(NULL," \n");
@@ -121,7 +126,7 @@ int test_input(struct index *trie,char * filename)
 	}
 
 	topk * top;
-	top = malloc(sizeof(topk));
+//	top = malloc(sizeof(topk*));
 	/*kframes *kfrm=NULL;  //struct for the top k frames and printing after F
 	freq * fre;
 	index_table ** it;
@@ -174,7 +179,13 @@ int test_input(struct index *trie,char * filename)
 
 			//	top = sort_frequencies(top);
 				word = strtok(NULL," \n");
-				int k = atoi(word);
+				int k;
+				if(word != NULL){
+					 k = atoi(word);
+				}
+				else {
+					 k = 5;
+				}
 				print_top(top,k);
 
 				top = init_top(top);

@@ -61,28 +61,30 @@ void swap(int a, int b){
 
 //__________________________________________ngram table
 topk *  create_top(topk * top){
+	top =malloc(sizeof(topk));
 	top->kf = malloc(sizeof(kframes));
 	top->kf->ngrams = malloc(table_ngram_size*sizeof(char *));
 	top->kf->k = malloc(table_ngram_size*sizeof(int));
 	top->kf->capacity = table_ngram_size;
 	top->kf->occupied = 0;
 	top->kf->q = 0;
-	top->kf->ends = malloc(sizeof(int*));
+	top->kf->ends = malloc(sizeof(int));
 
-	top->fr = malloc(table_ngram_size*(sizeof(freq)));
+	top->fr = malloc((sizeof(freq)));
 	top->fr->frequency = malloc(table_ngram_size*sizeof(int));
 	top->fr->ngram = malloc(table_ngram_size*sizeof(int));
 
-	int i;
-	top->it = malloc(27*sizeof(topk **));	
+	top->it = malloc(27*sizeof(index_table *));	
 
+	int i;
 	for(i=0;i<27;i++){
-		top->it[i] = malloc(sizeof(topk *));
+		top->it[i] = malloc(sizeof(index_table ));
 		top->it[i]->fr_index = malloc(table_ngram_size*sizeof(int));
 		top->it[i]->ngram_index = malloc(table_ngram_size*sizeof(int));
 		}
 return top;
 }
+
 
 topk *  init_top(topk* top){
 	int i;
@@ -109,26 +111,40 @@ topk *  init_top(topk* top){
 
 topk *  extend_top(topk * top){
 	table_ngram_size*=2;
+//	printf(YELLOW"EXTEND______\n"RESET);
 
 	top->kf->capacity = table_ngram_size;
 	top->kf->ngrams = (char **)realloc(top->kf->ngrams,top->kf->capacity*sizeof(char *));
 	top->kf->k = realloc(top->kf->k,top->kf->capacity*sizeof(int));
 
 	top->fr = realloc(top->fr,table_ngram_size*(sizeof(int)));
+//	top->fr->frequency = realloc(top->fr->frequency,sizeof)
+	top->fr->frequency = realloc(top->fr->frequency,table_ngram_size*sizeof(int));
+	top->fr->ngram = realloc(top->fr->ngram,table_ngram_size*sizeof(int));
 
-	int i;
+	int i,j;
 	for(i=0;i<27;i++){
-		top->it[i]->fr_index = realloc(top->it[i]->fr_index,table_ngram_size*sizeof(int));
-		top->it[i]->ngram_index = realloc(top->it[i]->ngram_index,table_ngram_size*sizeof(int));
+		top->it[i]->fr_index =(int *) realloc(top->it[i]->fr_index,table_ngram_size*sizeof(int));
+		top->it[i]->ngram_index =(int *) realloc(top->it[i]->ngram_index,table_ngram_size*sizeof(int));
+
+		for(j=table_ngram_size/2;j<table_ngram_size;j++){
+			top->it[i]->fr_index[j] = -1;
+			top->it[i]->ngram_index[j] = -1;
+		}
 	}
 //	top = init_top(top);
+	for(i=table_ngram_size/2;i<top->kf->capacity;i++){
+		top->fr->frequency[i] = -1;
+		top->fr->ngram[i] = -1;
+	}
+
 	return top;
 }
 
 topk * add_top(topk * top,char * ngram){ //prosthiki enos n gram stous pinakes
 	if(top->kf->occupied==(top->kf->capacity)){
 		extend_top(top);
-		init_top(top);
+//		init_top(top);
 	}
 	top->kf->ngrams[top->kf->occupied] = malloc((strlen(ngram)+1)*sizeof(char));
 	strcpy(top->kf->ngrams[top->kf->occupied],ngram);
@@ -140,10 +156,10 @@ topk * add_top(topk * top,char * ngram){ //prosthiki enos n gram stous pinakes
 	top->fr->ngram[i] = top->kf->occupied;
 
 	
-	int j;
-	while(top->it[hash_gram(ngram)]->fr_index[j]!=-1)
+	int j=0;
+	while(top->it[hash_gram(ngram)]->fr_index[j]!=-1){
 		j++;
-
+	}
 	top->it[hash_gram(ngram)]->fr_index[j]= i ;
 	top->it[hash_gram(ngram)]->ngram_index[j] = top->kf->occupied;
 	
@@ -160,14 +176,17 @@ topk *  erase_top(topk * top){
 		free(top->it[i]->ngram_index);
 		free(top->it[i]);
 	}
+	free(top->it);
 
 	free(top->fr->frequency);
 	free(top->fr->ngram);
+	free(top->fr);
 
 	free(top->kf->ngrams);
 	free(top->kf->ends);
 	free(top->kf->k);  
 	free(top->kf);
+	free(top);
 	return top;
 }
 

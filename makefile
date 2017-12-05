@@ -53,7 +53,10 @@ testrunv:
 	  valgrind --leak-check=yes -v ./project -q small.work -i small.init 
 
 testrun2:
-	  valgrind --leak-check=yes ./project -q test.work -i test.init 
+	  valgrind --leak-check=yes  ./project -q test.work -i test.init 
+
+testrun3:
+	  valgrind --leak-check=full --show-leak-kinds=all ./project -q test.work -i test.init 
 
 run:
 	time ./project -q small.work -i small.init 

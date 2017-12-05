@@ -1,0 +1,4 @@
+valgrind --leak-check=yes ./project -q test.work -i test.init 
+Top: of the|university|using|of the
+-1
+Top: these|of the|of the|yield|using|these

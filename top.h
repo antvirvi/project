@@ -22,8 +22,9 @@ typedef struct freq{
 
 
 typedef struct index_table{
-	int * fr_index;
 	int * ngram_index;
+	int * fr_index;
+
 }index_table;
 
 typedef struct topk{
