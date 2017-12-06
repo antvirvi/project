@@ -38,8 +38,8 @@ int TestAllBits(int *bloom){
 	a/=8;
 	a/=sizeof(int);
 	for (i=0;i<M;i++){
-		if(TestBit(bloom,i)!=0)
-			return 1; //paizei kai na uparxei
+		if(TestBit(bloom,i)!=0) {printf("Problem Houston");
+			return 1; }//paizei kai na uparxei
 	}
 return 0; //sigoura den uparxei
 }
@@ -102,11 +102,13 @@ int i;
 //end 3
 //wornking 4
 
-int i;
-for (i=0;i<M;i++){
-ClearBit(bloom,i);
-}
+//int i;
+//for (i=0;i<M;i++){
+//ClearBit(bloom,i);
+//}
+memset(bloom,0,M/8);
 
+//TestAllBits(bloom);
 //end 4
 }
 

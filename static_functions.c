@@ -278,7 +278,7 @@ int init_static_input(struct static_index *trie,char * filename){
 
 
 int test_static_input(struct static_index *trie,char * filename)
-{	
+{ /*	
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
@@ -365,7 +365,7 @@ int test_static_input(struct static_index *trie,char * filename)
 	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
 	
 return 0;
-
+*/
 }
 
 int insert_staticTrieNode(static_hash_layer *hash,char **words,int word_number){
@@ -620,7 +620,7 @@ int  static_hash_function(static_hash_layer *hash, char *word)
     int c;
 
     while (c = *word++)
-        hash_int = ((hash_int << 5) + hash_int) + c; /* hash * 33 + c */
+        hash_int = ((hash_int << 5) + hash_int) + c; 
 	//printf("hash is %ld\n",hash_int);
 
 	hash_value=hash_int%(C*(int)pow(2,hash->split_round));
@@ -810,14 +810,14 @@ void shrink_static_buckets(static_hash_bucket *bucket,stack *stack_){
 		}
 	/*if(*total<bucket->capacity-hash->bucket_capacity){ //freeing the realloced extra tries
 			bucket->children=realloc(bucket->children,hash*sizeof(trie_node));
-			}*/
+			}  */
 }
 
 
 
 
 int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_words,kframes * kf){
-	//printf("Inside search,number of words is %d\n",number_of_words);
+/*	//printf("Inside search,number of words is %d\n",number_of_words);
 	
 	size_t bloomfilterbytes = (M/8);
 	int * bloomfilter = malloc(bloomfilterbytes);
@@ -912,7 +912,7 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 	if(exists==0) return ERROR;
 	
 	return SUCCESS;	
-
+*/
 }
 
 int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash){//trie_node *root){//initialize paths in -1
@@ -1003,4 +1003,5 @@ void  stat_myappend_pan_with_space(char **string,int *str_size, char * word){
 	strcat(*string," ");
 	strcat(*string,word);
 	//printf("word in append is %s with len %d\n",*string,strlen(string));
-}
+} 
+

@@ -52,10 +52,10 @@ top.o:  top.c top.h
 clean: 
 	$(RM) count *.o *~ diffs
 
-testrun:
-	  valgrind --leak-check=yes ./project -q small.work -i small.init 
+testrun_cache:
+	  valgrind --tool=cachegrind ./project -q small.work -i small.init 
 
-testrunv:
+testrun:
 	  valgrind --leak-check=yes -v ./project -q small.work -i small.init 
 
 testrun2:

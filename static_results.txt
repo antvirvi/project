@@ -1,5 +1,0 @@
-time ./project -q medium_static.work -i medium_static.init  
-Init medium_static.init
-Queries medium_static.work
-File name medium_static.init
-makefile:77: recipe for target 'run_static' failed

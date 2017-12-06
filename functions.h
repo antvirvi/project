@@ -138,4 +138,6 @@ int deleteTrieNode(hash_layer *hash,char **words,int number_of_words);
 int  hash_function(hash_layer *hash, char *word);
 void test(void);
 char * detableize(char * str, char ** table);
-int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,kframes * kf);
+int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,topk * top); //kframes *kf
+int check_exists_in_bucket(char *word,int *pos,trie_node *children,int children_number);
+///*int check_exists_in_bucket(hash_bucket *bucket,char *word,int *pos);

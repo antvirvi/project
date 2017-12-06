@@ -53,7 +53,7 @@ int main (int argc, char **argv ){
 	}
 	else{//no static
 		printf("not in static\n");
-		print_hash(trie->hash);
+		//print_hash(trie->hash);
 		if(test_input(trie,query_file)<0) return -1;
 	
 	}
