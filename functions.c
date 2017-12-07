@@ -116,28 +116,12 @@ int test_input(struct index *trie,char * filename)
 	int a;
 	FILE* fd = fopen(filename, "r"); //opening input file
     //int fd = open(filename, O_RDONLY, 0);
-	if(fd == -1)//NULL)
+	if(fd == NULL)
 	{
 		perror("Error opening input file");
 		return -1;
 	}
-	//experiment
-	
-	/*struct stat s;
-	 size_t size;
-	int status;
-	status = fstat (fd, & s);
-    if(status < 0) printf("stat failed: %s", strerror (errno));
-    size = s.st_size;		
 
-	const char * mapped;
-	mapped = mmap (0, size, PROT_READ, 0, fd, 0);
-	*/
-	//
-	/*kframes *kfrm=NULL;  //struct for the top k frames and printing after F
-	kfrm = create_gram_table(kfrm);
-	kfrm = init_gram_table(kfrm);
-	*/
 	topk *top;
 	top=create_top(top);
 	top=init_top(top);
@@ -147,7 +131,7 @@ int test_input(struct index *trie,char * filename)
 	ssize_t read;
 	char *word;
 	int command_error;
-
+	int count=0;
 	char **ptr_table = malloc(table_size*sizeof(char *));
 //	char * ngram;
 	//paths *paths_=init_paths(4,10); 
@@ -161,32 +145,37 @@ int test_input(struct index *trie,char * filename)
 		
 		word = strtok (line," \n");
 
-			//printf("Read this word: %s\n",word);
 			if(strcmp(word,"Q")==0){
+				//printf("flag 1\n");
 				flag=1;
 			}
 			else if(strcmp(word,"A")==0){
+				//printf("flag 2\n");
 				flag=2;
 			}
 			else if(strcmp(word,"D")==0){
 				flag=3;
 			}
 			else if(strcmp(word,"F")==0){
-
 				word=strtok(NULL,"\n");
 				int k;
 				print_print(top);
 				if(word!=NULL){
-					 k=atoi(word);
-					 print_top(top,k);
+					count++;
+					k=atoi(word);
+					print_top(top,k);
+					//if(count==10) break; 		
 				}
 				top=init_top(top);
+				//break;
 				//print_gram_table(kfrm);
 				//init_gram_table(kfrm);
 			}
-			else if(strcmp(word,"\0")==0) 
+			else if(strcmp(word,"\0")==0){ 
+				//printf("unknown\n")
 				continue;
-			
+			}
+			//else printf("unknown\n");
 			word=strtok(NULL," \n");
 				
 			while(word!=NULL){
@@ -1042,7 +1031,7 @@ int check_exists_in_bucket(char *word,int *pos,trie_node *children,int children_
 
 
 trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final){
-	//printf("In add to bucket %s\n",word);
+	//printf("In add to bucket \"%s\"\n",word);
 	
 	
 	hash_bucket *bucket=&(hash->buckets[hash_val]);
@@ -1394,7 +1383,7 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 	int pos;
 	trie_node *node;
 	int start=0;
-
+	int ngrams_found=0;
 	while(start!=number_of_words+1) {
 
 		str=malloc(20*sizeof(char)); //check this size
@@ -1426,9 +1415,9 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 						//printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
 						top=add_top(top,str);
+						ngrams_found++;
 						//kf = add_gram_table(kf,str);						
 					}
-				else top=increase_frequency(top,str);
 				}
 			//printf("word_number is %d\n",word_number);
 			word_number++;
@@ -1447,14 +1436,16 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 						//printf("%s|",str); 
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
 						top=add_top(top,str);
+						ngrams_found++;
 						//kf = add_gram_table(kf,str);
 			}
-			else top=increase_frequency(top,str);
+			//else top=increase_frequency(top,str);
 		}
 		free(str);
 		start++;
 	}
-	end_gram_table(top);
+	end_gram_table(top,ngrams_found);
+	//printf("added %d ngrams in table\n",ngrams_found);
 	int found=SUCCESS;
 	//free(str);
 	free(bloomfilter);	

@@ -25,6 +25,7 @@ int ngrams_to_free;
 typedef struct freq{
 	int * frequency;
 	int * ngram;
+	int unique;
 }freq;
 
 typedef struct bucket{
@@ -86,7 +87,7 @@ void print_top(topk * top,int k);
 
 topk *sort_frequencies(topk * top);
 
-topk *end_gram_table(topk * top);
+topk *  end_gram_table(topk * top,int ngrams_found);
 
 topk *increase_frequency(topk * top,char * ngram);
 
@@ -97,5 +98,5 @@ void print_hashtable(topk*top);
 int partition( int *frequency,int *ngram, int l, int r,char **ngrams);
 
 void quickSort( int *frequency,int *ngram, int l, int r,char **ngrams);
-int resize_hash_for_top(hashtable *hash_,kframes *kf);
+int resize_hash_for_top(hashtable *hash_,kframes *kf,freq *fr);
 void shrink_buckets_for_top(bucket *bucket_,stack *stack_);
