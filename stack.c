@@ -14,6 +14,7 @@ stack *init_stack(){
 int push(stack *stack_,int pos){
 	if(stack_->top==stack_->max_elements){
 		stack_->pos_array=realloc(stack_->pos_array,2*stack_->max_elements*sizeof(int));
+		stack_->max_elements*=2; //not sure 
 		if(stack_->pos_array==NULL)	return ERROR;
 	}
 	int free_pos=stack_->top;

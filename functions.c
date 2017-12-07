@@ -134,10 +134,10 @@ int test_input(struct index *trie,char * filename)
 	mapped = mmap (0, size, PROT_READ, 0, fd, 0);
 	*/
 	//
-	//kframes *kfrm=NULL;  //struct for the top k frames and printing after F
-	//kfrm = create_gram_table(kfrm);
-	//kfrm = init_gram_table(kfrm);
-
+	/*kframes *kfrm=NULL;  //struct for the top k frames and printing after F
+	kfrm = create_gram_table(kfrm);
+	kfrm = init_gram_table(kfrm);
+	*/
 	topk *top;
 	top=create_top(top);
 	top=init_top(top);
@@ -225,15 +225,12 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-//<<<<<<< HEAD
 				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); //kfrm
 				if(command_error==-1) printf("%d\n",command_error);
-/*=======
-				//printf("\n"); 
-				command_error=search_in_trie(trie->root,ptr_table,words_in-1,kfrm);   //AYTO EDW NA VGEI APO COMMENTS
-				if(command_error==-1) printf("%d\n",command_error);
->>>>>>> part2*/
+
+				//command_error=search_in_trie(trie->root,ptr_table,words_in-1,kfrm);   //AYTO EDW NA VGEI APO COMMENTS
+				//if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
 				//command_error=append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
@@ -1291,11 +1288,15 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 	return 0;
 }
 
-/**int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,kframes * kf){
+/*int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,kframes * kf){ 
 	//printf("Inside search,number of words is %d\n",number_of_words);
-	size_t bloomfilterbytes = (M/8);
-	int * bloomfilter = malloc(bloomfilterbytes);
-	bloomfilter_init(bloomfilter);
+
+	int multi=number_of_words/M;
+	size_t bloomfilterbytes=M*8;
+	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
+	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
+	int * bloomfilter = malloc(bloomfilterbytes/8);
+	bloomfilter_init(bloomfilter,bloomfilterbytes);
 
 	char *str;	
 	int str_size;
@@ -1332,9 +1333,9 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 			
 			if(node->is_final=='y') { //found ngram
 				//printf("here\n");
-				if(bloomfilter_check(str,bloomfilter)==0){
+				if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						//printf("%s|",str); 
-						bloomfilter_add(str,bloomfilter);
+						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
 						
 						kf = add_gram_table(kf,str);						
 					}
@@ -1352,9 +1353,9 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 		}
 		if(exists==1 && word_number<=number_of_words) {
 			//printf("str here %s\n",str);
-			if(bloomfilter_check(str,bloomfilter)==0){
+			if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						//printf("%s|",str); 
-						bloomfilter_add(str,bloomfilter);
+						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
 						kf = add_gram_table(kf,str);
 			}
 		}
@@ -1366,7 +1367,7 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 	//free(str);
 	free(bloomfilter);	
 	return found;
-	if(TestAllBits(bloomfilter)==0) found=-1;
+	if(TestAllBits(bloomfilter,bloomfilterbytes)==0) found=-1;
 	if(exists==0) return ERROR;
 	
 	return SUCCESS;	
@@ -1375,11 +1376,16 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 	return 0;
 }*/
 
+
 int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,topk * top){
 	//printf("Inside search,number of words is %d\n",number_of_words);
-	size_t bloomfilterbytes = (M/8);
-	int * bloomfilter = malloc(bloomfilterbytes);
-	bloomfilter_init(bloomfilter);
+	//size_t bloomfilterbytes = ((M*128)/8);
+	int multi=number_of_words/M;
+	size_t bloomfilterbytes=M*8;
+	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
+	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
+	int * bloomfilter = malloc(bloomfilterbytes/8);
+	bloomfilter_init(bloomfilter,bloomfilterbytes);
 
 	char *str;	
 	int str_size;
@@ -1416,9 +1422,9 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 			
 			if(node->is_final=='y') { //found ngram
 				//printf("here\n");
-				if(bloomfilter_check(str,bloomfilter)==0){
+				if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						//printf("%s|",str); 
-						bloomfilter_add(str,bloomfilter);
+						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
 						top=add_top(top,str);
 						//kf = add_gram_table(kf,str);						
 					}
@@ -1437,9 +1443,9 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 		}
 		if(exists==1 && word_number<=number_of_words) {
 			//printf("str here %s\n",str);
-			if(bloomfilter_check(str,bloomfilter)==0){
+			if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						//printf("%s|",str); 
-						bloomfilter_add(str,bloomfilter);
+						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
 						top=add_top(top,str);
 						//kf = add_gram_table(kf,str);
 			}
@@ -1453,7 +1459,7 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 	//free(str);
 	free(bloomfilter);	
 	return found;
-	if(TestAllBits(bloomfilter)==0) found=-1;
+	if(TestAllBits(bloomfilter,bloomfilterbytes)==0) found=-1;
 	if(exists==0) return ERROR;
 	
 	return SUCCESS;	

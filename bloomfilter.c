@@ -32,12 +32,12 @@ int TestBit(int *A,int k){
 		return 0;
 }
 
-int TestAllBits(int *bloom){
+int TestAllBits(int *bloom,size_t bloom_size){
 	int i;
-	int a=M;
+	int a=bloom_size;
 	a/=8;
 	a/=sizeof(int);
-	for (i=0;i<M;i++){
+	for (i=0;i<bloom_size;i++){
 		if(TestBit(bloom,i)!=0) {printf("Problem Houston");
 			return 1; }//paizei kai na uparxei
 	}
@@ -48,72 +48,13 @@ return 0; //sigoura den uparxei
 
 
 
-void bloomfilter_init(int * bloom){
-	/*int i;
-	printf("size ison %lu\n",sizeof(bloom));
-	//for(i=0;i<((M/sizeof(int))/8);i++){
-for (i=0;i<M;i++){
-		ClearBit(bloom,i);
-		if(TestBit(bloom,i)==0)
-			printf(GREEN"Good\n"RESET);
-		else{
-			printf(RED"Bad\n"RESET);
-			
-		}
-	}
-*/
-//working 1
-/*
-	int a=M;
-	a/=8;
-	a/=sizeof(int);
-memset(bloom,0,a);
-if(TestAllBits(bloom)==0)	
-			printf(BLUE"Freat Job %d %lu\n"RESET,a,sizeof(int));
-		else printf("Crap\n");
-*/
-//end 1
-
-// not working 2
-/*
-int a = ((M/sizeof(int))/8);//cells in a int table
-int j;
-for(j=0;j<a;j++)
-	bloom[j] &=0;
-
-*/
-//end 2
-
-//not working 3
-/*
-	//for(i=0;i<((M/sizeof(int))/8);i++){
-int i;
-	for (i=0;i<M;i++){
-		ClearBit(bloom,i);
-		if(TestBit(bloom,i)!=0)
-			printf(GREEN"Good\n"RESET);
-		else
-			{
-			printf(RED"Bad\n"RESET);
-			
-			}
-}
-*/
-//end 3
-//wornking 4
-
-//int i;
-//for (i=0;i<M;i++){
-//ClearBit(bloom,i);
-//}
-memset(bloom,0,M/8);
-
+void bloomfilter_init(int * bloom,size_t bloom_size){
+memset(bloom,0,bloom_size/8);
 //TestAllBits(bloom);
-//end 4
 }
 
 
-unsigned long hash( char *str,int key){
+unsigned long hash( char *str,int key,size_t bloom_size){
     unsigned long hash=0;
 
 	switch(key){
@@ -147,7 +88,7 @@ unsigned long hash( char *str,int key){
     while (c = *str++)
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 //printf("hash return; %lu\n",hash%M);
-    return hash%M;
+    return hash%bloom_size;
 }
 
 /*
@@ -199,30 +140,29 @@ return ret;
 }
 
 
-void hash2(const void *in_string, int *ptr, int key){
+void hash2(const void *in_string, int *ptr, int key,size_t bloom_size){
 
 	uint64_t * hash =  malloc(2*sizeof(uint64_t));
 
 	MurmurHash3_x64_128(in_string,strlen(in_string),key,hash);
 	//uint64_t var = hash[0]%M;
-//	printf("Sofina Lazaraki%lu\n",var);
-	ptr[0] = hash[0]%M;
-	ptr[1] = hash[1]%M;
-free(hash);
-	//printf("Sofina %d %d\n",ptr[0],ptr[1]);
+	ptr[0] = hash[0]%bloom_size;
+	ptr[1] = hash[1]%bloom_size;
+	free(hash);
+
 
 }
 
 
 
-void bloomfilter_add(char * message,int *bloom){
+void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
 	int *hashvalue1 = malloc(2*sizeof(int));
 	int *hashvalue2 = malloc(2*sizeof(int));
 	int *hashvalue3 = malloc(2*sizeof(int));
 
-		hash2(message,hashvalue1,16);
-		hash2(message,hashvalue2,32);
-		hash2(message,hashvalue3,64);
+		hash2(message,hashvalue1,16,bloom_size);
+		hash2(message,hashvalue2,32,bloom_size);
+		hash2(message,hashvalue3,64,bloom_size);
 
 		SetBit(bloom,hashvalue1[0]);
 		SetBit(bloom,hashvalue1[1]);
@@ -240,14 +180,14 @@ void bloomfilter_add(char * message,int *bloom){
 }
 
 
-int bloomfilter_check(char * message,int *bloom){
+int bloomfilter_check(char * message,int *bloom,size_t bloom_size){
 	int *hashvalue1 = malloc(2*sizeof(uint64_t));
 	int *hashvalue2 = malloc(2*sizeof(uint64_t));
 	int *hashvalue3 = malloc(2*sizeof(uint64_t));
 
-		hash2(message,hashvalue1,16);
-		hash2(message,hashvalue2,32);
-		hash2(message,hashvalue3,64);
+		hash2(message,hashvalue1,16,bloom_size);
+		hash2(message,hashvalue2,32,bloom_size);
+		hash2(message,hashvalue3,64,bloom_size);
 
 		if((TestBit(bloom,hashvalue1[0])==0)
 		  ||(TestBit(bloom,hashvalue1[1])==0)
