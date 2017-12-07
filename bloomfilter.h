@@ -1,11 +1,11 @@
-#define M 8192 //size of  bitvector bloomfilter in bits, should be good for ut to 8000 words
+//#define M 8192 //size of  bitvector bloomfilter in bits, should be good for ut to 8000 words
 #include <stdint.h>
 #ifndef VAR
 #define VAR
 #include "libraries.h"
 #endif
 #include "murmur3.h"
-
+extern int M;
 
 void SetBit(int *A, int k);
 void ClearBit(int *A,int k);

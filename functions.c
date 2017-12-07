@@ -1380,8 +1380,9 @@ int lookupTrieNode(hash_layer *hash,char **words,int number_of_words){
 int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,topk * top){
 	//printf("Inside search,number of words is %d\n",number_of_words);
 	//size_t bloomfilterbytes = ((M*128)/8);
-	int multi=number_of_words/M;
-	size_t bloomfilterbytes=M*8;
+//	int multi=number_of_words/M;
+	M = number_of_words*16; //number in bits
+	size_t bloomfilterbytes=M/8;
 	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
 	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
 	int * bloomfilter = malloc(bloomfilterbytes/8);

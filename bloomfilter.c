@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int M;
+
 void SetBit(int *A, int k){
 	int i = k/32;            // i = array index (use: A[i])
 	int pos = k%32;          // pos = bit position in A[i]
@@ -82,6 +84,12 @@ unsigned long hash( char *str,int key,size_t bloom_size){
 		case 8 :
 			hash = 7127;			
 			break;
+		case 9 :
+			hash = 6967;			
+			break;
+		case 10 :
+			hash = 1039;			
+			break;
 	}
     int c;
 
@@ -159,10 +167,14 @@ void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
 	int *hashvalue1 = malloc(2*sizeof(int));
 	int *hashvalue2 = malloc(2*sizeof(int));
 	int *hashvalue3 = malloc(2*sizeof(int));
+	int *hashvalue4 = malloc(2*sizeof(int));
+	int *hashvalue5 = malloc(2*sizeof(int));
 
 		hash2(message,hashvalue1,16,bloom_size);
 		hash2(message,hashvalue2,32,bloom_size);
 		hash2(message,hashvalue3,64,bloom_size);
+		hash2(message,hashvalue3,128,bloom_size);
+		hash2(message,hashvalue3,256,bloom_size);
 
 		SetBit(bloom,hashvalue1[0]);
 		SetBit(bloom,hashvalue1[1]);
@@ -173,9 +185,17 @@ void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
 		SetBit(bloom,hashvalue3[0]);
 		SetBit(bloom,hashvalue3[1]);
 
+		SetBit(bloom,hashvalue4[0]);
+		SetBit(bloom,hashvalue4[1]);
+
+		SetBit(bloom,hashvalue5[0]);
+		SetBit(bloom,hashvalue5[1]);
+
 	free(hashvalue1);
 	free(hashvalue2);
 	free(hashvalue3);
+	free(hashvalue4);
+	free(hashvalue5);
 //return 0;
 }
 
@@ -184,28 +204,40 @@ int bloomfilter_check(char * message,int *bloom,size_t bloom_size){
 	int *hashvalue1 = malloc(2*sizeof(uint64_t));
 	int *hashvalue2 = malloc(2*sizeof(uint64_t));
 	int *hashvalue3 = malloc(2*sizeof(uint64_t));
+	int *hashvalue4 = malloc(2*sizeof(uint64_t));
+	int *hashvalue5 = malloc(2*sizeof(uint64_t));
 
 		hash2(message,hashvalue1,16,bloom_size);
 		hash2(message,hashvalue2,32,bloom_size);
 		hash2(message,hashvalue3,64,bloom_size);
+		hash2(message,hashvalue3,128,bloom_size);
+		hash2(message,hashvalue3,256,bloom_size);
 
 		if((TestBit(bloom,hashvalue1[0])==0)
 		  ||(TestBit(bloom,hashvalue1[1])==0)
 		  ||(TestBit(bloom,hashvalue2[0])==0)
 		  ||(TestBit(bloom,hashvalue2[1])==0)
 		  ||(TestBit(bloom,hashvalue3[0])==0)
-		  ||(TestBit(bloom,hashvalue3[1])==0))
+		  ||(TestBit(bloom,hashvalue3[1])==0)
+		  ||(TestBit(bloom,hashvalue4[0])==0)
+		  ||(TestBit(bloom,hashvalue4[1])==0)
+		  ||(TestBit(bloom,hashvalue5[0])==0)
+		  ||(TestBit(bloom,hashvalue5[1])==0))
 		{
 	//		printf(RED"The string is not storred\n"RESET);
 			free(hashvalue1);
 			free(hashvalue2);
 			free(hashvalue3);
+			free(hashvalue4);
+			free(hashvalue5);
 			return 0;
 		}
 	//returns 0 if there is one bit 0, or 1 if all of them are 1.	
 	free(hashvalue1);
 	free(hashvalue2);
 	free(hashvalue3);
+	free(hashvalue4);
+	free(hashvalue5);
 //printf(YELLOW"The string may be storred\n"RESET);
 return 1;
 }
