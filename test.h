@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "static_functions.h"
-
+#include "bloomfilter.h"
 
 #define FOUND 1
 #define NOT_FOUND 0
@@ -22,3 +22,6 @@ int init_test_input(struct index *trie,char * filename,char *command);
 void test_hash_function(struct index *trie,char * filename);
 int check_if_empty(hash_layer *hash);
 void test_everything_exists(struct static_index *trie,char * filename);
+void test_bloom_bit(void);
+void test_bloom(void);
+int test_top(void);

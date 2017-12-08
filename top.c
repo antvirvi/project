@@ -155,9 +155,6 @@ topk * add_top(topk * top,char * ngram){ //prosthiki enos n gram stous pinakes
 			return top;
 		}
 	}
-	//
-	//printf("I added :%s: in hashtable and fr in pos %d i hash %d\n",ngram,top->fr->unique,hash_value);
-	
 	
 	top->fr->ngram[top->fr->unique] =last_position;
 	top->fr->frequency[top->fr->unique] = 1;
@@ -184,11 +181,8 @@ int resize_hash_for_top(hashtable *hash_,kframes *kf,freq *fr){
 	bucket *hash_bucket;
 	//printf("free buckets %d , used %d\n",hash_->buckets_to_free,hash_->number_of_buckets);
 	if(hash_->buckets_to_free==hash_->number_of_buckets){
-		//printf("WILL ADD MORE\n");
-		//printf("Resize\n");
 		hash_->buckets=realloc(hash_->buckets,(hash_->number_of_buckets+1)*sizeof(bucket)); //add bucket lineat
 		if(hash_->buckets==NULL){
-			//printf("error in realloc\n");
 			return -1;
 		}
 		initialize_bucket_for_top(&(hash_->buckets[hash_->number_of_buckets]),hash_->bucket_capacity);
@@ -202,10 +196,8 @@ int resize_hash_for_top(hashtable *hash_,kframes *kf,freq *fr){
 	new_bucket->capacity=hash_->bucket_capacity;
 
 	hash_bucket=&(hash_->buckets[hash_->bucket_to_split]); //re arranging bucket to split
-	//printf("hash bucket to split is %d \n",hash_->bucket_to_split);
 	int new_hash_val=-1;
 	stack *stack_=init_stack();
-	//print_stack(stack_);
 
 	if(hash_bucket->number_of_children==0){
 		hash_->bucket_to_split=(hash_->bucket_to_split+1)%(C2<<hash_->split_round);//without pow
@@ -217,7 +209,7 @@ int resize_hash_for_top(hashtable *hash_,kframes *kf,freq *fr){
 	int previous=hash_->bucket_to_split;
 	hash_->bucket_to_split=(hash_->bucket_to_split+1)%(C2<<hash_->split_round);// without pow
 	int pos,pos2;
-	//printf("hash bucket to split is %d \n",hash_->bucket_to_split);
+
 	for(i=0;i<hash_bucket->number_of_children;i++){
 
 		pos=hash_bucket->children[i];
@@ -325,12 +317,10 @@ void print_print(topk * top){ //ektypwnei ola ta ngrams me
 void print_top(topk*top,int k){ //ektypwnei ola ta ngrams me
 	int i;
 	int max=k;
-	//printf("occupied are %d\n",top->kf->occupied);
 	if(top->fr->unique<max) max=top->fr->unique;//top->kf->occupied;
 	if(max==0) return;
 	quickSort(top->fr->frequency,top->fr->ngram,0,top->fr->unique-1,top->kf->ngrams);
-	//print_frequencies(top);
-	//sort_in_alphabet(top->fr->frequency,top->fr->ngram,0,max,top->kf->ngrams);
+	sort_in_alphabet(top->fr->frequency,top->fr->ngram,0,max,top->kf->ngrams);
 	//print_frequencies(top);
 	printf("Top: ");
 	for(i=0;i<max;i++){
@@ -344,52 +334,43 @@ printf("\n");
 
 void print_frequencies(topk*top){ //ektypwnei ola ta ngrams me
 	int i,pos;
-	for(i=0;i<10;i++){//top->fr->unique
+	for(i=0;i<15;i++){//top->fr->unique gia na ta ektyposei ola
 		pos=top->fr->ngram[i];
 		printf("word: \"%s\" with freq: %d \n",top->kf->ngrams[pos],top->fr->frequency[i]);
 		}
 
 }
 
-/*void sort_in_alphabet(int *frequency,int *ngram,int l,int max,char **ngrams){
-	int i;
-	int same=0;
+void sort_in_alphabet(int *frequency,int *ngram,int l,int max,char **ngrams){
+	int i,j,k;
+	int compare,pos,pos2,temp,end;
+
 	int start=0;
-	for(i=0;i<max;i++){
-		while(frequency[i]==frequency[i+1]){
-			printf("i %d and i+1 %d\n",i,i+1);
-			same++;
-			i++;
-		}
-		//sort them
-		//printf("start is %d , same %d\n",start,same);
-		if(same!=0)
-		{
-		printf("start is %d , same %d\n",start,same);
-
-		for (i = 1; i < start+same; i++) {
-      		for (j = 1; j < start+same; j++) {
-         		if (strcmp(s[j - 1], s[j]) > 0) {
-				
-					temp = frequency[j-1];
-					frequency[j-1] = frequency[j];
-					frequency[j] = temp;
-
-					temp = ngram[i];
-					ngram[i] = ngram[j];
-					ngram[j] = temp;
-         		}
-      		}
-   		}
- 
-		quickSort_for_alpha(frequency,ngram,start,start+same,ngrams);
-		
+	for(i=0;i<=max;i++){
 		start=i;
-		same=0;}
-		start++;
+		while(frequency[i]==frequency[i+1]) i++;			
+		
+		end=i;
+		if(start!=end){ //sort from start to end
+  			 for (j=0;j<=(end-start)-1;j++){      
+       			for (k=0;k<=(end-start)-j-1;k++){ 
+					pos=ngram[k+start];
+					pos2=ngram[k+start+1];
+					compare=strcmp(ngrams[pos],ngrams[pos2]);
+          			if (compare>0){
+						temp = frequency[k+start];
+						frequency[k+start] = frequency[k+start+1];
+						frequency[k+start+1] = temp;
+	
+						temp = ngram[k+start];
+						ngram[k+start] = ngram[k+start+1];
+						ngram[k+start+1] = temp; 
+					}
+					}
+				}
+			}
+		}
 	}
-
-}*/
 
 
 void quickSort( int *frequency,int *ngram, int l, int r,char **ngrams)
@@ -408,15 +389,14 @@ void quickSort( int *frequency,int *ngram, int l, int r,char **ngrams)
 
 int partition (int *frequency,int *ngram,int l,int r,char **ngrams){
     // pivot (Element to be placed at left position)
-	int i,j,temp,pos,pos2;
+	int i,j,temp;
     int pivot = frequency[r];
     i =(l-1);  // Index of smaller element
-	int compare;
     for (j=l;j<=r-1;j++)
     {
         // If current element is bigger than or
         // equal to pivot
-        if (frequency[j]>pivot)
+        if (frequency[j]>=pivot)
         {
             i++;    // increment index of smaller element
 			temp = frequency[i];
@@ -427,39 +407,8 @@ int partition (int *frequency,int *ngram,int l,int r,char **ngrams){
 			ngram[i] = ngram[j];
 			ngram[j] = temp; 
         }
-		else if(frequency[j]==pivot){
-			pos=ngram[j];
-			pos2=ngram[pivot];	
-			compare=strncmp(ngrams[pos],ngrams[pos2],1); //change ngrams based on alphabet
-			if(compare<0){
-				i++;    // increment index of smaller element
-				temp = frequency[i];
-				frequency[i] = frequency[j];
-				frequency[j] = temp;
-				
-				temp = ngram[i];
-				ngram[i] = ngram[j];
-				ngram[j] = temp; 
-			
-			}
-		}
     }
-	if(frequency[i+1]==frequency[r]){
-		pos=ngram[i+1];
-		pos2=ngram[r];	
-		compare=strncmp(ngrams[pos],ngrams[pos2],1);
-		if(compare>0){
-			temp = frequency[i+1];
-			frequency[i+1] = frequency[r];
-			frequency[r] = temp;
-
-			temp = ngram[i+1];
-			ngram[i+1] = ngram[r];
-			ngram[r] = temp;
-			return i+1;
-		}
-		return i+1;
-	}
+	
 	temp = frequency[i+1];
 	frequency[i+1] = frequency[r];
 	frequency[r] = temp;

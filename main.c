@@ -15,8 +15,8 @@
 int main (int argc, char **argv ){	
 //	clock_t begin = clock();
 	int c;
-	char init_file[25];
-	char query_file[25];
+	char *init_file;
+	char *query_file;
 	int init_result;
 	
 	if(argc<5){
@@ -27,10 +27,14 @@ int main (int argc, char **argv ){
 
 	for(c=0;c<argc;c++)
 	{
-		if(strcmp(argv[c],"-i")==0)
+		if(strcmp(argv[c],"-i")==0){
+			init_file=malloc((strlen(argv[c+1])+1)*sizeof(char));
 			strcpy(init_file,argv[c+1]);
-		if(strcmp(argv[c],"-q")==0)
-			strcpy(query_file,argv[c+1]);	
+		}
+		if(strcmp(argv[c],"-q")==0){
+			query_file=malloc((strlen(argv[c+1])+1)*sizeof(char));
+			strcpy(query_file,argv[c+1]);
+		}	
 	}
 	
 	int i;
@@ -42,7 +46,7 @@ int main (int argc, char **argv ){
 	init_result=init_input(trie,init_file);
 	if(init_result<0) return -1;
 	else if(init_result==1){//static
-			printf("in static\n");
+			//printf("in static\n");
 			struct static_index *static_trie=malloc(sizeof(struct static_index));	
 			static_hash_layer *static_hash=compress(trie->hash);
 			static_trie->hash=static_hash;
@@ -52,17 +56,15 @@ int main (int argc, char **argv ){
 			free(static_trie);
 	}
 	else{//no static
-		printf("not in static\n");
+		//printf("not in static\n");
 		//print_hash(trie->hash);
 		if(test_input(trie,query_file)<0) return -1;
 	
 	}
 	destroyLinearHash(trie->hash); //in all the cases i have to delete it
 	free(trie);
-	/**
-	init_static_input(static_trie,init_file);
-	
-	*/
+	free(init_file);
+	free(query_file);
 
 	return 0;	
 }

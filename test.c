@@ -70,7 +70,7 @@ int test_if_exists(struct index *trie,char **words ,int words_size){
 
 	int hash_val=hash_function(trie->hash,words[0]);
 	hash_bucket *bucket=&(trie->hash->buckets[hash_val]);
-	found=check_exists_in_bucket(bucket,words[0],&pos);
+	found=check_exists_in_bucket(words[0],&pos,bucket->children,bucket->children_number);
 	if(found==0) return found; //not found
 	node=&(bucket->children[pos]);
 	
@@ -336,7 +336,7 @@ void test_everything_exists(struct static_index *trie,char * filename){
 
 	if(fd == NULL){
 		perror("Error opening input file");
-		return -1;
+		return ;
 	}
 
 	char *line = NULL;
@@ -390,5 +390,105 @@ void test_everything_exists(struct static_index *trie,char * filename){
 	return ;
 }
 
+void test_bloom_bit(void){
+	printf("Test bloom bit: ");
+	int flag = 0;
+	int a = 63;
+	int * bloomfilter = malloc(8192);
+	bloomfilter_init(bloomfilter,8192*8);
+	if(TestBit(bloomfilter,a)){
+		printf("Error in Initbit\n");
+		flag++;
+	}
 
+	SetBit(bloomfilter,a);
+	if(!TestBit(bloomfilter,a)){
+		printf("Error in Setbit\n");
+		flag++;
+	}
 
+	ClearBit(bloomfilter,a);
+	if(TestBit(bloomfilter,a)){
+		printf("Error in Clearbit\n");
+		flag++;
+	}
+
+	free(bloomfilter);
+ if(flag==0)
+	printf("No errors\n");
+}
+
+void test_bloom(void){
+	printf("Test bloom: ");
+	int flag = 0;
+	int bits = 8192*8, bytes=8192;
+	int * bloomfilter = malloc(bytes);
+	bloomfilter_init(bloomfilter,bits);
+
+	if(bloomfilter_check("lets check the bloomfilter",bloomfilter,bytes)){
+		printf("Error in bloomfilter init\n");
+		flag++;
+	}
+	bloomfilter_add("lets check the bloomfilter2",bloomfilter,bytes);
+		if(!bloomfilter_check("lets check the bloomfilter2",bloomfilter,bytes)){
+		printf("Error in bloomfilter add\n");
+		flag++;
+	}
+	
+	free(bloomfilter);
+if(flag==0)
+	printf("No errors\n");
+}
+
+int test_top(void){
+	printf("Test_top: ");
+	int flag = 0;
+	topk * top;
+	top = create_top(top);
+	top = init_top(top);
+	if (top->kf->capacity!=20){
+		printf("Error in init/create top\n");
+		flag++;
+		}
+	top = extend_top(top);
+	if (top->kf->capacity!=40){
+		printf("Error in extend top\n");
+		flag++;
+		}
+	top = add_top(top,"antonis");
+	if(top->fr->frequency[0] != 1){
+		printf("Error in add top\n");
+		flag++;
+		}
+	top->fr->frequency[0] = 5;
+	top->fr->frequency[1] = 35;
+	top->fr->frequency[2] = 23;
+	top->fr->frequency[3] = 240;
+	int i;
+
+	top = add_top(top,"antonis");
+	top = add_top(top,"antonis");
+	top = add_top(top,"antonis");
+	top = add_top(top,"antonis");
+	top = add_top(top,"bntonis");
+	top = add_top(top,"bntonis");
+	top = add_top(top,"bntonis");
+	top = add_top(top,"cntonis");
+	top = add_top(top,"dntonis");
+	top = add_top(top,"dntonis");
+
+	quickSort(top->fr->frequency,top->fr->ngram,0,top->fr->unique-1,top->kf->ngrams);
+
+	for (i=1;i<5;i++){
+	//	printf("%s ",top->kf->ngrams[i]);
+	//	printf("%d\n",top->fr->frequency[i]);
+	}
+	if((top->fr->frequency[0]<top->fr->frequency[1])||(top->fr->frequency[1]<top->fr->frequency[2])||
+		(top->fr->frequency[2]<top->fr->frequency[3]))
+		{
+		printf("Error in init/create top\n");
+		flag++;
+	}
+	if(flag==0)
+		printf("No errors\n");
+}

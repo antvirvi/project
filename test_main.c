@@ -25,7 +25,7 @@ int main (int argc, char **argv )
 	static_trie->hash=static_hash;
 	test_compress(static_trie->hash);
 	test_everything_exists(static_trie,"unit_test.init");
-	print_static_hash(static_trie->hash);
+	//print_static_hash(static_trie->hash);
 	//print_static_hash(static_hash);
 	destroy_static_hash(static_hash);
 //-----------------------done testing stativ------------------//
@@ -34,6 +34,10 @@ int main (int argc, char **argv )
 	free(static_trie);
 
 	destroyLinearHash(trie->hash); //in all the cases i have to delete it
+//-------------------------testing bloom and top--------------//
+	test_bloom_bit();
+	test_bloom();
+	test_top();
 	free(trie);
 	return 0;	
 }
