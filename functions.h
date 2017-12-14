@@ -13,6 +13,11 @@
 #include "bloomfilter.h"
 #include "libraries.h"
 
+#ifndef DEL_H
+#define DEL_H
+#include "deletion.h"
+#endif
+
 #ifndef WORD_SIZE
 #define WORD_SIZE 25
 #endif
@@ -48,7 +53,9 @@ typedef struct trie_node{
 	char is_final;
 	int number_of_childs;
 	int max_childs;
-
+	int A_version;
+	int D_version;
+	int children_deleted;
 }trie_node;
 
 
@@ -81,20 +88,21 @@ struct index{
 	hash_layer *hash;
 };
 
+trie_node *init_trie_node(trie_node *node,char *word,char is_final,int current_version);
 void cleanup2(char ** ptr);
 void printtable(char ** pt,int num);
 void printpanos(void);
 trie_node *init_trie();
 void delete_trie(struct index *trie);
 void destroy_childs(trie_node *node);
-int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
+int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
 int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf);
 int check_exists_in_children(trie_node *node,char *word,int *pos);
-int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words);
-int delete_from_node(trie_node *node,int pos);
-int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
-int append_word(trie_node *node,int pos,char *word,char is_final);
-int append_trie_node_iterative(trie_node *root,char **word,int word_number,int number_of_words);
+int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
+int delete_from_node(trie_node *node,int pos,int current_version);
+
+int append_word(trie_node *node,int pos,char *word,char is_final,int current_version);
+int append_trie_node_iterative(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
 void print_trie(trie_node *node,int level);
 void print_nodes_from_stack(trie_node *root,stack *stack_);
 int init_input(struct index *trie,char * filename);
@@ -121,10 +129,10 @@ char * myappend1(char * word, char * string);
 //unsigned long hash(/*unsigned*/ char *str, int key);
 hash_layer	*createLinearHash(int c ,int m);
 void destroyLinearHash(hash_layer *hash);
-int insertTrieNode(hash_layer *hash,char **words,int word_number);
+int insertTrieNode(hash_layer *hash,char **words,int word_number,int current_version);
 int lookupTrieNode(hash_layer *hash,char **words,int word_number);
 
-trie_node *add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final);
+trie_node *add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final,int current_version);
 
 void shrink_buckets(hash_bucket *bucket,stack *stack_);
 void shrink_bucket(hash_bucket *bucket,stack *stack_,int first,int last);
@@ -133,11 +141,16 @@ int resize_hash(hash_layer *hash);
 void destroy_bucket_nodes(hash_bucket *bucket);
 void destroy_buckets(hash_bucket *bucket,int level);
 
-trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos);
-int deleteTrieNode(hash_layer *hash,char **words,int number_of_words);
+trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos,int current_version);
+int deleteTrieNode(hash_layer *hash,char **words,int number_of_words,int current_version);
 int  hash_function(hash_layer *hash, char *word);
 void test(void);
 char * detableize(char * str, char ** table);
 int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,topk *top);//topk * top); //kframes *kf
 int check_exists_in_bucket(char *word,int *pos,trie_node *children,int children_number);
 ///*int check_exists_in_bucket(hash_bucket *bucket,char *word,int *pos);
+
+trie_node *delete_from_backet_versioning(hash_layer *hash,int hash_val,char *word,int *pos,int current_version);
+int deleteTrieNode_versioning(hash_layer *hash,char **words,int word_number,int current_version,ngrams_to_delete *d_grams);
+int delete_from_node_versioning(trie_node *node,int pos,int current_version,ngrams_to_delete *d_grams);
+int delete_ngram_versioning(trie_node *root,char **word,int word_number,int number_of_words,int current_version,ngrams_to_delete *d_grams);

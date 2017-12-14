@@ -55,7 +55,7 @@ int main (int argc, char **argv ){
 		printf("not in static\n");
 		//print_hash(trie->hash);
 		if(test_input(trie,query_file)<0) return -1;
-	
+		print_hash(trie->hash);
 	}
 	destroyLinearHash(trie->hash); //in all the cases i have to delete it
 	free(trie);

@@ -1,7 +1,7 @@
 #ifndef FUNC_H
 #define FUNC_H
 #include "functions.h"
- 
+
 //#include "bloomfilter.h"
 
 #define RED     "\x1b[31m"
@@ -61,6 +61,7 @@ int init_input(struct index *trie,char * filename){
 	ssize_t read;
 	char *word;
 	int static_flag=0;
+	int current_version=0;
 
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
@@ -97,7 +98,7 @@ int init_input(struct index *trie,char * filename){
 		}
 		//append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
 		//append_trie_node(trie->root,ptr_table,0,words_in-1);
-		insertTrieNode(trie->hash,ptr_table,words_in);
+		insertTrieNode(trie->hash,ptr_table,words_in,current_version);
 	}
 	free(line);
 	cleanup(ptr_table);
@@ -123,21 +124,7 @@ int test_input(struct index *trie,char * filename)
 	}
 	//experiment
 	
-	/*struct stat s;
-	 size_t size;
-	int status;
-	status = fstat (fd, & s);
-    if(status < 0) printf("stat failed: %s", strerror (errno));
-    size = s.st_size;		
-
-	const char * mapped;
-	mapped = mmap (0, size, PROT_READ, 0, fd, 0);
-	*/
-	//
-	/*kframes *kfrm=NULL;  //struct for the top k frames and printing after F
-	kfrm = create_gram_table(kfrm);
-	kfrm = init_gram_table(kfrm);
-	*/
+	
 	topk *top;
 	top=create_top(top);
 	top=init_top(top);
@@ -147,10 +134,12 @@ int test_input(struct index *trie,char * filename)
 	ssize_t read;
 	char *word;
 	int command_error;
+	int previous_is_Q=1;
+	int current_version=0;
 
 	char **ptr_table = malloc(table_size*sizeof(char *));
-//	char * ngram;
-	//paths *paths_=init_paths(4,10); 
+	ngrams_to_delete *d_grams=malloc(sizeof(ngrams_to_delete));
+	init_ngrams_to_delete(d_grams);
 
 	for(a=0;a<table_size;a++)
 		ptr_table[a]=malloc(word_size*sizeof(char));
@@ -181,8 +170,10 @@ int test_input(struct index *trie,char * filename)
 					 print_top(top,k);
 				}
 				top=init_top(top);
-				//print_gram_table(kfrm);
-				//init_gram_table(kfrm);
+				delete_ngrams(d_grams);
+				printf("deleted\n");
+				reset_ngrams_to_delete(d_grams);
+				continue;
 			}
 			else if(strcmp(word,"\0")==0) 
 				continue;
@@ -222,33 +213,42 @@ int test_input(struct index *trie,char * filename)
 			
 		word=strtok(NULL," \n");
 		}
-
+		//printf("current_version is %d\n",current_version);
 		switch(flag){
 			case 1 :
 				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); //kfrm
 				if(command_error==-1) printf("%d\n",command_error);
-
-				//command_error=search_in_trie(trie->root,ptr_table,words_in-1,kfrm);   //AYTO EDW NA VGEI APO COMMENTS
-				//if(command_error==-1) printf("%d\n",command_error);
+				//submit job to scedualer here
+				if(previous_is_Q==0){
+					previous_is_Q=1;
+					current_version++;
+				}
 				break;
 			case 2 :
 				//command_error=append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
 				//command_error=append_trie_node(trie->root,ptr_table,0,words_in-1);
-				command_error=insertTrieNode(trie->hash,ptr_table,words_in);
+				//printf("adding word \"%s \" in version %d \n",ptr_table[0],current_version);
+				command_error=insertTrieNode(trie->hash,ptr_table,words_in,current_version);
+				previous_is_Q=0;
 				break;
 			case 3 :
 				//command_error=delete_ngram(trie->root,ptr_table,0,words_in-1);
-				command_error=deleteTrieNode(trie->hash,ptr_table,words_in);
+				printf("deleting word \"%s \" in version %d \n",ptr_table[0],current_version);
+				command_error=deleteTrieNode_versioning(trie->hash,ptr_table,words_in,current_version,d_grams);
+				previous_is_Q=0;
 				//printf("delete error is word (%s) is %d \n",ptr_table[0],command_error);
 				break;
 		
 		}
+		//printf("current_version is %d\n",current_version);
 		flag=0;	
 }
 	//it is supposed that control never reaches this point, due to F signal
   	free(line);
 	//erase_gram_table(kfrm);
+	destroy_ngrams_to_delete(d_grams);
+	free(d_grams);
 	erase_top(top);
 	cleanup(ptr_table);
 	fclose(fd);
@@ -280,7 +280,7 @@ void print_trie(trie_node *node,int level){
 	for(i=0;i<node->number_of_childs;i++){
 		//print_node(&(node->children[i]));
 		if(level!=0) printf("->");
-		printf("%s (%c) ",node->children[i].word,node->children[i].is_final);
+		printf("%s (%c,%d,%d) ",node->children[i].word,node->children[i].is_final,node->children[i].A_version,node->children[i].D_version);
 		print_trie(&(node->children[i]),level+1);
 	}
 	return;
@@ -335,7 +335,7 @@ trie_node *create_trie_node(char *word,char is_final){
 	return node;
 }
 
-trie_node *init_trie_node(trie_node *node,char *word,char is_final){
+trie_node *init_trie_node(trie_node *node,char *word,char is_final,int current_version){
 	
 	
 	node->word=malloc(WORD_SIZE*sizeof(char));
@@ -346,12 +346,13 @@ trie_node *init_trie_node(trie_node *node,char *word,char is_final){
 	node->max_childs=MAX_CHILDS;
 
 	node->children=malloc(CHILD_NUM*sizeof(struct trie_node));
-	
-
+	node->A_version=current_version;
+	node->D_version=current_version;
+	node->children_deleted=0;
 	return node;
 }
 
-int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words){
+int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words,int current_version){
 	int error;
 	if(word_number>number_of_words){
 		//printf("out of words to add\n");
@@ -362,10 +363,10 @@ int append_trie_node(trie_node *root,char **word,int word_number,int number_of_w
 	if(word_number==number_of_words) is_final='y';
 
 	if(root->number_of_childs==0){
-		error=append_word(root,0,word[word_number],is_final);
+		error=append_word(root,0,word[word_number],is_final,current_version);
 		if(error==ERROR) return ERROR;
 		root->number_of_childs++;
-		append_trie_node(&(root->children[0]),word,word_number+1,number_of_words);
+		append_trie_node(&(root->children[0]),word,word_number+1,number_of_words,current_version);
 	}
 	else{
 		int pos;
@@ -373,19 +374,19 @@ int append_trie_node(trie_node *root,char **word,int word_number,int number_of_w
 		if (exists==1){
 			//make the node also final
 			if((&(root->children[pos]))->is_final!='y') (&(root->children[pos]))->is_final=is_final; //this change
-			append_trie_node(&(root->children[pos]),word,word_number+1,number_of_words);
+			append_trie_node(&(root->children[pos]),word,word_number+1,number_of_words,current_version);
 			}
 		else{	
-			error=append_word(root,pos,word[word_number],is_final);
+			error=append_word(root,pos,word[word_number],is_final,current_version);
 			if(error==ERROR) return ERROR;
 			root->number_of_childs++;
-			append_trie_node(&(root->children[pos]),word,word_number+1,number_of_words);
+			append_trie_node(&(root->children[pos]),word,word_number+1,number_of_words,current_version);
 			}
 	}
 	return SUCCESS; //0 errors
 }
 
-int append_trie_node_iterative(trie_node *root,char **word,int word_number,int number_of_words){
+int append_trie_node_iterative(trie_node *root,char **word,int word_number,int number_of_words,int current_version){
 	int error;
 	char is_final;
 	trie_node *node=root;
@@ -395,7 +396,7 @@ int append_trie_node_iterative(trie_node *root,char **word,int word_number,int n
 		if(word_number==number_of_words) is_final='y';
 		
 		if(node->number_of_childs==0){
-			error=append_word(node,0,word[word_number],is_final);
+			error=append_word(node,0,word[word_number],is_final,current_version);
 			if(error==ERROR) return ERROR;
 			node->number_of_childs++;
 			node=&(node->children[0]);
@@ -407,7 +408,7 @@ int append_trie_node_iterative(trie_node *root,char **word,int word_number,int n
 				node=&(node->children[pos]);
 				}
 			else{	
-				error=append_word(node,pos,word[word_number],is_final);
+				error=append_word(node,pos,word[word_number],is_final,current_version);
 				if(error==ERROR) return ERROR;
 				node->number_of_childs++;
 				node=&(node->children[pos]);
@@ -459,7 +460,7 @@ int check_exists_in_children(trie_node *node,char *word,int *pos){
 		}
 }
 
-int append_word(trie_node *node,int pos,char *word,char is_final){
+int append_word(trie_node *node,int pos,char *word,char is_final,int current_version){
 		//printf("inside append_word , pos %d\n",pos);
 		if(node->number_of_childs==node->max_childs){
 				//printf("I have to double the children\n");
@@ -473,11 +474,11 @@ int append_word(trie_node *node,int pos,char *word,char is_final){
 		trie_node * backup=node->children;
 		memmove(node->children,backup,pos*sizeof(trie_node));
 		memmove(node->children+(pos+1),backup+(pos),(node->number_of_childs-pos)*sizeof(trie_node));
-		init_trie_node(&(node->children[pos]),word,is_final);
+		init_trie_node(&(node->children[pos]),word,is_final,current_version);
 		return SUCCESS ; //zero errors
 }
 
-int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words){
+int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words,int current_version){
 		int error;
 		//printf("in delete ngram word \"%s\"\n",word[word_number]);
 		if(word_number==number_of_words+1){
@@ -494,11 +495,11 @@ int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words
 			int exists=check_exists_in_children(root,word[word_number],&pos);
 			//printf("exists :%d ",exists);
 			if (exists==1){
-				error=delete_ngram(&(root->children[pos]),word,word_number+1,number_of_words);
+				error=delete_ngram(&(root->children[pos]),word,word_number+1,number_of_words,current_version);
 				if(error==0)
 				{
 					if(root->children[pos].is_final=='y' && word_number!=number_of_words ) return 2; //return 2 if  i am del half 
-					error=delete_from_node(root,pos);
+					error=delete_from_node(root,pos,current_version);
 					root->number_of_childs--;
 				}
 				if(error!=1 && root->number_of_childs!=0) return 2; //dont delete the node if it has more childs 
@@ -510,7 +511,7 @@ int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words
 
 
 
-int delete_from_node(trie_node *node,int pos){
+int delete_from_node(trie_node *node,int pos,int current_version){
 		//printf("in delete node pos %d word to delete is %s\n",pos,node->children[pos].word);
 
 		trie_node * backup=node->children;
@@ -521,6 +522,46 @@ int delete_from_node(trie_node *node,int pos){
 		memmove(node->children+pos,backup+pos+1,(node->number_of_childs-(pos+1))*sizeof(trie_node));
 		//printf("out of delete\n");
 		//free(node_to_delete->children);
+		return SUCCESS ; //zero e-rrors
+}
+
+int delete_ngram_versioning(trie_node *root,char **word,int word_number,int number_of_words,int current_version,ngrams_to_delete *d_grams){
+		int error;
+		//printf("in delete ngram word \"%s\"\n",word[word_number]);
+		if(word_number==number_of_words+1){
+			if(root->number_of_childs!=0 && root->is_final!='y') return ERROR;
+			if(root->number_of_childs-root->children_deleted!=0 &&root->is_final=='y'){
+				root->is_final='n';
+				return 2;}  
+			return SUCCESS;//and return no error . the previous one is gonna delete it	
+		}
+		if(root->number_of_childs==0) return ERROR;
+		else{
+			int pos;
+			//printf("before exists \"%s\"\n",word[word_number]);
+			int exists=check_exists_in_children(root,word[word_number],&pos);
+			//printf("exists :%d ",exists);
+			if (exists==1){
+				error=delete_ngram_versioning(&(root->children[pos]),word,word_number+1,number_of_words,current_version,d_grams);
+				if(error==0)
+				{
+					if(root->children[pos].is_final=='y' && word_number!=number_of_words ) return 2; //return 2 if  i am del half 
+					error=delete_from_node_versioning(root,pos,current_version,d_grams);
+					//root->number_of_childs--;
+				}
+				if(error!=1 && (root->number_of_childs - root->children_deleted)!=0) return 2; 
+				return error; 
+			}
+			else return ERROR;	//return error if the word is not on the trie , so the ngram is not in the trie
+			}
+}
+
+int delete_from_node_versioning(trie_node *node,int pos,int current_version,ngrams_to_delete *d_grams){
+
+		trie_node *node_to_delete=&(node->children[pos]);
+		node_to_delete->D_version=current_version;
+		node->children_deleted++;
+		add_ngram_to_delete(d_grams,node,pos,0);
 		return SUCCESS ; //zero e-rrors
 }
 
@@ -935,7 +976,7 @@ void destroy_bucket_nodes(hash_bucket *bucket){
 	free(bucket->children);
 }
 
-int insertTrieNode(hash_layer *hash,char **words,int word_number){
+int insertTrieNode(hash_layer *hash,char **words,int word_number,int current_version){
 	//printf("appending %s\n",words[0]);
 	char is_final='n';
 	if(word_number==1) is_final='y';
@@ -954,10 +995,10 @@ int insertTrieNode(hash_layer *hash,char **words,int word_number){
 	
 
 	trie_node *node;
-	node=add_to_backet(hash,hash_val,words[0],is_final); //node gets the value of the first trie node
+	node=add_to_backet(hash,hash_val,words[0],is_final,current_version); //node gets the value of the first trie node
 
 	if(word_number>1){ 
-		append_trie_node(node,words,1,word_number-1);
+		append_trie_node(node,words,1,word_number-1,current_version);
 		//node->number_of_childs++;
 		return 0;	
 	}	
@@ -1041,7 +1082,7 @@ int check_exists_in_bucket(char *word,int *pos,trie_node *children,int children_
 
 
 
-trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final){
+trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final,int current_version){
 	//printf("In add to bucket %s\n",word);
 	
 	
@@ -1067,7 +1108,7 @@ trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final)
 	trie_node *backup=bucket->children;
 	memmove(bucket->children,backup,pos*sizeof(trie_node));
 	memmove(bucket->children+(pos+1),backup+(pos),(bucket->children_number-pos)*sizeof(trie_node));//
-	init_trie_node(node,word,is_final);
+	init_trie_node(node,word,is_final,current_version);
 
 	*last=*last+1;
 	hash->total_children++;
@@ -1150,7 +1191,7 @@ void shrink_buckets(hash_bucket *bucket,stack *stack_){
 			}*/
 }
 
-int deleteTrieNode(hash_layer *hash,char **words,int word_number){
+int deleteTrieNode(hash_layer *hash,char **words,int word_number,int current_version){
 	int error;
 
 	int hash_val=hash_function(hash,words[0]);
@@ -1158,11 +1199,11 @@ int deleteTrieNode(hash_layer *hash,char **words,int word_number){
 
 	trie_node *node;
 	int pos;
-	node=delete_from_backet(hash,hash_val,words[0],&pos); //node gets the value of the first trie node
+	node=delete_from_backet(hash,hash_val,words[0],&pos,current_version); //node gets the value of the first trie node
 	if(node==NULL) return ERROR;
 	if(word_number>1){ 
 		//printf("deleting more words\n");
-		error=delete_ngram(node,words,1,word_number-1);
+		error=delete_ngram(node,words,1,word_number-1,current_version);
 		if(error!=SUCCESS){
 			return error;
 		}
@@ -1194,7 +1235,7 @@ int deleteTrieNode(hash_layer *hash,char **words,int word_number){
 	return SUCCESS;
 }
 
-trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos){
+trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos,int current_version){
 	hash_bucket *bucket=&(hash->buckets[hash_val]);
 
 	trie_node *node;
@@ -1215,11 +1256,57 @@ void print_hash(hash_layer *hash){
 		printf("Bucket[%d]::",i);
 		for(j=0;j<bucket.children_number;j++){
 			node=bucket.children[j];
-			printf("-%s(%c)->",node.word,node.is_final);
+			printf("-%s(%c,%d,%d)->",node.word,node.is_final,node.A_version,node.D_version);
 			print_trie(&node,0);
 		}
 		printf("\n");
 	}
+}
+
+
+int deleteTrieNode_versioning(hash_layer *hash,char **words,int word_number,int current_version,ngrams_to_delete *d_grams){
+	int error;
+
+	int hash_val=hash_function(hash,words[0]);
+	//printf("hash val is %d\n",hash_val);
+
+	trie_node *node;
+	int pos;
+	node=delete_from_backet_versioning(hash,hash_val,words[0],&pos,current_version); //node gets the value of the first trie node
+	if(node==NULL) return ERROR;
+	if(word_number>1){ 
+		//printf("deleting more words\n");
+		error=delete_ngram_versioning(node,words,1,word_number-1,current_version,d_grams);
+		if(error!=SUCCESS){
+			return error;
+		}
+	
+		if(node->number_of_childs- node->children_deleted !=0 || node->is_final=='y') return 2;
+		printf("here\n");
+		node->D_version=current_version;
+		return SUCCESS;
+	}
+	if(node->is_final=='n') return ERROR;
+	if(node->number_of_childs-node->children_deleted!=0){  // -1 because i just marked the delete node 
+		node->is_final='n';
+		return 2;
+	}
+	printf("here\n");
+	node->D_version=current_version;
+	
+	return SUCCESS;
+}
+
+trie_node *delete_from_backet_versioning(hash_layer *hash,int hash_val,char *word,int *pos,int current_version){
+	hash_bucket *bucket=&(hash->buckets[hash_val]);
+
+	trie_node *node;
+	//int exists=check_exists_in_bucket(bucket,word,pos);
+	int exists=check_exists_in_bucket(word,pos,bucket->children,bucket->children_number);
+	//printf("exists in delete is %d and word is %s and hash_val is %d\n",exists,word,hash_val);
+	if(exists==0) return NULL;
+	node=&(bucket->children[*pos]);
+	return node;
 }
 
 
