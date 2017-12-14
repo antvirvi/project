@@ -27,6 +27,7 @@
 /*extern*/ int buffer_size = 16;
 /*extern*/ int word_size = 8;
 /*extern*/ int table_size = 4;
+int threads_quantity  = 12 ;
 
 void printtable(char **pt, int num){
 	int a;
@@ -119,6 +120,10 @@ int test_input(struct index *trie,char * filename)
 	topk *top;
 	top=create_top(top);
 	top=init_top(top);
+
+	JobScheduler *JS;
+	initialize_scheduler(threads_quantity);
+	Job * jobs_pool = malloc()
 
 	char *line = NULL;
 	size_t len = 0;
@@ -1290,6 +1295,9 @@ return str;
 
 
 void test(void){
-Schedule * JS = initialized_scheduler(1);
 
+printf("Hello from Test\n");
+
+JobScheduler* JS;
+JS = initialize_scheduler(12);
 }
