@@ -1287,3 +1287,9 @@ char * detableize(char * str, char ** table){
 return str;
 }
 
+
+
+void test(void){
+Schedule * JS = initialized_scheduler(1);
+
+}

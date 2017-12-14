@@ -9,11 +9,11 @@ default: project
 #
 
 
-project:  main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o
-	$(CC) $(CFLAGS) -o project main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o -lm
+project:  main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o schedule.o
+	$(CC) $(CFLAGS) -o project main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o -lpthread schedule.o  -lm
 
-test_project:  test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o
-	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o -lm
+test_project:  test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o schedule.o
+	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o -lpthread schedule.o -lm
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
@@ -47,6 +47,9 @@ murmur3.o:  murmur3.c murmur3.h
 
 top.o:  top.c top.h
 	$(CC) $(CFLAGS) -c top.c
+	
+schedule.o:  schedule.c schedule.h
+	$(CC) $(CFLAGS) -c  -lpthread schedule.c 
 	
 
 

@@ -12,6 +12,7 @@
 #include "top.h"
 #include "bloomfilter.h"
 #include "libraries.h"
+#include "schedule.h"
 
 #ifndef WORD_SIZE
 #define WORD_SIZE 25
