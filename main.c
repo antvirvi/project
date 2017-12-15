@@ -64,6 +64,6 @@ int main (int argc, char **argv ){
 	free(trie);
 	free(init_file);
 	free(query_file);
-	test();
+	//test();
 	return 0;	
 }

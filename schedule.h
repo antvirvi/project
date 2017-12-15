@@ -1,6 +1,6 @@
 #include <pthread.h>
 #include <errno.h>
-      #include "libraries.h"
+#include "libraries.h"
 #include <sys/types.h>
 
 typedef void(*Operation)(char * text); //a pointer to a function returning void, and taking a string as param
@@ -24,6 +24,11 @@ pthread_t* tids; // execution threads
 //....
 // mutex, condition variable, ...
 }JobScheduler;
+
+pthread_mutex_t lock;
+pthread_cond_t condition_var;
+
+void pr(char * str);
 
 JobScheduler* initialize_scheduler( int execution_threads);
 

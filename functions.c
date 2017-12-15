@@ -122,9 +122,25 @@ int test_input(struct index *trie,char * filename)
 	top=init_top(top);
 
 	JobScheduler *JS;
+	execute_all_jobs(JS);
+/* TEST FOR JOBS
 	initialize_scheduler(threads_quantity);
-	Job * jobs_pool = malloc()
+	Job * job_pool = malloc(8*sizeof(Job));
+	job_pool[0].text = malloc(strlen("Margarita0"));
+strcpy(job_pool[0].text,"Margarit0");
+	job_pool[1].text = malloc(strlen("Margarita1"));
+strcpy(job_pool[1].text,"Margarit1");
+	job_pool[2].text = malloc(strlen("Margarita2"));
+strcpy(job_pool[2].text,"Margarit2");
+	job_pool[0].opt=pr;
+	job_pool[1].opt=pr;
+	job_pool[2].opt=pr;
+	job_pool[0].opt(job_pool[0].text);
+	job_pool[1].opt(job_pool[1].text);
+	job_pool[2].opt(job_pool[2].text);
 
+*/
+return ; //should be removed
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
