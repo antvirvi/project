@@ -140,7 +140,7 @@ strcpy(job_pool[2].text,"Margarit2");
 	job_pool[2].opt(job_pool[2].text);
 
 */
-return ; //should be removed
+//return ; //should be removed
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
@@ -148,6 +148,7 @@ return ; //should be removed
 	int command_error;
 	int count=0;
 	char **ptr_table = malloc(table_size*sizeof(char *));
+	Job * j;
 //	char * ngram;
 	//paths *paths_=init_paths(4,10); 
 
@@ -224,7 +225,14 @@ return ; //should be removed
 		switch(flag){
 			case 1 :
 				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
-				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); 
+				j = malloc(sizeof(Job));
+				j->opt=lookupTrieNode_with_bloom; 
+				j->hash =trie->hash;
+				j->words = ptr_table;
+				j-> number_of_words = words_in-1;
+				j->top =top;
+			
+//				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); 
 				if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :

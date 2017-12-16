@@ -1,3 +1,5 @@
+#ifndef _STACKH_
+#define _STACKH_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,3 +23,4 @@ void print_stack(stack *stack_);
 void reset_stack(stack *stack_);
 int get_stack_elements(stack *stack_,int pos);
 int get_stack_number(stack *stack_);
+#endif

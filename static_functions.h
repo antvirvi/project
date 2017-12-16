@@ -1,3 +1,5 @@
+#ifndef _STATICFUNCTIONSH_
+#define _STATICFUNCTIONSH_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -84,3 +86,4 @@ void print_nodes_from_static_hash(static_hash_layer *hash,stack *stack_);
 int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash);
 void  stat_myappend_pan(char **string,int *str_size, char * word);
 void  stat_myappend_pan_with_space(char **string,int *str_size, char * word);
+#endif

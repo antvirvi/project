@@ -1,3 +1,5 @@
+#ifndef _TESTH_
+#define _TESTH_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,3 +27,4 @@ void test_everything_exists(struct static_index *trie,char * filename);
 void test_bloom_bit(void);
 void test_bloom(void);
 int test_top(void);
+#endif

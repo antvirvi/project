@@ -1,3 +1,7 @@
+#ifndef _LIBRARIESH_
+#define _LIBRARIESH_
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,13 +19,13 @@
 #define RESET   "\x1b[0m"
 
 
-#ifndef VAR
-#define VAR
+//#ifndef VAR
+//#define VAR
 /*
 int buffer_size = 16;
 int word_size = 8;
 int table_size = 4;
-*/
+*//*
 typedef struct kframes{
 int capacity;
 int occupied;
@@ -30,5 +34,7 @@ int  *  k;
 int   q;
 int * ends;
 }kframes;
-#endif
+//#endif
+*/
 
+#endif

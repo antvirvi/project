@@ -4,32 +4,53 @@ extern int threads_quantity;
 
 
 
-void * get_a_job(void* q) {
-//	while(1){
+void * get_a_job(void* queue) {
+Queue * q;
+q = (Queue *) queue;
+//q->queue_capacity = 12;
+	while(1)
+	{
+		printf("thread\n");
 
-printf("a function in a thread %.8x : %s %d\n",(char *)q);
-//	}
-	return NULL;
+	//	printf("Cap %d\n",q->queue_capacity);
+		if(!pthread_mutex_lock(&lock)){
+		pthread_cond_wait(&condition_var,&lock);
+			if(q->queue_used>0){
+
+				q->queue_used--;
+				pthread_mutex_unlock(&lock);
+				pthread_cond_signal(&condition_var);
+			}
+			else {
+				printf("Thread dies\n");
+				pthread_mutex_unlock(&lock);
+				pthread_cond_signal(&condition_var);
+				return NULL;
+			}
+
+		}
+	}
 }
 
 void pr(char * str){printf("Test pr %s\n",str);}
 
 JobScheduler* initialize_scheduler(int execution_threads){
 	int i;
+	printf("Start JS init\n");
 	pthread_mutex_init(&lock, NULL);
 	pthread_cond_init(&condition_var, NULL);
-	printf("Start JS init\n");
 	JobScheduler * Scheduler = malloc(sizeof(JobScheduler));
 	Scheduler->execution_threads = execution_threads;
 	Scheduler->q = malloc(sizeof(Queue));
 	Scheduler->q->queue_capacity = 20;
-	Scheduler->q->queue_used = 0;
+	Scheduler->q->queue_used = 5;
 	Scheduler->q->jobs = malloc(Scheduler->q->queue_capacity*sizeof(Job));
 	Scheduler->tids = malloc(execution_threads*sizeof(pthread_t*));
 //	char * str = "Margarita";
 	for(i=0;i<execution_threads;i++){
-		Scheduler->tids[i] = pthread_create(&Scheduler->tids[i], NULL, get_a_job, "margarita");
+		Scheduler->tids[i] = pthread_create(&Scheduler->tids[i], NULL, get_a_job, Scheduler->q);
 	}
+	pthread_cond_signal(&condition_var);
 	printf("End JS init\n");
 	return Scheduler;
 }

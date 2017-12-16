@@ -1,12 +1,22 @@
+#ifndef _SCHEDULEH_
+#define _SCHEDULEH_
 #include <pthread.h>
 #include <errno.h>
 #include "libraries.h"
+#ifndef  _FUNCTIONSH_
+#include "functions.h"
+#endif
 #include <sys/types.h>
 
 typedef void(*Operation)(char * text); //a pointer to a function returning void, and taking a string as param
 
+struct hash_layer;
+
 typedef struct Job{
-	char * text;
+	struct hash_layer *hash;
+	char **words;
+	int number_of_words;
+	topk *top;
 	Operation opt;
 }Job;
 
@@ -39,3 +49,4 @@ void execute_all_jobs( JobScheduler* sch);
 void wait_all_tasks_finish( JobScheduler* sch); //waits all submitted tasks to finish
 
 //OK_SUCCESS destroy_scheduler( JobScheduler* sch);
+#endif

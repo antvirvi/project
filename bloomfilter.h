@@ -1,3 +1,6 @@
+#ifndef _BLOOMFILTERH_
+#define _BLOOMFILTERH_
+
 #define M 8192 //size of  bitvector bloomfilter in bits, should be good for ut to 8000 words
 #include <stdint.h>
 #ifndef VAR
@@ -24,3 +27,4 @@ int bloomfilter_check(char * message,int *bloom,size_t bloom_size);
 int TestAllBits(int *bloom,size_t bloom_size);
 void hash2(const void *in_string, int *ptr, int key,size_t bloom_size);
 unsigned long hash( char *str,int key,size_t bloom_size);
+#endif

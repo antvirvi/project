@@ -1,3 +1,6 @@
+#ifndef _FUNCTIONSH_
+#define _FUNCTIONSH_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -142,3 +145,4 @@ char * detableize(char * str, char ** table);
 int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,topk *top);//topk * top); //kframes *kf
 int check_exists_in_bucket(char *word,int *pos,trie_node *children,int children_number);
 ///*int check_exists_in_bucket(hash_bucket *bucket,char *word,int *pos);
+#endif
