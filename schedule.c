@@ -2,7 +2,7 @@
 
 extern int threads_quantity;
 
-
+//στην function.c tha metraw posa Q exw kai tha kanw malloc Q*sizeof Job mia fora stin functions. tha pernaw ayton ton pinaka stin submit jobs kai ola cool.
 
 void * get_a_job(void* queue) {
 Queue * q;
