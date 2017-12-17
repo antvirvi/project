@@ -8,8 +8,8 @@
 #endif
 #include <sys/types.h>
 
-typedef void(*Operation)(char * text); //a pointer to a function returning void, and taking a string as param
-
+typedef void(*Operation)(void); //a pointer to a function returning void, and taking a string as param
+void * get_a_job(void* queue);
 struct hash_layer;
 
 typedef struct Job{
@@ -23,6 +23,7 @@ typedef struct Job{
 typedef struct Queue{
 	int queue_capacity;
 	int queue_used;
+	int queue_ptr;
 	Job * jobs;
 }Queue;
 
@@ -38,7 +39,7 @@ pthread_t* tids; // execution threads
 pthread_mutex_t lock;
 pthread_cond_t condition_var;
 
-void pr(char * str);
+void pr(void);
 
 JobScheduler* initialize_scheduler( int execution_threads);
 

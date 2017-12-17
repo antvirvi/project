@@ -121,8 +121,8 @@ int test_input(struct index *trie,char * filename)
 	top=create_top(top);
 	top=init_top(top);
 
-	JobScheduler *JS;
-	execute_all_jobs(JS);
+	JobScheduler *JS = initialize_scheduler(threads_quantity);
+
 /* TEST FOR JOBS
 	initialize_scheduler(threads_quantity);
 	Job * job_pool = malloc(8*sizeof(Job));
@@ -179,6 +179,8 @@ strcpy(job_pool[2].text,"Margarit2");
 					k=atoi(word);
 					//printf("count is %d",count);
 					print_top(top,k);
+					printf(YELLOW"______________________________"RESET);
+//					execute_all_jobs(&JS);
 					//if(count==42) break; 		
 				}
 				top=init_top(top);
@@ -226,14 +228,21 @@ strcpy(job_pool[2].text,"Margarit2");
 			case 1 :
 				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				j = malloc(sizeof(Job));
-				j->opt=lookupTrieNode_with_bloom; 
+//				j->opt=lookupTrieNode_with_bloom;
+//				j->opt = get_a_job;
+				j->opt = pr;
 				j->hash =trie->hash;
 				j->words = ptr_table;
 				j-> number_of_words = words_in-1;
-				j->top =top;
+				j->top = top;
+//				j->opt(j);
+//				j->opt();
+		//		j->opt(j->hash,j->words,j-> number_of_words,j->top);
+			
+				submit_job(JS,&j);
 			
 //				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); 
-				if(command_error==-1) printf("%d\n",command_error);
+	//			if(command_error==-1) printf("%d\n",command_error);
 				break;
 			case 2 :
 				//command_error=append_trie_node_iterative(trie->root,ptr_table,0,words_in-1);
