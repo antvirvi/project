@@ -71,6 +71,7 @@ testrun3:
 
 run:
 	time ./project -q small.work -i small.init 
+
 run2:
 	./project -q test.work -i test.init 
 

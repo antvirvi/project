@@ -171,6 +171,7 @@ strcpy(job_pool[2].text,"Margarit2");
 				flag=3;
 			}
 			else if(strcmp(word,"F")==0){
+
 				word=strtok(NULL,"\n");
 				int k;
 				print_print(top);
@@ -178,9 +179,8 @@ strcpy(job_pool[2].text,"Margarit2");
 					count++;
 					k=atoi(word);
 					//printf("count is %d",count);
-					print_top(top,k);
-					printf(YELLOW"______________________________"RESET);
-//					execute_all_jobs(&JS);
+					//Sprint_top(top,k);
+					execute_all_jobs(JS);
 					//if(count==42) break; 		
 				}
 				top=init_top(top);
@@ -1331,6 +1331,4 @@ void test(void){
 
 printf("Hello from Test\n");
 
-JobScheduler* JS;
-JS = initialize_scheduler(12);
 }

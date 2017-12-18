@@ -38,6 +38,7 @@ pthread_t* tids; // execution threads
 
 pthread_mutex_t lock;
 pthread_cond_t condition_var;
+pthread_cond_t proceed_threads;
 
 void pr(void);
 

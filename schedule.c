@@ -1,5 +1,6 @@
 #include "schedule.h"
 #include <unistd.h>
+#include <sys/wait.h>
 
 extern int threads_quantity;
 
@@ -7,8 +8,9 @@ extern int threads_quantity;
 
 void * get_a_job(void* queue) {
 Queue * q;
-q = (Queue *) queue;
-
+q = queue;
+printf("sharknado1_ %p\n",queue);
+printf("sharknado1_ %p\n",q);
 
 	while(1)
 	{
@@ -18,21 +20,29 @@ q = (Queue *) queue;
 //		pthread_t         self;
 //		self = pthread_self();
 //		pthread_getunique_np(&self, &tid);
- printf("thread_self: %lu\n", pthread_self());
-		Job * j;
+// printf("thread_self: %lu\n", pthread_self());
+	//	Job * j;
 		//	printf("Cap %d\n",q->queue_capacity);
 		if(!pthread_mutex_lock(&lock)){
 		pthread_cond_wait(&condition_var,&lock);
+		pthread_cond_wait(&proceed_threads,&lock);
+
 			if(q->queue_used>0){
-				*j = q->jobs[q->queue_ptr];
+				//j = &q->jobs[q->queue_ptr];
 //				j->opt(j->hash,j->words,j-> number_of_words,j->top);
 //				j->opt(j->hash,j->words,j->number_of_words,j->top);
-				j->opt;
+				q->jobs[q->queue_ptr].opt;
 				q->queue_used--;
-				q->queue_ptr++;
+				printf("Queue used %d\n",q->queue_used);
+				if(q->queue_used==0){
+					q->queue_ptr=0;	
+					printf(GREEN"++++++++++++++++++++++++++++++++++++++++++++\n"RESET);
+				}				
+				else
+					q->queue_ptr++;
 				pthread_mutex_unlock(&lock);
 				pthread_cond_signal(&condition_var);
-return NULL;
+				return NULL;
 			}
 			else {
 				printf("Thread dies\n");
@@ -55,6 +65,7 @@ JobScheduler* initialize_scheduler(int execution_threads){
 	printf("Start JS init\n");
 	pthread_mutex_init(&lock, NULL);
 	pthread_cond_init(&condition_var, NULL);
+	pthread_cond_init(&proceed_threads, NULL);
 	JobScheduler * Scheduler = malloc(sizeof(JobScheduler));
 	Scheduler->execution_threads = execution_threads;
 	Scheduler->q = malloc(sizeof(Queue));
@@ -66,7 +77,8 @@ JobScheduler* initialize_scheduler(int execution_threads){
 	Scheduler->tids = malloc(execution_threads*sizeof(pthread_t*));
 //	char * str = "Margarita";
 	for(i=0;i<execution_threads;i++){
-		Scheduler->tids[i] = pthread_create(&Scheduler->tids[i], NULL, get_a_job, Scheduler->q);
+printf("sharknado2_ %p\n",Scheduler->q);
+		Scheduler->tids[i] = pthread_create(&Scheduler->tids[i], NULL, get_a_job, &Scheduler->q);
 	}
 	//pthread_cond_signal(&condition_var);
 	printf("End JS init\n");
@@ -79,25 +91,34 @@ void extend_queue(Queue * q){
 }
 
 void submit_job(JobScheduler* sch, Job* j){
-	printf("Submit Job init\n");
+//	printf("Submit Job init\n");
 	if(sch->q->queue_capacity==sch->q->queue_used)
 		extend_queue(sch->q);
 //	sch->q->jobs[sch->q->queue_used] = malloc(sizeof(Job));
 //	printf("sharknado_ %d %p\n",sch->q->queue_used,(void *)&sch->q->queue_used);
 	sch->q->jobs[sch->q->queue_used] = *j;
 	sch->q->queue_used++;
-	printf("Submit Job end\n");
+//	printf("Submit Job end\n");
 }
 
 void execute_all_jobs( JobScheduler* sch){
 	printf("Execute Jobs init\n");
 	printf("Submitted jobs: %d\n",sch->q->queue_used);
-	return ;
 	pthread_cond_signal(&condition_var);
 //	initialize_scheduler(threads_quantity);
 	printf("Execute Jobs end\n");
+	return ;
 }
+/*
+void empty_jobscheduler(JobScheduler * sch){
 
+	int i;
+	pthread_mutex_lock(&lock, NULL);
+	pthread_cond_wait(&condition_var, NULL);
+	Scheduler->q->queue_used = 0;
+	Scheduler->q->queue_ptr = 0;
+}
+*/
 void wait_all_tasks_finish( JobScheduler* sch){ //waits all submitted tasks to finish
 }
 /*
