@@ -65,5 +65,6 @@ int main (int argc, char **argv ){
 	free(init_file);
 	free(query_file);
 	//test();
+		printf("main exits\n");
 	return 0;	
 }

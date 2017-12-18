@@ -1,4 +1,5 @@
 #include "schedule.h"
+#include <unistd.h>
 
 extern int threads_quantity;
 
@@ -11,7 +12,13 @@ q = (Queue *) queue;
 
 	while(1)
 	{
-		printf("thread\n");
+//		printf("thread\n");
+//		pthread_id_np_t   tid;
+//		tid = pthread_getthreadid_np();
+//		pthread_t         self;
+//		self = pthread_self();
+//		pthread_getunique_np(&self, &tid);
+ printf("thread_self: %lu\n", pthread_self());
 		Job * j;
 		//	printf("Cap %d\n",q->queue_capacity);
 		if(!pthread_mutex_lock(&lock)){
@@ -58,7 +65,7 @@ JobScheduler* initialize_scheduler(int execution_threads){
 	Scheduler->q->jobs = malloc(Scheduler->q->queue_capacity*sizeof(Job ));
 	Scheduler->tids = malloc(execution_threads*sizeof(pthread_t*));
 //	char * str = "Margarita";
-	for(i=0;i<2;i++){
+	for(i=0;i<execution_threads;i++){
 		Scheduler->tids[i] = pthread_create(&Scheduler->tids[i], NULL, get_a_job, Scheduler->q);
 	}
 	//pthread_cond_signal(&condition_var);
