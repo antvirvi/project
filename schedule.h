@@ -36,9 +36,13 @@ pthread_t* tids; // execution threads
 // mutex, condition variable, ...
 }JobScheduler;
 
-pthread_mutex_t lock;
-pthread_cond_t condition_var;
-pthread_cond_t proceed_threads;
+pthread_mutex_t T; //stop other threads
+pthread_mutex_t R; //ready for submit jobs
+pthread_mutex_t L; //
+
+pthread_cond_t tcv;
+pthread_cond_t rcv;
+pthread_cond_t lcv;
 
 void pr(void);
 

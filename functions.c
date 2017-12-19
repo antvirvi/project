@@ -122,6 +122,7 @@ int test_input(struct index *trie,char * filename)
 	top=init_top(top);
 
 	JobScheduler *JS = initialize_scheduler(threads_quantity);
+	printf("Initial nado %p\n",&JS->q);
 
 /* TEST FOR JOBS
 	initialize_scheduler(threads_quantity);
@@ -238,7 +239,8 @@ strcpy(job_pool[2].text,"Margarit2");
 //				j->opt(j);
 //				j->opt();
 		//		j->opt(j->hash,j->words,j-> number_of_words,j->top);
-			
+				if(!pthread_mutex_lock(&R)){
+					pthread_cond_wait(&tcv,&T);
 				submit_job(JS,&j);
 			
 //				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); 
