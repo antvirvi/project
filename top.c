@@ -1,19 +1,7 @@
 #include "top.h"
 
  int table_ngram_size = 20;
-/*
 
-typ
-typedef struct kframes{
-int capacity; 	//posa xwrane
-int occupied; 	//posa exoume mesa
-char ** ngrams; //deiktis se pinaka me ta ngrams
-int  *  k; 		//pinakas me counter emfanisewn gia ta top k
-int   q; 		//counter gia to posa q exoun perasaei. diladi poses allages grammis anamesa se 2 "F"
-int * ends;		//pinakas me counter gia to meta apo poses lekseis allazei to guery
-}kframes;
-
-*/
 #define RED "\x1b[31m"
 
 
@@ -58,13 +46,14 @@ topk *  create_top(topk * top){
 	top->fr = malloc((sizeof(freq)));
 	top->fr->frequency = malloc(table_ngram_size*sizeof(int));
 	top->fr->ngram = malloc(table_ngram_size*sizeof(int));
+	top->fr->unique=0;
 
 	top->hash_table=malloc(sizeof(hashtable));
 	top->hash_table->total_frames=0;
 	top->hash_table->bucket_to_split=0;
 	top->hash_table->split_round=0;
 	top->hash_table->load_factor=0.9;
-	top->hash_table->bucket_capacity=1;
+	top->hash_table->bucket_capacity=10;
 	top->hash_table->number_of_buckets=C2;
 	top->hash_table->buckets_to_free=C2;
 	top->hash_table->buckets=malloc(top->hash_table->number_of_buckets*sizeof(bucket));
@@ -84,11 +73,11 @@ topk *  init_top(topk* top){
 	int i;
 	top->kf->occupied = 0;
 	top->kf->q = 0;
-
+	top->fr->unique=0;
 	top->hash_table->total_frames=0;
 	top->hash_table->bucket_to_split=0;
 	top->hash_table->split_round=0;
-	top->hash_table->number_of_buckets=4;
+	top->hash_table->number_of_buckets=C2;
 	bucket *hash_bucket;
 	for(i=0;i<top->hash_table->number_of_buckets;i++){
 		 hash_bucket=&(top->hash_table->buckets[i]);
@@ -118,7 +107,7 @@ topk * add_top(topk * top,char * ngram){ //prosthiki enos n gram stous pinakes
 	if(top->kf->occupied==(top->kf->capacity)){
 		extend_top(top);
 	}
-	//printf("in add to top\n");
+	//printf("in add to top \"%s\"\n",ngram);
 	int ngram_len=strlen(ngram)+1;
 	int last_position=top->kf->occupied;
 
@@ -133,8 +122,9 @@ topk * add_top(topk * top,char * ngram){ //prosthiki enos n gram stous pinakes
 	memmove(top->kf->ngrams[last_position],ngram,ngram_len);
 
 
-	top->fr->frequency[last_position] = 1;
-	top->fr->ngram[last_position] =last_position;
+	//top->fr->frequency[last_position] = 1;
+	//top->fr->ngram[last_position] =last_position;
+	//printf("I added :%s: in frames\n",ngram);
 	top->kf->occupied++;
 	
 	
@@ -142,40 +132,39 @@ topk * add_top(topk * top,char * ngram){ //prosthiki enos n gram stous pinakes
 	hashtable *hash_=top->hash_table;
 
 	if((hash_->total_frames/((float)hash_->number_of_buckets*hash_->bucket_capacity)) > hash_->load_factor){
-		int resize_error=resize_hash_for_top(hash_,top->kf);
+		int resize_error=resize_hash_for_top(hash_,top->kf,top->fr);
 		if(resize_error==-1) return NULL;
 	}	
 	
 	int j=0;
 	int hash_value=hash_gram(top->hash_table,ngram);
 	int last_in_bucket,pos;
-	//check if exists in bucket first
+
 	bucket *hash_bucket=&(top->hash_table->buckets[hash_value]);
 	last_in_bucket=hash_bucket->number_of_children;
-
-	/*for(j=0;j<last_in_bucket;j++){
-		pos=hash_bucket->children[j];
-		if(strcmp(top->kf->ngrams[pos],ngram)==0)
-		{
-			//increase ngram frequency
-			top->fr->frequency[pos]++;
-		}
-		return;
-	}
-	top->fr->frequency[last_position] = 1;
 	//
+	int pos2;
+	//print_hash_table(top->hash_table,top);
 	
-	if((hash_->total_frames/((float)hash_->number_of_buckets*hash_->bucket_capacity)) > hash_->load_factor){
-		int resize_error=resize_hash_for_top(hash_,top->kf);
-		if(resize_error==-1) return NULL;
-	}	
-	*/
+	for(j=0;j<last_in_bucket;j++){
+		pos=hash_bucket->children[j];
+		pos2=top->fr->ngram[pos];
+		if(strcmp(top->kf->ngrams[pos2],ngram)==0)
+		{
+			top->fr->frequency[pos]++;
+			return top;
+		}
+	}
+	
+	top->fr->ngram[top->fr->unique] =last_position;
+	top->fr->frequency[top->fr->unique] = 1;
+	top->fr->unique++;
 	if(last_in_bucket==hash_bucket->capacity){ 	//overflow bucket
 		hash_bucket->children=realloc(hash_bucket->children,hash_bucket->capacity*2*sizeof(int));
 		hash_bucket->capacity*=2;
 	}
 
-	hash_bucket->children[last_in_bucket]=last_position;
+	hash_bucket->children[last_in_bucket]=top->fr->unique-1;//last_position;
 	top->hash_table->total_frames++;
 	hash_bucket->number_of_children++;
 
@@ -188,14 +177,12 @@ void initialize_bucket_for_top(bucket *bucket_,int m){
 	bucket_->capacity=m;
 }
 
-int resize_hash_for_top(hashtable *hash_,kframes *kf){
+int resize_hash_for_top(hashtable *hash_,kframes *kf,freq *fr){
 	bucket *hash_bucket;
 	//printf("free buckets %d , used %d\n",hash_->buckets_to_free,hash_->number_of_buckets);
 	if(hash_->buckets_to_free==hash_->number_of_buckets){
-		//printf("WILL ADD MORE\n");
 		hash_->buckets=realloc(hash_->buckets,(hash_->number_of_buckets+1)*sizeof(bucket)); //add bucket lineat
 		if(hash_->buckets==NULL){
-			//printf("error in realloc\n");
 			return -1;
 		}
 		initialize_bucket_for_top(&(hash_->buckets[hash_->number_of_buckets]),hash_->bucket_capacity);
@@ -211,7 +198,6 @@ int resize_hash_for_top(hashtable *hash_,kframes *kf){
 	hash_bucket=&(hash_->buckets[hash_->bucket_to_split]); //re arranging bucket to split
 	int new_hash_val=-1;
 	stack *stack_=init_stack();
-	//print_stack(stack_);
 
 	if(hash_bucket->number_of_children==0){
 		hash_->bucket_to_split=(hash_->bucket_to_split+1)%(C2<<hash_->split_round);//without pow
@@ -222,10 +208,14 @@ int resize_hash_for_top(hashtable *hash_,kframes *kf){
 	
 	int previous=hash_->bucket_to_split;
 	hash_->bucket_to_split=(hash_->bucket_to_split+1)%(C2<<hash_->split_round);// without pow
-	int pos;
+	int pos,pos2;
+
 	for(i=0;i<hash_bucket->number_of_children;i++){
+
 		pos=hash_bucket->children[i];
-		new_hash_val=hash_gram(hash_,kf->ngrams[pos]);
+		pos2=fr->ngram[pos];
+		new_hash_val=hash_gram(hash_,kf->ngrams[pos2]);
+		//printf("new hash val for \' %s\' is %d\n",kf->ngrams[pos2],new_hash_val);
 
 		if(new_hash_val==previous) continue; //if hash value is the same then no need to change bucket
 		if(new_bucket->number_of_children==new_bucket->capacity){	//if new bucket fills then create an overflow bucket
@@ -260,6 +250,23 @@ void shrink_buckets_for_top(bucket *bucket_,stack *stack_){
 		}
 }
 
+void print_hash_table(hashtable *hash_,topk *top){
+	int i;
+	bucket *hash_bucket;
+	int j,pos,pos2;
+	printf("in print\n");
+	for(i=0;i<=hash_->number_of_buckets;i++){
+		hash_bucket=&(hash_->buckets[i]);
+		printf("bucket[%d]-> ",i);
+		for(j=0;j<hash_bucket->number_of_children;j++){
+			pos=hash_bucket->children[j];
+			pos2=top->fr->ngram[pos];
+			printf("\"%s\" (%d)->\n",top->kf->ngrams[pos2],top->fr->frequency[pos]);
+		}
+		printf("\n");
+	}
+}
+
 topk *  erase_top(topk * top){
 	int i;
 	bucket *hash_bucket;
@@ -284,29 +291,36 @@ topk *  erase_top(topk * top){
 	return top;
 }
 
+
 void print_print(topk * top){ //ektypwnei ola ta ngrams me
 	int i;
 	int j=0;
+	int previous=0;
 	//printf("occupied are %d\n",top->kf->occupied);
-	for(i=0;i<top->kf->occupied;i++){
-		printf("%s",top->kf->ngrams[i]);  //ean ftasoume sto telos enos q prepei na orisoume tin allagi gramis kai to oxi "|"
-		if(top->kf->ends[j]==i){
-			printf("\n");
-			j++;
+	
+	for(i=0;i<top->kf->q;i++){
+		//printf("I am gonna show %d frames \n",top->kf->ends[i]);
+		if(top->kf->ends[i]==0){
+			printf("-1\n");
+			continue;
 		}
-		else
-			printf("|");
+		for(j=previous;j<previous+top->kf->ends[i]-1;j++){
+			printf("%s|",top->kf->ngrams[j]);
+		}
+		j=previous+top->kf->ends[i]-1;
+		printf("%s\n",top->kf->ngrams[j]);
+		previous=previous+top->kf->ends[i];		
 	}
 }
+
 
 void print_top(topk*top,int k){ //ektypwnei ola ta ngrams me
 	int i;
 	int max=k;
-	//printf("occupied are %d\n",top->kf->occupied);
-	if(top->kf->occupied<max) max=top->kf->occupied;
+	if(top->fr->unique<max) max=top->fr->unique;//top->kf->occupied;
 	if(max==0) return;
-	//print_frequencies(top);
-	quickSort(top->fr->frequency,top->fr->ngram,0,max-1,top->kf->ngrams);
+	quickSort(top->fr->frequency,top->fr->ngram,0,top->fr->unique-1,top->kf->ngrams);
+	sort_in_alphabet(top->fr->frequency,top->fr->ngram,0,max,top->kf->ngrams);
 	//print_frequencies(top);
 	printf("Top: ");
 	for(i=0;i<max;i++){
@@ -319,39 +333,50 @@ printf("\n");
 }
 
 void print_frequencies(topk*top){ //ektypwnei ola ta ngrams me
-	int i;
-	for(i=0;i<top->kf->occupied;i++){
-		printf("Freq %d %d\n",top->fr->frequency[i],top->fr->ngram[i]);
+	int i,pos;
+	for(i=0;i<15;i++){//top->fr->unique gia na ta ektyposei ola
+		pos=top->fr->ngram[i];
+		printf("word: \"%s\" with freq: %d \n",top->kf->ngrams[pos],top->fr->frequency[i]);
 		}
 
 }
 
-void print_hashtable(topk*top){ //ektypwnei ola ta ngrams me
+void sort_in_alphabet(int *frequency,int *ngram,int l,int max,char **ngrams){
+	int i,j,k;
+	int compare,pos,pos2,temp,end;
+
+	int start=0;
+	for(i=0;i<=max;i++){
+		start=i;
+		while(frequency[i]==frequency[i+1]) i++;			
+		
+		end=i;
+		if(start!=end){ //sort from start to end
+  			 for (j=0;j<=(end-start)-1;j++){      
+       			for (k=0;k<=(end-start)-j-1;k++){ 
+					pos=ngram[k+start];
+					pos2=ngram[k+start+1];
+					compare=strcmp(ngrams[pos],ngrams[pos2]);
+          			if (compare>0){
+						temp = frequency[k+start];
+						frequency[k+start] = frequency[k+start+1];
+						frequency[k+start+1] = temp;
 	
-
-}
-
-//stoped here
-topk *  sort_frequencies(topk* top){
-
-	int i;
-	int flag = 1;
-	while(flag){
-		flag = 0;
-		for(i=0;i<top->kf->occupied-1;i++){
-			if(top->fr->frequency[i]<top->fr->frequency[i+1]){
-				swap(top->fr->frequency[i],top->fr->frequency[i+1]);
-				swap(top->fr->ngram[i],top->fr->ngram[i+1]);
-				flag = 1;
+						temp = ngram[k+start];
+						ngram[k+start] = ngram[k+start+1];
+						ngram[k+start+1] = temp; 
+					}
+					}
+				}
 			}
 		}
 	}
-	return top;
-}
+
 
 void quickSort( int *frequency,int *ngram, int l, int r,char **ngrams)
 {
 	int j;
+	//printf("Low : %d , High %d\n",l,r);
 	if(l<r){
    	// divide and conquer
 		j = partition(frequency,ngram,l,r,ngrams);
@@ -362,47 +387,14 @@ void quickSort( int *frequency,int *ngram, int l, int r,char **ngrams)
 
 
 
-/*int partition( int *frequency,int *ngram, int l, int r,char ** ngrams) {
-   int pivot,i,j,temp;
-
-   pivot = frequency[l]; //first element as the pivot
-   i = l; j = r+1;
-		
-	while(1)
-	{
-   		do{
-		 ++i;
-		}
-		while( i <= r && frequency[i] >= pivot );
-   		do --j; while( frequency[j] < pivot );
-   		if( i >= j ) break;
-   		temp = frequency[i];
-		frequency[i] = frequency[j];
-		frequency[j] = temp; //swapping i,j
-
-		temp = ngram[i];
-		ngram[i] = ngram[j];
-		ngram[j] = temp; 
-	}
-	temp = frequency[l];
-	frequency[l] = frequency[j];
-	frequency[j] = temp;
-
-	temp = ngram[l];
-	ngram[l] = ngram[j];
-	ngram[j] = temp; 
-	return j;
-}*/
-
 int partition (int *frequency,int *ngram,int l,int r,char **ngrams){
     // pivot (Element to be placed at left position)
 	int i,j,temp;
     int pivot = frequency[r];
     i =(l-1);  // Index of smaller element
-	int compare;
     for (j=l;j<=r-1;j++)
     {
-        // If current element is smaller than or
+        // If current element is bigger than or
         // equal to pivot
         if (frequency[j]>=pivot)
         {
@@ -415,20 +407,6 @@ int partition (int *frequency,int *ngram,int l,int r,char **ngrams){
 			ngram[i] = ngram[j];
 			ngram[j] = temp; 
         }
-		else if(frequency[j]==pivot){	
-			compare=strcmp(ngrams[j],ngrams[pivot]); //change ngrams based on alphabet
-			if(compare>0){
-				i++;    // increment index of smaller element
-				temp = frequency[i];
-				frequency[i] = frequency[j];
-				frequency[j] = temp;
-				
-				temp = ngram[i];
-				ngram[i] = ngram[j];
-				ngram[j] = temp; 
-			
-			}
-		}
     }
 	
 	temp = frequency[i+1];
@@ -438,19 +416,23 @@ int partition (int *frequency,int *ngram,int l,int r,char **ngrams){
 	temp = ngram[i+1];
 	ngram[i+1] = ngram[r];
 	ngram[r] = temp;
-
     return (i+1);
 }
+
+
 
 
 topk * increase_frequency(topk* top, char * ngram){
 	int hash_value = hash_gram(top->hash_table,ngram);
 	int i = 0;
-	int position;
+	int position,position2;
 	bucket *hash_bucket=&(top->hash_table->buckets[hash_value]);
+	printf("I am looking for ngram %s\n",ngram);
 	for(i=0;i<hash_bucket->number_of_children;i++){
 		position=hash_bucket->children[i];
-		if(strcmp(top->kf->ngrams[position],ngram)==0){
+		position2=top->fr->ngram[position];
+		if(strcmp(top->kf->ngrams[position2],ngram)==0){
+			printf("found it in pos %d , %s\n",position2,top->kf->ngrams[position2]);
 			top->fr->frequency[position]++;
 			return top;
 		}
@@ -460,8 +442,9 @@ topk * increase_frequency(topk* top, char * ngram){
 	return top;
 }
 
-topk *  end_gram_table(topk * top){ //simeiwnoume oti edw teleiwnei to Q, ara prepei stin ektypwsi na valoume allagi grammis
-	top->kf->ends[top->kf->q] = top->kf->occupied-1;
+topk *  end_gram_table(topk * top,int ngrams_found){ //simeiwnoume oti edw teleiwnei to Q, ara prepei stin ektypwsi na valoume allagi grammis
+	//top->kf->ends[top->kf->q] = top->kf->occupied-1;
+	top->kf->ends[top->kf->q] = ngrams_found;
 	top->kf->ends = realloc(top->kf->ends,((top->kf->q)+1)*(sizeof(int*)));
 	top->kf->q++;
 	top->kf->ends[top->kf->q] = -1;

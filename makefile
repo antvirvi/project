@@ -18,6 +18,7 @@ test_project:  test_main.o functions.o stack.o static_functions.o test.o bloomfi
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
 #
+
 main.o:  main.c functions.h
 	$(CC) $(CFLAGS) -c main.c
 
@@ -46,10 +47,9 @@ murmur3.o:  murmur3.c murmur3.h
 
 top.o:  top.c top.h
 	$(CC) $(CFLAGS) -c top.c
-
+	
 deletion.o:  deletion.c deletion.h
 	$(CC) $(CFLAGS) -c deletion.c	
-
 
 clean: 
 	$(RM) count *.o *~ diffs
@@ -58,7 +58,7 @@ testrun_cache:
 	  valgrind --tool=cachegrind ./project -q small.work -i small.init 
 
 testrun:
-	  valgrind --leak-check=yes -v ./project -q small.work -i small.init 
+	  valgrind --leak-check=yes ./project -q small.work -i small.init 
 
 testrun2:
 	  valgrind --leak-check=yes ./project -q test.work -i test.init 

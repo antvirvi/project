@@ -88,36 +88,24 @@ struct index{
 	hash_layer *hash;
 };
 
-trie_node *init_trie_node(trie_node *node,char *word,char is_final,int current_version);
 void cleanup2(char ** ptr);
 void printtable(char ** pt,int num);
 void printpanos(void);
 trie_node *init_trie();
 void delete_trie(struct index *trie);
 void destroy_childs(trie_node *node);
-int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
+int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
 int search_in_trie(trie_node *root,char **word,int number_of_words,kframes * kf);
 int check_exists_in_children(trie_node *node,char *word,int *pos);
 int append_trie_node(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
-int delete_from_node(trie_node *node,int pos,int current_version);
-
+int delete_from_node(trie_node *node,int pos);
+int delete_ngram(trie_node *root,char **word,int word_number,int number_of_words);
 int append_word(trie_node *node,int pos,char *word,char is_final,int current_version);
 int append_trie_node_iterative(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
 void print_trie(trie_node *node,int level);
 void print_nodes_from_stack(trie_node *root,stack *stack_);
 int init_input(struct index *trie,char * filename);
 int test_input(struct index *trie,char * filename);
-
-int double_paths(paths *paths_);
-void delete_paths(struct paths *paths_);
-int check_in_paths(struct paths *paths_, stack *stack_,trie_node *node);
-void add_to_paths(struct paths *paths_, stack *stack_);
-
-int check_in_paths3(struct paths *paths_, stack *stack_,trie_node *root);
-int check_in_paths4(paths *paths_, stack *stack_,hash_layer *hash);
-void print_paths(paths *paths_);
-//void add_to_paths2(struct paths *paths_, stack *stack_);
-struct paths *init_paths(int rows,int columns);
 
 void cleanup(char ** ptr);
 
@@ -141,8 +129,8 @@ int resize_hash(hash_layer *hash);
 void destroy_bucket_nodes(hash_bucket *bucket);
 void destroy_buckets(hash_bucket *bucket,int level);
 
-trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos,int current_version);
-int deleteTrieNode(hash_layer *hash,char **words,int number_of_words,int current_version);
+trie_node *delete_from_backet(hash_layer *hash,int hash_val,char *word,int *pos);
+int deleteTrieNode(hash_layer *hash,char **words,int number_of_words);
 int  hash_function(hash_layer *hash, char *word);
 void test(void);
 char * detableize(char * str, char ** table);
@@ -150,7 +138,24 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 int check_exists_in_bucket(char *word,int *pos,trie_node *children,int children_number);
 ///*int check_exists_in_bucket(hash_bucket *bucket,char *word,int *pos);
 
-trie_node *delete_from_backet_versioning(hash_layer *hash,int hash_val,char *word,int *pos,int current_version);
-int deleteTrieNode_versioning(hash_layer *hash,char **words,int word_number,int current_version,ngrams_to_delete *d_grams);
-int delete_from_node_versioning(trie_node *node,int pos,int current_version,ngrams_to_delete *d_grams);
-int delete_ngram_versioning(trie_node *root,char **word,int word_number,int number_of_words,int current_version,ngrams_to_delete *d_grams);
+
+void delete_ngrams(hash_layer *hash,ngrams_to_delete *d_grams);
+int delete_from_node_cleanup(trie_node *node,int pos,int current_version);
+int delete_ngram_cleanup(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
+trie_node *delete_from_backet_cleanup(hash_layer *hash,int hash_val,char *word,int *pos,int current_version);
+int deleteTrieNode_cleanup(hash_layer *hash,char **words,int word_number,int current_version);
+
+
+int check_node(trie_node *node,int current_version);
+int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk * top,int current_version);
+
+trie_node *delete_from_backet_versioning(hash_layer *hash,int hash_val,char *word,int *pos);
+int deleteTrieNode_versioning(hash_layer *hash,char **words,int word_number,int current_version);
+int delete_from_node_versioning(trie_node *node,int pos,int current_version);
+int delete_ngram_versioning(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
+
+//------------------------versioning cleanup functions---------------------------------//
+trie_node *delete_from_backet_versioning_cleanup(hash_layer *hash,int hash_val,char *word,int *pos);
+int deleteTrieNode_versioning_cleanup(hash_layer *hash,char **words,int word_number,int current_version);
+int delete_from_node_versioning_cleanup(trie_node *node,int pos,int current_version);
+int delete_ngram_versioning_cleanup(trie_node *root,char **word,int word_number,int number_of_words,int current_version);

@@ -278,7 +278,7 @@ int init_static_input(struct static_index *trie,char * filename){
 
 
 int test_static_input(struct static_index *trie,char * filename)
-{ /*	
+{ 	
 	//printf("\x1b[32m""TEST_INPUT start\n""\x1b[0m");
 	int words_in = 0;
 	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
@@ -292,9 +292,9 @@ int test_static_input(struct static_index *trie,char * filename)
 	}
 	//printf("word_size here %d",word_size);
 	
-	kframes *kfrm=NULL;  //struct for the top k frames and printing after F
-	kfrm = create_gram_table(kfrm);
-	kfrm = init_gram_table(kfrm);
+	topk *top;
+	top=create_top(top);
+	top=init_top(top);
 	
 	char *line = NULL;
 	size_t len = 0;
@@ -314,9 +314,14 @@ int test_static_input(struct static_index *trie,char * filename)
 		
 		if(strcmp(word,"Q")==0) flag=1;
 		else if(strcmp(word,"F")==0){
-				print_gram_table(kfrm);
-//				erase_gram_table(kfrm);
-				init_gram_table(kfrm);
+				word=strtok(NULL,"\n");
+				int k;
+				print_print(top);
+				if(word!=NULL){
+					k=atoi(word);
+					print_top(top,k);
+				}
+				top=init_top(top);
 			}
 		else if(strcmp(word,"\0")==0) continue;
 		word=strtok(NULL," \n");
@@ -350,7 +355,7 @@ int test_static_input(struct static_index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,kfrm);
+				command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,top);
 				//if(command_error==-1) printf("%d\n",command_error);
 				break;
 		
@@ -359,13 +364,12 @@ int test_static_input(struct static_index *trie,char * filename)
 }
 	//it is supposed that control never reaches this point, due to F signal
   	free(line);
-	erase_gram_table(kfrm);
+	erase_top(top);
 	cleanup(ptr_table);
 	fclose(fd);
 	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
 	
 return 0;
-*/
 }
 
 int insert_staticTrieNode(static_hash_layer *hash,char **words,int word_number){
@@ -816,12 +820,15 @@ void shrink_static_buckets(static_hash_bucket *bucket,stack *stack_){
 
 
 
-int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_words,kframes * kf){
-/*	//printf("Inside search,number of words is %d\n",number_of_words);
+int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_words,topk *top){
+//printf("Inside search,number of words is %d\n",number_of_words);
 	
-	size_t bloomfilterbytes = (M/8);
-	int * bloomfilter = malloc(bloomfilterbytes);
-	bloomfilter_init(bloomfilter);
+	int multi=number_of_words/M;
+	size_t bloomfilterbytes=M*8;
+	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
+	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
+	int * bloomfilter = malloc(bloomfilterbytes/8);
+	bloomfilter_init(bloomfilter,bloomfilterbytes);
 
 
 	char *temp_word=malloc(WORD_SIZE*sizeof(char));
@@ -833,7 +840,7 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 	static_trie_node *node;
 	int start=0;
 	int node_word;
-
+	int ngrams_found=0;
 	while(start!=number_of_words+1) {
 		//printf("\nstart with %s\n",words[start]);
 		
@@ -862,10 +869,10 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 			
 			if(node->is_final[node_word]<0) { //is final
 
-				if(bloomfilter_check(str,bloomfilter)==0){
-						//printf("%s|",str); 
-						bloomfilter_add(str,bloomfilter);
-						kf = add_gram_table(kf,str);						
+				if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
+						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
+						top=add_top(top,str);
+						ngrams_found++;						
 					}
 
 				}
@@ -894,17 +901,18 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 			}
 		}
 		if(exists==1 && word_number<=number_of_words) {
-			if(bloomfilter_check(str,bloomfilter)==0){
+			if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						//printf("%s|",str); 
-						bloomfilter_add(str,bloomfilter);
-						kf = add_gram_table(kf,str);						
+						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
+						top=add_top(top,str);
+						ngrams_found++;						
 					}
 		}
 
 		start++;
 		free(str);
 	}
-	end_gram_table(kf);
+	end_gram_table(top,ngrams_found);
 	int found=SUCCESS;
 	free(bloomfilter);	
 	free(temp_word);	
@@ -912,10 +920,10 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 	if(exists==0) return ERROR;
 	
 	return SUCCESS;	
-*/
+
 }
 
-int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash){//trie_node *root){//initialize paths in -1
+/*int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash){//trie_node *root){//initialize paths in -1
 	//printf("inside check in paths\n");
 	int number=get_stack_number(stack_);
 	int found=0;
@@ -936,7 +944,7 @@ int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash){
 	}
 	return found;
 }
-
+*/
 void print_nodes_from_static_hash(static_hash_layer *hash,stack *stack_){
 	print_stack(stack_);
 	

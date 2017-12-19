@@ -25,6 +25,7 @@ int ngrams_to_free;
 typedef struct freq{
 	int * frequency;
 	int * ngram;
+	int unique;
 }freq;
 
 typedef struct bucket{
@@ -50,21 +51,6 @@ typedef struct topk{
 	hashtable *hash_table;
 }topk;
 
-/*
-kframes *create_gram_table(kframes * kf);
-kframes *extend_gram_table(kframes * kf,freq * fre,index_table** it);
-kframes *init_gram_table(kframes * kf);
-kframes *add_gram_table(kframes * kf,char * ngram,freq * fre,index_table** it);
-kframes *newline_gram_table(kframes * kf){
-	if(occupied==capacity)
-		kf = extend_gram_table(kf);
-	kf->ngrams[kf->occupied] = malloc(2);
-	strcpy(kf->ngrams[kf->occupied],"\n");
-	occupied++;
-return kf;
-}
-*/
-
 //__________________________________________ngram table
 int  hash_gram(hashtable *hash_table, char *word);
 
@@ -86,7 +72,7 @@ void print_top(topk * top,int k);
 
 topk *sort_frequencies(topk * top);
 
-topk *end_gram_table(topk * top);
+topk *  end_gram_table(topk * top,int ngrams_found);
 
 topk *increase_frequency(topk * top,char * ngram);
 
@@ -97,5 +83,6 @@ void print_hashtable(topk*top);
 int partition( int *frequency,int *ngram, int l, int r,char **ngrams);
 
 void quickSort( int *frequency,int *ngram, int l, int r,char **ngrams);
-int resize_hash_for_top(hashtable *hash_,kframes *kf);
+int resize_hash_for_top(hashtable *hash_,kframes *kf,freq *fr);
 void shrink_buckets_for_top(bucket *bucket_,stack *stack_);
+void sort_in_alphabet(int *frequency,int *ngram,int l,int max,char **ngrams);
