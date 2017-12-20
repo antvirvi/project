@@ -9,7 +9,7 @@ extern int threads_quantity;
 void * get_a_job(void* queue) {
 Queue * q;
 q = (Queue*)queue;
-printf(YELLOW"Sharknado  %d\n"RESET,q->queue_used);
+//printf(YELLOW"Sharknado  %d\n"RESET,q->queue_used);
 	while(1)
 	{
 //		printf("thread\n");
@@ -22,9 +22,9 @@ printf(YELLOW"Sharknado  %d\n"RESET,q->queue_used);
 	//	Job * j;
 		//	printf("Cap %d\n",q->queue_capacity);
 		if(!pthread_mutex_lock(&T)){
-		pthread_cond_wait(&tcv,&T);
-//		pthread_cond_wait(&proceed_threads,&T);
-printf(RED"Sharknado  %d\n"RESET,q->queue_used);
+			pthread_cond_wait(&tcv,&T);
+			//pthread_cond_wait(&proceed_threads,&T);
+			printf(RED"Sharknado  %d\n"RESET,q->queue_used);
 			if(q->queue_used>0){
 				printf("Queue used > 0\n");
 				//j = &q->jobs[q->queue_ptr];
@@ -68,8 +68,11 @@ JobScheduler* initialize_scheduler(int execution_threads){
 	int i;
 	printf("Start JS init\n");
 	pthread_mutex_init(&T, NULL);
+	pthread_mutex_init(&R, NULL);
+	pthread_mutex_init(&L, NULL);
 	pthread_cond_init(&tcv, NULL);
-	pthread_cond_init(&proceed_threads, NULL);
+	pthread_cond_init(&rcv, NULL);
+	pthread_cond_init(&lcv, NULL);
 	JobScheduler * Scheduler = malloc(sizeof(JobScheduler));
 	Scheduler->execution_threads = execution_threads;
 	Scheduler->q = malloc(sizeof(Queue));

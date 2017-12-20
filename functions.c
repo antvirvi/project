@@ -236,11 +236,10 @@ strcpy(job_pool[2].text,"Margarit2");
 				j->words = ptr_table;
 				j-> number_of_words = words_in-1;
 				j->top = top;
+				j->version = version;
 //				j->opt(j);
 //				j->opt();
 		//		j->opt(j->hash,j->words,j-> number_of_words,j->top);
-				if(!pthread_mutex_lock(&R)){
-					pthread_cond_wait(&tcv,&T);
 				submit_job(JS,&j);
 			
 //				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); 

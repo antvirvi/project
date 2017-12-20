@@ -18,6 +18,7 @@ typedef struct Job{
 	int number_of_words;
 	topk *top;
 	Operation opt;
+	int version;
 }Job;
 
 typedef struct Queue{
