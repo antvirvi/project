@@ -35,11 +35,10 @@ q = (Queue*)queue;
 				q->queue_used--;
 				printf(RED"Queue used- %d\n"RESET,q->queue_used);
 				if(q->queue_used==0){
-
 					q->queue_ptr=0;	
-					printf(GREEN"++++++++++++++++++++++++++++++++++++++++++++\n"RESET);
-					pthread_mutex_unlock(&R);
-					pthread_cond_signal(&rcv);
+					if(pthread_mutex_unlock(&R))
+						pthread_cond_signal(&rcv); //it unlocks the R mtx-cv and not T so that only main can run and not any thread 
+					return NULL;
 				}				
 				else
 					q->queue_ptr++;
@@ -69,10 +68,8 @@ JobScheduler* initialize_scheduler(int execution_threads){
 	printf("Start JS init\n");
 	pthread_mutex_init(&T, NULL);
 	pthread_mutex_init(&R, NULL);
-	pthread_mutex_init(&L, NULL);
 	pthread_cond_init(&tcv, NULL);
 	pthread_cond_init(&rcv, NULL);
-	pthread_cond_init(&lcv, NULL);
 	JobScheduler * Scheduler = malloc(sizeof(JobScheduler));
 	Scheduler->execution_threads = execution_threads;
 	Scheduler->q = malloc(sizeof(Queue));

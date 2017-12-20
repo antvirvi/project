@@ -13,13 +13,19 @@ void * get_a_job(void* queue);
 struct hash_layer;
 
 typedef struct Job{
+	
+	Operation opt;
+	void * arguments;
+}Job;
+
+typedef struct q_args{
 	struct hash_layer *hash;
 	char **words;
 	int number_of_words;
 	topk *top;
 	Operation opt;
 	int version;
-}Job;
+}q_args;
 
 typedef struct Queue{
 	int queue_capacity;
@@ -39,11 +45,9 @@ pthread_t* tids; // execution threads
 
 pthread_mutex_t T; //stop other threads
 pthread_mutex_t R; //ready for submit jobs
-pthread_mutex_t L; //
 
 pthread_cond_t tcv;
 pthread_cond_t rcv;
-pthread_cond_t lcv;
 
 void pr(void);
 

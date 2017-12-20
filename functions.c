@@ -172,6 +172,9 @@ strcpy(job_pool[2].text,"Margarit2");
 				flag=3;
 			}
 			else if(strcmp(word,"F")==0){
+				printf("F_____\n");
+				if(!pthread_mutex_lock(&R))
+					pthread_cond_wait(&rcv,&R); //this set of mtx-cv is exclusively for this function, so that it can run only when jobs have finished. Note that the other set of mtx-cv "T" is locked from the last job
 
 				word=strtok(NULL,"\n");
 				int k;
@@ -185,6 +188,8 @@ strcpy(job_pool[2].text,"Margarit2");
 					//if(count==42) break; 		
 				}
 				top=init_top(top);
+				if(pthread_mutex_unlock(&T))
+					pthread_cond_signal(&tcv); //now threads can continue writing
 			}
 			else if(strcmp(word,"\0")==0){ 
 				continue;
@@ -227,7 +232,7 @@ strcpy(job_pool[2].text,"Margarit2");
 
 		switch(flag){
 			case 1 :
-				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
+								//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
 				j = malloc(sizeof(Job));
 //				j->opt=lookupTrieNode_with_bloom;
 //				j->opt = get_a_job;
@@ -236,7 +241,7 @@ strcpy(job_pool[2].text,"Margarit2");
 				j->words = ptr_table;
 				j-> number_of_words = words_in-1;
 				j->top = top;
-				j->version = version;
+				j->version = 1//version;
 //				j->opt(j);
 //				j->opt();
 		//		j->opt(j->hash,j->words,j-> number_of_words,j->top);
