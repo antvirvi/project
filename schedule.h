@@ -9,8 +9,8 @@
 #include <sys/types.h>
 
 typedef void(*Operation)(void); //a pointer to a function returning void, and taking a string as param
+
 void * get_a_job(void* queue);
-struct hash_layer;
 
 typedef struct Job{
 	
@@ -23,7 +23,6 @@ typedef struct q_args{
 	char **words;
 	int number_of_words;
 	topk *top;
-	Operation opt;
 	int version;
 }q_args;
 
@@ -57,7 +56,7 @@ void submit_job( JobScheduler* sch, Job* j);
 
 void execute_all_jobs( JobScheduler* sch);
 
-void wait_all_tasks_finish( JobScheduler* sch); //waits all submitted tasks to finish
+void wait_all_tasks_finish( /*JobScheduler* sch*/); //waits all submitted tasks to finish
 
 //OK_SUCCESS destroy_scheduler( JobScheduler* sch);
 #endif
