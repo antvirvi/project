@@ -9,36 +9,41 @@ extern int threads_quantity;
 void * get_a_job(void* queue) {
 Queue * q;
 q = (Queue*)queue;
-//printf(YELLOW"Sharknado  %d\n"RESET,q->queue_used);
 	while(1)
 	{
-
 		if(!pthread_mutex_lock(&T)){
 			pthread_cond_wait(&tcv,&T);
-//		printf(RED"Sharknado  %d\n"RESET,q->queue_used);
-		if(q->queue_used==0) {
-			printf("0\n");
-			q->queue_ptr=0;	
-			printf("Last job \n");
-			pthread_mutex_unlock(&R);
-			printf("R unlocked\n");
-			pthread_cond_signal(&rcv); //it unlocks the R mtx-cv and not T so that only main can run and not any thread 	
-			printf("R signaled\n");
-			}
-		else if(q->queue_used>0){
-//			printf(">0\n");
-		//	q->jobs[q->queue_ptr].opt;
-printf("Queue used %d\n",q->queue_used);
-			q->queue_used--;
-			q->queue_ptr++;
-			pthread_mutex_unlock(&T);
-			pthread_cond_signal(&tcv);
-		 			
-			//return NULL;
-			}
-		else {printf("ODD\n");}
+			if(q->queue_used==0) {
+
+//				printf("0\n");
+				q->queue_ptr=0;	
+				pthread_mutex_unlock(&R);
+				//printf("R unlocked\n");
+				pthread_cond_signal(&rcv); //it unlocks the R mtx-cv and not T so that only main can run and not any thread 	
+//				printf("R signaled\n");
+				}
+			else if(q->queue_used>0){
+				q->jobs[q->queue_ptr]->opt();
+				printf("ptr = %d\n",q->queue_ptr);
+//				q->jobs[q->queue_ptr]->opt();
+	//printf("Queue used %d\n",q->queue_used);
+				q->queue_used--;
+				q->queue_ptr++;
+				pthread_mutex_unlock(&T);
+				pthread_cond_signal(&tcv);
+			 			
+				//return NULL;
+				}
+			else if(q->queue_used==-1){
+				printf("Thread dies\n"); 
+				pthread_mutex_unlock(&T);
+				pthread_cond_signal(&tcv);
+				return NULL;
+				}
+			else {printf("ODD\n");}
 
 		}
+
 	}
 }
 //void pr(char * str){printf("Test pr %s\n",str);}
@@ -60,7 +65,7 @@ JobScheduler* initialize_scheduler(int execution_threads){
 	Scheduler->q->queue_capacity = 20;
 	Scheduler->q->queue_used = 0;
 	Scheduler->q->queue_ptr = 0;
-	Scheduler->q->jobs = malloc(Scheduler->q->queue_capacity*sizeof(Job ));
+	Scheduler->q->jobs = malloc(Scheduler->q->queue_capacity*sizeof(Job * ));
 	Scheduler->tids = malloc(execution_threads*sizeof(pthread_t*));
 	printf("Thread %d\n",execution_threads);
 	for(i=0;i<execution_threads;i++){
@@ -77,24 +82,41 @@ void extend_queue(Queue * q){
 }
 
 void submit_job(JobScheduler* sch, Job* j){
-	printf("Submit Job init\n");
-//	printf("Catnado %p\n",&sch->q);
+	printf("Submit Job init\n");\
+	//j->opt();
 	if(sch->q->queue_capacity==sch->q->queue_used)
 		extend_queue(sch->q);
 //	sch->q->jobs[sch->q->queue_used] = malloc(sizeof(Job));
-//	printf("sharknado_ %d %p\n",sch->q->queue_used,(void *)&sch->q->queue_used);
-	sch->q->jobs[sch->q->queue_used] = *j;
-	sch->q->queue_used++;
+	sch->q->jobs[sch->q->queue_used] = j;
 
-	printf("Submit Job end %d\n",sch->q->queue_used);
+	sch->q->queue_used++;
+	//sch->q->jobs[sch->q->queue_used]->opt();
+//	printf("Submit Job end %d\n",sch->q->queue_used);
 }
 
 void execute_all_jobs( JobScheduler* sch){
 	printf("Execute Jobs init\n");
+	printf("Submitted jobs count: %3d\n",sch->q->queue_used);
 	wait_all_tasks_finish();
 	printf("Execute Jobs end\n");
 	return ;
 }
+
+void destroy_threads( JobScheduler* sch){
+	printf("Destroy threads\n");
+//	printf("Submitted jobs count: %3d\n",sch->q->queue_used);
+	sch->q->queue_used = -1;
+int i;
+	pthread_mutex_unlock(&T);
+	pthread_cond_signal(&tcv);
+
+	for(i=0;i<sch->execution_threads;i++)
+		pthread_join(sch->tids[i], NULL);
+
+	printf("Destroy threads end\n");
+	return ;
+}
+
 /*
 void empty_jobscheduler(JobScheduler * sch){
 
@@ -106,18 +128,19 @@ void empty_jobscheduler(JobScheduler * sch){
 }
 */
 void wait_all_tasks_finish( /*JobScheduler* sch*/ void){ //waits all submitted tasks to finish
-printf("wait all tasks finish\n");
+printf("wait all tasks finish start\n");
 
-printf("1\n");
 	pthread_mutex_unlock(&T);
 	pthread_cond_signal(&tcv);
 
-printf("2\n");
-pthread_mutex_lock(&R);
-pthread_cond_wait(&rcv,&R); 	//this set of mtx-cv is exclusively for this function, so that it can run only when jobs have finished. 
-printf("R locked\n");
-printf("wait all tasks finish2\n");
-return ;
+while(1){
+	if(pthread_mutex_trylock(&R)){
+	pthread_cond_wait(&rcv,&R); 	//this set of mtx-cv is exclusively for this function, so that it can run only when jobs have finished. 
+	printf("wait all tasks finish end\n");
+	return ;	
+	}
+}
+//return ;
 }
 /*
 OK_SUCCESS destroy_scheduler( JobScheduler* sch){

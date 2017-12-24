@@ -237,14 +237,16 @@ strcpy(job_pool[2].text,"Margarit2");
 //				j->opt=lookupTrieNode_with_bloom;
 //				j->opt = get_a_job;
 				j->opt = pr;
+
+/*
 				q_args* ptr = malloc(sizeof(q_args));
 				ptr->hash = trie->hash;
 				ptr->words = ptr_table;
 				ptr->number_of_words = words_in-1;
 				ptr->top = top;
 				ptr->version = 1;//version;
-				j->arguments = ptr;
-				submit_job(JS,&j);
+				j->arguments = ptr;*/
+				submit_job(JS,j);
 			
 //				command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); 
 	//			if(command_error==-1) printf("%d\n",command_error);
@@ -263,6 +265,7 @@ strcpy(job_pool[2].text,"Margarit2");
 		}
 		flag=0;	
 }
+	destroy_threads(JS);
   	free(line);
 	erase_top(top);
 	cleanup(ptr_table);

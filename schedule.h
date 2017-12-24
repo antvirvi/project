@@ -30,7 +30,7 @@ typedef struct Queue{
 	int queue_capacity;
 	int queue_used;
 	int queue_ptr;
-	Job * jobs;
+	Job ** jobs;
 }Queue;
 
 
