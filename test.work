@@ -1,90 +1,38 @@
+Q panos eats
 A panos
-Q panos
-Q whatever whatever
+A panos eats
+Q panos eats
 F
-A panos and thanos
-A panos and
+A nothing
+Q nothing
+A panos eats crackers and 
+Q panos eats crackers
 F
-D panos
+A thanos is great
+Q change version
+A nada
+Q thanos is great
+A thanos
+Q thanos is great
+A thanos is
+Q thanos is great
 F
-Q bla
-D panos and
-F
-Q bla
-D panos and thanos
-F
-A panos is great
-F
-Q bla
-F
-A panos is great and beautifull
-F
-Q panos is great
-F
-A panos is
-F
-Q panos and thanos
-F
-A czech republic
-F
+Q start deleting
+D thanos is great
+Q thanos is great
 Q change
+D thanos is
+Q thanos is great
+D thanos
+Q thanos is great
 F
-D czech republic
+A panos eats beer
+Q panos eats beer
 F
-A czech
-Q change
-F
-A czech
-Q change
-F
-Q czech
-F
-A time on target
-F
-Q whatever
-D time on target
-A time on
-F
-Q time on
-F
-A southern
-Q change
-F
-D southern
-Q change
-F
-A southern sky
-F
-Q southern sky
-F
-A san jose state
-A san jose
-F
-Q san jose state
-F
-D san jose
-Q san jose state
-F
-D san jose state
-F
-Q san jose state
-F
-A san jose state university
-F
-Q san jose state university
-F
-A the university of texas
-Q change
-F
-D the university of texas
-Q change
-F
-A the university of texas at austin
-Q change
-F
-A the university of texas at brownsville
-Q change 
-F
-F
-Q the university of texas at austin
+A light
+A light curve
+A light curves
+Q light
+D light
+Q light
 F

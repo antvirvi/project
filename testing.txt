@@ -1,0 +1,2342 @@
+time ./project -q small.work -i small.init 
+Init small.init
+Queries small.work
+introduction|global|quality|application|attitude|determination|available|frequencies|epochs|resolution|increasing|signals|dynamic|based|three|integrated|difference|optimal|length|geometry|studies|errors|theory|the method|however|dynamics|temperature|estimation|filter|requirements|within|short|paper|section|development|section 2|definition|experiments|section 5|the work|analyzing|frame|differential|component|magnitude|earth|surface|maximum|linear|rotation|cross|the second|second|right|starting|noise|means|there|there is|components|written|analysis|comparing|operator|m a|given|standard|solution|a i|reference|before|column|functions|the v|ratio|values|s s|those|reflected|the volume|smaller|results|positions|every|shown|above|until|cycle|besides|varying|upper|while|there are|bottom|third|generating|conditions|about|otherwise|the best|figures|experiment|figure 4|basic|assume|field|states|t c|adding|transmission|modeling|times|period|words|relaxed|matter|significant|overall|zhang|academic|parameter|j g|international|symposium|november|p a|society|accelerated|conference|location|j d|institute|september|session|principles|university of california|california|computations|johns|johns hopkins|netherlands|future
+introduction|world|accounting|cause|development|human|accepted|analysis|standard|treatment|however|subsequently|rising|reduced|rates|broad|early|others|further|in general|deeper|understanding|the present|present|review|context|small|target|figure 1|part of|a set|class|the second|second|identified|cells|furthermore|example|transition|above|shown|whereas|given|processes|impact|parts|group|three|property|figures|significant|functions|important|feedback|region|multiple|signals|figure 4|results|observed|before|cycle|global|apart|a major|times|enhanced|while|surface|interesting|third|johnson|numerous|conclusion|progress|effects|could|least|overview|paper|likely|future|there|statistics|journal|crawford|the new|american|society|bartel|element|united states|states|timing|p s|conservation|peter|wright|implications|zhang|cheng|international|smith|clarke|increasing|british|yoshida|revised|j j|hawkins|martin|finger|critical|meyer|winkler|santoro|communications|pages|thomas|differential|benson|t c|cross|charles|garcia|m k|relations|theory|evolution|basic|roche
+introduction|techniques|while|others|technique|quality|increasing|mechanical|however|observed|especially|region|paper|examination|degree|combined|images|figures|figure 4|every|hours|status|without|three|upper|surface|despite|the second|second|there|until|recall|period|problem|figure 17|slight|almost|words|studies|parallel|present|group|treatment|a series|series|exposure|results|further|possible|there is|journal|quintessence|international|seibert|application|harris|partial|matter|human|t j|effects|review
+human|increasing|finger|short|generating|5 6 7 8|forms|target|identified|subsequently|vicinity|edited|especially|techniques|resolution|analysis|smaller|part of|temperature|however|scale|simple|based|cells|without|results|schematic|overview|further|fraction|detected|except|comparison|three|parallel|those|within|variable|shown|while|simultaneous|conditions|mutation|whereas|length|observed|furthermore|given|above|possible|unless|combined|template|frequencies|measuring|overall|employed|third|asterisks|group|effects|could|analyzing|present|the one|instead|second|available|significant|least|correlated|the method|multiple|standard|facility|cycle|institute|before|approximately|roche|solution|ethidium bromide|for each|plates|hours|confirmation|region|artificial|upstream|every|experiments|j c|d f|the research|program|basic|m r|conditional|transmission|t j|baker
+consultation|world|based|understanding|results|adding|a major|while|important|1 million|service|clearly|short|standard|especially|rising|rates|global|agency|international|development|available|impact|new york|earth|institute|columbia|university|millennium|analysis|surveys
+introduction|especially|conservation|parts|world|evolved|forms|small|times|the present|present|effects|however|target|program|development|possible|available|surface|application|while|three|department|length|environmental|conditions|despite|means|second|least|based|rates|group|those|example|magnitude|within|multiple|observed|field|studies|about|third|exposure|differential|given|likely|future|australian|results|requirements|mcdonald|analysis|without|preliminary|variable|terrestrial|environment|for each|historical|status|database|outside|source|final|in general|whereas|to do|difference|could|above|maximum|combined|further|squared|comparisons|degree|review|electronic|list of|class|journal|overall|reduction|significant|others|southern|northern|as is|reduced|there|nonetheless|probably|probability|though|important|identified|problem|south|states|period|optimizing|timing|simple|30 40|implications|shown|otherwise|quinn|oxford|oxford university|university|university press|press|overview|agency|short|impact|wright|experiment|experiments|martin|increasing|werner|moore|johns|johnston|series|natural|canis|thesis|february|new york|williams|abundance|international|symposium|centre|arthur|institute|heidelberg|hayes|progress|november|cooperative|background|conference|january 10|robertson|reference|forster|jones|harding|london|cambridge|cambridge university|dynamics|central
+modern|south|short|users|magnitude|likely|price|about|release|available|action|minor|beneath|upper|furthermore|times|future|source|project|every|rates|world|global|almost|however|states|period|there|there is|least|young|the method|american|the best|rapid|rising|southern|while|example|could|further|surveys|the second|second|third|important|environment|london|service|training|enhanced|public|international|a major|comparison|central|quality|within|length|effects|especially|context|given|difference|prompt|treatment|without|distribution|words|program|accepted|extension|image|shift|subsequently|human|standards|besides|status|despite|overall|individual|matter|society|right|adding|estimates|new york|institute|studies|department|johns|johns hopkins|nelson|centre|press|group|development|lopez|review|based|comparisons|shelton|j d|optimizing|republic|analysis|pages|final|possible|united states|problem
+introduction|field|however|difference|likely|generating|rapid|relative|action|important|studies|shown|component|review|numerous|times|probability|despite|the research|exact|administration|technique|a major|application|enhanced|could|artificial|project|standard|conditions|cycle|available|individual|lausanne|solution|session|channel|while|epochs|analyzing|software|cambridge|electronic|noise|those|analysis|above|region|every|the peak|period|maximum|intensity|before|given|without|further|figure 1|treatment|group|experiment|temperature|final|distribution|detected|statistics|statistical analysis|smirnov|significant|results|parallel|reduction|figures|conversely|example|observed|reduced|based|robust|within|frame|until|transmission|section|basic|figure 4|experiments|cells|human|correlated|almost|global|probably|rates|values|possible|comparison|the local|there|there is|keeping|release|magnitude|short|discrepancy|early|modeling|critical|components|hours|forms|target|others|especially|effects|representative|right|small|clearly|acknowledgments|development|agency|comments|paper|gamma|kelly|journal|american|society|london|united states|states|oliveira|mayer|whiting|molnar|m a|zhang|international
+introduction|undetected|third|observed|secondary|however|progress|context|field|administration|studies|7 8 9|there|there are|probably|source|there is|review|service|second|instead|without|korean|american|multiple|before|analysis|residual|within|the best|parameter|possible|treatment|statistics|statistical analysis|software|version|university|submitted|results|baseline|given|identified|others|overall|those|important|relative|exposure|extension|could|theoretically|shown|class|optimal|approximately|development|short|while|the present|present|as is|japanese|asian countries|reduced|significant|correlated|increasing|assume|quality|varying|future|further|conclusion|based|difference|acknowledgments|the research|foundation|society|critical|world|zhang|comparison|yoshida|edwards|rates|group|cooperative|program|cutoff|shimizu|institute|panel
+introduction|cameras|quality|distance|images|human|interaction|analysis|the background|background|application|could|status|based|detected|future|reference|users|in general|techniques|digital|public|multiple|parts|however|subject|keeping|visual|results|frame|database|the space|given|representation|linear|scaling|transform|zhang|intensity|within|camera|joint|training|hidden|the best|there|there are|especially|environment|second|special|increasing|service|world|third|development|modeling|a major|field|paper|section|section 2|comments|further|the joint|overview|shown|figure 1|binary|simple|values|examples|clearly|means|discrimination|generating|three|location|detector|figure 4|parameter|magnitude|a set|estimate|basic|for each|right|while|transition|uniformly|states|estimation|probability|experiments|group|hours|without|conditions|early|morning|night|comparison|computations|furthermore|computing|the hidden|standard|above|computational|experiment|component|global|rates|significant|instead|overall|stationary|positions|identified|before|individual|cross|scheme|the local|cloud|functions|times|software|technique|introducing|hybrid|combined|program|promotion|agency|institute|project|the research|facility|robust|electron|international|conference|october|symposium|february|september|november|b a|m a|a r|stauffer|action|review|dynamic|sharp|moore|understanding|cheng|j c|collaboration|clusters|image|adaptive|reduction|society|contour|british
+introduction|parameter|for each|combined|quality|standards|example|about|determination|silicate|components|temperature|the material|surface|results|given|the method|observed|internal|based|property|conditions|there|there is|degree|dependence|variables|multiple|application|a series|series|paper|basic|important|element|pressure|approximately|times|boundary|boundary conditions|environment|silicon|phases|could|significant|mechanical|experiments|a set|impact|natural|length|ratio|least|transmission|values|final|analysis|measuring|figure 1|figures|residual|standard|difference|those|maximum|relations|within|comparison|figure 4|conclusion|possible|however|checking|means|acknowledgments|foundation|project|programme|research and development|development|centre|international|institute|malhotra|new york|press|review|conference|society|the 2nd|estimate|journal|effects|historical|techniques
+introduction|reduction|field|effects|technique|possible|human|example|in general|outside|maximum|the source|source|internal|within|parallel|signals|region|development|transmission|distance|smaller|wavelength|while|small|geometry|relative|short|however|based|robust|reflected|analysis|application|values|calculations|element|software|important|estimating|solving|paper|there|there are|figure 1|scheme|parts|series|a series|approximately|given|network|ratio|secondary|quality|section|assume|above|without|there is|part of|bandwidth|studies|rogers|shown|increasing|fields|partial|simple|for each|concepts|about|the second|second|relations|optimizing|figure 4|frequencies|available|scientific research|temperature|results|solution|three|third|international|communications|standards|whereas|standard|absorption|solver|techniques|difference|estimate|interaction|service|artificial|resolution|3d model|the space|experiments|future|natural|the model|conditions|combined|magnitude|components|those|except|for some|accepted|review|almost|revised|final|edited|integrated|solid|j d|visual|subject|springer|m r|zhang|m a|conference|class|february|radio|s s|symposium|new york|electron|modeling|september|exposure|theory|national research council|research council|institute|surface|phys
+background|united states|states|while|rates|however|there|there are|multiple|the us|environment|evolved|high energy|context|natural|individual|those|review|quality|studies|reduced|whereas|source|small|component|impact|combined|based|somerville|within|before|program|development|service|others|despite|part of|intensity|exposure|significant|above|johns|johns hopkins|public|global|theory|broad|environmental|figure 1|price|dynamic|a series|series|collaboration|components|group|geographic|comparison|american|distance|the research|written|techniques|critical|project|observed|promotion|gauge|images|three|final|feedback|target|frame|increasing|representation|department|cross|communications|computational|modeling|the model|visual|about|progress|standards|session|least|brand|for each|young|training|period|innovative|introduction|phases|instead|combo|every|frequencies|times|example|interaction|outside|available|version|action|baseline|section|scale|participation|basic|as is|contact|location|short|e i|the second|second|recall|measuring|approximately|calculations|difference|means|third|enhanced|results|institute|human|mcpherson|concepts|nelson|the local|johnston|status|estimates|glass|graham|new york|schulz|james|s wilson|michigan|m a|transmission|vries|phys|effects|network|smith|understanding|implications|variables|relative|paper
+introduction|fields|based|furthermore|field|electronic|network|pressure|temperature|studies|innovative|employed|contact|signals|mechanical|processes|example|the material|solid|reference|differential|nonetheless|maximum|whereas|values|surface|quality|before|within|outside|subject|further|thanks to|above|solution|numerous|present|application|measuring|hybrid|section|electron|subsequently|on top|second|important|instead|however|treatment|scheme|source|software|simple|schematic|clearly|vicinity|correlations|experiments|residual|noise|results|oxygen|likely|transient|three|linear|detected|channel|especially|resolution|starting|increasing|degree|small|scaling|observed|the second|cycle|shift|while|right|region|enhanced|environment|interaction|rates|representative|experiment|figure 4|paper|integrated|the local|foundation|the work|feedback|jones|silicon|j c|multiple|zhang|cheng|human|j d|class|j j|nakajima|october|payne|november
+background|conditions|global|combined|public|problem|important|development|there|there is|understanding|action|individual|examination|despite|given|cause|impact|above|caveats|magnitude|simple|review|kelly|central|american|department|identified|studies|cross|least|rates|quality|the new|significant|observed|based|group|within|society|however|analysis|shown|paper|representative|surveys|standard|international|example|japanese|context|statistics|the us|available|absolute|those|channel|three|united states|states|rising|differential|results|before|starting|1960s|about|world|again|period|exposure|figure 1|linear|though|almost|probably|upper|scale|the age|comparison|times|possible|south|academic|effects|short|without|increasing|progress|part of|maximum|clearly|second|third|could|continued|furthermore|frame|overall|a major|early|conclusion|natural|service|small|estimates|treatment|millennium|accepted|target|multiple|reduction|environment|programme|means|searches|historical|heavy|confirmation|robust|there are|a series|series|source|final|figures|lopez|concepts|field|occupation|shimizu|tokyo|woods|press|australian|smith|lewis|status|kyoto|the second|distribution|korean|university|university press
+introduction|contact|early|cells|oxygen|release|progress|there|there are|cycle|effects|based|integrated|three|measuring|determination|spectra|others|while|scheme|available|forms|reduced|exposure|gamma|status|human|example|simple|temperature|results|instead|furthermore|varying|understanding|participation|development|could|future|analysis|section|solution|least|times|student|experiments|ratio|internal|standard|column|splitting|region|dickinson|heidelberg|noise|plates|treatment|conditions|observed|images|camera|filter|relative|values|plate|every|the method|approximately|shown|correlated|second|third|figure 1|further|parallel|period|cause|despite|fraction|given|impact|final|experiment|a major|component|components|studies|reduction|likely|differential|however|whereas|identified|environmental|somewhat|the general|combined|short|rapid|for each|absolute|dynamic|the best|periods|series|figure 4|increasing|morphology|eventually|intensity|definition|significant|possible|panel|states|employed|natural|fundamental|optimal|application|paper|broad|field|small|institute|within|program|thomas|jones|r t|t j|della|e i|reticulum|j c|hayes|m a
+introduction|overall|however|early|treatment|detected|possible|until|present|clearly|understanding|increasing|quality|studies|identified|there|there are|part of|university|ratio|based|frame|period|the age|distribution|periods|subject|least|examination|probe|standard|masses|without|analysis|morning|hitachi|tokyo|surface|squared|world|pressure|reference|statistical analysis|version|student|variables|exact|values|statistically|significant|review|results|baseline|korean|observed|parameter|b a|approximately|shown|further|the peak|whereas|probability|instead|correlated|rates|geographic|environmental|those|third|impact|development|global|public|problem|others|the present|probably|program|the general|shift|rapid|transition|especially|status|important|furthermore|detectability|smaller|numerous|likely|could|representative|second|definition|small|despite|conclusion|future|japanese|natural|consultation|implications|jones|wright|the joint|joint|mario|american|standards|series|group|hayashi|comparison|minerva|south|statistics|society
+introduction|smaller|increasing|environmental|critical|development|mechanical|human|concepts|based|comparison|those|important|heavy|central|generating|could|joint|source|paper|integrated|the second|second|while|a series|series|experiments|upper|plate|shown|parallel|subject|along|field|every|relaxed|dynamic|possible|conditions|maximum|given|period|written|parameter|a set|the sum|above|application|requirements|pressure|schematic|region|about|distribution|reference|the peak|besides|length|solution|optimal|three|parts|modeling|furthermore|phases|target|there|there exists|results|experiment|third|without|values|example|cycle|representative|signals|obviously|conclusion|users|there is|future|plates|though|significant|the work|collaboration|the research|final|computing|c r|phys|stanford|p a|solid|griffith|artificial|analysis|impact|electron|october|international|symposium|computers|t c|j k|composite|society|optics|difference|world|george|independence|robust|analog
+background|upper|combined|third|modern|users|however|effects|increasing|before|least|could|the method|typical|foundation|administration|release|development|understanding|target|profile|results|early|later|paper|present|introduction|further|the new|september|studies|service|public|about|the research|group|program|the local|identified|location|facility|based|distribution|at the end|again|important|electronic|international|universities|world|agency|marie|others|human|review|figure 1|overview|in general|relative|available|individual|interesting|while|there|three|without|variable|for each|transition|critical|probably|given|despite|there are|rates|period|example|young|almost|almost all|instead|problem|likely|going|deeper|those|especially|relations|sometimes|heavy|the way|rapid|though|the one|second|periods|assume|intensity|cause|above|every|within|frame|a major|reflected|fundamental|to do|unless|continuum|looking|furthermore|right|treatment|whereas|for some|reduction|multiple|possible|the second|final|price|approximately|cycle|reduced|travel|implications|somewhat|context|quality|small|conclusion|field|conducting|hours|benson|department|new york|springer|consultation|statistics|institute|preliminary|barnard|impact|database|centre|london|south|johns|johns hopkins|project|global
+background|status|human|important|cells|approximately|likely|despite|treatment|available|components|various|small|studies|however|overall|further|example|sometimes|observed|periods|given|there|difference|those|without|administration|based|results|channel|increasing|the present|present|analysis|group|figure 1|median|section|sections|vessels|comparison|scale|standard|at the end|period|whereas|times|identified|effects|conversely|detected|figures|shown|morphology|oxygen|significant|figure 4|numerous|conditions|dynamic|generating|representative|techniques|conclusion|transition|early|future|three|transform|element|short|accelerated|secondary|principles|the method|field|the sum|intensity|for each|fields|university|every|length|least|before|plates|images|temperature|internal|solution|15 min|microwave|target|statistical analysis|version|student|electronic|final|experiments|project|foundation|the research|program|basic|statistics|costa|impact|butler|smith|filho|optimizing|understanding|johnson|cheng|region|davidson|hayes|solid|zhang|martin|modes|wolff|allen|shimizu|multiple|journal|lehmann|promotion|young|experiment|pollack|implications|weinberg|along|cycle
+introduction|discrimination|quality|environmental|environment|human|based|group|important|various|electron|temperature|furthermore|solar|surface|conditions|oxygen|morphology|results|solution|shift|field|scale|numerous|microwave|processes|atomic|technique|aerosol|ratio|carbon|impact|without|accelerated|second|reduction|the present|present|silicon|rapid|application|the second|filter|pressure|difference|schematic|diagram|shown|figure 1|geometry|starting|treatment|about|wavelength|distance|further|tokyo|electron microscopy|figure 4|property|software|quartz|target|while|integrated|within|analysis|typical|along|though|observed|the space|release|possible|dynamic|transients|whereas|cycle|comparing|increasing|clearly|interaction|network|stacked|smaller|short|varying|three|point|cross|contact|exposure|simple|university|edited|paper|h m|m k|phys|zhang|development|solid|a i|s s|p s|latham|cheng|conducting|reynolds|jones|d d
+introduction|present|network|environment|important|application|measuring|source|human|target|example|the source|cloud|mountain|while|the way|however|heavy|problem|based|least|squares|estimation|about|errors|estimate|observed|multiple|techniques|solution|maximum|location|scheme|paper|global|solving|the sum|squared|individual|a set|distribution|probability|estimates|above|until|the local|experiments|distance|section|section 2|results|sections|concluding|given|relative|theory|point|pressure|field|every|shown|figure 1|along|approximately|diffuse|the method|images|coordinate|obviously|studies|right|lambert|s s|others|increasing|variables|there|there is|small|noise|ratio|smaller|scattered|varying|there are|except|combined|overall|processes|further|functions|minor|context|possible|figure 4|estimating|let us|theoretically|those|means|operator|states|values|communications|within|three|version|adding|column|analyzing|generating|basic|figures|region|bottom|cartesian|surface|release|standard|the volume|cause|group|transform|before|times|k k|typical|final|otherwise|starting|words|for each|centroid|experiment|twenty|available|the wind|the general|reduced|scale|parallel|integrated|calibrated|period|glass|the box|temperature|absolute|convective|baseline|identified|fitting|parameter|the one|keeping|median|collaboration|property|future|could|filter|natural|foundation|research and development|development|program|critical|cheng|zhang|review|phys|electronic|h m|maximum likelihood|maximum likelihood estimation|conference|the 2nd|international|optimal|robust|linear|scattering|j g|r t|short|october|d e|subject|modeling
+introduction|cause|criterion|period|least|important|functions|united states|states|there|there are|various|treatment|however|public|could|natural|cells|central|later|three|representative|effects|studies|identified|special|administration|results|while|until|research|available|shown|despite|observed|significant|review|university|october|exposure|based|the age|without|10 20|about|nearby|before|times|february|attitude|matter|again|morning|night|basic|examination|global|problem|early|frequencies|further|the best|world|going|every|along|scale|experiment|within|especially|increasing|secondary|conditions|human|second|status|third|others|above|short|group|besides|future|the present|present|the research|garcia|concepts|american|statistics|reference|isaac|meyer|price|revised|department
+introduction|global|a major|distribution|however|critical|those|public|impact|basic|present|studies|varying|examples|given|important|somewhat|there|there are|small|ministry|facility|robust|available|significant|the work|scale|while|understanding|attempts|broad|price|cause|quality|problem|example|point|clearly|version|context|relevant|scaling|starting|research|development|typical|components|figure 1|parallel|introducing|within|multiple|sometimes|periods|third|generating|training|revised|techniques|doing|early|target|analysis|there is|world|temperature|administration|outside|service|treatment|though|approximately|furthermore|various|further|especially|shift|three|project|before|standards|could|theoretically|above|component|the one|american|final|regardless|relative|cross|progress|without|despite|human|collaboration|almost|visual|visual inspection|undetected|in general|about|program|implications|district|the clear|identified|again|agency|international|along|based|november|element|likely|projects|employed|rates|class|every|south|environment|india|later|filter|eventually|results|observed|scheme|status|the best|solar|ratio|kernels|university|right|future|instead|possible|blend|the way|field|disney|words|natural|assume|coordinate|concepts|reduction|reduced|conclusion|the general|for each|others|blanton|foundation|dynamics|smith|integrated|james|journal|gibbons|short|new york
+introduction|significant|academic|based|group|requirements|central|component|fundamental|network|despite|subject|however|critical|action|global|studies|transient|analysis|the joint|joint|paper|available|overhead|collisions|results|conditions|radio|environment|observed|experiments|future|section|section 2|overview|special|section 5|impact|short|standard|communications|three|rates|modes|frame|subsequently|channel|transmission|otherwise|possible|values|again|times|attempts|maximum|parts|present|review|point|theory|problem|shown|there|least|further|until|given|period|distance|example|figure 1|b c|every|optimal|a set|variables|there are|status|within|time t|smaller|length|the new|variable|parameter|various|uniformly|distribution|small|there is|location|degree|for each|individual|whereas|magnitude|figure 4|probability|varying|as is|opportunities|analyzing|deeper|relative|increasing|comparison|comparing|figures|while|ratio|especially|fraction|application|5 6 7 8|difference|though|7 8 9|cause|states|reduction|regardless|forms|important|except|there exists|nearby|components|before|later|determination|the second|second|periods|assume|figure 17|without|conclusion|likely|the one|those|research|about|relevant|along|al in|detected|the work|estimate|furthermore|the best|on top|spanish|project|overall|the research|wiley|field|september|alexander|october|dawson|third|international|conference|modeling|thesis|university|oliveira|february|brewer|springer
+introduction|human|modeling|multiple|techniques|cells|eventually|important|growing|environment|simple|surface|otherwise|part of|central|visual|final|heavy|conditions|every|mechanical|before|university|centre|excised|the research|research|department|glass|bottom|plates|optics|on top|figure 1|contact|location|edison|without|subsequently|continued|image|ccd camera|camera|the software|software|written|filter|wavelength|point|morphology|while|ratio|timing|the light|source|intensity|region|images|individual|frame|second|wavelengths|absorption|effects|measuring|until|collison|application|pressure|column|solution|hours|three|experiments|results|the method|shown|within|period|representative|examples|clearly|upper|observed|maximum|transient|those|figure 4|example|the peak|small|there|there is|could|confirmation|later|comparison|dynamics|group|treatment|further|enhanced|release|studies|natural|standard|reduced|noise|critical|signals|numerous|development|however|in general|means|neumann|al in|functions|whereas|exposure|m a|cyclic|there are|various|basic|residual|cause|increasing|significant|secondary|a major|profile|based|processes|understanding|rapid|detected|present|early|oxygen|conclusion|background|possible|future|acknowledgments|project|the new|agency|program|given|paper|journal|international|pages|reticulum|american|japanese|james|distribution|new york|adaptive|united states|states|rogers|reddy|progress|determination|nolan|implications|british|stanford|benson|lightman|vla 4|internal|zhang|meyer
+introduction|despite|research|network|based|observed|dynamics|studies|example|three|visual|right|baseline|rapid|within|human|forms|approximately|implications|critical|techniques|however|there|there is|could|optimal|understanding|starting|field|computational|significant|along|experiments|figure 1|signals|comparison|increasing|global|clusters|correlations|transition|possible|transmission|individual|modeling|context|shown|physics|states|without|introducing|positions|results|cooperative|second|temperature|point|correlated|scale|the second|about|various|conditions|analysis|dynamic|variables|cells|there are|multiple|channel|fraction|ratio|masses|for each|fitting|parameter|modern|development|theory|relative|a set|matter|interaction|small|world|length|class|probability|resolution|further|short|the source|source|communications|maximum|series|present|cross|paper|comparing|processes|application|version|the model|j j|furthermore|contact|integrated|instead|boundary|boundary conditions|values|notice|distribution|given|magnitude|effects|above|richness|fields|action|reduction|times|figure 4|region|section|besides|growing|distributions|scaling|calculations|the light|while|linear|reduced|almost|almost all|dynamical|parts|period|generating|the research|review|progress|though|important|parallel|group|whereas|degree|the local|otherwise|means|estimate|smaller|weighted|distance|the way|functions|basic|computations|element|statistically|relevant|computing|measuring|quality|especially|interesting|shift|griffith|unless|subject|images|treatment|future|diffuse|technique|relations|innovative|acknowledgments|canada|james|foundation|natural|research council|united states|smith|press|new york|journal|cambridge|cambridge university|university|concepts|american|institute|conference|symposium|rates|klein|training|impact|martin|williams|nelson|scheme|werner|modern physics|monte carlo simulations|barlow|oxford|oxford university|university press|evolution|wiley|society|arxiv|woodward|origins|adaptive|rubin|stephan|comments|sharp|component|the new|griffiths|phases|research and development|johnson
+introduction|eventually|contact|final|transform|times|pressure|mechanical|development|early|critical|estimating|without|available|special|while|the joint|joint|employed|temperature|as is|representative|the source|source|within|preliminary|simple|however|forms|techniques|based|linear|shear|correlated|the material|noise|ratio|least|plate|figure 1|transmission|scheme|modes|possible|exact|distance|conditions|surface|parameter|unless|besides|optics|measuring|natural|composite|paper|present|the method|travel|impact|interaction|various|shown|reflected|geometry|the present|results|those|combined|flight|variables|estimate|part of|there|there are|multiple|especially|studies|there is|instead|standard|almost|magnitude|smaller|means|experiment|could|operator|signals|action|section|overall|future|background|the general|principles|technique|bottom|in general|given|young|wavelength|maximum|dynamic|the one|dependence|coordinate|along|research|secondary|gauge|carbon|later|approximately|location|second|otherwise|third|relative|three|on top|figure 4|above|every|15 min|hours|for each|comparisons|the second|figures|point|whereas|small|about|values|rapid|transition|the novel|degree|discrepancy|the local|region|until|slight|experiments|scatter|comparing|observed|components|component|cross|the trend|determination|optimal|example|field|robust|furthermore|foundation|american|society|version|edited|comments|the work|department|malhotra|johnson|m r|comparison|j c|analysis|cawley|cyclic|international|conference|phys|phys rev|column|j b|phys rev lett|solid|dynamics|springer|p a
+background|conditions|however|pressure|based|public|upper|component|degree|surveys|individual|occupation|world|global|difference|intensity|important|international|there|there is|likely|comparison|significant|forms|transition|class|broad|development|paper|period|within|observed|twenty|five hundred|approximately|south|human|the us|simple|the age|third|districts|point|district|review|loyola|university|research|faculty|lausanne|written|early|morning|standard|calibrated|london|standards|analysis|phillips|times|while|the 8|technique|keeping|there are|definition|hours|data analysis|program|counts|criterion|visual|visual inspection|length|available|maximum|employed|examination|before|overall|version|part of|estimates|estimate|three|travel|least|basic|further|variable|modern|postal|service|those|along|electronic|statistical analysis|distributions|means|variables|calculations|results|united states|states|combined|values|furthermore|about|figure 1|comparing|example|whereas|small|figures|group|participation|understanding|magnitude|figure 4|smaller|median|shown|almost|15 min|though|correlations|rates|20 minutes|impact|could|stairs|outside|instead|reduced|status|the work|studies|probably|regardless|implications|despite|context|discrepancy|nonetheless|conclusion|for each|environment|right|problem|final|cause|martin|others|lewis|phys|progress|craig|lambert|action|thompson|american|modeling|cambridge|database|conducting|field|new york|observatory|measuring|jones|johnson|walker|distance|department|institute|reference|press
+introduction|artificial|numerous|microwave|based|composite|right|transmission|huang|results|enhanced|furthermore|fields|small|example|element|surface|field|degree|group|employed|however|channel|a series|series|forms|shift|given|sharp|region|increasing|probe|multiple|introducing|length|deeper|theory|distribution|distributions|without|above|the material|the research|research|basic|second|where|cells|figures|varying|distance|lines|possible|geometry|instead|detected|available|rogers|clearly|observed|for each|paper|parameter|relative|while|shown|figure 4|frequencies|obviously|within|roger|standard|techniques|network|comparison|bandwidth|magnitude|difference|effects|values|analysis|various|fitting|estimate|reference|three|times|baseline|cause|experiment|adding|the dip|smaller|slight|location|b a|measuring|solid|project|conducting|the work|experiments|written|revised|physics|wiley|application|j j|martin|rotation|j g|phys|electronic|components|electron|a i|a r|symposium|september|version|november|m k|international|october|determination
+background|further|lupus|cause|right|upper|available|significant|pressure|given|reduction|along|keeping|figure 1|however|within|studies|mixing|the best|the second|second|context|based|degree|frame|secondary|minor|without|centre|central|intensity|eventually|results|though|treatment|reduced|there|there is|could|the research|research|agency|public|journal|american|critical|vries|early
+introduction|growing|international|based|example|especially|quality|important|those|forms|part of|however|almost|overall|significant|about|instead|detected|problem|techniques|impact|colour|available|human|panel|functions|electronic|later|artificial|though|integrated|software|further|data analysis|analysis|paper|simple|linear|network|research|three|conditions|technique|experiment|there|there are|for each|brand|solution|silicon|figure 1|plate|shown|measuring|experiments|ratio|period|program|status|every|carbon|temperature|effects|petersburg|reference|probe|again|could|solid|detector|column|15 min|the gc|until|where|spectrometer|above|electron|spectra|the sum|point|frame|values|training|figure 4|before|combined|whereas|class|cross|parameter|employed|estimation|scatter|difference|within|criterion|possible|discrimination|distribution|distance|second|while|third|least|gamma|the box|multiple|probability|results|list of|written|maximum|the best|words|exact|group|please|errors|without|notice|conversely|almost all|except|besides|observed|identified|subject|standards|standard|others|the second|small|intensity|masses|application|special|thanks|thanks to|ministry|scheme|final|submitted|m a|understanding|a r|conference|development|woods|transform|wright|shift|component|world
+introduction|rates|world|modern|multiple|service|quality|opportunities|however|important|standards|society|impact|definition|measuring|understanding|effects|dynamic|results|based|training|the new|analyzing|processes|analysis|resolution|within|context|facility|basic|innovative|further|rapid|scale|significant|public|combined|approximately|program|concepts|for each|cause|environment|where|likely|subsequently|part of|before|point|written|group|series|every|those|project|about|distribution|figure 1|without|present|smaller|session|sometimes|possible|available|outside|november|there|baseline|integrated|least|difference|statistically|special|the box|otherwise|again|could|expanding|growing|application|second|identified|third|simple|progress|period|frame|almost|status|conclusion|problem|solving|united states|states|agency|international|development|university|research|institute|ministry|central|india
+global|critical|despite|example|pressure|exposure|source|we think|about|individual|important|principles|those|without|examples|activity|numerous|clearly|early|treatment|where|typical|accepted|group|a major|especially|period|collaboration|observed|short|while|values|integrated|in general|society|at large|generating|could|the way|problem|simple|public|multiple|transmission|continued|components|understanding|research|measuring|impact|s s|clusters|analysis|context|world|cawley|rates|journal|growing|black|j j|northern|cross|available|shelton|j d|human|final
+introduction|small|short|period|environmental|conditions|there|there is|increasing|development|the source|source|standard|based|technique|however|multiple|functions|shear|horizontal|means|solid|magnitude|field|dynamic|furthermore|though|about|combined|section|human|special|instead|length|the host|lines|surface|quartz|wavelength|detected|techniques|times|centre|aperture|approximately|the method|network|part of|channel|where|software|before|contact|keeping|the present|present|amplitude|important|pressure|ratio|again|without|eventually|temperature|programme|solution|15 min|cross|results|modes|processes|paper|theory|background|the details|point|mathematically|boltzmann constant|example|maximum|periods|rapid|element|difference|whereas|shown|possible|final|those|three|for each|above|shift|figures|until|interaction|work in|spanish|ministry|project|university|collaboration|the research|research|version|edited|j j|progress|future|hawkins|cheng|monolithic|interferometer|phys|price|activity|m a|simultaneous|integrated|martin|electronic|review|edwards|james|comparison|j k|minor|j d|analysis|ph d thesis|thesis|universidad
+introduction|every|critical|united states|states|while|treatment|research|field|technique|cells|standard|where|however|functions|understanding|review|techniques|based|given|special|application|studies|integrated|internal|a major|filter|significant|cause|conditions|partial|within|identified|requirements|development|a series|series|various|phases|shown|the general|figure 1|fundamental|oxygen|mechanical|environment|numerous|communications|components|surface|furthermore|morphology|section|those|before|possible|principles|could|continued|scale|opportunities|processes|small|available|temperature|generating|representative|comparison|network|three|the host|natural|observed|typical|signals|period|hybrid|enhanced|ratio|results|without|rates|example|early|individual|plates|multiple|bottom|shear|mass transfer|in general|work in|employed|second|regardless|the second|further|progress|electron|solution|approximately|along|examination|analysis|group|effects|rapid|stacking|above|optics|resolution|operator|relative|smaller|fields|geometry|figure 4|part of|human|a set|cross|sections|surrounded|increasing|inclination|short|exposure|there|reflected|horizontal|robust|parallel|region|eventually|for some|apart|experiment|later|upper|again|instead|the best|there are|introducing|median|values|correlated|target|combined|theory|maximum|simple|preliminary|al in|there is|university|impact|ministry|scheme|november|rubin|bullock|artificial|allen|j k|status|future|wright|j d|s s|p s|j j|james|release|t c|h m|griffith|plate|t r|yoshida|j c|modeling|m r|dynamic|huang|johnson|k k|shimizu|yonsei|cheng|graham|b d|d g|comparing|b c|williams|zhang|ibrahim|a r|werner|m a|a a|uchida|implications|kelly|absorption|analog|probe
+background|world|development|early|transition|typical|integrated|later|activity|environment|magnitude|those|based|available|however|example|where|district|overall|central|while|problem|the present|present|status|in general|timing|location|cross|surveys|within|short|november|districts|significant|group|distance|extension|every|values|studies|possible|given|frame|analysis|the second|second|third|standard|conditions|further|various|times|faculty|university|the research|research|as is|measuring|without|calibrated|scale|for each|recall|could|estimate|reference|occupation|especially|visual|paper|data analysis|distribution|individual|period|there|there is|international|identified|component|friedman|median|combined|calculations|instead|variables|correlations|multiple|spearman|spearman rank|rank correlation|rank correlation coefficient|sciences|version|results|simple|increasing|black|above|correlated|figure 1|furthermore|parameter|the model|variable|natural|examples|pressure|figure 4|attitude|three|region|employed|rates|ratio|whereas|again|comparisons|along|public|likely|techniques|united states|states|degree|type 2|observed|relevant|the general|about|image|australian|varying|india|cutoff|point|the age|robust|minor|changing|comparing|obviously|part of|centre|ministry|academic|service|foundation|global|series|overview|institute|interaction|human|tokyo|project|gould|kelly|kelly d|netherlands|american|northern|comparison|the new|historical|young|review|implications|class|treatment|oxford
+introduction|however|treatment|technique|exposure|period|there|there are|others|before|evolved|figure 1|figures|along|location|every|cause|important|simple|though|effects|development|there is|paper|upper|journal|lewis|review|secondary|annales
+introduction|otherwise|broad|treatment|employed|increasing|given|those|others|research|important|environment|based|adaptive|modeling|individual|target|shown|having|observer|the model|possible|early|while|training|opportunities|studies|effects|approximately|action|every|significant|furthermore|within|three|problem|introducing|there|reduction|the age|before|program|contact|camera|edited|comparing|facility|baseline|length|about|likely|list of|examples|least|times|identified|where|could|participation|without|short|interaction|keeping|distance|attempts|regardless|again|period|a set|surveys|results|session|example|starting|preliminary|noise|varying|difference|second|context|statistically|however|artificial|visual|small|representation|future|there is|paper|american|changing|journal|society|special|comparison|application|theory|review
+introduction|source|however|cause|region|distance|effects|possible|transmission|human|activity|noise|within|studies|the present|present|treatment|further|experiment|where|group|submitted|session|figure 1|experiments|standard|cycle|international|university|experimentation|the general|conditions|those|before|given|identified|finger|observed|exact|location|oxygen|temperature|probe|approximately|clearly|technique|length|simultaneous|rotation|surface|without|there|period|digital|russia|filter|parallel|short|amplitude|least|point|for each|analysis|cambridge|solution|secondary|jackson|signals|enhanced|tokyo|three|times|results|based|version|relative|intensity|normalized|sections|series|subsequently|adding|comparison|fields|camera|resolution|images|image|cells|statistical analysis|employed|comparisons|statistically|significant|reduction|figures|difference|figure 4|overall|faint|various|there is|baseline|could|reduced|central|release|important|above|probably|likely|accepted|conclusion|understanding|action|ministry|cheng|having|the research|research|paper|american|journal|upper|review|pages|j g|pressure|development|huang|zhang|kawasaki|rogers|the new|new york|sciences|phillips|measuring|the local
+background|where|least|india|impact|comments|important|integrated|rates|maximum|efficiency|world|ministry|scale|part of|available|young|based|international|districts|revised|distribution|district|department|programme|reduction|while|projected|november|about|quality|paper|program|upper|transmission|probability|south|going|central|location|example|facility|there|multiple|possible|present|simple|above|development|training|standard|version|session|conducting|recall|subsequently|at the end|public|cross|database|before|analysis|within|later|feedback|research|monitoring|those|statistical analysis|comparing|frequencies|estimate|squared|weighted|clusters|results|could|exact|forms|estimation|the local|significant|difference|third|every|until|radio|minor|the age|service|overall|target|surveys|future|likely|rapid|starting|promotion|press|increasing|observed|participation|small|identified|field|final|reduced|accepted|administration|estimates|millennium|along|agency|anita|1 million|progress|new york|group|global|canada|black|baker|tucker|reference|republic|gupta|s s|j k
+background|development|modern|however|about|global|efficiency|special|forms|context|resolution|quality|world|without|there|there is|available|list of|those|facility|version|sometimes|source|significant|projected|growing|partial|where|progress|monitoring|relevant|review|analysis|understanding|service|program|agency|international|network|surveys|identified|representative|outside|ministry|frame|searches|public|definition|contact|based|variable|while|examination|individual|second|critical|could|various|data analysis|least|having|central|solar|hours|given|further|statistical analysis|estimates|means|for each|overall|example|a type|simple|multiple|survey data|likely|results|studies|every|robust|district|the source|clearly|others|0 100|the sum|degree|besides|approximately|almost|comparison|secondary|along|third|almost all|typical|lines|future|at the end|periods|continued|measuring|baseline|three|important|rapid|parallel|revised|section|uniformly|the best|joint|impact|geographic|variables|optimal|night|changing|reflected|small|the way|scale|relative|parts|there are|institute|research|whereas|accounting|environmental|innovative|foundation|project|department|environment|early|session|action|collaboration|overview|reference|group|oxygen|treatment|columbia|university|journal|republic|training|paper|london|images
+introduction|research|important|typical|central|example|without|until|development|before|training|in general|based|early|short|dynamic|cause|analyzing|paper|monitoring|analysis|innovative|significant|progress|further|fields|overall|components|a set|computational|visual|feedback|signals|shown|figure 1|program|results|analog|digital|subject|estimate|resolution|cycle|employed|absolute|degree|schematic|diagram|environment|rotation|integrated|version|the software|functions|fast fourier|fast fourier transform|transform|calculations|section|experiment|least|could|target|reference|foundation|review|written|to do|intensity|available|scale|the work|while|every|adding|given|within|data analysis|surface|various|activity|median|squared|envelope|where|values|spectra|joint|amplitude|parameter|about|estimates|measuring|fractional|noise|false alarms|alarms|solution|work in|definition|there|filter|m k|length|averaging|shift|point|linear|varying|profile|figure 4|periods|repeating|above|comparing|figures|for each|individual|maximum|right|the light|heavy|whereas|there is|observed|group|the local|estimating|approximately|times|furthermore|time t|smaller|somewhat|difference|though|possible|mixing|reduced|counts|status|young|future|studies|plotting|final|comparison|quality|multiple|impact|groot|phillips|conditions|implications|phys|differential|jackson|j j|j c|preliminary|williams|effects|programme|m a|background|c p|field|p a
+introduction|rotating|disks|relevant|research|various|element|components|small|parts|perturbations|pressure|interaction|stationary|part of|cause|critical|dynamic|natural|frequencies|early|rotation|about|tobias|linear|plate|theory|further|reduced|magnitude|conditions|studies|for each|frame|could|difference|signals|boundary|boundary conditions|means|10 13|heavy|point|results|given|effects|considering|cheng|multiple|furthermore|the present|present|paper|sections|section|section 2|modeling|amplitude|comparison|concluding|section 5|the model|figure 1|coordinates|where|young|the material|surface|parameter|modes|discrepancy|values|shown|solution|fields|geometry|dependence|approximately|the method|slight|observed|the second|second|relative|increasing|changing|much more|short|field|coordinate|figure 4|otherwise|variable|work in|michigan|channel|lines|scheme|within|calibrated|resolution|without|length|every|maximum|detected|looking|analyzing|shift|reference|apart|possible|phases|estimate|upper|the way|important|comparing|matter|positions|almost|again|conclusion|notice|analysis|measuring|times|experiments|interesting|however|spanish|ministry|experimentation|ulrich|final|review|application|computational|background|huang|discs|centre|dynamical|ph d thesis|thesis|university|plates|joint|international|conference|november|francis|october|generating|phys|feedback|knudsen
+introduction|activity|amplitude|where|based|monitoring|rates|pressure|whereas|element|signals|three|hours|electronic|errors|noise|again|context|section|there|there are|analysis|linear|transform|example|the new|d d|the way|important|especially|components|without|reduction|reflected|final|world|william|human|digital|frequencies|filter|cross|a set|various|combined|technique|the best|paper|channel|averaging|techniques|the second|second|the details|third|entropy|standard|results|cross correlation|correlation function|changing|section 2|effects|section 5|problem|somewhat|research|shown|positions|reference|approximately|above|binary|starting|times|before|ascii|statistical analysis|processes|american|society|class|class i|the age|target|oxygen|schneider|ratio|internal|significant|dynamic|young|sometimes|berger|visual|gamma|increasing|clearly|further|special|periods|cause|intensity|high energy|within|source|embedded|estimate|quality|travel|sharp|environmental|conditions|location|figure 4|while|furthermore|values|for each|fast fourier|fast fourier transform|normalized|difference|varying|figures|however|estimation|the general|uniformly|having|others|sections|absolute|frame|distribution|adaptive|continued|until|functions|application|there is|given|studies|optimality|could|comparing|upper|counts|criterion|comparison|status|means|one of them|residual|notice|reduced|representative|figure 17|right|correlated|generating|relative|scale|phases|those|almost|all of the above|smaller|parts|property|simple|acknowledgments|department|thanks|thanks to|comments|about|part of|revised|p s|t j|united states|states|davidson|huang|m a|stewart|c r|treatment|zhang|international|symposium|joint|evolution|comparisons|conference|williams|oxford|oxford university|university|optimal|dynamical|measuring|least|squares|network|environment|chatterjee|correlations|phys|moore|j c|series|klein
+introduction|the present|present|while|diffuse|distribution|deeper|studies|small|important|processes|within|upper|human|frequencies|intensity|observed|central|possible|field|dynamic|reduced|the spot|before|based|adaptive|mechanical|research|network|context|effects|comparison|fields|smaller|faculty|university|principles|sixteen|written|electronic|application|criterion|three|point|contact|journal|element|distributions|a a|b a|least|times|maximum|scaling|colour|schematic|reference|centre|surrounded|individual|surface|the middle|however|subject|could|frame|instead|20 minutes|measuring|profile|starting|increasing|temperature|calibrated|about|above|a set|again|dynamical|determination|scale|values|where|ratio|second|a series|series|pressure|envelope|for each|conditions|cycle|calculations|the model|except|results|statistical analysis|analysis|without|comparisons|significant|difference|standard|representation|correlated|shown|whereas|detected|parameter|despite|there|interaction|baseline|optimal|comparing|almost|figure 4|experiments|differential|relevant|rotation|reduction|black|in general|considering|functions|group|interesting|exposure|shift|sections|secondary|obviously|likely|various|region|further|probably|development|varying|modes|action|much more|example|treatment|matter|optimally|minor|slight|though|overall|quality|understanding|cross|implications|parts|thesis|submitted|martin|database|schneider|klein|early|department|modeling|release|discrimination|available|thompson|heidelberg|geometry|springer
+introduction|obviously|small|length|pressure|internal|critical|paper|further|relative|there|there is|submitted|standard|results|three|for each|smaller|upper|individual|figure 1|calibrated|figure 4|figures|visual|within|maximum|possible|again|despite|while|amplitude|group|there are|variables|those|where|right|mathematically|shown|standards|given|important|element|differential|times|silicon|profile|residual|regardless|examples|however|components|increasing|about|status|cause|likely|attitude|means|effects|above|impact|approximately|absolute|values|horizontal|conclusion|a major|the age|available|comparison|variable|review|conference|united kingdom|kingdom|meyer|young|rates|various|dynamics|technique|concepts|environment|camilo|implications|international
+introduction|opportunities|short|development|genome|the sum|there|there exists|otherwise|having|pipeline|length|today|however|techniques|rapid|quality|figure 1|region|errors|results|probability|research|the best|resolving|considering|fraction|resolution|based|especially|criterion|internal|computational|context|scheme|difference|significant|instead|partial|for each|final|ensemble|experiments|noise|furthermore|available|academic|overall|counts|before|the details|present|s s|where|assume|there are|as is|every|paper|the second|second|parameter|parallel|solution|efficiency|bloom|filter|values|ratio|third|shift|right|lines|optimal|basic|simple|interesting|relative|along|j k|estimates|d d|definition|element|bayesian|theory|given|words|a series|series|preliminary|multiple|linear|dependence|estimate|further|above|those|boundary|j j|parts|estimation|while|impact|public|rates|there is|reference|whereas|twenty|three|target|source|variable|comparison|intel|least|nonetheless|obviously|about|clearly|individual|version|shown|figure 4|distribution|robust|observed|effects|the box|estimating|without|in general|overhead|point|smaller|users|analysis|starting|recall|eventually|changing|approximately|varying|computing|part of|others|concluding|employed|could|hybrid|various|future|simultaneous|degree|the method|the research|k k|foundation|ministry|university|journal|martin|zhang|society|international|conference|walker|sciences|berger|bayesian analysis|springer|new york|press|cambridge|massachusetts|thomas|environmental|frank|database|huang|giant
+introduction|broad|absorption|narrow|activity|without|figure 1|oxygen|treatment|transition|subject|research|observed|significant|various|while|binary|there|there are|present|quality|temperature|solution|further|transform|spectra|spectrometer|electronic|solid|elemental|elemental analysis|analysis|vario|studies|plate|technique|three|where|plates|results|comparing|those|the peak|available|difference|important|determination|interaction|group|broad band|length|region|d d|starting|every|point|second|third|about|above|intensity|oxford|program|heavy|shown|surrounded|geometry|cambridge|future|figure 4|conclusion|spectroscopic|standard|theory|central|acknowledgments|university|centre|department|there is|paper|international|journal|sciences|action|metals|society|charles|zhang|j b|section|s s|relevant|version
+introduction|understanding|based|studies|without|however|there|there are|those|small|network|despite|development|research|effects|further|individual|approximately|there is|within|region|estimate|computational|modeling|application|three|vessels|length|the work|figure 1|the middle|solid|list of|version|pressure|boundary|boundary conditions|conditions|the model|going|experiments|smaller|examples|experiment|baseline|shown|where|results|right|having|central|internal|part of|the second|second|origins|cells|colour|reduced|figure 4|while|keeping|increasing|difference|figures|critical|whereas|could|3d model|adaptive|important|variable|optimal|interesting|example|third|differential|digital|series|observed|possible|multiple|geometry|context|human|varying|a major|except|images|given|resolution|significant|looking|the research|journal|university|scheme|prof|foundation|research council|charles|thomas|doherty|status|final|degree|review|morphology|artificial|wright|schneider
+Bucket[0]::-conservation(y,0,-1)->
+-exposure(y,0,-1)->
+-janusz(y,0,-1)->
+-majewski(y,0,-1)->
+-origins(y,0,-1)->
+-reanalysis(y,0,-1)->
+
+Bucket[1]::-bibliographical(y,0,-1)->
+-cosmological(y,0,-1)->
+-lucio(y,0,-1)->
+-luminous(n,0,-1)->infrared (n,0,-1) ->galaxies (y,0,-1) 
+-museum(y,0,-1)->
+-template(y,0,-1)->
+-we(n,0,-1)->fit (y,0,-1) 
+think (y,0,-1) 
+-winkler(y,0,-1)->
+
+Bucket[2]::-chenappady(y,0,-1)->
+-concannon(y,0,-1)->
+-growing(y,19,-1)->
+-having(y,27,-1)->
+-helou(y,0,-1)->
+-kennel(y,0,-1)->
+-moran(y,26,-1)->
+-norris(y,0,-1)->
+-on(n,0,-1)->top (y,0,-1) 
+-solution(y,0,-1)->
+
+Bucket[3]::-action(y,0,-1)->
+-impact(y,0,-1)->
+-kozai(y,0,-1)->mechanism (y,0,-1) 
+-magnitude(y,0,-1)->
+-marseille(y,0,-1)->
+-maximum(y,0,-1)->likelihood (y,0,-1) ->estimation (y,0,-1) 
+-mayer(y,0,-1)->
+-reproduction(y,0,-1)->
+-ruderman(n,0,22)->
+
+Bucket[4]::-elikkulam(y,0,-1)->
+-employed(y,0,-1)->
+-flannery(y,0,-1)->
+-jones(y,0,-1)->
+-stacked(y,0,-1)->
+-wallington(y,6,-1)->
+
+Bucket[5]::-cell(n,0,-1)->wall (y,0,-1) 
+-cordes(y,0,-1)->
+-february(y,0,-1)->2004 (y,0,-1) 
+2008 (y,0,-1) 
+-nagamine(y,0,-1)->
+-ronald(y,0,-1)->
+
+Bucket[6]::-a(n,14,-1)->a (y,14,-1) 
+correction (y,0,-1) 
+e (y,0,-1) 
+i (y,0,-1) 
+major (y,0,-1) 
+r (y,0,-1) 
+series (y,0,-1) 
+set (y,0,-1) 
+that (y,0,-1) 
+type (y,0,-1) 
+-lyman(y,12,-1)->continuum (y,0,-1) 
+limit (y,0,-1) 
+-studies(y,0,-1)->
+-today(y,0,-1)->
+
+Bucket[7]::-2000(n,0,-1)->s (y,0,-1) 
+-b(n,0,-1)->a (y,0,-1) 
+c (y,0,-1) 
+d (y,0,-1) 
+dalton (y,0,-1) 
+goldstein (y,0,-1) 
+k (y,0,-1) 
+-freitag(y,0,-1)->
+-independence(y,0,-1)->
+-log(n,26,-1)->d (y,0,-1) 
+p (y,26,-1) 
+-san(n,0,-1)->martin (y,0,-1) 
+-seyfert(n,0,-1)->galaxies (y,0,-1) 
+-type(n,21,-1)->2 (y,21,-1) 
+a (y,0,-1) 
+c (y,0,-1) 
+i (y,0,-1) 
+-williams(y,0,-1)->
+
+Bucket[8]::-30(n,16,-1)->40 (y,0,-1) 
+km (y,16,-1) 
+-c(n,0,-1)->p (y,0,-1) 
+r (y,0,-1) 
+-cyg(n,0,-1)->a (y,0,-1) 
+-nasa(n,0,-1)->goddard (n,0,-1) ->space (n,0,-1) ->flight (n,0,-1) ->center (y,0,-1) 
+
+Bucket[9]::-31(n,0,-1)->dec (y,0,-1) 
+-d(n,5,-1)->d (y,5,-1) 
+e (y,0,-1) 
+f (y,0,-1) 
+g (y,0,-1) 
+-departamento(y,0,-1)->
+-elizondo(y,0,-1)->
+-furlanetto(y,8,-1)->
+-lewis(y,0,-1)->
+-mclaughlin(y,0,-1)->
+-ongallur(n,0,8)->
+-papaloizou(y,0,-1)->
+-phases(y,0,-1)->
+-vengara(y,0,-1)->
+
+Bucket[10]::-amplitude(y,22,-1)->
+-e(n,0,-1)->101 (y,0,-1) 
+i (y,0,-1) 
+-extrasolar(n,0,-1)->planet (y,0,-1) 
+-forster(y,0,-1)->
+-india(y,0,-1)->today (y,0,-1) ->group (y,0,-1) 
+-kadavanthra(y,0,-1)->
+-malcolm(y,0,-1)->
+-opportunities(y,0,-1)->
+-undetected(y,0,-1)->
+-ventura(y,0,-1)->
+
+Bucket[11]::-alappuzha(y,26,-1)->
+-australia(n,15,-1)->telescope (y,13,-1) ->national (n,15,-1) ->facility (y,15,-1) 
+-backreaction(y,0,-1)->
+-computations(y,0,-1)->
+-friedman(y,0,-1)->
+-griffiths(y,6,-1)->
+-walker(y,0,-1)->
+
+Bucket[12]::-forms(y,0,-1)->
+-g(n,35,-1)->g (y,0,-1) 
+w (y,35,-1) 
+-ngc2841(y,0,-1)->
+-rehovot(y,0,-1)->
+-virgo(y,0,-1)->
+
+Bucket[13]::-h(n,0,-1)->m (y,0,-1) 
+r (y,0,-1) 
+t (y,0,-1) 
+-taotao(y,0,-1)->
+
+Bucket[14]::-baars(y,22,-1)->
+-eastman(y,0,-1)->
+-i(n,0,-1)->o (y,0,-1) 
+-israeli(y,0,-1)->
+-molnar(y,0,-1)->
+-quality(y,0,-1)->
+-shaded(y,0,-1)->
+-simultaneous(y,0,-1)->
+-thanks(y,14,-1)->to (y,0,-1) 
+
+Bucket[15]::-colloquium(y,0,-1)->
+-j(n,18,-1)->b (y,18,-1) 
+c (y,0,-1) 
+d (y,0,-1) 
+g (y,0,-1) 
+j (y,0,-1) 
+k (y,0,-1) 
+silk (y,0,-1) 
+smith (y,0,-1) 
+-lomb(n,0,-1)->periodogram (y,0,-1) 
+-optimizing(y,0,-1)->
+-palla(y,16,-1)->
+-programme(y,0,-1)->
+-renda(y,0,-1)->
+-simple(y,0,-1)->
+-statistically(y,0,-1)->
+
+Bucket[16]::-accounting(y,0,-1)->
+-dependence(y,0,-1)->
+-especially(y,0,-1)->
+-k(n,0,-1)->k (y,0,-1) 
+-lorella(y,0,-1)->
+-mountain(y,0,-1)->
+-poisson(n,0,-1)->distribution (y,0,-1) 
+process (y,0,-1) 
+processes (y,0,-1) 
+-statistics(n,0,19)->
+-sunyaev(y,0,-1)->
+
+Bucket[17]::-contact(y,0,-1)->
+-j2000(y,0,-1)->
+-koide(y,4,-1)->
+-l(n,0,-1)->size (y,0,-1) 
+-obviously(y,0,-1)->
+-redshifts(y,0,-1)->
+
+Bucket[18]::-astrophys(n,0,-1)->j (y,0,-1) 
+-asymptotic(y,34,-1)->giant (n,0,-1) ->branch (y,0,-1) 
+-balogh(y,0,-1)->
+-chamaeleon(y,0,-1)->
+-chapel(n,0,-1)->hill (y,0,-1) 
+-czech(n,0,-1)->republic (y,0,-1) 
+-m(n,39,-1)->a (y,0,-1) 
+davis (y,0,-1) 
+k (y,0,-1) 
+p (y,39,-1) 
+r (y,0,-1) 
+-matter(y,0,-1)->
+-reduction(y,0,-1)->
+
+Bucket[19]::-column(y,0,-1)->
+-fast(n,0,-1)->fourier (y,0,-1) ->transform (y,0,-1) 
+-galaxies(y,0,-1)->
+-hoopes(y,0,-1)->
+-kochi(y,0,-1)->
+-los(n,0,-1)->alamos (y,0,-1) 
+-n(n,6,-1)->1 (n,6,-1) ->1 (y,6,-1) 
+-papadakis(y,0,-1)->
+-photometric(y,0,-1)->
+-searches(y,0,-1)->
+
+Bucket[20]::-approximately(y,0,-1)->
+-casian(y,0,-1)->
+-corporate(y,0,-1)->
+-gilmore(y,0,-1)->
+-gorski(y,0,-1)->
+-o(n,0,-1)->star (y,0,-1) 
+-reference(y,0,-1)->
+-william(y,0,-1)->
+
+Bucket[21]::-bradstreet(y,0,-1)->
+-graham(y,0,-1)->
+-kerala(y,0,-1)->
+-nakamura(y,0,-1)->
+-p(n,38,-1)->a (y,0,-1) 
+cygni (y,0,-1) 
+e (y,0,-1) 
+o (n,0,-1) ->box (y,0,-1) 
+r (y,38,-1) 
+s (y,0,-1) 
+-rotation(y,0,-1)->
+-simbad(y,0,-1)->
+-subject(y,0,-1)->
+-venkatesan(y,35,-1)->
+
+Bucket[22]::-abadi(y,0,-1)->
+-cosmologie(y,0,-1)->
+-jeans(y,0,-1)->
+-nascimento(y,0,-1)->
+-panagia(y,0,-1)->
+-profile(y,14,-1)->
+-schematic(y,0,-1)->
+-submitted(y,0,-1)->
+
+Bucket[23]::-analog(y,0,-1)->
+-dynamical(y,0,-1)->
+-freytag(y,0,-1)->
+-jenkins(y,0,-1)->
+-mauna(y,0,-1)->
+-r(n,0,-1)->p (n,0,-1) ->feynman (y,0,-1) 
+t (y,0,-1) 
+
+Bucket[24]::-asymmetries(y,0,-1)->
+-barger(y,0,-1)->
+-cells(y,0,-1)->
+-component(n,0,34)->
+-determination(y,0,-1)->
+-giant(y,0,-1)->
+-huang(y,22,-1)->
+-lister(y,27,-1)->
+-markus(y,0,-1)->
+-postal(y,0,-1)->
+-representation(y,0,-1)->
+-s(n,0,-1)->s (y,0,-1) 
+wilson (y,0,-1) 
+-shear(y,0,-1)->
+-stereoscopic(y,0,-1)->
+-type1(y,17,-1)->
+-weinberg(y,0,-1)->
+-werner(y,0,-1)->
+
+Bucket[25]::-40000(y,0,-1)->
+-arizona(y,0,-1)->
+-earth(y,0,-1)->
+-indiana(y,0,-1)->
+-lagrangian(n,0,-1)->coordinates (y,0,-1) 
+-t(n,0,-1)->c (y,0,-1) 
+dwarf (y,0,-1) 
+j (y,0,-1) 
+r (y,0,-1) 
+-type2(y,0,-1)->
+-visual(y,0,-1)->inspection (y,0,-1) 
+
+Bucket[26]::-airy(n,0,-1)->function (y,0,-1) 
+-discrepancy(y,0,-1)->
+-efficiency(y,30,-1)->
+-petrosian(y,0,-1)->
+-u(n,0,-1)->s (n,0,-1) ->dept (n,0,-1) ->of (n,0,-1) ->energy (y,0,-1) 
+
+Bucket[27]::-alencar(y,0,-1)->
+-arthur(y,0,-1)->
+-gilroy(y,0,-1)->
+-images(y,0,-1)->
+-mathewson(y,20,-1)->
+-periods(y,0,-1)->
+-pipeline(y,0,-1)->
+-scalar(y,0,-1)->
+-scatter(y,0,-1)->
+-stairs(y,0,-1)->
+-steinhardt(y,0,-1)->
+-truelove(y,0,-1)->
+-v(n,0,-1)->band (y,0,-1) 
+w (y,0,-1) 
+-zacharias(y,0,-1)->
+
+Bucket[28]::-agency(y,0,-1)->
+-ashby(y,26,-1)->
+-berger(y,0,-1)->
+-could(y,0,-1)->
+-danish(y,0,-1)->national (n,0,-1) ->space (n,0,-1) ->center (y,0,-1) 
+-russia(y,0,-1)->
+-scharf(y,0,-1)->
+-w(n,0,-1)->m (n,0,-1) ->keck (y,0,-1) 
+-yonsei(y,0,-1)->
+
+Bucket[29]::-centroid(y,0,-1)->
+-geach(y,0,-1)->
+-ph(n,0,-1)->d (n,0,-1) ->thesis (y,0,-1) 
+-wolf(n,0,-1)->et (y,0,-1) 
+-x(n,0,-1)->parameter (y,0,-1) 
+
+Bucket[30]::-crider(y,0,-1)->
+-functions(y,0,-1)->
+-george(y,0,-1)->abell (y,0,-1) 
+-location(y,0,-1)->
+-mello(y,0,-1)->
+-residual(y,0,-1)->
+-techniques(y,0,-1)->
+-theoretically(y,0,-1)->
+-turbulence(y,19,-1)->model (y,0,-1) 
+
+Bucket[31]::-barnard(y,0,-1)->
+-coventry(y,0,-1)->
+-lindblad(y,0,-1)->resonance (y,0,-1) 
+-two(n,24,-1)->micron (n,24,-1) ->all (n,24,-1) ->sky (n,24,-1) ->survey (y,24,-1) 
+-weatherley(y,0,-1)->
+
+Bucket[32]::-finger(y,0,-1)->
+-gould(y,0,-1)->
+-grb(n,0,-1)->980425 (y,0,-1) 
+-hardcastle(y,0,-1)->
+-journal(y,0,-1)->
+-mccarthy(y,0,-1)->
+-propulsion(y,0,-1)->
+
+Bucket[33]::-cameras(y,0,-1)->
+-kapteyn(y,0,-1)->
+-kitt(n,0,-1)->peak (y,0,-1) ->national (y,0,-1) 
+-reduced(y,0,-1)->
+-remillard(y,21,-1)->
+-schmitt(y,0,-1)->
+-tucson(y,0,-1)->
+
+Bucket[34]::-38200(y,0,-1)->
+-dominion(y,0,-1)->
+-early(y,0,-1)->
+-heavy(y,0,-1)->
+-internal(y,0,-1)->
+-mulakkuzha(y,0,-1)->
+-sloan(n,0,-1)->digital (n,0,-1) ->sky (n,0,-1) ->survey (y,0,-1) 
+research (n,0,-1) ->fellow (y,0,-1) 
+-stadel(y,0,-1)->
+
+Bucket[35]::-cosmic(y,0,-1)->microwave (n,0,-1) ->background (y,0,-1) 
+-flight(y,0,-1)->
+-general(n,0,-1)->relativity (y,0,-1) 
+-kanathur(y,0,-1)->
+-lucile(y,0,-1)->
+-nicolaus(y,0,-1)->
+-november(y,0,-1)->
+-wolff(y,0,-1)->
+
+Bucket[36]::-changing(y,29,-1)->
+-chaplin(y,0,-1)->
+-jacob(y,2,-1)->
+-johnson(y,0,-1)->
+-lundgren(y,0,-1)->
+-parikh(y,27,-1)->
+-villasenor(y,0,-1)->
+
+Bucket[37]::-abell(n,0,-1)->clusters (y,0,-1) 
+-feige(y,0,-1)->
+-further(y,0,-1)->
+-interaction(y,4,-1)->
+-kazuhisa(y,0,-1)->
+
+Bucket[38]::-centre(y,0,-1)->for (n,0,-1) ->digital (n,0,-1) ->media (y,0,-1) 
+-clump(n,0,21)->
+-cooperative(y,0,-1)->
+-dennis(y,0,-1)->
+-ellipses(y,0,-1)->
+-gupta(y,0,-1)->
+-ibata(y,0,-1)->
+-isaac(y,0,-1)->
+-kelly(y,0,-1)->d (y,0,-1) 
+-pointer(y,0,-1)->
+-relevant(y,16,-1)->
+-scarlets(y,0,-1)->
+-scientific(n,0,-1)->research (y,0,-1) 
+-the(n,38,-1)->1 (n,0,30) 
+2nd (y,0,-1) 
+8 (y,0,-1) 
+age (y,0,-1) 
+background (y,0,-1) 
+bar (y,0,-1) 
+best (y,0,-1) 
+box (y,0,-1) 
+clear (y,0,-1) 
+core (y,0,-1) 
+crab (y,0,-1) 
+design (y,32,-1) 
+details (y,0,-1) 
+dip (y,0,-1) 
+drag (y,0,-1) 
+drop (y,0,-1) 
+faint (y,26,-1) 
+gc (y,0,-1) 
+general (y,0,-1) 
+hidden (y,0,-1) 
+host (y,0,-1) 
+hundreds (y,11,-1) 
+joint (y,0,-1) 
+klf (y,0,-1) 
+lbg (y,0,-1) 
+light (y,0,-1) 
+local (y,0,-1) ->group (y,0,-1) 
+material (y,0,-1) 
+method (y,0,-1) 
+middle (y,0,-1) 
+model (y,3,-1) 
+netherlands (y,0,-1) 
+new (y,0,-1) 
+novel (y,14,-1) 
+ohio (y,0,-1) 
+one (y,0,-1) 
+only (n,0,-1) ->exception (y,0,-1) 
+orion (y,0,-1) 
+peak (y,0,-1) 
+present (y,0,-1) 
+research (y,0,-1) 
+second (y,0,-1) 
+software (y,0,-1) 
+source (y,0,-1) 
+space (y,0,-1) 
+spearman (y,0,-1) 
+spot (y,0,-1) 
+sum (y,0,-1) 
+swift (y,0,-1) 
+times (y,38,-1) ->of (n,14,-1) ->india (y,14,-1) 
+trend (y,0,-1) 
+us (y,0,-1) 
+v (y,0,-1) 
+volume (y,0,-1) 
+way (y,0,-1) 
+wind (y,0,-1) 
+work (y,0,-1) 
+-trapezium(y,0,-1)->
+
+Bucket[39]::-carlberg(y,0,-1)->
+-dark(n,0,-1)->matter (y,0,-1) 
+-guinan(y,0,-1)->
+-hybrid(y,0,-1)->
+-plummer(y,0,-1)->model (y,0,-1) 
+-postman(y,0,-1)->
+-somerville(y,0,-1)->
+-wfpc2(y,0,-1)->
+
+Bucket[40]::-1200(n,0,-1)->s (y,0,-1) 
+-bacon(y,0,-1)->
+-galactocentric(n,0,12)->distance (n,0,12) 
+-hopman(y,0,-1)->
+-keeping(y,0,-1)->
+-nicastro(y,0,-1)->
+-rankin(y,0,-1)->
+-rockwell(y,0,-1)->
+-vla(n,0,-1)->2 (y,0,-1) 
+4 (y,0,-1) 
+
+Bucket[41]::-carpenter(y,0,-1)->california (y,0,-1) 
+-cliff(y,0,-1)->
+-cosmosomas(y,0,-1)->
+
+Bucket[42]::-beasley(y,0,-1)->
+-correlated(y,0,-1)->
+-roeland(y,0,-1)->
+-statistical(n,0,-1)->analysis (y,0,-1) 
+-tauri(y,4,-1)->
+-ulmer(y,0,-1)->
+
+Bucket[43]::-administration(y,0,-1)->
+-blondin(y,0,-1)->
+-cristiani(y,36,-1)->
+-eisner(y,0,-1)->
+-kippenhahn(y,0,-1)->
+-kotani(y,0,-1)->
+-metals(y,19,-1)->
+
+Bucket[44]::-academic(y,0,-1)->
+-af(n,0,-1)->and (y,0,-1) 
+-changanassery(y,0,-1)->
+-frampton(y,16,-1)->
+-integrated(y,0,-1)->
+-japanese(y,0,-1)->
+-student(y,0,-1)->
+
+Bucket[45]::-blackford(y,0,-1)->
+-graves(y,0,-1)->
+-instead(y,0,-1)->
+-kaviraj(y,0,-1)->
+-lebrun(y,0,-1)->
+-madau(y,0,-1)->
+-supernovae(y,0,-1)->
+-timing(y,0,-1)->analysis (y,0,-1) 
+
+Bucket[46]::-cedex(y,0,-1)->
+-continued(y,0,-1)->
+-gauge(y,0,-1)->
+-harris(y,0,-1)->
+-heggie(y,0,-1)->
+-zeilinger(y,0,-1)->
+
+Bucket[47]::-21st(n,0,-1)->century (y,0,-1) 
+-agb(n,0,-1)->star (y,0,-1) 
+-andre(y,0,-1)->
+-bonnell(y,0,-1)->
+-ccd(n,0,-1)->camera (y,0,-1) 
+imaging (y,0,-1) 
+-declination(y,0,-1)->
+-embedded(y,22,-1)->
+-final(y,0,-1)->
+-hilbert(y,0,-1)->
+-horizontal(y,1,-1)->
+-likely(y,0,-1)->
+-narayan(y,35,-1)->
+-squaring(y,0,-1)->
+-stutz(y,0,-1)->
+-termination(n,0,-1)->shock (y,0,-1) 
+
+Bucket[48]::-47(n,14,-1)->tuc (y,14,-1) 
+-calibrated(y,0,-1)->
+-cline(y,0,-1)->
+-colbert(y,0,-1)->
+-donley(y,0,-1)->
+-groot(y,0,-1)->
+-int(n,0,-1)->j (n,0,-1) ->mod (n,0,-1) ->phys (n,0,-1) ->d (y,0,-1) 
+-isophote(n,0,27)->
+-software(n,0,32)->
+-vechoochira(n,0,35)->
+
+Bucket[49]::-asian(n,0,-1)->countries (y,0,-1) 
+-bazan(y,0,-1)->
+-biggs(y,0,-1)->
+-meurs(y,0,-1)->
+-pittsburgh(y,0,-1)->
+-rising(n,0,30)->
+-scholar(y,0,-1)->
+-starting(y,0,-1)->
+-until(y,0,-1)->
+
+Bucket[50]::-al(n,0,-1)->in (y,0,-1) 
+-analyzing(y,0,-1)->
+-baade(y,0,-1)->
+-barrow(y,0,-1)->
+-graduate(y,0,-1)->student (y,0,-1) 
+-imacs(y,0,-1)->
+-ostrov(y,0,-1)->
+-perugia(y,0,-1)->
+
+Bucket[51]::-alfred(n,0,-1)->p (n,0,-1) ->sloan (y,0,-1) ->research (n,0,-1) ->fellowship (y,0,-1) 
+-butler(y,0,-1)->
+-conducting(y,0,-1)->
+-marchant(y,0,-1)->
+-october(y,0,-1)->2002 (y,0,-1) 
+
+Bucket[52]::-balachandran(y,0,-1)->
+-estimates(y,0,-1)->
+-flanders(y,13,-1)->
+-france(n,0,-1)->2 (y,0,-1) 
+4 (y,0,-1) 
+-kamata(y,0,-1)->
+-mathematically(y,0,-1)->
+-relic(y,0,-1)->
+-scheuer(y,0,-1)->
+-whereas(y,0,-1)->
+
+Bucket[53]::-long(n,0,-1)->baseline (n,0,-1) ->array (y,0,-1) 
+-nucleosynthesis(y,0,-1)->
+-rieke(y,0,-1)->
+
+Bucket[54]::-marel(y,0,-1)->
+-mutation(y,0,-1)->
+-ribas(y,0,-1)->
+-silicon(y,0,-1)->
+-structure(n,0,-1)->and (n,0,-1) ->dynamics (y,0,-1) 
+
+Bucket[55]::-caves(y,0,-1)->
+-colors(y,0,-1)->
+-donald(y,0,-1)->
+-jersey(y,0,-1)->
+-naval(y,0,-1)->observatory (y,0,-1) 
+-nedumbassery(y,0,-1)->
+-review(y,0,-1)->
+-rogers(y,0,-1)->
+
+Bucket[56]::-before(y,0,-1)->
+-colavita(y,0,-1)->
+-consortium(y,5,-1)->
+-full(n,0,-1)->spectrum (y,0,-1) 
+-furthermore(y,0,-1)->
+-homan(y,0,-1)->
+-slane(y,0,-1)->
+-south(y,0,-1)->galactic (n,0,-1) ->pole (y,0,-1) 
+
+Bucket[57]::-as(n,3,-1)->is (y,3,-1) 
+-baykal(y,0,-1)->
+-bazin(y,0,-1)->
+-caltech(y,15,-1)->
+-millimeter(y,37,-1)->
+-stacking(y,0,-1)->
+-states(y,0,-1)->
+-tanvir(y,0,-1)->
+
+Bucket[58]::-at(n,0,-1)->large (y,0,-1) 
+the (n,0,-1) ->end (y,0,-1) 
+-camilo(y,0,-1)->
+-considering(y,35,-1)->
+-environment(y,0,-1)->
+-gerin(y,0,-1)->
+-monoceros(n,0,-1)->ring (y,0,-1) 
+-others(y,0,-1)->
+-progress(y,0,-1)->
+-schneider(y,0,-1)->
+-squared(y,0,-1)->
+
+Bucket[59]::-enhanced(y,0,-1)->
+-markarian(y,0,-1)->
+-monolithic(y,0,-1)->
+-pedersen(y,0,-1)->
+-pino(n,0,-1)->torinese (y,0,-1) 
+-republic(y,0,-1)->
+-salim(y,0,-1)->
+-typical(y,14,-1)->
+
+Bucket[60]::-3d(n,0,-1)->model (y,0,-1) 
+models (y,0,-1) 
+-cowie(y,16,-1)->
+-in(n,0,-1)->general (y,0,-1) 
+passing (y,0,-1) 
+-kallar(y,0,-1)->
+-pulsar(y,0,-1)->wind (y,0,-1) 
+-stellar(n,0,-1)->evolution (y,0,-1) 
+structure (y,0,-1) 
+
+Bucket[61]::-apart(y,0,-1)->
+-curie(y,0,-1)->
+-dartmouth(y,14,-1)->college (y,4,-1) 
+-international(y,0,-1)->astronomical (n,0,-1) ->union (y,0,-1) 
+-later(y,14,-1)->
+-mcgill(y,0,-1)->
+-netzer(y,0,-1)->
+-paper(y,0,-1)->
+-zhang(y,0,-1)->
+
+Bucket[62]::-given(y,0,-1)->
+-hurley(y,0,-1)->
+-pressure(y,0,-1)->
+-schechter(y,25,-1)->
+-synoptic(y,0,-1)->
+-variables(y,0,-1)->
+
+Bucket[63]::-candles(y,0,-1)->
+-cartesian(y,0,-1)->coordinates (y,0,-1) 
+-durisen(y,0,-1)->
+-hii(n,0,-1)->regions (y,0,-1) 
+-kadungallur(y,0,-1)->
+-observed(y,0,-1)->
+-offsets(y,0,-1)->
+-sobolev(y,0,-1)->
+
+Bucket[64]::-jason(y,0,-1)->
+-oliva(y,0,-1)->
+-where(y,23,-1)->
+
+Bucket[65]::-daryl(y,0,-1)->
+-electron(y,0,-1)->microscope (y,0,-1) 
+microscopy (y,0,-1) 
+-maxim(y,0,-1)->
+-nakajima(y,0,-1)->
+-second(y,0,-1)->
+
+Bucket[66]::-black(y,26,-1)->holes (y,0,-1) 
+-borgne(y,0,-1)->
+-coloured(y,0,-1)->
+-contours(y,0,-1)->
+-errors(y,0,-1)->
+-lightcurve(y,0,-1)->
+-luciana(y,0,-1)->
+-lyrae(y,13,-1)->
+-maddox(y,0,-1)->
+
+Bucket[67]::-bekaert(y,0,-1)->
+-numerous(y,0,-1)->
+-poland(y,0,-1)->
+-sharp(y,0,-1)->
+-terashima(y,0,-1)->
+-vitense(y,0,-1)->
+
+Bucket[68]::-alloin(y,0,-1)->
+-bower(y,0,-1)->
+-calvet(y,24,-1)->
+-colgate(y,0,-1)->
+-ministry(y,18,-1)->of (n,0,-1) ->foreign (n,0,-1) ->affairs (y,0,-1) 
+-rates(y,0,-1)->
+-roger(y,0,-1)->davies (y,0,-1) 
+-sakamoto(y,0,-1)->
+-scattered(y,0,-1)->
+
+Bucket[69]::-american(y,0,-1)->museum (y,0,-1) 
+-cardelli(y,0,-1)->
+-high(n,0,-1)->energy (y,0,-1) ->astrophysics (n,0,-1) ->science (n,0,-1) ->archive (n,0,-1) ->research (n,0,-1) ->center (y,0,-1) 
+-however(y,0,-1)->
+-kollam(y,0,-1)->
+-las(n,0,-1)->campanas (y,0,-1) 
+-manimala(y,0,-1)->
+-observatory(y,0,-1)->
+-peebles(y,0,-1)->
+-turner(y,0,-1)->
+
+Bucket[70]::-available(y,0,-1)->
+-cailloux(y,0,-1)->
+-present(y,0,-1)->
+-probability(y,0,-1)->
+-vario(y,0,-1)->
+
+Bucket[71]::-calculations(y,0,-1)->
+-continuum(y,0,-1)->
+-correlation(n,0,-1)->function (y,0,-1) 
+-detected(y,0,-1)->
+-lupton(y,0,-1)->
+-pixel(y,0,-1)->
+-prompt(y,0,-1)->
+-solving(y,0,-1)->
+-thacker(y,0,-1)->
+
+Bucket[72]::-consultation(n,0,27)->
+-faust(y,0,-1)->
+-hillenbrand(y,0,-1)->
+-jet(n,0,-1)->propulsion (y,0,-1) 
+-lehmann(y,0,-1)->
+-magnier(y,0,-1)->
+-revolutionary(y,0,-1)->
+-s0(n,0,-1)->galaxy (y,0,-1) 
+-stelios(y,0,-1)->kazantzidis (y,0,-1) 
+-yuquan(y,0,-1)->
+
+Bucket[73]::-cosmologies(y,12,-1)->
+-drexel(y,0,-1)->
+-field(y,0,-1)->
+-komatsu(y,0,-1)->
+-martinet(y,0,-1)->
+-squares(y,0,-1)->
+-status(y,0,-1)->
+-thrissur(y,0,-1)->
+
+Bucket[74]::-donato(y,0,-1)->
+-excised(y,0,-1)->
+-goodman(y,0,-1)->
+-incumbent(y,0,-1)->
+-property(y,0,-1)->
+-spiderweb(y,0,-1)->
+-uniformly(y,0,-1)->
+
+Bucket[75]::-dirbe(y,0,-1)->
+-markoff(y,0,-1)->
+-technique(y,0,-1)->
+-version(y,0,-1)->
+
+Bucket[76]::-adding(y,0,-1)->
+-be(n,40,-1)->star (y,40,-1) 
+-detectability(y,0,-1)->
+-pisces(y,0,-1)->
+-steve(n,0,-1)->reynolds (y,0,-1) 
+-wiyn(n,0,-1)->observatory (y,0,-1) 
+-woodward(y,0,-1)->
+
+Bucket[77]::-akira(y,0,-1)->
+-diagrams(y,0,-1)->
+-ginzburg(y,0,-1)->
+-haynes(y,0,-1)->
+-massachusetts(y,0,-1)->
+-mayor(y,0,-1)->
+-observer(y,0,-1)->
+
+Bucket[78]::-institute(y,0,-1)->of (n,0,-1) ->technology (y,0,-1) 
+-kneib(y,0,-1)->
+-marconi(y,11,-1)->
+-padgett(y,0,-1)->
+-plates(y,0,-1)->
+-various(y,14,-1)->
+
+Bucket[79]::-kohoutek(y,0,-1)->
+-natur(y,0,-1)->
+-new(n,0,-1)->mexico (n,0,-1) ->state (y,0,-1) 
+york (y,0,-1) 
+-nuclear(n,0,-1)->physics (y,0,-1) 
+-okazaki(y,0,-1)->
+-polytechnique(y,0,-1)->
+-tau(n,0,-1)->a (y,0,-1) 
+-transformations(y,0,-1)->
+-wallerstein(y,20,-1)->
+
+Bucket[80]::-bernd(y,0,-1)->
+-comets(y,0,-1)->
+-critical(y,0,-1)->
+-flores(y,0,-1)->
+-frame(y,0,-1)->
+-gandhi(y,0,-1)->
+-hartman(y,0,-1)->
+-keegan(y,0,-1)->
+-martin(y,0,-1)->
+-pratt(y,24,-1)->
+-series(y,0,-1)->
+-slight(y,0,-1)->
+-twenty(y,10,-1)->
+-uv(n,17,-1)->light (y,0,-1) 
+spectra (y,0,-1) 
+spectrum (y,17,-1) 
+
+Bucket[81]::-allen(y,0,-1)->
+-brian(y,0,-1)->
+-chakrabarty(y,0,-1)->
+-dahlen(y,0,-1)->
+-geometry(y,0,-1)->
+-georges(y,0,-1)->
+-hidden(y,0,-1)->
+-implications(y,0,-1)->
+-kawasaki(y,0,-1)->
+-membership(y,0,-1)->
+-optical(n,4,-1)->gravitational (n,4,-1) ->lensing (n,4,-1) ->experiment (y,4,-1) 
+-sgr(n,35,-1)->a (y,35,-1) 
+-space(n,0,-1)->flight (y,0,-1) 
+telescope (y,0,-1) 
+-teplitz(y,0,-1)->
+-thomas(y,0,-1)->
+-umeda(y,0,-1)->
+-vazhappally(y,0,-1)->
+
+Bucket[82]::-bedding(y,0,-1)->
+-daugherty(y,0,-1)->
+-differential(y,0,-1)->
+-magellanic(y,0,-1)->cloud (y,0,-1) 
+-paola(y,0,-1)->
+-partial(y,0,-1)->
+-radial(n,0,-1)->velocities (y,0,-1) 
+velocity (y,0,-1) 
+
+Bucket[83]::-adaptive(y,0,-1)->
+-alighieri(y,0,-1)->
+-bl(n,0,-1)->lac (y,0,-1) ->objects (y,0,-1) 
+-carina(y,28,-1)->
+-comparisons(y,0,-1)->
+-elbaz(y,0,-1)->
+-frail(y,11,-1)->
+-gavriil(y,0,-1)->
+-pambadi(y,0,-1)->
+-patrick(y,0,-1)->
+-robert(n,0,-1)->brandenberger (y,0,-1) 
+m (y,0,-1) 
+-scuba(y,0,-1)->
+-travel(y,0,-1)->
+-tsujimoto(y,0,-1)->
+-tucker(y,0,-1)->
+-wachter(y,0,-1)->
+
+Bucket[84]::-contaminants(y,0,-1)->
+-criterion(y,0,-1)->
+-diamonds(y,0,-1)->
+-edited(y,0,-1)->
+-formation(n,0,-1)->flying (y,0,-1) 
+-fresnel(n,0,-1)->lens (y,0,-1) 
+-fundamental(y,4,-1)->
+-macomb(y,0,-1)->
+-magnetar(y,0,-1)->
+-malayalam(y,0,-1)->
+-medical(n,0,-1)->sciences (y,0,-1) 
+-pacific(n,0,-1)->conference (y,0,-1) 
+-perlman(y,0,-1)->
+-tripp(y,0,-1)->
+-velocity(n,0,-1)->dispersion (y,0,-1) 
+-vicinity(y,0,-1)->
+-walter(y,0,-1)->
+
+Bucket[85]::-0(n,0,-1)->100 (y,0,-1) 
+-aller(y,0,-1)->
+-arias(y,0,-1)->
+-binned(y,0,-1)->
+-combo(y,0,-1)->
+-cycle(y,0,-1)->
+-godfrey(y,0,-1)->louis (y,0,-1) 
+-hollenbach(y,0,-1)->
+-nandan(y,0,-1)->
+-palumbo(y,0,-1)->
+-puzhavathu(y,0,-1)->
+-short(y,0,-1)->
+-smaller(y,0,-1)->
+
+Bucket[86]::-1(n,0,-1)->meter (y,0,-1) 
+million (y,0,-1) 
+the (n,0,6) 
+-albite(y,0,-1)->
+-doing(y,0,-1)->
+-dphil(y,0,-1)->
+-global(y,0,-1)->
+-kuijken(y,0,-1)->
+-marquardt(y,0,-1)->
+-plotting(y,0,-1)->
+-ramakrishna(y,0,-1)->
+-relations(y,0,-1)->
+-scottish(y,0,-1)->
+-sigurdsson(y,0,-1)->
+-spitzer(y,0,-1)->
+-upstream(y,0,-1)->
+-wilner(y,0,-1)->
+-zurek(y,34,-1)->
+
+Bucket[87]::-2(n,0,-1)->4 (n,0,-1) ->6 (y,0,-1) 
+-clarke(y,0,-1)->
+-isobe(y,0,-1)->
+-katgert(y,0,-1)->
+-minerva(y,0,-1)->
+-neumann(y,0,-1)->
+-optics(y,0,-1)->
+-perturbations(y,0,-1)->
+
+Bucket[88]::-3(n,34,-1)->weeks (y,34,-1) 
+-asinh(y,0,-1)->
+-balmer(n,0,-1)->line (y,0,-1) 
+lines (y,0,-1) 
+-caution(y,19,-1)->
+-filippo(y,0,-1)->
+-garnavich(y,0,-1)->
+-great(n,0,-1)->observatories (n,0,-1) ->origins (n,0,-1) ->deep (n,0,-1) ->survey (y,0,-1) 
+-hess(n,0,-1)->diagram (y,0,-1) 
+-instituto(n,0,-1)->nacional (y,0,-1) 
+-karuvatta(y,0,-1)->
+-looking(y,0,-1)->
+-merrit(y,19,-1)->
+-recall(y,0,-1)->
+-within(y,0,-1)->
+
+Bucket[89]::-australian(y,0,-1)->
+-chilean(y,0,-1)->
+-cochin(y,0,-1)->
+-coincidence(y,12,-1)->
+-department(y,0,-1)->of (n,0,-1) ->energy (y,0,-1) 
+-dwarf(y,6,-1)->
+-friedmann(y,0,-1)->equation (y,0,-1) 
+universe (y,0,-1) 
+-going(y,0,-1)->
+-grange(y,0,-1)->
+-kerr(n,0,-1)->metric (y,0,-1) 
+-lightman(y,0,-1)->
+-lindsay(y,0,-1)->
+-pacini(y,0,-1)->
+-resolution(y,0,-1)->
+-sargent(y,0,-1)->
+-strange(y,0,-1)->
+-subsequently(y,0,-1)->
+
+Bucket[90]::-5(n,0,-1)->6 (n,0,-1) ->7 (n,0,-1) ->8 (y,0,-1) 
+-adoor(y,0,-1)->
+-analytic(y,0,-1)->
+-database(y,0,-1)->
+-emeric(y,0,-1)->
+-exact(y,0,-1)->
+-gravitational(n,0,-1)->wave (y,0,-1) 
+-mergers(y,0,-1)->
+-normalized(y,26,-1)->
+-occupation(y,0,-1)->
+-overall(y,0,-1)->
+-section(y,0,-1)->2 (y,0,-1) 
+5 (y,0,-1) 
+-wavelength(y,0,-1)->
+-wolfgang(y,0,-1)->
+-wright(y,0,-1)->
+
+Bucket[91]::-class(y,0,-1)->i (y,0,-1) 
+quant (n,0,-1) ->grav (y,0,-1) 
+-computing(y,0,-1)->
+-doppler(n,0,-1)->boosting (y,0,-1) 
+-fraction(y,0,-1)->
+-koerner(y,38,-1)->
+-optimal(y,0,-1)->
+-tokyo(y,0,-1)->
+
+Bucket[92]::-7(n,0,-1)->8 (n,0,-1) ->9 (y,0,-1) 
+-achterberg(y,0,-1)->
+-astron(n,0,-1)->astrophys (y,0,-1) 
+lett (y,0,-1) 
+-coevolution(y,0,-1)->
+-contursi(n,0,14)->
+-cyclic(y,0,-1)->
+-december(n,0,-1)->10 (y,0,-1) 
+2005 (y,0,-1) 
+-fields(n,0,38)->
+-latham(y,0,-1)->
+-lausanne(y,0,-1)->
+-overview(y,0,-1)->
+-ponkunnam(y,0,-1)->
+-processes(y,0,-1)->
+-sverre(n,0,12)->aarseth (y,0,-1) 
+-telescopes(y,0,-1)->
+-valenzuela(y,0,-1)->
+
+Bucket[93]::-5000s(y,0,-1)->
+-alexei(y,0,-1)->
+-conference(y,0,-1)->
+-convection(y,0,-1)->
+-crawford(y,0,-1)->
+-dynamics(y,0,-1)->
+-faculty(y,17,-1)->
+-finder(n,0,21)->
+-galactic(y,0,-1)->center (y,0,-1) 
+centre (y,0,-1) 
+coordinates (y,0,-1) 
+disc (y,0,-1) 
+halo (y,0,-1) 
+plane (y,0,-1) 
+pole (y,0,-1) 
+-globular(y,0,-1)->
+-haller(n,0,16)->
+-hydra(y,0,-1)->
+-light(n,0,11)->curve (y,0,-1) 
+curves (y,0,-1) 
+-malhotra(y,0,-1)->
+-ouchi(y,0,-1)->
+-physique(y,0,-1)->
+-poynting(n,0,-1)->flux (y,0,-1) 
+-program(y,0,-1)->
+-ranni(y,0,-1)->
+-three(y,0,-1)->
+
+Bucket[94]::-accepted(y,0,-1)->
+-all(n,0,-1)->of (n,0,-1) ->the (n,0,-1) ->above (y,0,-1) 
+that (y,0,-1) 
+-bloom(y,0,-1)->
+-channel(y,0,-1)->
+-chris(y,11,-1)->wolf (y,0,-1) 
+-ellis(y,0,-1)->
+-heliocentric(y,0,-1)->
+-lupus(y,0,-1)->
+-mathews(y,0,-1)->
+-miralles(y,0,-1)->
+-principles(y,0,-1)->
+-redshift(n,0,35)->survey (n,0,35) 
+-small(y,0,-1)->
+
+Bucket[95]::-bartel(y,0,-1)->
+-courvoisier(y,0,-1)->
+-data(n,0,-1)->analysis (y,0,-1) 
+processing (y,0,-1) 
+-glass(y,0,-1)->
+-hagai(y,0,-1)->
+-january(y,39,-1)->10 (y,0,-1) 
+2001 (y,14,-1) 
+2006 (y,0,-1) 
+-matthew(y,0,-1)->
+-mavila(y,0,-1)->
+-millennium(y,0,-1)->
+-night(y,0,-1)->
+-otherwise(y,0,-1)->
+-raymond(y,24,-1)->
+-ryo(n,0,-1)->shibata (y,0,-1) 
+-salmonson(y,0,-1)->
+-tokunaga(y,0,-1)->
+
+Bucket[96]::-about(y,0,-1)->
+-adv(n,19,-1)->space (n,19,-1) ->res (y,19,-1) 
+-cerro(y,14,-1)->
+-comparison(y,0,-1)->
+-dance(y,0,-1)->
+-gaussian(n,0,-1)->distributions (y,0,-1) 
+function (y,0,-1) 
+kernel (y,0,-1) 
+noise (y,0,-1) 
+processes (y,0,-1) 
+-glast(n,0,14)->
+-joachim(y,0,-1)->
+-keplerian(n,0,19)->
+-linear(y,0,-1)->factor (y,0,-1) 
+-meisenheimer(y,0,-1)->
+-pattithanam(y,0,-1)->
+-philippe(y,0,-1)->
+-phoenix(y,0,-1)->
+-redefining(y,0,-1)->
+-sitter(y,0,-1)->
+-solver(y,0,-1)->
+-weisskopf(y,0,-1)->
+
+Bucket[97]::-2df(n,0,-1)->galaxy (n,0,-1) ->redshift (n,0,-1) ->survey (y,0,-1) 
+-curr(n,0,-1)->sci (y,0,-1) 
+-fourier(n,0,-1)->analysis (y,0,-1) 
+-gelato(y,0,-1)->
+-heisenberg(y,0,-1)->uncertainty (y,0,-1) 
+-list(n,0,-1)->of (y,0,-1) 
+-mcmaster(y,11,-1)->
+-penrose(n,0,-1)->diagram (y,0,-1) 
+-relative(y,0,-1)->
+-sculptor(y,0,-1)->
+
+Bucket[98]::-atomic(y,0,-1)->
+-conti(y,0,-1)->
+-extension(y,0,-1)->
+-fernandez(y,0,-1)->
+-harding(y,0,-1)->
+-harker(y,0,-1)->
+-luminosity(y,0,-1)->
+-mystery(y,0,-1)->
+-no(n,0,-1)->4 (y,0,-1) 
+-photos(y,0,-1)->
+-richard(y,0,-1)->ellis (y,0,-1) 
+-soderberg(y,0,-1)->
+-wechsler(y,0,-1)->
+
+Bucket[99]::-broadhurst(y,3,-1)->
+-cambridge(y,0,-1)->university (y,0,-1) 
+-digital(y,0,-1)->media (y,0,-1) 
+-dispersive(y,0,-1)->
+-jordan(n,0,-1)->frame (y,0,-1) 
+-keck(n,0,-1)->interferometer (y,0,-1) 
+observatory (y,0,-1) 
+-lehner(y,0,-1)->
+-merate(y,0,-1)->
+-right(y,0,-1)->
+-robertson(y,0,-1)->
+-takano(y,40,-1)->
+-tolstoy(y,0,-1)->
+
+Bucket[100]::-30th(n,0,-1)->july (y,0,-1) 
+-absolute(y,0,-1)->
+-based(y,0,-1)->
+-besides(y,0,-1)->
+-bulletin(n,0,4)->
+-collisions(y,0,-1)->
+-concepts(y,0,-1)->
+-repeating(y,0,-1)->
+-roques(y,0,-1)->
+-witzel(y,0,-1)->
+
+Bucket[101]::-alarms(y,0,-1)->
+-astropart(n,0,-1)->phys (y,0,-1) 
+-barret(y,0,-1)->
+-barry(y,0,-1)->
+-cassegrain(y,13,-1)->
+-compton(n,0,-1)->scattering (y,0,-1) 
+-density(n,7,-1)->estimation (y,7,-1) 
+-dutra(y,0,-1)->
+-effects(y,0,-1)->
+-numerical(n,0,-1)->recipes (y,0,-1) 
+-petre(y,0,-1)->
+-projected(y,30,-1)->
+-quasars(y,0,-1)->
+-tawara(y,0,-1)->
+-test(n,0,-1)->particle (y,0,-1) 
+particles (y,0,-1) 
+-truly(y,0,-1)->
+-varying(y,0,-1)->
+
+Bucket[102]::-absorption(y,6,-1)->line (y,0,-1) 
+spectra (y,0,-1) 
+-dorman(y,0,-1)->
+-elson(y,0,-1)->
+-fegan(y,0,-1)->
+-idukki(y,0,-1)->
+-isabelle(y,0,-1)->
+-kulkarni(y,0,-1)->
+-larkin(y,0,-1)->
+-luyten(y,0,-1)->
+-magellan(y,0,-1)->telescopes (y,0,-1) 
+-magnano(y,0,-1)->
+-negroponte(y,0,-1)->
+-ns(n,19,-1)->10 (y,19,-1) 
+-parameter(y,0,-1)->
+-possible(y,0,-1)->
+-release(y,0,-1)->
+-scaling(y,0,-1)->
+-spectroscopic(y,0,-1)->
+-stanford(y,0,-1)->
+-zaritsky(y,0,-1)->
+
+Bucket[103]::-20(n,0,-1)->30 (n,0,-1) ->40 (y,0,-1) 
+km (y,0,-1) 
+minutes (y,0,-1) 
+-apache(n,0,-1)->point (n,0,-1) ->observatory (y,0,-1) 
+-basic(y,0,-1)->
+-charles(y,0,-1)->
+-computers(y,0,-1)->
+-edison(y,0,-1)->
+-introduction(y,0,-1)->
+-ishimaru(y,0,-1)->
+-italian(y,0,-1)->
+-koyama(y,0,-1)->
+-mcdonald(y,0,-1)->
+-moore(y,0,-1)->
+-tobias(y,0,-1)->
+-windhorst(y,0,-1)->
+
+Bucket[104]::-cappellaro(y,0,-1)->
+-galama(y,0,-1)->
+-gamma(y,0,-1)->
+-garching(y,0,-1)->
+-increasing(y,0,-1)->
+-innovative(y,9,-1)->
+-julian(y,0,-1)->
+-kotta(y,0,-1)->
+-monte(n,7,-1)->carlo (n,0,-1) ->simulations (y,0,-1) 
+porzio (y,7,-1) ->catone (y,0,-1) 
+-programming(n,0,3)->
+-those(y,0,-1)->
+-work(n,0,-1)->in (y,0,-1) 
+
+Bucket[105]::-22(n,0,-1)->november (y,0,-1) 
+-anthikad(y,0,-1)->
+-bertin(y,0,-1)->
+-etzel(y,6,-1)->
+-gibbons(y,0,-1)->
+-halo(n,0,-1)->3 (n,0,34) 
+5 (y,0,-1) 
+9 (y,0,-1) 
+-joint(y,0,-1)->
+-phys(y,0,-1)->lett (n,0,-1) ->a (y,0,-1) 
+rev (y,0,-1) ->a (y,0,-1) 
+->lett (y,0,-1) 
+-puthuppadi(y,0,-1)->
+-rr(n,0,-1)->lyr (y,0,-1) 
+-swank(y,0,-1)->
+
+Bucket[106]::-baker(y,0,-1)->
+-belloni(y,0,-1)->
+-benson(y,0,-1)->
+-binney(y,0,-1)->
+-cawley(y,0,-1)->
+-chile(y,0,-1)->
+-cocke(y,0,-1)->
+-falco(y,0,-1)->
+-mechanical(y,0,-1)->
+-modern(y,0,-1)->physics (y,0,-1) 
+-nacional(y,0,-1)->
+-relaxed(y,0,-1)->
+-smith(y,0,-1)->
+-thielemann(y,0,-1)->
+-vessels(y,0,-1)->
+
+Bucket[107]::-astrophysical(n,0,-1)->research (n,0,-1) ->consortium (y,0,-1) 
+-cornwell(y,0,-1)->
+-district(y,0,-1)->
+-galaxy(n,0,-1)->3 (y,0,-1) 
+class (y,0,-1) 
+clusters (y,0,-1) 
+collisions (y,0,-1) 
+-ginga(y,0,-1)->
+-gravity(n,28,-1)->waves (y,28,-1) 
+-herwig(y,0,-1)->
+-legendre(y,6,-1)->polynomial (y,6,-1) 
+-monitoring(y,30,-1)->
+-oguri(y,0,-1)->
+-parkes(y,0,-1)->
+-squeezed(y,0,-1)->
+-variable(y,0,-1)->
+
+Bucket[108]::-1420(n,0,-1)->mhz (y,0,-1) 
+-25(n,0,-1)->km (y,0,-1) 
+-brand(y,0,-1)->
+-eslab(y,0,-1)->
+-gallagher(y,0,-1)->
+-pleiades(y,0,-1)->
+-quartz(y,0,-1)->
+-riello(y,0,-1)->
+-schlegel(y,0,-1)->
+-target(y,0,-1)->
+
+Bucket[109]::-aperture(y,2,-1)->
+-armus(y,0,-1)->
+-atacama(y,0,-1)->large (n,0,-1) ->millimeter (n,0,-1) ->array (y,0,-1) 
+-chiara(y,0,-1)->
+-coordinate(y,0,-1)->
+-cospar(y,26,-1)->
+-cpu(n,0,-1)->time (y,0,-1) 
+-electronic(y,0,-1)->
+-kitamoto(y,0,-1)->
+-kozhikode(y,0,-1)->
+-lyot(n,0,-1)->stop (y,0,-1) 
+-nonetheless(y,0,-1)->
+-observatories(y,0,-1)->
+-positions(y,0,-1)->
+-puthuppally(y,0,-1)->
+-rotating(y,0,-1)->
+-schweitzer(y,0,-1)->
+-secondary(y,0,-1)->
+-stevens(y,0,-1)->
+-tektronix(y,0,-1)->
+-thomson(n,0,-1)->scattering (y,0,-1) 
+-wegner(y,0,-1)->
+-world(y,0,-1)->
+
+Bucket[110]::-camera(y,0,-1)->
+-communications(y,0,-1)->
+-crane(y,0,-1)->
+-energetics(y,0,-1)->
+-eventually(y,0,-1)->
+-gilbert(y,0,-1)->
+-goldstein(y,12,-1)->
+-harippad(y,0,-1)->
+-individual(y,0,-1)->
+-irwin(y,0,-1)->
+-kormendy(y,0,-1)->
+-monaghan(y,0,-1)->
+-motions(y,0,-1)->
+-nagar(y,0,-1)->
+-spada(y,0,-1)->
+-travaglio(y,0,-1)->
+-united(n,0,-1)->kingdom (y,0,-1) 
+states (y,0,-1) 
+-vries(y,0,-1)->
+
+Bucket[111]::-bouchet(y,3,-1)->
+-carraro(y,0,-1)->
+-contour(y,0,-1)->
+-edwards(y,0,-1)->
+-element(y,0,-1)->
+-five(n,19,-1)->hundred (y,19,-1) 
+-london(y,0,-1)->
+-novick(y,0,-1)->
+-pasquini(y,0,-1)->
+-point(y,12,-1)->spread (n,12,-1) ->function (y,12,-1) 
+-projects(y,0,-1)->
+-springer(y,0,-1)->
+
+Bucket[112]::-andromeda(y,0,-1)->
+-blazhko(y,0,-1)->effect (y,0,-1) 
+-difference(y,0,-1)->
+-ensemble(y,19,-1)->
+-false(n,0,-1)->alarm (y,0,-1) 
+alarms (y,0,-1) 
+-fitzpatrick(y,35,-1)->
+-funding(n,0,-1)->council (y,0,-1) 
+-geisler(y,0,-1)->
+-hasan(y,26,-1)->
+-large(n,0,-1)->synoptic (n,0,-1) ->survey (n,0,-1) ->telescope (y,0,-1) 
+-lovelace(y,0,-1)->
+-march(n,0,-1)->5 (y,0,-1) 
+-neutron(y,29,-1)->
+-pelling(y,0,-1)->
+-population(n,0,-1)->ii (y,0,-1) 
+-recipes(y,0,-1)->
+-sharon(y,0,-1)->
+-surrounded(y,0,-1)->
+-transition(y,0,-1)->
+
+Bucket[113]::-alonso(y,0,-1)->
+-astronomical(y,0,-1)->observatory (y,0,-1) 
+society (y,0,-1) ->of (n,0,-1) ->the (n,0,-1) ->pacific (y,0,-1) 
+-bayesian(y,29,-1)->analysis (y,29,-1) 
+-birrell(y,0,-1)->
+-clearly(y,0,-1)->
+-degree(y,0,-1)->
+-example(y,0,-1)->
+-gadget(y,0,-1)->code (y,0,-1) 
+-gardiner(y,18,-1)->
+-geballe(y,40,-1)->
+-kadammanitta(y,0,-1)->
+-masses(y,0,-1)->
+-mixing(y,22,-1)->
+-multiple(y,0,-1)->
+-operator(y,0,-1)->
+-owens(n,0,-1)->valley (y,0,-1) 
+-palomar(y,0,-1)->observatory (y,0,-1) ->sky (n,0,-1) ->survey (y,0,-1) 
+sky (n,0,-1) ->survey (y,0,-1) 
+-preliminary(y,0,-1)->
+-rank(n,0,-1)->correlation (y,0,-1) ->coefficient (y,0,-1) 
+-regardless(y,0,-1)->
+-upper(y,0,-1)->
+
+Bucket[114]::-above(y,0,-1)->
+-accelerated(y,0,-1)->
+-astrometric(y,0,-1)->
+-dept(y,0,-1)->
+-detectors(y,0,-1)->
+-domingo(y,0,-1)->
+-edakkal(y,0,-1)->
+-group(y,0,-1)->
+-kodama(n,0,35)->
+-microwave(y,0,-1)->
+-nakar(y,0,-1)->
+-parallel(y,0,-1)->
+-research(y,17,-1)->and (n,0,-1) ->development (y,0,-1) 
+center (y,17,-1) 
+council (y,0,-1) 
+fellow (y,0,-1) 
+-sanford(y,6,-1)->
+-sciences(y,26,-1)->
+-swift(n,0,-1)->satellite (y,0,-1) 
+
+Bucket[115]::-assume(y,0,-1)->
+-blanton(n,0,39)->
+-covino(y,0,-1)->
+-ettumanoor(y,0,-1)->
+-experimental(n,0,-1)->physics (y,0,-1) 
+-haberl(y,0,-1)->
+-lacey(y,0,-1)->
+-minnesota(y,0,-1)->
+-overhead(y,0,-1)->
+-reflected(y,0,-1)->
+-seibert(y,0,-1)->
+-smirnov(y,0,-1)->
+
+Bucket[116]::-batse(y,0,-1)->
+-bulge(y,0,-1)->
+-douglas(y,33,-1)->
+-herzog(y,0,-1)->
+-mcpherson(y,0,-1)->
+-modeling(y,0,-1)->
+-shown(y,0,-1)->
+-spoon(y,0,-1)->
+-sree(n,0,-1)->chitra (n,0,-1) ->tirunal (n,0,-1) ->institute (n,0,-1) ->for (n,0,-1) ->medical (n,0,-1) ->sciences (y,0,-1) 
+-trimble(y,0,-1)->
+-words(y,0,-1)->
+
+Bucket[117]::-almost(y,0,-1)->all (y,0,-1) 
+-eriguchi(y,0,-1)->
+-ferreira(n,0,20)->
+-james(y,0,-1)->webb (y,0,-1) ->space (n,0,-1) ->telescope (y,0,-1) 
+-loyola(y,0,-1)->
+-osterloh(y,0,-1)->
+-pages(y,0,-1)->
+-planetary(y,0,-1)->
+-sagittarius(y,14,-1)->
+-values(y,0,-1)->
+
+Bucket[118]::-aharonian(y,0,-1)->
+-auriemma(y,0,-1)->
+-chandra(y,0,-1)->
+-entropy(y,0,-1)->
+-hours(y,0,-1)->
+-mariangela(y,0,-1)->
+-martell(y,0,-1)->
+-model(n,0,-1)->n (y,0,-1) 
+-nordita(y,0,-1)->
+-problem(y,0,-1)->
+-representative(y,0,-1)->
+-source(y,0,-1)->
+-spinrad(y,0,-1)->
+-weighted(y,0,-1)->
+
+Bucket[119]::-cepheid(y,0,-1)->
+-couch(y,0,-1)->
+-frank(y,35,-1)->
+-hubble(y,24,-1)->classification (y,0,-1) 
+parameter (y,24,-1) 
+space (n,0,-1) ->telescope (y,0,-1) ->hst (y,0,-1) 
+-june(n,0,-1)->10 (y,0,-1) 
+-livingstone(y,0,-1)->
+-marco(y,0,-1)->
+-massey(y,0,-1)->
+-oxford(y,0,-1)->university (y,0,-1) 
+-panamattom(y,0,-1)->
+-princeton(y,0,-1)->univ (y,0,-1) 
+university (y,0,-1) 
+-results(y,0,-1)->
+-spectra(y,0,-1)->
+-subaru(y,0,-1)->
+-users(y,0,-1)->
+-young(y,0,-1)->
+-zielona(y,0,-1)->
+
+Bucket[120]::-aparna(y,0,-1)->
+-johnston(y,0,-1)->
+-michael(y,0,-1)->meyer (y,0,-1) 
+-proceedings(n,0,-1)->of (n,0,-1) ->spie (y,0,-1) 
+-volker(y,0,-1)->
+
+Bucket[121]::-abundances(y,0,-1)->
+-alexander(y,0,-1)->
+-application(y,0,-1)->
+-bolin(y,0,-1)->
+-cosmos(y,0,-1)->
+-explosions(y,0,-1)->
+-fricke(y,0,-1)->
+-makishima(y,0,-1)->
+-marshall(y,0,-1)->
+-naomi(y,0,-1)->
+-particle(n,0,-1)->physics (y,0,-1) ->experiments (y,0,-1) 
+-scattering(y,0,-1)->
+-sendai(y,0,-1)->
+-treatment(y,0,-1)->
+
+Bucket[122]::-aerosol(y,0,-1)->
+-boltzmann(n,0,-1)->constant (y,0,-1) 
+-bottom(y,0,-1)->
+-circular(n,0,-1)->orbits (y,0,-1) 
+-conselice(y,0,-1)->
+-decoherence(y,0,-1)->
+-donas(y,5,-1)->
+-estimating(y,0,-1)->
+-evolved(y,0,-1)->
+-facility(y,0,-1)->
+-fenimore(y,0,-1)->
+-figures(y,0,-1)->
+-fitting(y,0,-1)->
+-graziani(y,0,-1)->
+-identified(y,0,-1)->
+-maloney(y,31,-1)->
+-moffett(y,0,-1)->
+-reidel(y,0,-1)->
+-scheme(y,0,-1)->
+
+Bucket[123]::-advanced(n,0,-1)->camera (n,0,-1) ->for (n,0,-1) ->surveys (y,0,-1) 
+ccd (n,0,-1) ->imaging (n,0,-1) ->spectrometer (y,0,-1) 
+-brans(y,0,-1)->
+-daddi(y,0,-1)->
+-fraunhoffer(y,0,-1)->
+-haslam(y,0,-1)->
+-kyoto(y,0,-1)->
+-magnetohydrodynamic(y,0,-1)->
+-packard(y,0,-1)->
+-plate(y,0,-1)->
+-smail(y,3,-1)->
+-spanish(y,0,-1)->
+
+Bucket[124]::-aspen(y,0,-1)->center (n,0,-1) ->for (n,0,-1) ->physics (y,0,-1) 
+-beneath(y,0,-1)->
+-drifting(y,28,-1)->
+-halos(y,0,-1)->
+-jorstad(y,0,-1)->
+-likelihoods(y,26,-1)->
+-natural(y,0,-1)->
+-object(n,0,-1)->type (y,0,-1) 
+-participation(y,0,-1)->
+-project(y,0,-1)->
+
+Bucket[125]::-artificial(y,0,-1)->
+-canada(y,0,-1)->
+-davidson(y,0,-1)->
+-israelian(y,0,-1)->
+-lucas(y,0,-1)->
+-modes(y,0,-1)->
+-netherlands(y,0,-1)->
+-ngc(n,0,-1)->121 (y,0,-1) 
+2264 (n,0,3) 
+3115 (y,0,-1) 
+3201 (y,0,-1) 
+4374 (y,0,-1) 
+5128 (y,0,-1) 
+5490 (y,0,-1) 
+6251 (y,0,-1) 
+6397 (y,0,-1) 
+6752 (y,0,-1) 
+6946 (y,0,-1) 
+7052 (y,0,-1) 
+-nolan(y,0,-1)->
+-observables(y,0,-1)->
+-pavlov(y,0,-1)->
+-pennsylvania(y,0,-1)->
+-probe(y,0,-1)->
+-southern(y,0,-1)->sky (n,0,-1) ->survey (y,0,-1) 
+stars (y,0,-1) 
+-stepien(n,0,18)->
+-thompson(y,0,-1)->scattering (y,0,-1) 
+-zwart(y,0,-1)->
+
+Bucket[126]::-gemini(n,0,-1)->north (y,0,-1) 
+-geographic(y,0,-1)->
+-human(y,0,-1)->potential (y,0,-1) 
+-lauer(y,0,-1)->
+-nulling(y,0,-1)->
+-palakkad(y,0,-1)->
+-planck(y,0,-1)->curve (y,0,-1) 
+-schulz(y,0,-1)->
+-schwarzschild(y,0,-1)->black (n,0,-1) ->hole (y,0,-1) 
+criterion (y,0,-1) 
+-summer(y,0,-1)->school (y,0,-1) 
+-tuohy(y,0,-1)->
+-while(y,0,-1)->
+
+Bucket[127]::-frequencies(y,0,-1)->
+-hayes(y,0,-1)->
+-hitachi(y,0,-1)->
+-kluwer(y,0,-1)->
+-lorimer(y,0,-1)->
+-oxygen(y,0,-1)->
+-reticulum(y,0,-1)->
+-robin(y,29,-1)->
+-star(n,0,-1)->clusters (y,0,-1) 
+-sutherland(y,22,-1)->
+-tohoku(n,11,-1)->university (y,11,-1) 
+
+Bucket[128]::-23rd(n,0,-1)->september (y,0,-1) 
+-apertures(y,0,-1)->
+-coordinates(y,24,-1)->
+-mie(n,0,-1)->solution (y,0,-1) 
+-oliveira(y,0,-1)->
+-optimally(y,0,-1)->
+-solid(y,0,-1)->
+-unbound(y,0,-1)->
+-whilst(y,0,-1)->
+
+Bucket[129]::-blazar(y,0,-1)->
+-experimentation(y,0,-1)->
+-shibata(y,0,-1)->
+-si(n,0,-1)->in (y,0,-1) 
+-stahl(y,0,-1)->
+-transform(y,0,-1)->
+
+Bucket[130]::-auvergne(y,0,-1)->
+-cyclotron(y,0,-1)->
+-ignoring(y,0,-1)->
+-nichol(y,0,-1)->
+-shelton(y,0,-1)->
+
+Bucket[131]::-02138(y,0,-1)->
+-bessel(y,29,-1)->function (y,29,-1) 
+-deep(n,0,-1)->field (y,0,-1) 
+-expanding(y,24,-1)->
+-lidov(y,0,-1)->
+-noise(y,0,-1)->
+-quadratic(y,0,-1)->
+-talon(y,0,-1)->
+
+Bucket[132]::-boris(y,0,-1)->
+-chatterjee(y,0,-1)->
+-corbet(y,0,-1)->
+-examples(y,0,-1)->
+-indices(y,0,-1)->
+-morel(y,0,-1)->
+-omc(n,0,-1)->1 (y,0,-1) 
+-robust(y,0,-1)->
+
+Bucket[133]::-background(y,0,-1)->
+-comparing(y,0,-1)->
+-computational(y,0,-1)->
+-michigan(y,0,-1)->
+-ricker(y,0,-1)->
+-stauffer(y,0,-1)->
+
+Bucket[134]::-andrew(y,0,-1)->
+-boxes(y,0,-1)->
+-center(n,0,-1)->for (n,0,-1) ->astrophysics (y,0,-1) 
+-experiment(y,0,-1)->
+-fabian(y,0,-1)->
+-rainer(y,19,-1)->
+-sedov(y,0,-1)->
+-sn(n,0,-1)->1987a (y,0,-1) 
+-solar(y,0,-1)->
+-special(y,0,-1)->
+-surveys(y,0,-1)->
+
+Bucket[135]::-cold(n,0,-1)->dark (n,0,-1) ->matter (y,0,-1) 
+-della(y,0,-1)->
+-kanjirappalli(y,0,-1)->
+-meyer(y,0,-1)->
+-mission(y,0,-1)->
+-times(y,0,-1)->
+
+Bucket[136]::-fractional(y,0,-1)->
+-keble(y,0,-1)->
+-separatrix(y,0,-1)->
+-universidade(y,0,-1)->
+
+Bucket[137]::-attitude(y,0,-1)->
+-boundary(y,0,-1)->conditions (y,0,-1) 
+-bryden(y,27,-1)->
+-generating(y,0,-1)->
+-limb(n,0,-1)->darkening (y,0,-1) 
+-phenomenological(y,0,-1)->
+-session(y,0,-1)->
+-ultraluminous(n,0,11)->infrared (n,0,11) ->galaxies (n,0,11) 
+
+Bucket[138]::-blitz(y,0,-1)->
+-mexico(n,0,-1)->state (y,0,-1) 
+-minor(y,0,-1)->
+-putney(y,0,-1)->
+-supercomputing(y,0,-1)->
+-trager(y,7,-1)->
+
+Bucket[139]::-2mass(y,0,-1)->
+-components(y,0,-1)->
+-darnhall(y,39,-1)->
+-maurice(n,0,14)->
+-max(n,0,-1)->planck (y,0,-1) 
+-milky(y,0,-1)->
+-ngc7331(y,0,-1)->
+
+Bucket[140]::-for(n,0,-1)->each (y,0,-1) 
+some (y,0,-1) 
+-hayashi(y,0,-1)->
+-may(n,0,-1)->2006 (y,0,-1) 
+
+Bucket[141]::-aarseth(y,0,-1)->
+-caldwell(y,38,-1)->
+-kinematics(y,0,-1)->
+-nstar(y,0,-1)->
+-scale(y,0,-1)->
+-sections(y,0,-1)->
+-shull(y,0,-1)->
+-tracey(y,0,-1)->
+-wavelengths(y,0,-1)->
+
+Bucket[142]::-collaboration(y,0,-1)->
+-draco(y,0,-1)->
+-gittings(y,0,-1)->
+-hawking(n,0,30)->
+-laine(y,0,-1)->
+-shimizu(y,0,-1)->
+-surface(y,0,-1)->
+-wide(n,0,-1)->field (n,0,-1) ->camera (y,0,-1) 
+
+Bucket[143]::-clouds(y,0,-1)->
+-fransson(y,0,-1)->
+-kottayam(y,0,-1)->
+-lopez(y,0,-1)->
+-transmission(y,0,-1)->
+
+Bucket[144]::-barbara(y,0,-1)->
+-every(y,0,-1)->
+-heidelberg(y,0,-1)->
+-hester(y,0,-1)->
+-interferometer(n,0,34)->
+-jorgensen(y,0,-1)->
+-laques(y,0,-1)->
+
+Bucket[145]::-astronomy(y,0,-1)->
+-blandford(y,0,-1)->
+-bullock(y,0,-1)->
+-dawson(y,0,-1)->
+-disney(y,0,-1)->
+-interesting(y,0,-1)->
+-notation(y,0,-1)->
+-optimality(y,0,-1)->
+
+Bucket[146]::-activity(y,27,-1)->
+-appl(n,0,-1)->opt (y,0,-1) 
+-meegan(y,0,-1)->
+-written(y,0,-1)->
+
+Bucket[147]::-lowenthal(y,21,-1)->
+-pablo(y,0,-1)->
+-silicate(y,0,-1)->
+-uchida(y,0,-1)->
+
+Bucket[148]::-borys(y,0,-1)->
+-though(y,0,-1)->
+-time(n,20,-1)->evolution (y,20,-1) 
+on (n,0,-1) ->target (y,0,-1) 
+t (y,11,-1) 
+-viana(y,0,-1)->
+
+Bucket[149]::-deutsch(y,0,-1)->
+-lombardo(y,0,-1)->
+-morphology(y,0,-1)->
+-thesis(y,0,-1)->
+-vanderbei(n,0,2)->
+
+Bucket[150]::-10000(y,0,-1)->
+-adimali(y,0,-1)->
+-barth(y,0,-1)->
+-consejo(y,0,-1)->
+-explorer(n,0,-1)->2 (y,0,-1) 
+-le(n,0,-1)->brun (y,0,-1) 
+-pringle(y,0,-1)->
+-roche(y,0,-1)->
+-service(y,0,-1)->
+-standard(y,0,-1)->
+
+Bucket[151]::-after(n,0,-1)->dark (y,0,-1) 
+-faint(y,0,-1)->
+-filho(y,0,-1)->
+-tenerife(y,0,-1)->
+
+Bucket[152]::-griffith(y,0,-1)->
+-klein(y,0,-1)->
+-maihara(y,0,-1)->
+-price(y,0,-1)->
+-von(n,0,-1)->neumann (n,0,-1) ->equation (y,0,-1) 
+
+Bucket[153]::-bruch(y,0,-1)->
+-colour(y,0,-1)->
+-conditional(y,0,-1)->
+-means(y,0,-1)->
+-proc(n,0,-1)->spie (y,0,-1) 
+-savvas(y,0,-1)->
+-zucker(y,0,-1)->
+
+Bucket[154]::-50000(y,0,-1)->
+-bandwidth(y,0,-1)->
+-correlations(y,0,-1)->
+-diagram(y,0,-1)->
+-gnedin(y,0,-1)->
+-hawkins(y,0,-1)->
+
+Bucket[155]::-arches(y,0,-1)->
+-bouche(y,0,-1)->
+-maura(y,0,-1)->
+-national(n,0,-1)->aeronautics (n,0,-1) ->and (n,0,-1) ->space (n,0,-1) ->administration (n,0,-1) ->nasa (y,0,-1) 
+astronomical (n,0,-1) ->observatory (y,0,-1) 
+research (n,0,-1) ->council (y,0,-1) 
+
+Bucket[156]::-cloud(y,0,-1)->
+-elemental(y,14,-1)->analysis (y,14,-1) 
+-kauffmann(y,8,-1)->
+-manifest(y,0,-1)->
+-prof(y,14,-1)->
+-sooranad(y,0,-1)->
+-victor(y,0,-1)->
+
+Bucket[157]::-accretion(n,0,17)->
+-california(y,0,-1)->
+-foreach(y,0,-1)->
+-inclination(y,0,-1)->
+-reddy(y,0,-1)->
+-transient(y,0,-1)->
+-weisberg(y,0,-1)->
+
+Bucket[158]::-ethidium(n,0,-1)->bromide (y,0,-1) 
+-interstellar(y,0,-1)->
+-navarro(y,0,-1)->
+
+Bucket[159]::-circumstellar(n,19,-1)->disc (y,19,-1) 
+-conditions(y,0,-1)->
+-costa(y,0,-1)->
+-detector(y,0,-1)->
+-unless(y,0,-1)->
+-whiting(y,0,-1)->
+
+Bucket[160]::-boyle(y,29,-1)->
+-cajal(y,0,-1)->
+-claret(y,0,-1)->
+-copernicus(y,0,-1)->
+-future(y,0,-1)->
+-kanagawa(y,0,-1)->
+-lo(n,0,-1)->on (y,0,-1) 
+-probably(y,0,-1)->
+-taylor(n,0,-1)->expansions (y,0,-1) 
+
+Bucket[161]::-checking(y,0,-1)->
+-counts(y,0,-1)->
+-estimate(y,0,-1)->
+-intel(y,0,-1)->
+
+Bucket[162]::-10th(n,0,-1)->anniversary (y,0,-1) 
+july (y,0,-1) 
+-conclusion(y,0,-1)->
+-doyle(y,11,-1)->
+-elementar(y,0,-1)->
+-estimation(y,0,-1)->
+-howarth(y,0,-1)->
+-naveen(y,0,-1)->
+-nyquist(y,0,-1)->
+-outside(y,0,-1)->
+-payne(y,0,-1)->
+-reintroducing(y,0,-1)->
+
+Bucket[163]::-changanacherry(y,0,-1)->
+-rudolph(y,0,-1)->
+-splitting(y,0,-1)->
+
+Bucket[164]::-doherty(y,30,-1)->
+-einstein(n,0,-1)->equations (y,0,-1) 
+-european(n,0,-1)->southern (n,0,-1) ->observatory (y,0,-1) 
+-mccray(y,0,-1)->
+-oosterhoff(y,0,-1)->type (n,0,-1) ->i (y,0,-1) 
+-public(y,0,-1)->
+-richness(y,0,-1)->
+
+Bucket[165]::-again(y,0,-1)->
+-challis(y,0,-1)->
+-dave(n,0,-1)->thompson (y,0,-1) 
+-distribution(y,0,-1)->
+-faber(y,0,-1)->
+-muench(y,0,-1)->
+-percolation(y,0,-1)->
+-sixteen(y,9,-1)->
+-society(y,0,-1)->
+-trusting(y,0,-1)->
+
+Bucket[166]::-1000(n,0,-1)->years (y,0,-1) 
+-histograms(y,0,-1)->
+-mnras(y,0,-1)->
+-nearby(y,0,-1)->
+-protostars(y,0,-1)->
+-schaefer(y,0,-1)->
+-zwicky(y,0,-1)->
+
+Bucket[167]::-dalton(y,0,-1)->
+-environmental(y,0,-1)->
+-figure(n,0,-1)->1 (y,0,-1) 
+17 (y,0,-1) 
+4 (y,0,-1) 
+-fisheries(y,0,-1)->research (y,0,-1) 
+-hawaiian(y,0,-1)->
+-johns(y,0,-1)->hopkins (y,0,-1) 
+-notice(y,0,-1)->
+-one(n,0,-1)->of (n,0,-1) ->them (y,0,-1) 
+t (y,0,-1) 
+-twin(n,0,-1)->peaks (y,0,-1) 
+-university(y,2,-1)->of (n,0,-1) ->arizona (y,0,-1) 
+->california (y,0,-1) ->at (n,0,-1) ->berkeley (y,0,-1) 
+->manchester (y,0,-1) 
+->massachusetts (y,0,-1) 
+->minnesota (y,0,-1) 
+->north (n,0,-1) ->carolina (y,0,-1) 
+press (y,2,-1) 
+
+Bucket[168]::-ascension(y,0,-1)->
+-baseline(y,2,-1)->
+-image(y,0,-1)->
+-kadungalloor(y,24,-1)->
+-mcmahon(y,0,-1)->
+-period(y,0,-1)->
+-physics(y,0,-1)->b (y,0,-1) 
+-poissonian(y,0,-1)->
+-to(n,19,-1)->begin (y,19,-1) 
+do (y,0,-1) 
+-wozniak(y,0,-1)->
+
+Bucket[169]::-analysis(y,0,-1)->
+-donahue(y,4,-1)->
+-lamers(y,0,-1)->
+-legge(y,0,-1)->
+-requirements(y,0,-1)->
+
+Bucket[170]::-blend(y,0,-1)->
+-cheng(y,0,-1)->
+-conicet(y,0,-1)->
+-dynamic(y,0,-1)->
+-evolution(y,0,-1)->
+-feedback(y,0,-1)->
+
+Bucket[171]::-eggen(y,0,-1)->
+-filter(y,0,-1)->
+-francis(y,0,-1)->
+-introducing(y,0,-1)->
+-mike(n,0,-1)->warren (y,0,-1) 
+-weingartner(y,0,-1)->
+-zentner(y,18,-1)->
+
+Bucket[172]::-barlow(y,0,-1)->
+-cutoff(y,0,-1)->
+-ebisuzaki(y,26,-1)->
+-garcia(y,0,-1)->
+-kundu(y,0,-1)->
+-lambert(y,0,-1)->
+-orion(y,0,-1)->nebula (y,0,-1) 
+-stephenson(y,0,-1)->
+-woltjer(y,13,-1)->
+
+Bucket[173]::-photographic(y,33,-1)->
+-ritchie(y,0,-1)->
+-santhosh(y,0,-1)->
+-somewhat(y,0,-1)->
+
+Bucket[174]::-ascii(y,0,-1)->
+-bigelow(y,0,-1)->
+-ed(n,0,-1)->jenkins (y,0,-1) 
+-ferguson(y,0,-1)->
+-jackson(y,0,-1)->
+-kingdom(y,0,-1)->
+-witta(y,0,-1)->
+-zanotti(y,0,-1)->
+
+Bucket[175]::-arxiv(y,0,-1)->
+-bouchy(y,0,-1)->
+-conversely(y,0,-1)->
+-cross(y,0,-1)->correlation (y,0,-1) 
+-ghirlanda(y,0,-1)->
+-krystal(y,0,-1)->
+-network(y,9,-1)->
+-newberg(y,0,-1)->
+-parts(y,0,-1)->
+-ricci(y,19,-1)->scalar (y,19,-1) 
+-tamura(y,17,-1)->
+-vinicius(y,0,-1)->
+-weaver(y,0,-1)->
+
+Bucket[176]::-asymmetry(y,33,-1)->
+-distance(y,0,-1)->
+-local(n,0,-1)->group (y,0,-1) 
+-measuring(y,0,-1)->
+-quantum(y,0,-1)->
+-quinn(y,0,-1)->
+-reich(y,20,-1)->
+-transients(y,0,-1)->
+-unbiased(y,0,-1)->
+
+Bucket[177]::-astrophysics(n,0,-1)->and (n,0,-1) ->space (n,0,-1) ->science (y,0,-1) 
+-columbia(y,4,-1)->
+-pravdo(y,0,-1)->
+-summers(y,0,-1)->
+-woods(y,0,-1)->
+
+Bucket[178]::-adelberger(y,16,-1)->
+-alarm(y,0,-1)->
+-anita(y,0,-1)->
+-binaries(y,0,-1)->
+-butcher(y,0,-1)->
+-charlot(y,0,-1)->
+-cristallo(y,0,-1)->
+-hogan(n,0,14)->
+-lifshitz(y,0,-1)->
+-much(n,0,-1)->more (y,0,-1) 
+-press(y,0,-1)->
+-quasar(y,0,-1)->
+-valley(y,0,-1)->
+
+Bucket[179]::-canis(y,0,-1)->major (n,0,-1) ->dwarf (n,0,-1) ->galaxy (y,0,-1) 
+-despite(y,0,-1)->
+-lorentz(n,0,-1)->factors (y,0,-1) 
+-marie(y,0,-1)->curie (y,0,-1) 
+-median(y,0,-1)->
+-pollard(y,0,-1)->
+-portugal(n,0,3)->
+-stationary(y,0,-1)->points (y,0,-1) 
+-survey(n,0,-1)->data (y,0,-1) 
+-temperature(y,0,-1)->
+
+Bucket[180]::-chittar(y,0,-1)->
+-john(n,0,-1)->von (n,0,-1) ->neumann (y,0,-1) 
+-lowell(y,0,-1)->
+-nelson(y,0,-1)->
+-radio(y,0,-1)->emission (y,0,-1) 
+-significant(y,0,-1)->
+
+Bucket[181]::-mclean(y,0,-1)->
+-northern(y,0,-1)->hemisphere (y,0,-1) 
+sky (y,0,-1) 
+-panel(y,0,-1)->
+-rapid(y,0,-1)->
+-reynolds(y,0,-1)->
+
+Bucket[182]::-100(n,0,-1)->kilometers (y,0,-1) 
+km (y,0,-1) 
+-along(y,11,-1)->
+-bardeen(y,0,-1)->
+-cause(y,0,-1)->
+-janes(y,0,-1)->
+-kappad(y,0,-1)->
+-lawrence(n,0,-1)->berkeley (y,0,-1) 
+-signals(y,0,-1)->
+-silverman(y,0,-1)->
+-terrestrial(y,0,-1)->planet (n,0,-1) ->finder (y,0,-1) 
+-universe(y,0,-1)->
+-yoshida(y,0,-1)->
+
+Bucket[183]::-anniversary(y,26,-1)->
+-attempts(y,0,-1)->
+-historical(y,0,-1)->
+-karas(y,0,-1)->
+-revised(y,0,-1)->
+
+Bucket[184]::-animations(y,0,-1)->
+-chevalier(y,0,-1)->
+-composite(y,0,-1)->image (y,0,-1) 
+-distributions(y,0,-1)->
+-indian(n,0,-1)->express (y,0,-1) 
+journal (y,0,-1) 
+-mundakkayam(y,0,-1)->
+-stephan(y,0,-1)->
+-vietri(y,0,-1)->
+
+Bucket[185]::-averaging(y,32,-1)->
+-experiments(y,0,-1)->
+-garay(y,0,-1)->
+-kernels(y,17,-1)->
+-mass(n,18,-1)->fraction (y,0,-1) 
+function (y,0,-1) 
+ratio (y,18,-1) 
+transfer (y,0,-1) 
+-preece(y,0,-1)->
+-without(y,0,-1)->
+
+Bucket[186]::-british(y,0,-1)->columbia (y,0,-1) 
+-carbon(y,0,-1)->stars (y,0,-1) 
+-clusters(y,0,-1)->
+-deeper(y,0,-1)->
+-receiver(y,30,-1)->
+-zentrum(y,0,-1)->
+
+Bucket[187]::-convective(y,0,-1)->
+-discs(y,0,-1)->
+-fig(n,0,-1)->8 (y,0,-1) 
+-french(y,35,-1)->
+-pparc(y,0,-1)->
+-shapley(y,0,-1)->
+-sometimes(y,0,-1)->
+-symposium(y,0,-1)->
+-understanding(y,0,-1)->
+
+Bucket[188]::-99.7(y,0,-1)->
+-carlstrom(y,0,-1)->
+-einsteinian(y,0,-1)->
+-feldman(y,0,-1)->
+-foundation(y,6,-1)->
+-part(n,0,-1)->of (y,0,-1) 
+-quintessence(y,0,-1)->
+-spearman(y,7,-1)->rank (y,0,-1) 
+
+Bucket[189]::-knudsen(y,0,-1)->
+-mario(y,0,-1)->
+-messier(y,0,-1)->
+-pathanamthitta(y,0,-1)->
+-pavel(y,0,-1)->
+-tennant(y,0,-1)->
+-there(y,0,-1)->are (y,0,-1) 
+exists (y,0,-1) 
+is (y,0,-1) 
+
+Bucket[190]::-acta(n,0,-1)->physica (n,0,-1) ->polonica (y,0,-1) 
+-asterisks(y,0,-1)->
+-august(n,0,-1)->27 (y,0,-1) 
+-davey(y,0,-1)->
+-districts(y,0,-1)->of (n,0,-1) ->kerala (y,0,-1) 
+-least(y,0,-1)->
+-narrow(y,0,-1)->
+-resolving(y,0,-1)->
+-westergaard(y,0,-1)->
+
+Bucket[191]::-braems(y,12,-1)->
+-bundle(y,0,-1)->
+-lubin(y,0,-1)->
+-morning(y,0,-1)->
+-olivier(y,0,-1)->
+-please(y,0,-1)->
+
+Bucket[192]::-bellman(y,0,-1)->
+-gallego(y,0,-1)->
+-genome(y,26,-1)->
+-inflaton(y,0,-1)->
+-lines(y,20,-1)->
+-padova(y,0,-1)->
+-sadler(y,0,-1)->
+-theory(y,0,-1)->
+-third(y,0,-1)->
+
+Bucket[193]::-contracting(y,0,-1)->
+-eichler(y,0,-1)->
+-hosting(y,0,-1)->
+-ibrahim(y,0,-1)->
+-jaffe(y,0,-1)->
+-kuntz(y,0,-1)->
+-nomoto(y,0,-1)->
+-prochaska(y,0,-1)->
+-reifenstein(y,0,-1)->
+-sterken(y,0,-1)->
+-training(y,0,-1)->
+
+Bucket[194]::-comella(y,0,-1)->
+-discrimination(y,0,-1)->
+-examination(y,0,-1)->
+-leray(y,0,-1)->
+-monaco(y,0,-1)->
+-spectrometer(y,0,-1)->
+
+Bucket[195]::-alice(y,29,-1)->
+-disks(y,0,-1)->
+-eclipsing(n,0,-1)->binaries (y,0,-1) 
+-envelope(y,0,-1)->
+-important(y,0,-1)->
+-mckinney(y,0,-1)->
+-shift(y,0,-1)->
+-spectral(n,0,-1)->energy (n,0,-1) ->distribution (y,0,-1) 
+type (y,0,-1) 
+-universidad(y,0,-1)->
+
+Bucket[196]::-kotake(y,0,-1)->
+-nuernberger(n,0,17)->
+-ratio(y,0,-1)->
+-subscript(y,0,-1)->
+
+Bucket[197]::-korean(n,0,15)->
+-peter(y,0,-1)->
+-rubin(y,0,-1)->
+-serpens(y,0,-1)->
+-titan(y,5,-1)->
+
+Bucket[198]::-10(n,0,-1)->13 (y,0,-1) 
+20 (y,0,-1) 
+km (y,0,-1) 
+-abundance(y,0,-1)->
+-amendola(y,6,-1)->
+-combined(y,0,-1)->
+-condon(y,0,-1)->
+-cosmo(y,0,-1)->
+-hypernovae(y,0,-1)->
+
+Bucket[199]::-11(n,0,-1)->february (y,0,-1) 
+jan (y,0,-1) 
+may (y,0,-1) 
+-annales(y,0,-1)->
+-bastian(y,0,-1)->
+-dickinson(y,0,-1)->
+-epochs(y,0,-1)->
+-kunegunda(y,0,-1)->
+-lasker(y,0,-1)->
+-length(y,0,-1)->
+-magnetars(y,0,-1)->
+-pathanapuram(y,14,-1)->
+-reproducing(y,0,-1)->
+-univ(y,0,-1)->
+
+Bucket[200]::-12(n,0,-1)->august (y,0,-1) 
+-1960s(y,4,-1)->
+-collison(y,0,-1)->
+-development(y,0,-1)->
+-petersburg(y,0,-1)->
+-romanova(y,0,-1)->
+-smoothed(n,0,-1)->particle (n,0,-1) ->hydrodynamics (y,0,-1) 
+-supernova(y,0,-1)->
+
+Bucket[201]::-asp(n,0,-1)->conference (n,0,-1) ->series (y,0,-1) 
+-dressler(y,30,-1)->
+-greggio(y,0,-1)->
+-july(n,0,-1)->2001 (y,0,-1) 
+-region(y,0,-1)->
+-standards(y,0,-1)->
+-teter(y,0,-1)->
+
+Bucket[202]::-14(n,0,-1)->years (y,0,-1) 
+-areal(y,0,-1)->
+-binary(y,0,-1)->systems (y,0,-1) 
+-context(y,0,-1)->
+-jeremiah(y,0,-1)->
+-let(n,0,-1)->us (y,0,-1) 
+-phillips(y,0,-1)->
+-stark(y,0,-1)->
+
+Bucket[203]::-15(n,0,-1)->min (y,0,-1) 
+-acknowledgments(y,0,-1)->
+-comments(y,0,-1)->
+-concluding(y,0,-1)->
+-craig(y,0,-1)->
+-diffuse(y,0,-1)->
+-diploma(n,0,-1)->thesis (y,0,-1) 
+-gronwall(y,0,-1)->
+-near(n,0,-1)->infrared (y,0,-1) 
+-pollack(y,0,-1)->
+-santoro(y,0,-1)->
+-sanwal(y,0,-1)->
+-vicky(y,0,-1)->
+
+Bucket[204]::-bbc(n,0,-1)->news (y,0,-1) 
+-brewer(y,0,-1)->
+-caveats(y,0,-1)->
+-corot(y,0,-1)->
+-intensity(y,0,-1)->
+-merlin(y,0,-1)->
+-merritt(y,0,-1)->
+-promotion(y,0,-1)->
+-september(y,0,-1)->2001 (y,0,-1) 
+-ulrich(y,0,-1)->
+
+Bucket[205]::-17(n,0,-1)->february (y,0,-1) 
+may (y,0,-1) 
+october (y,0,-1) 
+-broad(y,0,-1)->band (y,0,-1) 
+-macho(y,0,-1)->
+-tinsley(y,0,-1)->
+-us(n,4,-1)->naval (n,4,-1) ->observatory (y,4,-1) 
+
+Bucket[206]::-central(y,0,-1)->
+-confirmation(y,0,-1)->
+-definition(y,0,-1)->
+-except(y,0,-1)->
+-katrin(y,0,-1)->
+-nicmos(y,0,-1)->
+-rosat(y,0,-1)->
+-triangles(y,0,-1)->
+-usa(n,0,-1)->5 (y,0,-1) 
+-ut(n,0,-1)->2004 (y,0,-1) 
+-var(n,0,-1)->b (y,0,-1) 
+-weizmann(y,0,-1)->
+
+Bucket[207]::-euclidean(y,0,-1)->
+-fujitsu(y,0,-1)->
+-manchester(y,31,-1)->
+-preto(y,0,-1)->
+-riemann(y,0,-1)->
+-stewart(y,0,-1)->
+-universities(y,0,-1)->
+-wiley(y,0,-1)->
+
