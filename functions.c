@@ -173,7 +173,7 @@ strcpy(job_pool[2].text,"Margarit2");
 			}
 			else if(strcmp(word,"F")==0){
 				printf("F_____\n");
-
+/*
 				word=strtok(NULL,"\n");
 				int k;
 				print_print(top);
@@ -186,6 +186,9 @@ strcpy(job_pool[2].text,"Margarit2");
 					printf("returnd from execute\n");
 					//if(count==42) break; 		
 				}
+				top=init_top(top);
+*/
+					execute_all_jobs(JS);
 				top=init_top(top);
 			}
 			else if(strcmp(word,"\0")==0){ 
