@@ -1624,6 +1624,7 @@ int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int numbe
 		free(str);
 		start++;
 	}
+	}
 	end_gram_table(top,ngrams_found);
 	int found=SUCCESS;
 	//free(str);

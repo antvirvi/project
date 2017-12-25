@@ -325,15 +325,13 @@ int test_static_input(struct static_index *trie,char * filename)
 		else if(strcmp(word,"F")==0){
 				word=strtok(NULL,"\n");
 				int k;
-<<<<<<< HEAD
-=======
 				words_in=0;
 				execute_static_queries(trie->hash,ptr_table,Q_lengths,start,lengths_taken,top);
 				//execute_queries(trie->hash,ptr_table,Q_lengths,version,start,lengths_taken,top);
 				lengths_taken=0;
 				last_word=0;
 
->>>>>>> versioning
+
 				print_print(top);
 				if(word!=NULL){
 					k=atoi(word);
@@ -373,9 +371,8 @@ int test_static_input(struct static_index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-<<<<<<< HEAD
-				command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,top);
-=======
+
+				//command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,top);
 				if(lengths_taken==length_array_capacity){
 					length_array_capacity*=2;
 					Q_lengths=realloc(Q_lengths,length_array_capacity*sizeof(int));
@@ -388,7 +385,7 @@ int test_static_input(struct static_index *trie,char * filename)
 				last_word=words_in;
 				lengths_taken++;
 				//command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,top);
->>>>>>> versioning
+
 				//if(command_error==-1) printf("%d\n",command_error);
 				break;
 		
@@ -403,8 +400,7 @@ int test_static_input(struct static_index *trie,char * filename)
 	fclose(fd);
 	
 return 0;
-<<<<<<< HEAD
-=======
+
 }
 
 int execute_static_queries(hash_layer *hash,char **ptr_table,int *ptr_lengths,int *start,int pos,topk *top){
@@ -416,7 +412,7 @@ int execute_static_queries(hash_layer *hash,char **ptr_table,int *ptr_lengths,in
 	}
 	//printf("results:\n");
 	return 0;
->>>>>>> versioning
+
 }
 
 int insert_staticTrieNode(static_hash_layer *hash,char **words,int word_number){
