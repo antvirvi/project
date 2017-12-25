@@ -58,6 +58,7 @@ int main (int argc, char **argv ){
 	else{//no static
 		//printf("not in static\n");
 		//print_hash(trie->hash);
+		printf("queries\n");
 		if(test_input(trie,query_file)<0) return -1;
 	
 	}
@@ -65,6 +66,5 @@ int main (int argc, char **argv ){
 	free(trie);
 	free(init_file);
 	free(query_file);
-
 	return 0;	
 }

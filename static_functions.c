@@ -301,14 +301,23 @@ int test_static_input(struct static_index *trie,char * filename)
 	ssize_t read;
 	char *word;
 	int command_error;
+	int word_len;
+	int length_array_capacity=10;
+	int last_word=0;
+	int lengths_taken=0;
+
+	int *Q_lengths=malloc(length_array_capacity*sizeof(int));
+	int *start=malloc(length_array_capacity*sizeof(int));
+	int *word_lengths=malloc(table_size*sizeof(int));
 
 	char **ptr_table = malloc(table_size*sizeof(char *));
-	for(a=0;a<table_size;a++)
+	for(a=0;a<table_size;a++){
 		ptr_table[a]=malloc(word_size*sizeof(char));
-
+		word_lengths[a]=word_size;
+	}
+	words_in = 0;
 	while ((read = getline(&line, &len, fd)) != -1) {
 		//words_in = 1;
-		words_in = 0;
 		
 		word = strtok (line," \n");
 		
@@ -316,6 +325,15 @@ int test_static_input(struct static_index *trie,char * filename)
 		else if(strcmp(word,"F")==0){
 				word=strtok(NULL,"\n");
 				int k;
+<<<<<<< HEAD
+=======
+				words_in=0;
+				execute_static_queries(trie->hash,ptr_table,Q_lengths,start,lengths_taken,top);
+				//execute_queries(trie->hash,ptr_table,Q_lengths,version,start,lengths_taken,top);
+				lengths_taken=0;
+				last_word=0;
+
+>>>>>>> versioning
 				print_print(top);
 				if(word!=NULL){
 					k=atoi(word);
@@ -330,19 +348,19 @@ int test_static_input(struct static_index *trie,char * filename)
 			if(words_in==table_size-1){
 				//table_size*=2;
 				ptr_table = realloc(ptr_table,table_size*2*sizeof(char*));
+				word_lengths = realloc(word_lengths,table_size*2*sizeof(int));
 				if(ptr_table==NULL) exit(-1);
 				for(a=table_size;a<(table_size*2);a++){
 					ptr_table[a]=malloc(word_size*sizeof(char));
 					if(ptr_table[a]==NULL) exit(-1);
+					word_lengths[a] =word_size;
 					}
 				table_size*=2;
 				}
-			while(strlen(word)>=word_size){
-				word_size=word_size*2;
-				for(a=0;a<table_size;a++){
-					ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
-					if(ptr_table[a]==NULL) exit(-1);
-					}
+			word_len=strlen(word);
+			if(word_len>=word_lengths[words_in]){
+				while(word_len>=word_lengths[words_in]){ word_lengths[words_in]*=2;}
+				ptr_table[words_in] = realloc(ptr_table[words_in],word_lengths[words_in]*sizeof(char));
 			}		
 
 				//ptr_table[words_in] = malloc(word_size*sizeof(char));
@@ -355,21 +373,50 @@ int test_static_input(struct static_index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
+<<<<<<< HEAD
 				command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,top);
+=======
+				if(lengths_taken==length_array_capacity){
+					length_array_capacity*=2;
+					Q_lengths=realloc(Q_lengths,length_array_capacity*sizeof(int));
+					start=realloc(start,length_array_capacity*sizeof(int));
+				}
+				//printf("i passed %d , start %d ,words in %d\n ",words_in-last_word,last_word,words_in);
+				Q_lengths[lengths_taken]=words_in-last_word;
+				start[lengths_taken]=last_word;
+
+				last_word=words_in;
+				lengths_taken++;
+				//command_error=lookup_static_TrieNode(trie->hash,ptr_table,words_in-1,top);
+>>>>>>> versioning
 				//if(command_error==-1) printf("%d\n",command_error);
 				break;
 		
 		}
 		flag=0;	
 }
-	//it is supposed that control never reaches this point, due to F signal
+	free(Q_lengths);
+	free(start);
   	free(line);
 	erase_top(top);
 	cleanup(ptr_table);
 	fclose(fd);
-	//printf("\x1b[32m""TEST_INPUT unpredicted end at end of function\n""\x1b[0m");
 	
 return 0;
+<<<<<<< HEAD
+=======
+}
+
+int execute_static_queries(hash_layer *hash,char **ptr_table,int *ptr_lengths,int *start,int pos,topk *top){
+	int i,j;
+	int command_error;
+	for(i=0;i<pos;i++){
+		command_error=lookup_static_TrieNode(hash,&(ptr_table[start[i]]),ptr_lengths[i]-1,top);	
+		//command_error=lookupTrieNode_with_bloom_versioning(hash,&(ptr_table[start[i]]),ptr_lengths[i]-1,top,version[i]);
+	}
+	//printf("results:\n");
+	return 0;
+>>>>>>> versioning
 }
 
 int insert_staticTrieNode(static_hash_layer *hash,char **words,int word_number){
@@ -923,7 +970,7 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 
 }
 
-int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash){//trie_node *root){//initialize paths in -1
+/*int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash){//trie_node *root){//initialize paths in -1
 	//printf("inside check in paths\n");
 	int number=get_stack_number(stack_);
 	int found=0;
@@ -944,7 +991,7 @@ int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash){
 	}
 	return found;
 }
-
+*/
 void print_nodes_from_static_hash(static_hash_layer *hash,stack *stack_){
 	print_stack(stack_);
 	
