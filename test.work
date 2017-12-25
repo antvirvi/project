@@ -1,0 +1,38 @@
+Q panos eats
+A panos
+A panos eats
+Q panos eats
+F
+A nothing
+Q nothing
+A panos eats crackers and 
+Q panos eats crackers
+F
+A thanos is great
+Q change version
+A nada
+Q thanos is great
+A thanos
+Q thanos is great
+A thanos is
+Q thanos is great
+F
+Q start deleting
+D thanos is great
+Q thanos is great
+Q change
+D thanos is
+Q thanos is great
+D thanos
+Q thanos is great
+F
+A panos eats beer
+Q panos eats beer
+F
+A light
+A light curve
+A light curves
+Q light
+D light
+Q light
+F
