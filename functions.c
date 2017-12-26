@@ -820,20 +820,25 @@ hash_layer *createLinearHash(int c ,int m){ //c is number of buckets ,m is numbe
 
 
 int  hash_function(hash_layer *hash, char *word)
-{	
+{			
+//	printf("Moschakis\n");
+//	printf("hASH vALUE: %s\n",word);
+//	printf("hASH vALUE: %d\n",hash->bucket_capacity,word);
 	int hash_value;
     unsigned long hash_int = 5381;
     int c;
 	//printf("word is %s\n",word);
+//	printf(RED"Motsarela\n"RESET);
+
     while (c = *word++)
         hash_int = ((hash_int << 5) + hash_int) + c; /* hash * 33 + c */
 	//printf("hash is %ld\n",hash_int);
-	
+//	printf(GREEN"Motsarela\n"RESET);
 	hash_value=hash_int%(C<<hash->split_round);
 	//hash_value=hash_int%(C*(int)pow(2,hash->split_round));
-
 	int temp=hash_int%(C<<(hash->split_round+1));
 	//int temp=hash_int%(C*(int)pow(2,hash->split_round+1));
+//	printf(YELLOW"Motsarela1\n"RESET);
 	if(temp<hash->buckets_number) return temp;
 	//printf("new hash value after is %ld\n",hash_value);
     return hash_value;
@@ -1251,7 +1256,7 @@ int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,
 		strcpy(str,"");
 		str_size=20;
 		word_number=start;
-		
+
 		int hash_val=hash_function(hash,words[start]);
 
 		hash_bucket *bucket=&(hash->buckets[hash_val]);
@@ -1534,6 +1539,21 @@ int check_node(trie_node *node,int current_version){
 		return SUCCESS;
 }
 
+void print_all(q_args * ar){
+
+printf(YELLOW"Arguments Check Up\n");
+printf("Capacity %d\n",ar->hash->bucket_capacity);
+printf("Buckets Number %d\n",ar->hash->buckets_number);
+printf("Total childern %d\n",ar->hash->total_children);
+printf("Total childern %d\n",ar->hash->total_children);
+int i;
+printf("Number of words %d\n",ar->number_of_words);
+for(i=0;i<ar->number_of_words;i++)
+	printf("    Word: %s\n",ar->words[i]); // den mporei na diabasei kapoia leksi. To gdb vriskei edw to Seg fault
+printf(""RESET);
+}
+
+
 int lookupTrieNode_with_bloom_versioning(void * arguments)//hash_layer *hash,char **words,int number_of_words,topk * top,int current_version)
 {
 	q_args *data=(q_args*)arguments;
@@ -1566,12 +1586,16 @@ int lookupTrieNode_with_bloom_versioning(void * arguments)//hash_layer *hash,cha
 		str_size=20;
 		word_number=start;
 		int check;
-		int hash_val=hash_function(hash,words[start]);
-
+//		printf("Dimitris %d %s \n",strlen(words[start]),words[start]);
+		print_all(arguments);
+		printf(GREEN"Motsarela\n"RESET);
+		int hash_val = hash_function(hash,words[start]);  // edw ginewtai seg fault Ginetai meta tin emfanisi tou prwtou f alla prin to epomeno A. 
+		printf(RED"Motsarela\n"RESET);
 		hash_bucket *bucket=&(hash->buckets[hash_val]);
 		//exists=check_exists_in_bucket(bucket,words[start],&pos);
 		exists=check_exists_in_bucket(words[start],&pos,bucket->children,bucket->children_number);
 		//printf("exists is %d\n",exists);
+
 		if(exists==0){ 
 			start++;
 			free(str);
@@ -1608,6 +1632,7 @@ int lookupTrieNode_with_bloom_versioning(void * arguments)//hash_layer *hash,cha
 			}*/			
 			myappend_pan_with_space(&str,&str_size,words[word_number]);
 		}
+
 
 		if(exists==1 && word_number<=number_of_words) {
 			check=check_node(node,current_version);

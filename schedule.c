@@ -10,7 +10,7 @@ void * get_a_job(void* queue) {
 Queue * q;
 q = (Queue*)queue;
 	while(1)
-	{
+	{ printf(GREEN"Panos 1\n"RESET);
 		if(!pthread_mutex_lock(&T)){
 			pthread_cond_wait(&tcv,&T);
 			if(q->queue_used==0) {
@@ -42,7 +42,7 @@ q = (Queue*)queue;
 				return NULL;
 				}
 			else {printf("ODD\n");}
-
+printf(RED"Panos 1\n"RESET);
 		}
 
 	}
@@ -83,7 +83,7 @@ void extend_queue(Queue * q){
 }
 
 void submit_job(JobScheduler* sch, Job* j){
-	//printf("Submit Job init\n");\
+	//printf("Submit Job init\n");
 	//j->opt();
 	if(sch->q->queue_capacity==sch->q->queue_used)
 		extend_queue(sch->q);
