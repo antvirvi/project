@@ -1,7 +1,162 @@
-time ./project -q small.work -i small.init 
+valgrind --leak-check=yes ./project -q small.work -i small.init 
 Init small.init
 Queries small.work
 queries
+Start JS init
+Thread 12
+End JS init
+wait all tasks finish start
+current version is 0
+words in is 6245
+ptr = 0
+current version is 1
+words in is 10792
+ptr = 1
+current version is 2
+words in is 2092
+ptr = 2
+current version is 3
+words in is 5681
+ptr = 3
+current version is 4
+words in is 718
+ptr = 4
+current version is 5
+words in is 6821
+ptr = 5
+current version is 5
+words in is 4222
+ptr = 6
+current version is 6
+words in is 6241
+ptr = 7
+current version is 7
+words in is 3936
+ptr = 8
+current version is 8
+words in is 6997
+ptr = 9
+current version is 9
+words in is 2749
+ptr = 10
+current version is 9
+words in is 6713
+ptr = 11
+current version is 9
+words in is 6454
+ptr = 12
+current version is 10
+words in is 3581
+ptr = 13
+current version is 10
+words in is 5423
+ptr = 14
+current version is 11
+words in is 5323
+ptr = 15
+current version is 12
+words in is 3635
+ptr = 16
+current version is 13
+words in is 4249
+ptr = 17
+current version is 14
+words in is 7363
+ptr = 18
+current version is 15
+words in is 8295
+ptr = 19
+current version is 16
+words in is 3971
+ptr = 20
+current version is 16
+words in is 8056
+ptr = 21
+current version is 17
+words in is 3269
+ptr = 22
+current version is 18
+words in is 7915
+ptr = 23
+current version is 18
+words in is 10071
+ptr = 24
+current version is 19
+words in is 6191
+ptr = 25
+current version is 20
+words in is 10376
+ptr = 26
+current version is 21
+words in is 6569
+ptr = 27
+current version is 22
+words in is 9790
+ptr = 28
+current version is 23
+words in is 4144
+ptr = 29
+current version is 24
+words in is 1312
+ptr = 30
+current version is 25
+words in is 6306
+ptr = 31
+current version is 26
+words in is 3853
+ptr = 32
+current version is 27
+words in is 2055
+ptr = 33
+current version is 27
+words in is 4235
+ptr = 34
+current version is 28
+words in is 8683
+ptr = 35
+current version is 29
+words in is 7056
+ptr = 36
+current version is 30
+words in is 819
+ptr = 37
+current version is 31
+words in is 4315
+ptr = 38
+current version is 32
+words in is 5886
+ptr = 39
+current version is 33
+words in is 4634
+ptr = 40
+current version is 34
+words in is 6840
+ptr = 41
+current version is 35
+words in is 5762
+ptr = 42
+current version is 35
+words in is 8275
+ptr = 43
+current version is 36
+words in is 7953
+ptr = 44
+current version is 37
+words in is 8925
+ptr = 45
+current version is 37
+words in is 4021
+ptr = 46
+current version is 38
+words in is 7137
+ptr = 47
+current version is 38
+words in is 3445
+ptr = 48
+current version is 39
+words in is 6021
+ptr = 49
+wait all tasks finish end
 introduction|global|quality|application|attitude|determination|available|frequencies|epochs|resolution|increasing|signals|dynamic|based|three|integrated|difference|optimal|length|geometry|studies|errors|theory|the method|however|dynamics|temperature|estimation|filter|requirements|within|short|paper|section|development|research|section 2|definition|experiments|section 5|the work|analyzing|frame|differential|component|magnitude|earth|surface|maximum|linear|rotation|cross|the second|second|right|starting|noise|means|there|there is|components|written|analysis|comparing|operator|m a|given|standard|solution|a i|reference|before|column|functions|the v|ratio|values|s s|those|reflected|the volume|smaller|results|positions|point|every|shown|above|until|cycle|besides|varying|upper|while|there are|bottom|third|generating|conditions|about|otherwise|the best|figures|experiment|figure 4|basic|assume|field|states|t c|adding|transmission|modeling|times|period|words|relaxed|matter|significant|overall|zhang|academic|parameter|j g|international|symposium|november|p a|society|accelerated|conference|university|location|j d|institute|september|session|principles|university of california|california|computations|johns|johns hopkins|netherlands|future
 introduction|world|accounting|cause|development|human|accepted|analysis|standard|treatment|however|subsequently|rising|reduced|rates|broad|early|others|further|in general|deeper|understanding|the present|present|review|context|small|target|figure 1|part of|a set|class|the second|second|identified|cells|furthermore|example|transition|above|shown|whereas|given|processes|impact|parts|group|three|property|figures|significant|functions|important|feedback|region|multiple|signals|figure 4|results|observed|before|cycle|global|apart|a major|times|enhanced|while|surface|interesting|third|johnson|numerous|conclusion|progress|effects|could|least|overview|paper|likely|future|there|research|statistics|journal|crawford|the new|american|society|bartel|element|united states|states|timing|p s|conservation|peter|wright|implications|zhang|cheng|international|smith|clarke|increasing|british|yoshida|revised|j j|hawkins|martin|finger|critical|meyer|winkler|santoro|communications|pages|thomas|differential|benson|t c|cross|charles|garcia|m k|relations|theory|evolution|basic|roche
 introduction|techniques|while|others|technique|quality|increasing|mechanical|however|observed|especially|region|paper|examination|degree|combined|images|figures|figure 4|every|hours|status|without|three|upper|surface|despite|the second|second|there|until|recall|period|problem|figure 17|slight|almost|words|research|studies|parallel|present|group|treatment|a series|series|exposure|results|further|possible|there is|journal|quintessence|international|seibert|application|harris|partial|matter|human|t j|effects|review
@@ -52,6 +207,125 @@ introduction|obviously|small|length|pressure|internal|critical|paper|further|rel
 introduction|opportunities|short|development|genome|the sum|there|there exists|otherwise|having|pipeline|length|today|however|techniques|rapid|quality|figure 1|region|errors|results|probability|research|the best|resolving|considering|fraction|resolution|based|especially|criterion|internal|computational|context|scheme|difference|significant|instead|partial|for each|final|ensemble|experiments|noise|furthermore|available|academic|overall|counts|before|the details|present|s s|where|assume|there are|as is|every|paper|the second|second|parameter|parallel|solution|efficiency|bloom|filter|values|ratio|third|shift|right|lines|optimal|basic|simple|interesting|relative|along|j k|estimates|d d|definition|element|bayesian|theory|given|words|a series|series|preliminary|multiple|linear|dependence|estimate|further|above|those|boundary|j j|parts|estimation|while|impact|public|rates|there is|reference|whereas|twenty|three|target|source|variable|comparison|intel|least|nonetheless|obviously|about|clearly|individual|version|shown|figure 4|distribution|robust|observed|effects|the box|estimating|without|in general|overhead|point|smaller|users|analysis|starting|recall|eventually|changing|approximately|varying|computing|part of|others|concluding|employed|could|hybrid|various|future|simultaneous|degree|the method|the research|k k|foundation|ministry|university|journal|martin|zhang|society|international|conference|walker|sciences|berger|bayesian analysis|springer|new york|press|cambridge|massachusetts|thomas|environmental|frank|database|huang|giant
 introduction|broad|absorption|narrow|activity|without|figure 1|oxygen|treatment|transition|subject|research|observed|significant|various|while|binary|there|there are|present|quality|temperature|solution|further|transform|spectra|spectrometer|electronic|solid|elemental|elemental analysis|analysis|vario|studies|plate|technique|three|where|plates|results|comparing|those|the peak|available|difference|important|determination|interaction|group|broad band|length|region|d d|starting|every|point|second|third|about|above|intensity|oxford|program|heavy|shown|surrounded|geometry|cambridge|future|figure 4|conclusion|spectroscopic|standard|theory|central|acknowledgments|university|centre|department|there is|paper|international|journal|sciences|action|metals|society|charles|zhang|j b|section|s s|relevant|version
 introduction|understanding|based|studies|without|however|there|there are|those|small|network|despite|development|research|effects|further|individual|approximately|there is|within|region|estimate|computational|modeling|application|three|vessels|length|the work|figure 1|the middle|solid|list of|version|pressure|boundary|boundary conditions|conditions|the model|going|experiments|smaller|examples|experiment|baseline|shown|where|results|right|having|central|internal|part of|the second|second|origins|cells|colour|reduced|figure 4|while|keeping|increasing|difference|figures|critical|whereas|could|3d model|adaptive|important|variable|optimal|interesting|example|third|differential|digital|series|observed|possible|multiple|geometry|context|human|varying|a major|except|images|given|resolution|significant|looking|the research|journal|university|scheme|prof|foundation|research council|charles|thomas|doherty|status|final|degree|review|morphology|artificial|wright|schneider
+wait all tasks finish start
+current version is 40
+words in is 62
+ptr = 0
+current version is 41
+words in is 4042
+ptr = 1
+current version is 42
+words in is 5316
+ptr = 2
+current version is 43
+words in is 4234
+ptr = 3
+current version is 44
+words in is 3157
+ptr = 4
+current version is 45
+words in is 7676
+ptr = 5
+current version is 46
+words in is 5107
+ptr = 6
+current version is 47
+words in is 8685
+ptr = 7
+current version is 47
+words in is 8622
+ptr = 8
+current version is 48
+words in is 4724
+ptr = 9
+current version is 49
+words in is 4862
+ptr = 10
+current version is 50
+words in is 5049
+ptr = 11
+current version is 51
+words in is 6609
+ptr = 12
+current version is 52
+words in is 3995
+ptr = 13
+current version is 53
+words in is 11585
+ptr = 14
+current version is 54
+words in is 4874
+ptr = 15
+current version is 55
+words in is 7776
+ptr = 16
+current version is 55
+words in is 4750
+ptr = 17
+current version is 56
+words in is 7089
+ptr = 18
+current version is 57
+words in is 7115
+ptr = 19
+current version is 58
+words in is 5213
+ptr = 20
+current version is 59
+words in is 6091
+ptr = 21
+current version is 60
+words in is 4020
+ptr = 22
+current version is 61
+words in is 4283
+ptr = 23
+current version is 62
+words in is 19573
+ptr = 24
+current version is 63
+words in is 14410
+ptr = 25
+current version is 64
+words in is 1729
+ptr = 26
+current version is 64
+words in is 4271
+ptr = 27
+current version is 65
+words in is 5622
+ptr = 28
+current version is 66
+words in is 6042
+ptr = 29
+current version is 67
+words in is 3328
+ptr = 30
+current version is 68
+words in is 12804
+ptr = 31
+current version is 69
+words in is 3213
+ptr = 32
+current version is 70
+words in is 6353
+ptr = 33
+current version is 71
+words in is 9939
+ptr = 34
+current version is 72
+words in is 3407
+ptr = 35
+current version is 73
+words in is 7865
+ptr = 36
+current version is 73
+words in is 2765
+ptr = 37
+current version is 74
+words in is 61
+ptr = 38
+wait all tasks finish end
 the second|second|sharon|joint|reference|gallagher|journal
 introduction|application|baker|shown|joint|these|treatment|monitoring|above|significant|techniques|available|rapid|dynamic|examination|important|components|enhanced|vessels|the source|source|problem|results|studies|january|identified|department|those|review|right|the netherlands|netherlands|new york|probe|there|difference|observed|every|could|the local|three|outside|twenty|field|exact|overall|frequencies|there is|special|research|in general|various|figure 1|figure 4|there are|about|period|while|going|stairs|part of|absorption|transmission|development|horizontal|values|increasing|secondary|mechanical|correlated|simple|internal|especially|clearly|cause|where|typical|surrounded|location|asterisks|black|heavy|differential|having|activity|shear|partial|means|sometimes|small|section|future|type i|looking|however|one of them|simultaneous|interesting|least|degree|conclusion|references|lindsay|comparison|hayashi|gallego|lucas|analysis|phys|modern|distribution|resolution|varying|image|young|based|preliminary|zhang
 introduction|increasing|cause|matter|there|there is|growing|activity|cross|small|studies|baseline|variables|important|however|employed|quality|estimates|short|nonetheless|robust|inverse|status|occupation|effects|those|results|probability|later|world|least|intensity|periods|public|promotion|survey data|phases|final|the drop|district|hours|typical|while|for each|the sum|where|reference|group|based|research|night|shift|standard|heavy|treatment|conditions|identified|at the end|these|statistical analysis|analysis|three|interaction|significant|version|institute|shown|figures|unless|otherwise|values|likely|further|future|linear|ratio|variable|the age|observed|reduced|reduction|transition|various|comparison|furthermore|going|australian|possible|about|the general|techniques|scale|enhanced|optimal|griffiths|program|research council|collaboration|centre|northern|m k|fellowship|environment|foundation|references|understanding|review|without|sciences|january|department|available|human|global|phys|american|pratt|williams|p a|nelson|stewart|components|timing|british|electronic|moore
@@ -91,6 +365,161 @@ introduction|there|there are|gauge|these|degree|joint|implications|components|ho
 introduction|development|cells|number|typical|these|cycle|further|plate|lines|cause|robin|conditional|various|times|others|studies|accelerated|activity|whereas|program|genome|experiments|analysis|possible|examination|effects|short|profile|shown|to be|understanding|important|those|resolution|array|based|results|hours|a major|approximately|figure 1|second|journal|group|channel|transient|interaction|the second|since|could|functions|likely|forms|probably|feedback|except|small|experiment|criterion|background|identified|outside|distribution|upstream|database|figures|conservation|human|where|there|sharp|minor|three|figure 4|positions|the peak|enhanced|degree|however|relevant|examples|detected|right|surrounded|solid|squares|observed|internal|bottom|normalized|within|above|b a|secondary|b d|third|target|a a|g g|multiple|overall|there are|finally|least|though|there is|to do|status|obviously|the present|present|institute|university|rapid|mountain|for each|difference|values|before|template|department|references|huang|zhang|thomas|barbara|bartel|nelson|digital|parallel|haynes|thompson|luyten|johnson|lundgren|element|science|walker|wegner|determination|nakamura|lovell|definition
 introduction|important|development|cells|small|activity|early|number|shown|significant|these|words|studies|quality|human|likely|to be|however|there|further|status|cycle|multiple|third|without|starting|before|phase|where|possible|for each|15 min|until|marseille|group|above|second|least|given|statistical analysis|analysis|version|student|review|university|results|comparing|observed|except|correlated|slight|the present|present|individual|could|difference|especially|rates|those|furthermore|growing|close|contact|probability|conclusion|application|research|effects|dynamics|optimal|timing|lambert|blazar|administration|morphology|comparison|revised|correlations|within|program|lovell
 the second|second|oxford|research|centre|reference|journal
+wait all tasks finish start
+current version is 75
+words in is 9919
+ptr = 0
+current version is 76
+words in is 15951
+ptr = 1
+current version is 77
+words in is 4203
+ptr = 2
+current version is 78
+words in is 1608
+ptr = 3
+current version is 79
+words in is 4405
+ptr = 4
+current version is 80
+words in is 3716
+ptr = 5
+current version is 80
+words in is 5376
+ptr = 6
+current version is 81
+words in is 3607
+ptr = 7
+current version is 82
+words in is 8287
+ptr = 8
+current version is 83
+words in is 5226
+ptr = 9
+current version is 84
+words in is 9160
+ptr = 10
+current version is 85
+words in is 4948
+ptr = 11
+current version is 85
+words in is 3047
+ptr = 12
+current version is 86
+words in is 8580
+ptr = 13
+current version is 87
+words in is 6197
+ptr = 14
+current version is 88
+words in is 8013
+ptr = 15
+current version is 89
+words in is 6278
+ptr = 16
+current version is 90
+words in is 2205
+ptr = 17
+current version is 91
+words in is 1667
+ptr = 18
+current version is 91
+words in is 6192
+ptr = 19
+current version is 91
+words in is 3842
+ptr = 20
+current version is 92
+words in is 3426
+ptr = 21
+current version is 92
+words in is 5678
+ptr = 22
+current version is 93
+words in is 4674
+ptr = 23
+current version is 94
+words in is 6398
+ptr = 24
+current version is 95
+words in is 12360
+ptr = 25
+current version is 96
+words in is 7320
+ptr = 26
+current version is 97
+words in is 5314
+ptr = 27
+current version is 98
+words in is 9585
+ptr = 28
+current version is 99
+words in is 6442
+ptr = 29
+current version is 100
+words in is 3111
+ptr = 30
+current version is 101
+words in is 5889
+ptr = 31
+current version is 102
+words in is 4867
+ptr = 32
+current version is 103
+words in is 6618
+ptr = 33
+current version is 104
+words in is 3953
+ptr = 34
+current version is 104
+words in is 5558
+ptr = 35
+current version is 105
+words in is 6044
+ptr = 36
+current version is 106
+words in is 9712
+ptr = 37
+current version is 107
+words in is 68
+ptr = 38
+current version is 108
+words in is 12935
+ptr = 39
+current version is 109
+words in is 6295
+ptr = 40
+current version is 110
+words in is 6654
+ptr = 41
+current version is 110
+words in is 12259
+ptr = 42
+current version is 110
+words in is 7813
+ptr = 43
+current version is 111
+words in is 5959
+ptr = 44
+current version is 112
+words in is 10262
+ptr = 45
+current version is 113
+words in is 2646
+ptr = 46
+current version is 114
+words in is 5705
+ptr = 47
+current version is 115
+words in is 1045
+ptr = 48
+current version is 115
+words in is 2115
+ptr = 49
+current version is 115
+words in is 4458
+ptr = 50
+wait all tasks finish end
 to be|lines|basic|research|while|development|transmission|studies|shown|cells|number|various|release|typical|conditions|where|detected|central|years|clearly|coupling|could|innovative|growing|field|review|fundamental|signals|activity|rapid|identified|temperature|action|gamma|processes|matter|since|functions|these|important|small|medium|analysis|observed|reduced|mechanical|short|2 4 6|overall|despite|above|results|transient|partial|significant|possible|application|reduction|timing|critical|finally|chinese|paper|treatment|correlated|further|cause|cross|upstream|close|collaboration|state|figure 1|element|implications|network|channel|effects|human|administration|within|mutation|intensity|based|likely|interesting|target|example|nearby|exposure|cyclic|point|group|available|integrated|profile|later|increasing|onset|conversely|every|especially|thanks|thanks to|second|whereas|starting|observation|in general|those|shift|feedback|least|until|the loss|however|states|extension|a major|distribution|list of|discrimination|the new|throughput|program|progress|about|without|the best|there|there is|science|journal|problem|foundation|symposium|caveats|enhanced|zhang|huang|sciences|united states|joint|overview|alexander|benson|british|smith|cheng|bianchi|comparison|reference|silva|international|ensemble|maeda|komatsu|williams|mcmahon|roberts|bloom|multiple|janes|nakamura|today
 introduction|before|human|a type|however|phenomenological|point|there|least|others|problem|values|about|these|special|to be|state|possible|processes|above|conditions|sharp|years|while|interaction|the art|studies|functions|experiments|almost|the one|fundamental|important|development|application|theory|theory of|action|world|forms|paper|those|there are|context|since|words|there is|unless|affairs|clearly|francis|bacon|cause|example|users|the best|could|having|experiment|later|implications|list of|changing|various|given|theoretical|james|environment|where|understanding|every|relevant|eventually|chatterjee|adaptive|activity|modeling|the general|requirements|within|section|agency|based|finally|definition|though|accepted|detection|property|reduced|colors|especially|principles|impact|measuring|results|in general|simple|right|optimal|the design|medium|choosing|difference|further|analysis|shown|overall|element|the second|second|examples|integrated|part of|future|states|number|standards|probably|estimates|sections|faculty|conversely|bottom|ignoring|effects|available|reference|relations|feedback|thompson|internal|otherwise|static|dynamic|parts|exact|today|apart|basic|without|attempts|surface|to do|training|environmental|stairs|matter|flight|reduction|barry|detected|almost all|abstract|signals|opportunities|a major|press|the field|field|global|comparisons|present|craig|intensity|doing|recall|resolution|let us|optimally|numerous|envelope|likely|final|brand|postman|much more|degree|service|instead|the model|carbon|again|innovative|rates|visual|increasing|coupling|alexander|conclusion|adopted|individual|the research|research|comments|thanks|werner|brian|broad|the source|source|natural|2 the|status|relative|concepts|evolved|standard|a set|friedman|techniques|temperature|conditional|student|progress|turner|critical|checking|electronic|references|the core|london|davidson|new york|oxford|oxford university|university|university press|image|zhang|the present|30 40|d e|representation|smith|cambridge|cambridge university|dynamics|p a|science|narrow|technique|capture|d d|review|origins|george|allen|evolution|society|j j|jones|group|j b|doherty|overview|springer|images|m a|vries|wiley|artificial|benson|j c|international|conference|central|cartesian
 introduction|recall|these|effects|observed|night|comparison|available|besides|difference|phase|multiple|important|rapid|differential|furthermore|studies|relative|however|experiment|young|years|hours|except|least|every|experiments|before|session|cambridge|group|target|right|three|shown|while|others|words|given|within|monitoring|period|apart|state|conditions|where|since|there|university|south|database|their|point|scale|frequency|times|for each|possible|feedback|subsequently|number|at the end|analysis|significant|based|opportunities|channel|filter|second|department|principles|written|institute|linear|interaction|above|exposure|small|medium|correlations|various|results|journal|standard|errors|statistically|reduced|black|comparing|periods|increasing|the novel|overall|short|instead|adding|those|observation|correlated|likely|to be|morning|indices|despite|adopted|timing|future|patrick|references|about|jenkins|payne|tucker|walker|human|early|nelson|thompson|techniques|sciences|prompt|science|ensemble|simple
@@ -142,6 +571,158 @@ background|identified|source|cause|environmental|sources|monitoring|united|unite
 these|detected|without|significant|years|introduction|throughput|field|research|based|understanding|of the|fundamental|special|present|original|review|conditions|studies|development|location|partial|before|their|important|especially|interaction|individual|genetic|environment|overview|regardless|identified|solid|increasing|target|evolution|exposure|early|those|journal|berger|natural|human|cells|american|transition|analysis
 introduction|of the|type 2|internal|these|techniques|however|2 3 4|4 5 6|5 6 7 8|7 8 9|present|technique|reduction|small|figure 1|joint|distance|extension|lines|horizontal|upper|linear|along|approximately|to be|probe|the joint|point|superior|observed|plate|plates|about|contact|vertical|finally|again|figures|profile|to do|cause|early|figure 4|black|period|3 weeks|motion|others|there|residual|recently|results|available|without|secondary|second|having|third|conclusion|source|references|treatment|simple|part of|silva|m a|international|jackson|smith|implications
 background|modern|of the|world|number|available|users|example|south|the middle|present|parts|every|the one|program|adding|point|until|could|analysis|multiple|about|their|years|except|cross|cluster|service|surveys|expanding|shown|rates|early|large|scale|asian countries|figure 1|these|the research|research|stage|at large|examples|least|india|where|the method|1960s|impact|survey data|estimates|degree|sources|representative|united|for each|before|estimate|various|measuring|since|for some|standard|times|to be|having|values|somewhat|results|important|original|errors|column|while|individual|variable|small|average|effects|within|structure|increasing|2 the|solid|lines|right|probably|second|correlations|distribution|squares|smaller|again|there|especially|those|finally|apart|third|figure 4|upper|period|above|regardless|linear|starting|others|the sum|significant|close|approximately|finding|the present|minor|growing|reduced|based|press|introduction|geographic|there is|conversely|possible|overall|future|studies|differential|varying|variables|there are|interesting|conclusion|foundation|references|j smith|smith|reduction|quality|environment|international|department|affairs|new york|group|shelton|chapel hill|carolina|university|university of north carolina|north|paper|project
+wait all tasks finish start
+current version is 116
+words in is 14180
+ptr = 0
+current version is 117
+words in is 8184
+ptr = 1
+current version is 118
+words in is 3535
+ptr = 2
+current version is 119
+words in is 4594
+ptr = 3
+current version is 120
+words in is 4830
+ptr = 4
+current version is 120
+words in is 9548
+ptr = 5
+current version is 121
+words in is 4287
+ptr = 6
+current version is 121
+words in is 4326
+ptr = 7
+current version is 122
+words in is 5523
+ptr = 8
+current version is 123
+words in is 3418
+ptr = 9
+current version is 124
+words in is 746
+ptr = 10
+current version is 125
+words in is 5800
+ptr = 11
+current version is 126
+words in is 3372
+ptr = 12
+current version is 127
+words in is 684
+ptr = 13
+current version is 128
+words in is 3476
+ptr = 14
+current version is 128
+words in is 11418
+ptr = 15
+current version is 129
+words in is 2241
+ptr = 16
+current version is 130
+words in is 1845
+ptr = 17
+current version is 131
+words in is 5211
+ptr = 18
+current version is 132
+words in is 10626
+ptr = 19
+current version is 133
+words in is 317
+ptr = 20
+current version is 134
+words in is 7636
+ptr = 21
+current version is 135
+words in is 7223
+ptr = 22
+current version is 135
+words in is 5541
+ptr = 23
+current version is 135
+words in is 5670
+ptr = 24
+current version is 136
+words in is 1832
+ptr = 25
+current version is 136
+words in is 4554
+ptr = 26
+current version is 137
+words in is 3708
+ptr = 27
+current version is 138
+words in is 4322
+ptr = 28
+current version is 139
+words in is 4147
+ptr = 29
+current version is 140
+words in is 9496
+ptr = 30
+current version is 141
+words in is 8888
+ptr = 31
+current version is 142
+words in is 4835
+ptr = 32
+current version is 143
+words in is 3943
+ptr = 33
+current version is 144
+words in is 5431
+ptr = 34
+current version is 145
+words in is 1215
+ptr = 35
+current version is 146
+words in is 5000
+ptr = 36
+current version is 146
+words in is 3146
+ptr = 37
+current version is 147
+words in is 6119
+ptr = 38
+current version is 148
+words in is 3248
+ptr = 39
+current version is 149
+words in is 160
+ptr = 40
+current version is 150
+words in is 5268
+ptr = 41
+current version is 151
+words in is 5102
+ptr = 42
+current version is 152
+words in is 2437
+ptr = 43
+current version is 153
+words in is 9864
+ptr = 44
+current version is 154
+words in is 3039
+ptr = 45
+current version is 155
+words in is 4697
+ptr = 46
+current version is 155
+words in is 502
+ptr = 47
+current version is 156
+words in is 90
+ptr = 48
+current version is 157
+words in is 8813
+ptr = 49
+wait all tasks finish end
 introduction|three|techniques|of the|degree|frequency|residual|these|their|typical|whilst|frequencies|figure 1|likely|number|partial|accepted|furthermore|increasing|growing|environmental|noise|future|background|fitting|there|about|despite|the clear|research|those|short|hybrid|could|effects|critical|numerous|cells|exposure|based|review|combined|optimal|users|while|possible|quality|signals|section|overview|important|studies|conditions|cause|results|within|action|simultaneous|experiments|intensity|observed|shown|amplitude|rates|activity|adding|period|finding|the sum|conversely|dependence|relative|timing|where|later|robin|the length|length|array|motion|to be|however|there is|relevant|recently|example|significant|above|central|probe|interaction|overall|location|reference|shift|large|primary|examination|development|regardless|definition|sections|available|early|human|manifest|technique|given|source|cloud|foreign|there are|along|impact|the loss|turner|group|years|almost|almost all|having|standard|caution|deeper|without|superior|oxygen|release|natural|accelerated|processes|point|understanding|giant|various|treatment|target|fluid|detected|application|basic|enhanced|forms|administration|phase|a major|discrimination|eventually|least|degenerate|figure 4|efficiency|smaller|surrounded|the best|cross|multiple|modern|close|perhaps|field|paper|promotion|acknowledgments|australian|research council|williams|institute|program|solution|oliveira|international|journal|pages|centre|dorman|service|kiefer|sources|american|academy|society|new york|groot|mechanical|massachusetts|institute of technology|zhang|channel|eddington|black|patrick|conservation|comparison|jackson|implications|contour|wright|temperature|baker|young|yoshida|transient|envelope|japanese|huang|cheng|j c|the new|sciences|differential|harris|shibata|science|analysis|integrated|smith|visual|johns|a a|alexander
 promotion|keeping|robust|based|world|examples|impact|array|optimal|multiple|analysis|field|to do|public|training|global|a major|the one|state|context|despite|rates|without|of the|institute|years|individual|whereas|there|there is|changing|conditions|these|accepted|errors|action|treatment|to be|where|possible|their|upper|large|available|others|since|users|sector|review|development|about|clearly|activity|list of|standards|service|opportunities|progress|however|rapid|computational|while|within|important|notice|outside|especially|1960s|those|north|new york|program|identified|every|agency|estimates|project|period|basic|shift|mayor|michael|average|american|research|united|united states|states|early|department|innovative|increasing|phase|cycle|distribution|future|image|status|reduced|enhanced|corporate|given|smaller|probably|assume|least|could|modeling|results|primary|reduction|secondary|effects|united kingdom|kingdom|approximately|number|the 8|examination|likely|cause|studies|combined|japan|relevant|growing|ministry|environmental|three|foundation|projects|international|network|society|almost|hours|adding|young|australia|canada|south|exposure|estimate|there are|example|type 2|chile|in general|special|costa|monitoring|the best|expanding|functions|maximum|group|coordinate|various|critical|resolution|november|consortium|centre|the new|academy|human|present|degree|above|republic|the second|second|channel|sources|graduate|integrated|understanding|significant|online|theory|conclusion|baseline|before|again|later|comparison|difference|references|adopted|conference|m a|stanford|university|profile|onset|historical|redefining|modern|science|heller|administration|summers|lindsay|absolute|comparing|bergmann|surveys|images|ellis|huang|torres|pratt|phys|lopez|problem|overview|press
 introduction|rotating|column|where|contact|united|united states|states|earth|these|2 the|understanding|important|short|together|within|surveys|of the|scale|today|observed|location|based|degree|quality|enhanced|historical|original|adopted|service|studies|correlated|length|estimate|intensity|distribution|the wind|the model|for each|database|frequency|increasing|results|future|shear|values|convective|available|perhaps|paper|section|section 2|years|section 5|concluding|analysis|period|photos|sometimes|areal|least|numerous|property|significant|besides|maximum|there|there are|frequencies|average|number|shown|assume|large|individual|however|there is|journal|median|three|second|upper|given|distributions|since|their|parameter|the one|without|standard|the length|100 km|about|those|magnitude|smaller|10 km|20 km|along|histograms|panel|especially|right|small|cutoff|approximately|narrow|relative|possible|nearby|doppler|estimates|the new|moore|to be|squared|horizontal|choosing|twelve|finally|while|environment|point|temperature|later|examples|analyzing|continuum|calibrated|environmental|references|research|american|society|normalized|conference|context|planetary|science|global|edwards|estimation|present|alexander|south|comparison|review|robust|academy|sciences|p o box|dynamic|probability|rigby|francis
@@ -192,6 +773,200 @@ introduction|problem|studies|given|e g|genome|results|possible|instead|artificia
 correlated|recent|journal|science|shown|while|important|relevant|however|we think|absorption|heavy|status|these|could|results|of the|significant|observed|conclusion|comparison|three|activity|determination|difference|smith|based|chinese
 marie|public|london|united|united kingdom|kingdom|experiments|reference|garcia|analysis|the netherlands|netherlands|germany|journal
 introduction|identified|important|research|century|recently|smart|computing|these|e g|academic|monitoring|massive|dynamic|system|of the|extracting|about|environment|typical|analysis|element|nature|online|algorithms|discovery|regardless|the design|structure|small|possible|results|available|users|finally|frequency|errors|to be|multiple|techniques|simple|network|while|there|there is|large|modeling|sources|systems|finding|their|consortium|standard|application|formal|location|based|standards|measurements|ascii|binary|however|world|stage|database|hidden|second|scheme|the best|without|section|definition|technique|fraction|projected|overall|individual|block|section 2|problem|section 5|future|work in|modern|robust|transmission|could|together|various|subsequently|growth|furthermore|the one|estimation|efficiency|the new|relations|correlated|quality|fundamental|number|studies|above|background|a set|where|states|likely|there are|given|suppose|2 the|internal|special|every|t r|there exists|short|the length|length|except|otherwise|target|the general|context|recent|exact|right|embedded|increasing|basic|atomic|combined|figure 1|examples|integrated|detected|since|detection|assume|until|part of|conditions|measuring|again|subscript|frequencies|equations|having|let us|shown|three|temperature|those|adding|candidates|for some|example|whereas|present|estimate|conditional|probability|values|overview|primary|reduced|positions|field|pointing|figure 4|pointer|original|maximum|recall|for each|phase|third|approximately|simply|the second|extension|equation|performing|final|before|theorem|forms|conclusion|generating|parameter|program|foundation|ministry|the research|the work|references|evolution|opportunities|conference|science|twenty|symposium|m k|davidson|october|liang|m a|chile|september|k k|parallel|ph d|ph d thesis|thesis|department|university|sakamoto|the 2nd|neumann|werner|integration|h t
+wait all tasks finish start
+current version is 158
+words in is 6456
+ptr = 0
+current version is 159
+words in is 5989
+ptr = 1
+current version is 160
+words in is 5384
+ptr = 2
+current version is 161
+words in is 5760
+ptr = 3
+current version is 162
+words in is 2075
+ptr = 4
+current version is 163
+words in is 8511
+ptr = 5
+current version is 164
+words in is 7242
+ptr = 6
+current version is 165
+words in is 5657
+ptr = 7
+current version is 166
+words in is 5891
+ptr = 8
+current version is 167
+words in is 7197
+ptr = 9
+current version is 168
+words in is 21832
+ptr = 10
+current version is 169
+words in is 6809
+ptr = 11
+current version is 170
+words in is 505
+ptr = 12
+current version is 170
+words in is 4189
+ptr = 13
+current version is 171
+words in is 1629
+ptr = 14
+current version is 171
+words in is 8452
+ptr = 15
+current version is 172
+words in is 5627
+ptr = 16
+current version is 173
+words in is 5494
+ptr = 17
+current version is 173
+words in is 754
+ptr = 18
+current version is 174
+words in is 6853
+ptr = 19
+current version is 175
+words in is 5058
+ptr = 20
+current version is 176
+words in is 7635
+ptr = 21
+current version is 177
+words in is 9675
+ptr = 22
+current version is 178
+words in is 4292
+ptr = 23
+current version is 179
+words in is 7434
+ptr = 24
+current version is 180
+words in is 9800
+ptr = 25
+current version is 181
+words in is 7373
+ptr = 26
+current version is 182
+words in is 5661
+ptr = 27
+current version is 183
+words in is 1151
+ptr = 28
+current version is 184
+words in is 5373
+ptr = 29
+current version is 184
+words in is 7935
+ptr = 30
+current version is 185
+words in is 998
+ptr = 31
+current version is 186
+words in is 4594
+ptr = 32
+current version is 187
+words in is 4043
+ptr = 33
+current version is 188
+words in is 5702
+ptr = 34
+current version is 189
+words in is 6815
+ptr = 35
+current version is 190
+words in is 3659
+ptr = 36
+current version is 191
+words in is 3208
+ptr = 37
+current version is 192
+words in is 8413
+ptr = 38
+current version is 193
+words in is 5707
+ptr = 39
+current version is 194
+words in is 5204
+ptr = 40
+current version is 195
+words in is 4547
+ptr = 41
+current version is 196
+words in is 2902
+ptr = 42
+current version is 197
+words in is 4666
+ptr = 43
+current version is 197
+words in is 6702
+ptr = 44
+current version is 198
+words in is 6944
+ptr = 45
+current version is 199
+words in is 9224
+ptr = 46
+current version is 199
+words in is 11220
+ptr = 47
+current version is 199
+words in is 8421
+ptr = 48
+current version is 200
+words in is 669
+ptr = 49
+current version is 201
+words in is 5740
+ptr = 50
+current version is 201
+words in is 3833
+ptr = 51
+current version is 202
+words in is 5372
+ptr = 52
+current version is 203
+words in is 3400
+ptr = 53
+current version is 204
+words in is 652
+ptr = 54
+current version is 204
+words in is 4045
+ptr = 55
+current version is 205
+words in is 4049
+ptr = 56
+current version is 206
+words in is 1564
+ptr = 57
+current version is 207
+words in is 11596
+ptr = 58
+current version is 207
+words in is 8227
+ptr = 59
+current version is 208
+words in is 3059
+ptr = 60
+current version is 208
+words in is 5048
+ptr = 61
+current version is 209
+words in is 5600
+ptr = 62
+current version is 210
+words in is 4028
+ptr = 63
+wait all tasks finish end
 introduction|species|however|important|transmission|south|where|small|various|sources|could|large|environmental|cause|these|there|there is|contact|to be|natural|their|problem|diversity|of the|structure|genetic|studies|group|besides|recent|based|analysis|reduced|variation|significant|accounting|extra|apart|secondary|the present|present|finally|average|annual|temperature|summer|capture|hayes|figure 1|republic|twenty|observation|morphological|after|identified|distribution|number|cerro|figures|while|measurements|images|camera|stereoscopic|diagram|shown|right|distance|length|inner|second|point|profile|about|the general|the model|version|source|to do|section|third|solution|determination|glass|central|human|searching|university|williams|final|template|ethidium bromide|bromide|digital|science|data analysis|binary|intensity|weinberg|processes|estimation|the software|results|looking|rates|in general|those|department|observed|horizontal|boxes|vertical|lines|maximum|values|variables|separation|reflected|canonical|figure 4|finding|the second|multiple|frequency|resolution|degree|geographic|approximately|estimate|residual|activity|considering|without|detected|techniques|transition|already|conditions|available|action|later|simply|notice|program|recently|monitoring|discrimination|almost|artificial|suppose|increasing|effects|possible|frequencies|the research|research|part of|thesis|projects|critical|references|silva|filho|state|falco|garcia|detection|journal|three|application|dynamics|frame|costa|atlas|agency|development|cooperative|oxford|universidad|mayor|flores|lyman|jones|discovery|wiley|system|new york|today|simple|extracting|cells|boyle|centre|probability|status|marco|wolff|field|calle|comparison
 introduction|measuring|integrated|of the|based|shown|the field|field|scale|genetic|environmental|science|extension|growth|exact|point|clouds|detection|scanning|technique|resolution|these|experiment|where|to be|automated|separation|their|geometry|application|every|possible|clearly|identified|for each|type a|results|representation|e g|modeling|estimation|throughput|probability|superior|analysis|processes|the light|distribution|the model|accelerated|algorithms|structure|available|histograms|parameter|above|morphological|monitoring|period|short|overview|the method|figure 1|together|calculation|growing|relevant|part of|number|clusters|least|squares|london|radius|distance|location|university|north|germany|measurements|sixteen|after|observation|parts|cloud|cartesian|cartesian coordinates|coordinates|without|small|source|length|the source|typical|the best|whereas|effects|noise|kernels|could|choosing|pipeline|the work|optimal|cross|problem|smaller|standard|final|extracting|times|gravity|coordinate|system|euclidean|performing|furthermore|black|visible|three|cluster|estimate|equation|there|normalized|a r|reduced|the length|conditions|equations|variable|p a|2 the|solution|starting|values|given|centroid|residual|approximately|upper|about|finally|discrepancy|along|projected|static|series|training|reference|fully|weighted|before|difference|observed|linear|slope|transition|comparisons|important|various|images|data processing|however|future|increasing|states|later|comparison|species|the general|independent|high resolution|systems|until|context|the research|research|large|simply|deeper|understanding|thanks|thanks to|ministry|program|project|klein|bremer|references|stein|image|innovative|dynamic|development|annual|electron|jones|digital|j b|the new|rapid|determination|special|conference|claus|combes|theory|online|february|absolute|sharp|walter|terrestrial|fitting|liang|techniques|press|artificial|h r|society|new york
 background|of the|world|system|since|reduced|primary|could|three|basic|the new|cooperative|scheme|accounting|public|their|before|to be|checking|third|central|small|approximately|instead|scale|ministry|rates|bottom|based|while|furthermore|state|though|observed|promotion|about|program|after|years|the work|chinese|number|studies|the design|profile|overall|effects|the present|present|later|development|these|quality|there|there are|average|target|university|parts|understanding|the local|gauge|in general|graduate|training|data analysis|analysis|parallel|annual|variables|20000|10000|results|except|least|figure 1|especially|2 the|figure 4|final|nearby|where|minor|treatment|frequency|attitude|the best|finding|market|hours|problem|geographic|along|distribution|the large|large|cause|available|reflected|increasing|price|likely|status|however|multiple|words|without|implications|radius|the general|every|conditions|critical|dynamic|period|important|criterion|superior|fully|recall|errors|conclusion|various|clearly|project|science|references|impact|republic|zhang|representative|department|research|research center|action|centre|abstract|cross|journal|systems|difference|estimates|functions|theory|university press|press|huang|degree|example|progress|union|south|variation|liang|experiment
@@ -256,6 +1031,170 @@ introduction|research|however|present|static|standard|available|users|estimate|d
 introduction|their|whereas|recent|number|cells|about|until|while|available|10 11|development|other|species|phase|three|genetic|determination|of the|central|subsequently|vessels|processes|various|to be|finally|phases|japanese|department|science|university|padgett|japan|studies|series|embedded|sections|temperature|solution|final|medium|background|camera|statistical analysis|analysis|starting|section|right|tenth|student|distribution|between|results|shown|part of|morphology|observed|the present|present|the details|details|simple|figures|detected|having|figure 1|could|identified|there|statistically|significant|difference|average|asymmetry|since|primary|furthermore|figure 4|obviously|structure|likewise|based|young|there are|those|morphological|however|experiments|secondary|conversely|theory|theory of|technique|boundary|growth|differential|besides|special|these|conclusion|there is|system|progress|future|research|new york|smith|journal|independent|asymmetries|hamilton|a series|brandt|effects|environment|impact|reproduction|northern|after|exposure|overview|north|nakamura|network|sciences|garcia|stahl|royal|society|london|raymond|dynamics|zhang|meyer|navarro|cheng|italian|hayashi|andrews|lovell|ishimaru|proceedings|academy|united|united states|states|american
 introduction|comparison|fundamental|analysis|processes|degree|between|based|results|however|there|there are|where|example|significant|large|short|these|studies|reference|genome|available|number|length|algorithms|direct|recently|2 the|comparing|distribution|shown|frequencies|multiple|especially|species|efficiency|several|detection|application|review|the best|group|important|weighted|a set|almost|almost all|other|choice|of the|finally|variable|genetic|summary|present|parameter|along|their|section|future|times|possible|inner|words|noise|probability|the length|sections|concepts|every|those|extra|the second|second|final|exact|about|basic|already|definition|again|linear|m a|simple|the new|while|candidates|to be|estimate|apart|problem|for each|likely|recall|given|before|otherwise|location|filter|overview|looking|scheme|average|instead|in general|ratio|notice|counts|positions|without|examination|inverse|since|the general|asymmetry|the evolution|evolution|details|extension|experiments|simulated|revised|background|three|adopted|varying|slight|variation|combined|separation|intensity|standard|overall|except|errors|values|observed|preliminary|10000|figure 1|figures|even if|introducing|changing|small|probably|increasing|above|impact|figure 4|various|relevant|visible|starting|report|rates|database|project|maximum|maximum likelihood|maximum likelihood estimation|estimation|distance|binary|observation|conclusion|work in|quality|p r|science|part of|proceedings|annual|workshop|parallel|online|journal|frequency|optimal|academy|sciences|research|systems|schulz|theoretical|accepted|conference|conservation|discovery|class|huang|springer|comparisons|version
 introduction|errors|these|their|whereas|analysis|important|summary|review|of the|detection|typical|human|medium|activity|several|express|transient|rates|after|treatment|third|to be|structure|vessels|development|since|block|target|discovery|figure 1|short|detected|absorption|based|monitoring|ethidium bromide|bromide|diffuse|the light|three|fluorescence|measuring|though|energy|until|intensity|available|probe|rapid|partial|imaging|simultaneous|before|plates|techniques|reaction|reduction|reference|standard|observed|solution|in general|smaller|differential|increasing|release|density|technique|however|generating|example|emission|the length|length|linear|interaction|between|values|identified|a a|in an|hybrid|possible|those|could|group|magnetic|measurements|throughput|especially|finally|figures|references|r t|e i|m a|lupus|mutation|j d|results|baker|independent|cells|determination|nakajima|online|zhang|huang|jenkins|h t|application|liang|thompson|p a|effects|sixteen|m p|j j|direct
+wait all tasks finish start
+current version is 211
+words in is 9449
+ptr = 0
+current version is 212
+words in is 8189
+ptr = 1
+current version is 213
+words in is 6091
+ptr = 2
+current version is 213
+words in is 3475
+ptr = 3
+current version is 214
+words in is 1298
+ptr = 4
+current version is 214
+words in is 3796
+ptr = 5
+current version is 215
+words in is 3599
+ptr = 6
+current version is 216
+words in is 9237
+ptr = 7
+current version is 217
+words in is 5460
+ptr = 8
+current version is 218
+words in is 6959
+ptr = 9
+current version is 218
+words in is 6861
+ptr = 10
+current version is 219
+words in is 5459
+ptr = 11
+current version is 220
+words in is 6253
+ptr = 12
+current version is 221
+words in is 3359
+ptr = 13
+current version is 222
+words in is 9839
+ptr = 14
+current version is 223
+words in is 3274
+ptr = 15
+current version is 223
+words in is 5834
+ptr = 16
+current version is 224
+words in is 16219
+ptr = 17
+current version is 225
+words in is 6843
+ptr = 18
+current version is 226
+words in is 5350
+ptr = 19
+current version is 227
+words in is 8939
+ptr = 20
+current version is 228
+words in is 4735
+ptr = 21
+current version is 229
+words in is 3276
+ptr = 22
+current version is 230
+words in is 3113
+ptr = 23
+current version is 231
+words in is 2838
+ptr = 24
+current version is 232
+words in is 1761
+ptr = 25
+current version is 232
+words in is 4500
+ptr = 26
+current version is 233
+words in is 9093
+ptr = 27
+current version is 234
+words in is 9785
+ptr = 28
+current version is 235
+words in is 9185
+ptr = 29
+current version is 236
+words in is 7472
+ptr = 30
+current version is 237
+words in is 7959
+ptr = 31
+current version is 238
+words in is 3861
+ptr = 32
+current version is 239
+words in is 8681
+ptr = 33
+current version is 240
+words in is 1839
+ptr = 34
+current version is 241
+words in is 2820
+ptr = 35
+current version is 242
+words in is 5192
+ptr = 36
+current version is 243
+words in is 109
+ptr = 37
+current version is 244
+words in is 3530
+ptr = 38
+current version is 244
+words in is 7156
+ptr = 39
+current version is 245
+words in is 6583
+ptr = 40
+current version is 246
+words in is 6863
+ptr = 41
+current version is 246
+words in is 6978
+ptr = 42
+current version is 247
+words in is 6990
+ptr = 43
+current version is 248
+words in is 3850
+ptr = 44
+current version is 249
+words in is 3514
+ptr = 45
+current version is 250
+words in is 6202
+ptr = 46
+current version is 251
+words in is 3340
+ptr = 47
+current version is 252
+words in is 7395
+ptr = 48
+current version is 253
+words in is 8874
+ptr = 49
+current version is 254
+words in is 4139
+ptr = 50
+current version is 254
+words in is 6974
+ptr = 51
+current version is 255
+words in is 7282
+ptr = 52
+current version is 256
+words in is 6991
+ptr = 53
+wait all tasks finish end
 introduction|united|world|together|global|annual|where|rates|changing|those|recent|progress|millennium|development|between|important|of the|several|there|analysis|growth|based|about|third|years|future|shown|results|the best|identified|1 million|status|the second|second|could|districts|surveys|project|context|collaboration|ministry|combined|final|almost|distance|small|period|other|baseline|primary|group|difference|the core|these|approximately|every|nearby|their|structure|functions|training|monitoring|promotion|survey data|field|for each|in general|given|however|making|problem|example|solution|integrated|outside|hours|simple|series|2 the|choice|rapid|research|studies|basic|after|until|before|young|energy|marine|special|treatment|action|section|without|extra|examination|possible|available|station|september|program|point|a series|february|starting|number|direct|times|report|standard|fisher|exact|values|statistically|significant|finally|degree|estimates|the 2|projected|quality|forms|version|data analysis|independent|part of|johns|johns hopkins|public|institutional|review|participation|human|magnitude|observed|comparing|measurements|standards|source|united states|states|agency|while|likely|network|since|cluster|length|ratio|average|location|continued|contact|short|seeing|at the end|adding|median|reflected|multiple|considering|a a|impact|innovative|to be|reduction|distribution|foundation|critical|application|there are|finding|secular|present|we think|the model|projects|systems|relevant|choosing|close|already|keeping|travel|probably|sometimes|even if|the program|individual|conducting|frequency|scaling|contracting|various|geographic|frame|comparison|nonetheless|optimal|measuring|along|above|summary|conclusion|environment|growing|the field|express|comments|references|new york|pages|glass|black|allen|stevens|systematic|representative|cause|gilroy|jones|accelerated|programme|a b|quinn|at large|large|davis|academy|reference|fowler|dynamics|instituto nacional|nacional|overview|university|press|stanford|oliva|germany|institute|wilson|effects|taylor|hansen
 background|possible|parallel|typical|of the|central|problem|analysis|abundance|short|recently|these|important|a set|estimate|relative|where|number|the length|length|regardless|along|instead|individual|together|figure 1|observed|distribution|estimation|truly|simultaneous|based|identified|between|example|however|network|likely|solving|given|scheme|the model|adding|multiple|state|the art|simulation|studies|human|superior|discovery|estimates|other|considering|2 the|the joint|joint|their|assume|density|t r|probability|distributions|results|later|section|definition|integrated|hypothesis|uniformly|10 11|parameter|intensity|equation|there|measurements|comparing|after|making|every|since|normalized|while|experiments|small|calculation|robust|without|modeling|solution|various|basic|reference|genome|structure|the method|in general|part of|source|union|positions|there are|there exists|for each|p e|log p|independent|quality|maximum|maximum likelihood|large|e g|extra|algorithms|could|smaller|clusters|cluster|black|original|reduced|degree|simple|window|figure 4|shown|lines|comparison|point|ratio|matched|version|g g|representative|comparisons|simulated|varying|available|three|database|profile|boundary|coordinates|except|adopted|abundances|increasing|bottom|probably|observation|distance|baseline|difference|significant|efficiency|to do|overall|summary|values|counts|project|besides|those|diagram|notice|especially|close|examination|scatter|unless|upstream|target|dynamic|to be|fully|checking|before|exact|capture|fraction|the software|the program|program|standard|units|huang|final|list of|science|foundation|proceedings|annual|workshop|online|williams|switching|nature|brown|linear|smith|research|jones|conference|thompson|lindblad|friedman|about|theory|jaffe|analyzing|rates|roberts|johnson|hayes|detection|differential|rogers|reddy|context|hashimoto|theoretical|journal|finding|griffith|robertson|mcdonald|royal|society|series|status
 introduction|direct|human|without|application|considering|difference|transition|between|while|there|there are|adopted|minor|effects|fricke|hasan|modeling|imaging|studies|individual|though|probably|important|adopting|technique|of the|other|optimal|review|available|integrated|report|session|possible|identified|employed|before|al in|press|university|university of minnesota|minnesota|institutional|science|institute|analysis|college|new york|neither|understanding|intensity|these|however|criterion|estimate|determination|figure 1|theoretical|column|right|magnetic|the middle|years|system|somewhat|reduced|quality|otherwise|part of|combining|likely|recently|shown|results|research|given|standard|detection|historical|scientific|variation|furthermore|contact|recent|activity|solution|status|examination|three|energy|maximum|period|monitoring|visual|typical|independent|for each|enhanced|transient|reduction|again|number|to be|various|simple|e g|target|field|units|based|reference|experimentation|where|several|approximately|increasing|example|amplitude|section|linear|observed|consistent|integration|primary|weighted|element|large|diffuse|2 the|the peak|edwards|global|those|average|distribution|black|cross|peaks|after|the model|present|deeper|attempts|calculations|location|fluid|significant|combined|since|density|summary|there is|about|relevant|variable|doing|finally|above|caveats|representation|the design|assume|could|processes|huang|future|the research|sciences|foundation|department|jones|references|m a|j d|for some|williams|a r|systematic|baker|treatment|implications|definition|development|a a|j c|h m|cohen|phys|frequency|degree|cheng|k k|functions|woods|journal|young|online|freitag|abstract|conference|march|d g|optimizing|simultaneous|state|the art|vidal|cells|g w|interaction|m k|h t|geometry
@@ -310,6 +1249,149 @@ introduction|a major|major|environmental|system|environment|industrial|other|pro
 introduction|number|other|growing|multiple|critical|formal|increasing|at the end|their|already|today|of the|to be|public|given|ratio|geographic|participation|market|the trend|likely|cause|shift|systems|research|these|based|cross|studies|large|representative|general|belgium|the netherlands|netherlands|comparisons|where|possible|three|there|between|analysis|part of|monitoring|january|december|sample|years|accepted|relevant|period|annual|conducting|several|italian|network|which|districts|spanish|distribution|for each|available|french|somewhat|whether|statistical analysis|squared|fisher|exact|frequencies|the one|for all|variables|significance|version|review|university|the local|della|results|except|slight|table|values|2 the|having|however|furthermore|reduced|statistically|significant|odds ratio|variable|recent|primary|surveys|consistent|before|units|total|report|degree|conclusions|about|systematic|e g|recall|after|group|hours|relative|conditions|smaller|maximum|could|the large|average|while|definition|close|without|status|impact|in general|union|programme|institute|promotion|science|flanders|basic|project|society|whereas|third|training|nature|block|cohen|harding|payne|prof|college|london|observatory|switzerland|springer|the work|world|czech|republic|the second|second|centre|october|references|global|office|levine|department|quality|system|march|growth|phase|barnes|understanding|treatment|variations|alonso|human|measuring|profile
 introduction|together|these|for all|whereas|about|of the|templates|atomic|between|function|genome|multiple|10 13|length|independent|likely|identified|structure|which|shown|to be|interaction|recently|short|secondary|artificial|indeed|central|besides|several|temperature|activity|numerous|while|systems|available|simultaneous|system|results|a series|series|based|internal|extension|table|detected|however|species|total|observed|whether|increasing|especially|significant|neither|possible|coupling|relevance|approximately|reduced|context|could|for this purpose|residual|in general|general|important|above|representative|those|having|their|critical|experiments|clearly|mutation|conditions|detection|other|ratio|relative|growing|partial|e g|adding|the loss|impact|without|instead|direct|studies|times|effects|discrepancy|nonetheless|efficiency|in an|present|fig 8|transient|summary|progress|phase|furthermore|cells|human|medium|frame|introducing|individual|except|where|otherwise|quantities|hours|analysis|sample|heating|cooled|reaction|after|variable|separation|background|unbound|fraction|10 cm|before|10000|cambridge|plates|solution|20000|images|references|williams|nature|robertson|forms|implications|definition|zhang|shapiro|mayer|neumann|huang|krystal|determination|three|target|dynamics|science|wilson
 introduction|today|world|smart|various|efficiency|still|recently|three|of the|e g|the new|session|between|later|otherwise|application|which|station|medium|upper|instead|participation|furthermore|considering|users|group|based|unfortunately|after|there|there is|composite|version|problem|without|however|multiple|likely|above|public|linear|number|combining|probability|present|original|finally|2 the|implications|section|recall|cyclic|properties|a b|there exists|given|for some|there are|difference|before|while|formal|the model|point|fully|several|interaction|where|available|the hidden|hidden|exposure|notation|to be|accepted|state|conditions|other|context|parameter|target|review|phases|system|the system|phase|these|details|please|a value|functions|as is|for each|channel|shown|figure|figure 1|whether|until|p e|since|identified|inverse|doing|the design|total|suppose|network|capture|values|again|approximately|independent|whilst|one of them|obviously|natural|regardless|cause|large|growth|the length|length|eventually|repeating|introducing|increasing|attempts|switching|analysis|transmission|simple|scheme|those|reduced|e i|equation|processing|adopted|their|degree|field|checking|adding|conducting|theorem|assume|time t|environment|consistent|m r|r t|searches|distributions|h t|t r|computing|breaking|times|the one|making|simulation|simulated|about|definition|comparison|table|results|curve|function|scalar|estimate|work in|notice|estimation|superior|conclusions|the work|fundamental|research|central|universities|grant|comments|references|m a|conditional|enhanced|global|h c|communications|zhang|dynamic|zheng|conference|s s|huang|distribution|heidelberg|twenty|annual|symposium|theory|theory of|stern|digital|online|gilbert
+wait all tasks finish start
+current version is 257
+words in is 6607
+ptr = 0
+current version is 258
+words in is 16671
+ptr = 1
+current version is 258
+words in is 3733
+ptr = 2
+current version is 259
+words in is 6329
+ptr = 3
+current version is 260
+words in is 3827
+ptr = 4
+current version is 260
+words in is 1508
+ptr = 5
+current version is 261
+words in is 8873
+ptr = 6
+current version is 261
+words in is 7457
+ptr = 7
+current version is 262
+words in is 3608
+ptr = 8
+current version is 263
+words in is 236
+ptr = 9
+current version is 264
+words in is 4805
+ptr = 10
+current version is 265
+words in is 9637
+ptr = 11
+current version is 266
+words in is 5901
+ptr = 12
+current version is 267
+words in is 4475
+ptr = 13
+current version is 268
+words in is 5078
+ptr = 14
+current version is 269
+words in is 5646
+ptr = 15
+current version is 269
+words in is 3393
+ptr = 16
+current version is 270
+words in is 2750
+ptr = 17
+current version is 271
+words in is 7071
+ptr = 18
+current version is 272
+words in is 6189
+ptr = 19
+current version is 273
+words in is 4582
+ptr = 20
+current version is 274
+words in is 5596
+ptr = 21
+current version is 275
+words in is 8058
+ptr = 22
+current version is 276
+words in is 5273
+ptr = 23
+current version is 276
+words in is 7653
+ptr = 24
+current version is 277
+words in is 14507
+ptr = 25
+current version is 278
+words in is 5084
+ptr = 26
+current version is 279
+words in is 2213
+ptr = 27
+current version is 280
+words in is 11579
+ptr = 28
+current version is 281
+words in is 7796
+ptr = 29
+current version is 282
+words in is 10302
+ptr = 30
+current version is 283
+words in is 5244
+ptr = 31
+current version is 283
+words in is 5937
+ptr = 32
+current version is 284
+words in is 3418
+ptr = 33
+current version is 285
+words in is 6295
+ptr = 34
+current version is 286
+words in is 4210
+ptr = 35
+current version is 286
+words in is 11295
+ptr = 36
+current version is 287
+words in is 6909
+ptr = 37
+current version is 288
+words in is 7192
+ptr = 38
+current version is 289
+words in is 5013
+ptr = 39
+current version is 290
+words in is 5424
+ptr = 40
+current version is 291
+words in is 922
+ptr = 41
+current version is 292
+words in is 3294
+ptr = 42
+current version is 293
+words in is 2443
+ptr = 43
+current version is 294
+words in is 5263
+ptr = 44
+current version is 294
+words in is 6247
+ptr = 45
+current version is 295
+words in is 5684
+ptr = 46
+wait all tasks finish end
 introduction|growth|various|which|other|elements|approximately|their|of the|important|development|identified|enhanced|there|there is|shown|to be|recent|studies|normal|signals|activity|basic|these|group|states|lines|human|several|systems|however|part of|nonetheless|the present|present|indian|world|furthermore|about|results|cells|primary|phoenix|treatment|unless|analysis|panel|system|internal|cycle|relative|difference|values|between|sample|table|secondary|detected|imaging|normalized|journal|total|10000|transient|cheng|after|institutional|review|university|years|stage|sections|image|pixel|probe|jackson|images|tokyo|japan|statistical analysis|cluster|linear|statistically|significant|hours|profile|three|slight|block|while|combined|in an|d e|administration|experiments|since|upper|h c|faint|preliminary|based|consistent|where|2 the|together|above|whereas|parallel|status|whether|obviously|scattered|available|d c|background|d d|brown|representative|a a|individual|a b|digital|right|correlation|large|fraction|hypothesis|possible|having|correlations|fluorescence|10 11|multiple|number|could|processing|likely|reduction|apart|context|upstream|still|probably|those|taking|place|effects|combining|references|rogers|significance|cohen|short|andrew|functions|zheng|independent|structure|function|bennett|smith|smart|differential|harris
 introduction|recent|years|increasing|research|their|application|these|based|effective|the large|large|ratio|elements|techniques|silicon|choice|combined|various|optical|e g|physical|technique|detection|innovative|mechanical|properties|thermal|signals|target|inside|relevant|separation|energy|smart|simple|geometry|recently|future|structure|activity|systems|however|review|major|present|fundamental|of the|finally|examples|details|since|al in|close|in general|general|matrix|cells|between|growth|bottom|which|state|after|results|diameter|distance|length|figure|figure 1|schematic|typical|along|scanning|scanning electron|electron|electron microscopy|images|cross|conditions|several|other|important|density|temperature|to be|critical|yield|comparison|table|narrow|distribution|ratios|the second|second|problem|rates|could|shapes|without|possible|treatment|processes|notice|direct|phase|reaction|available|employed|development|inner|atomic|in an|central|number|thompson|where|species|there|there are|studies|point|three|spectrum|group|2 the|intensity|conclusion|environment|organic|processing|metals|metal|sections|whereas|magnetic|relevance|field|enhanced|scattering|templates|figure 4|opportunities|robust|on top|array|while|contact|reduced|example|conformal|source|varying|sources|growing|simply|solution|figure 8|fully|medium|furthermore|quantum|shown|a series|series|cycle|qualitative|basic|2 3 4|4 5 6|short|accepted|smirnov|multiple|fluorescence|period|coupling|the length|together|apart|composite|system|human|codes|simultaneous|morphology|clusters|probe|particles|special|conducting|reduction|times|particle|combining|exposure|final|stacked|zhang|embedded|colors|three dimensional|representative|variations|repeating|report|cyclic|amplitudes|changing|observed|evolution|experiments|simulation|the evolution|likewise|total|integrated|the system|measuring|slope|linear|taking|the light|matter|interaction|wavelength|zheng|profile|transmission|almost|visible|theoretical|modeling|lifshitz|monitoring|measurements|grating|the discovery|discovery|smaller|frequency|the local|resolving|values|detected|maximum|confinement|comparing|planar|shift|calculations|fresnel|equation|modes|above|quantities|indices|reflected|reflected light|curve|fast fourier|fast fourier transform|fourier|fourier transform|transform|peaks|figure 17|significant|there is|about|capture|noise|those|release|dynamic|static|optimal|conclusions|still|science|optics|understanding|already|concepts|industrial|environmental|the field|australian|research council|grant|university|references|j g|simon|wiley|phys|phys lett|stage|a m|j c|academic|press|new york|coloured|c r|p s|g p|m a|j d|george|binary|j k|transition|c p|michalska|emission|barth|mathur|r t|spectrometer|schneider|j j|fisher|m r|baker|t j|status|j b|anglin|dynamics|infrared|spectroscopic|determination|persson|al2o3|m d|schmitt|analysis|marchal|a i|rapid|morris|holmes|vertical|block|individual|payne|huang|h c|throughput|express|montero|takeuchi|a a|yoshikawa|h r
 introduction|development|measuring|of the|science|there|there is|progress|monitoring|important|their|environmental|analysis|classical|sample|solution|internal|which|however|the best|state|based|in general|general|techniques|parts|uv light|a series|series|technique|array|before|thermal|processes|assume|metal|examples|instrumentation|planar|while|these|particles|other|dispersion|electron|activity|printed|direct|application|research|special|simple|integrated|in an|diameter|especially|already|the system|system|after|without|example|detection|final|inside|to be|present|enhanced|still|stage|preliminary|section|united|united kingdom|kingdom|switzerland|measurements|cyclic|netherlands|optical|north|scanning|scanning electron|electron microscope|images|distance|between|adding|total|results|background|noise|mechanical|density|fluid|part of|finally|deeper|choice|given|table|separation|figure|shown|until|bottom|silicon|absolute|upper|glass|equation|the peak|probe|number|standard|considering|theoretical|times|figure 4|reaction|temperature|integration|for all|baseline|studies|fitting|the change|values|parameter|since|market|for this purpose|every|changing|conclusions|instead|contact|environment|david|program|union|programme|project|group|universities|department|institute|m a|experiments|the work|references|d g|marco|clarke|human|yonsei|marshall|warren|simon|m p|brown|determination
@@ -357,6 +1439,152 @@ introduction|the|shown|results|reducing|function|years|standard|example|of the|r
 background|rates|the|since|the best|technique|introduction|al in|treatment|studies|however|shown|of the|narrow|rapid|activity|the large|large|important|function|especially|similar|still|normal|these|methods|medical|committee|university|participation|september|february|period|total|which|department|general|separation|exposure|sometimes|the distance|distance|under|direct|group|three|years|median|average|after|based|stage|before|given|could|table|available|criteria|their|right|completing|until|observation|along|between|sharp|taken|location|apart|outside|figure|figure 1|superior|visual|visual inspection|inspection|figure 4|length|circular|approximately|results|range|partial|other|part of|month|the second|second|maximum|number|there|report|short|comparison|without|performing|vessels|cause|the local|where|conditions|difference|therefore|recently|several|attempts|processing|simple|field|effects|standard|possible|there is|research|close|increasing|considering|mechanical|force|changing|switching|while|application|linear|example|recent|conclusion|searches|statistical analysis|analysis|draft|final|references|forbes|smith|cavaliere|boselli|review|schmidt|watanabe|series|reconstruction|cheng|world|natural|comparing|walker|brown|japan|optimal|moran|zhang|jorge|problem|place|chinese|williams|johnston|preliminary|human|matrix|techniques
 introduction|every|several|human|increasing|momentum|since|the|structure|twenty|years|later|gilbert|of the|another|based|application|reaction|about|three|after|genome|project|consortium|smaller|while|automated|standard|until|methods|information|shift|techniques|transition|which|short|there|there is|significant|optical|however|today|variation|studies|identified|catalogue|representative|the new|the core|numerous|detection|number|variations|range|available|clouds|there are|algorithms|their|results|still|stream|roche|pacific|given|database|general|solution|other|multiple|times|these|length|computing|parallel|embedded|phases|phase|a set|conditions|extracting|sections|searching|exact|for each|preliminary|criterion|details|system|the second|second|consider|candidates|final|differential|dynamic|the best|section|burrows|wheeler|transform|index|reverse|starting|letter|list of|right|performing|original|indices|for all|where|finding|positions|furthermore|experiments|typical|computers|having|force|to be|possible|total|fully|matched|figure|figure 1|assume|the j|j k|the work|those|the length|the same|except|grant|points|function|inside|relative|the one|before|estimate|similar|likewise|elements|between|problem|simple|array|table|otherwise|looking|cells|impact|efficiency|scanning|consistent|figure 4|matrix|difference|offset|group|maximum|report|recent|errors|rates|1 million|recall|almost|much more|simulated|figure 8|superior|comparison|exponential|average|part of|cluster|scientific|release|conclusion|reducing|functions|overhead|finally|development|a a|a m|prof|max planck|planck|institute|department|university|markus|environment|clusters|research|fundamental|sciences|germany|the software|national science foundation|science|foundation|proceedings|annual|workshop|online|academy|academy of sciences|united|united states|states|rapid|journal|doyle|analysis|nature|smith|jordan|halpern|beasley|liang|zhang|zheng|axelrod|species|hybrid|integrated|genetic|discovery|allen|goldstein|roberts|harris|payne|turner|wilson|optimal|kelley|wright|marshall|package|cloud|conference|eichler|throughput|arxiv|preprint|schmidt|davis|basic|theory|symposium|society
 background|which|the|quantities|where|support|agency|development|office|about|pipeline|internal|program|monitoring|nature|global|evolution|of the|function|implications|foreign|south|transition|review|under|other|natural|similar|difference|significant|whereas|range|republic|years|until|consortium|the program|three|states|northern|upper|figure|figure 1|project|period|these|determination|place|january|timing|methods|direct|impact|status|total|later|reduced|smaller|geographic|state|number|system|d c|between|distribution|employed|world|programme|cluster|johns|johns hopkins|school|public|research|institutional|human|relations|identified|major|events|blend|since|reducing|shown|to be|effective|context|central|conditional|participation|package|growth|vessels|october|given|increasing|critical|independent|could|however|market|frame|belgium|before|consider|after|multiple|eventually|march|to begin|having|goods|point|without|estimation|report|therefore|primary|metric|month|release|source|100 days|normal|conditions|november|approximately|december|still|finally|along|their|limit|there|there are|heavy|nearly|another|table|information|marine|formal|north|while|attempts|april|possible|instead|station|section|available|the host|original|already|quality|indeed|studies|analysis|innovative|several|criteria|parts|integrated|phase|making|those|part of|comparison|notable|typical|united|united states|the system|processing|vicinity|future|reduction|failure|changing|young|choice|group|especially|target|stage|joint|important|based|sometimes|example|field|a major|clearly|the same|in an|environment|conclusion|the local|short|rapid|known|references|m d|university|academy|center|version|publications|cooke|overview|opportunities|bailey|london|institute|d g|progress
+wait all tasks finish start
+current version is 296
+words in is 7268
+ptr = 0
+current version is 297
+words in is 401
+ptr = 1
+current version is 298
+words in is 3074
+ptr = 2
+current version is 299
+words in is 4180
+ptr = 3
+current version is 299
+words in is 16549
+ptr = 4
+current version is 299
+words in is 184
+ptr = 5
+current version is 300
+words in is 8822
+ptr = 6
+current version is 301
+words in is 7932
+ptr = 7
+current version is 302
+words in is 6244
+ptr = 8
+current version is 302
+words in is 4019
+ptr = 9
+current version is 303
+words in is 6599
+ptr = 10
+current version is 304
+words in is 4322
+ptr = 11
+current version is 304
+words in is 471
+ptr = 12
+current version is 305
+words in is 1250
+ptr = 13
+current version is 306
+words in is 6688
+ptr = 14
+current version is 307
+words in is 4795
+ptr = 15
+current version is 308
+words in is 1246
+ptr = 16
+current version is 309
+words in is 624
+ptr = 17
+current version is 310
+words in is 4656
+ptr = 18
+current version is 310
+words in is 10391
+ptr = 19
+current version is 311
+words in is 62
+ptr = 20
+current version is 312
+words in is 3935
+ptr = 21
+current version is 312
+words in is 4955
+ptr = 22
+current version is 313
+words in is 1847
+ptr = 23
+current version is 314
+words in is 6726
+ptr = 24
+current version is 314
+words in is 5369
+ptr = 25
+current version is 315
+words in is 4574
+ptr = 26
+current version is 315
+words in is 6577
+ptr = 27
+current version is 316
+words in is 4827
+ptr = 28
+current version is 316
+words in is 5855
+ptr = 29
+current version is 316
+words in is 5441
+ptr = 30
+current version is 316
+words in is 7935
+ptr = 31
+current version is 317
+words in is 5162
+ptr = 32
+current version is 318
+words in is 5279
+ptr = 33
+current version is 318
+words in is 2271
+ptr = 34
+current version is 319
+words in is 3526
+ptr = 35
+current version is 320
+words in is 10289
+ptr = 36
+current version is 320
+words in is 7256
+ptr = 37
+current version is 320
+words in is 7940
+ptr = 38
+current version is 321
+words in is 7465
+ptr = 39
+current version is 322
+words in is 2972
+ptr = 40
+current version is 323
+words in is 3074
+ptr = 41
+current version is 324
+words in is 5439
+ptr = 42
+current version is 324
+words in is 5562
+ptr = 43
+current version is 325
+words in is 5062
+ptr = 44
+current version is 325
+words in is 3703
+ptr = 45
+current version is 326
+words in is 6908
+ptr = 46
+current version is 327
+words in is 7018
+ptr = 47
+wait all tasks finish end
 introduction|the|number|those|report|state|of the|world|estimates|about|environmental|to be|reaction|which|development|administration|systems|methods|2 the|standard|germany|details|elements|stairs|figures|3d model|conditions|important|keeping|these|scanning|sometimes|modeling|digital|images|information|therefore|3d models|points|multiple|reconstruction|however|there|there is|under|figure|could|generating|narrow|the best|source|point|clouds|possible|still|density|integration|research|coordinates|quality|boundary|lines|combining|especially|another|basic|coordinate|system|hybrid|after|image|in an|relative|between|based|natural|other|objects|target|observed|several|years|polish|conclusion|confirmation|hypothesis|searching|their|nature|there are|examples|integrated|cloud|global|receiver|horizontal|positions|general|again|application|solution|results|analysis|direct|function|problem|available|technique|estimate|without|already|known|distance|the second|second|field|values|physical|e g|the distance|the local|definition|example|three|location|the same|shown|almost|exact|visual|along|finding|simple|intensity|phase|probably|high resolution|mathematically|averaging|parts|fourier|noise|whether|functions|where|scaling|variable|shift|reverse|s s|transform|j k|extension|impact|frequency|power|filter|scheme|figure 4|whereas|inverse|original|subtraction|average|processing|having|a value|close|even if|section|the method|independent|signals|detection|proceedings|features|frequencies|the idea|individual|series|splitting|three dimensional|the length|length|completing|for all|one of them|times|similar|adding|linear|calculation|difference|range|determination|equation|since|green|figure 8|environment|before|element|theoretical|estimation|entropy|choosing|taken|criterion|correlation|amplitudes|together|taking|university|poland|the system|upper|measurements|present|extracting|relevant|comparison|comparing|finally|in general|every|for each|making|observation|figure 17|black|colour|transformations|errors|table|conformal|the one|experiments|sections|studies|clearly|energy|amplitude|white|third|list of|column|absolute|the absolute|final|smaller|conclusions|classical|future|comparisons|faculty|department|the work|collaboration|m k|references|united|human|programme|september|symposium|march|standards|various|workshop|monitoring|concepts|algorithms|becker|peter|industrial|habib|optical|structure|november|october|a m|p e|robust|context|automated|large|society|conference|online|theory|j c
 the|their|after|global|public|degree|solution|these|other|examples|shift|quality|example|years|expanding|to do|program|standards|based|robust|training|computers|recent|survey|major|large|science|references|collins
 introduction|increasing|the|world|figure|figure 1|growth|united|agency|development|important|however|there|there is|global|major|environmental|between|transition|of the|total|medium|average|annual|projected|to be|years|approximately|their|power|other|physical|future|likely|transmission|significant|impact|points|already|environment|elements|processes|conditions|which|2 the|opportunities|density|could|public|institutions|media|radio|support|furthermore|sector|promotion|treatment|perhaps|class|formal|these|independent|robust|studies|examples|notable|innovative|india|union|program|human|making|primary|center|based|summary|action|clearly|brazil|about|rapid|since|quality|element|linear|along|expanding|integrated|institute|coordinates|results|network|reducing|massive|property|values|continued|example|visible|special|standard|green|school|university|training|conservation|centre|every|society|information|the program|rates|number|target|cluster|group|new york|mayor|michael|profile|activity|reduction|given|limit|neither|almost|users|exposure|numerous|sometimes|words|direct|growing|similar|build|general|a set|various|references|department|affairs|available|state|in an|millennium|report|wilson|murray|systematic|analysis|ministry|images|under|press|release|programme|abstract|johns|johns hopkins
@@ -405,6 +1633,158 @@ introduction|several|the|processing|the core|review|consistent|multiple|basic|ne
 background|the|opportunities|information|computers|where|important|rapid|large|survey|environment|human|development|index|features|population|diversity|another|communications|systems|still|of the|available|about|users|there|representative|based|which|month|after|completing|final|report|approximately|concluding|new era|local|research|surveys|collaboration|ministry|preliminary|quality|point|error|rates|the second|world|first|number|digital|standard|their|the length|length|census|processing|system|short|the best|intel|average|primary|integrated|however|while|network|global|multiple|especially|field|the field|office|central|initial|candidates|to be|having|basic|functions|without|other|potential|training|program|profile|under|years|degree|studies|public|for some|window|valley|the research|could|stage|database|several|validation|errors|submitted|at the end|feedback|example|whether|possible|detected|figure|february|review|progress|since|even if|support|identified|reduced|before|these|reducing|conducting|instead|remote|power|between|relevant|values|prompt|being|finding|exposure|forms|clusters|adding|times|direct|inside|sensitive|sometimes|extra|consistent|april|period|a major|major|source|therefore|place|part of|maximum|proper|the program|administration|examples|checking|context|joint|future|transmission|individual|problem|solving|the software|function|efficient|difference|conclusion|evolution|growing|analysis|funding|those|agency|references|forster|r h|bull|mathews|united|programme|south|new york|figures|sector|statistical|d j|j e
 introduction|of the|the|important|global|information|distribution|sources|their|critical|understanding|cycle|estimation|at large|large|increasing|recent|years|while|about|however|there|there is|estimates|results|example|source|northern|studies|still|the second|china|part of|several|varying|total|after|considering|recently|the large|those|probably|methods|since|agency|consider|density|2 the|period|potential|based|field|measurements|the field|species|longitude|average|annual|temperature|mountain|remote|image|processing|images|november|digital|method|determination|spectral|clusters|which|these|chinese|system|natural|location|finally|points|boundary|estimate|for each|class|every|systematic|database|statistical|report|sample|number|diameter|point|survey|other|three|measured|variables|the same|laboratory|analysis|between|where|parameters|values|table|journal|significant|administration|the j|units|the unit|for all|calculation|10 cm|maximum|1 meter|profile|samples|organic|matter|there are|therefore|major|research|error|monte|carlo|could|modeling|fitting|another|application|taylor|artificial|first|central|south|systems|e g|continued|along|times|north|errors|type c|quality|rapid|population|growth|development|status|human|conservation|without|close|densities|structure|rates|under|conditions|similar|finding|local|the local|offset|in an|growing|various|nature|panel|the method|conclusions|combining|future|prof|comments|references|northern hemisphere|ratio|science|changing|london|workshop|october|house|environmental|p r|canada|atlas|press|techniques|comparison|department|energy|dynamics|program|physical|standards|harris|distributions|monte carlo simulation|simulation|cambridge|cambridge university|cambridge university press|university|university press
 background|significant|progress|still|the|ratio|under|information|making|where|integral|reducing|growing|application|promotion|studies|which|physical|activity|treatment|public|being|there|there is|evidence|example|based|program|the program|effective|increasing|to be|however|effects|of the|projects|critical|project|users|number|short|available|expertise|multiple|given|these|method|development|action|build|several|research|comparing|in an|automated|those|computers|medical|could|potential|difference|between|report|quality|center|ministry|their|young|starting|district|population|up to|districts|about|important|later|target|limit|years|likely|furthermore|baseline|approximately|third|without|identified|group|point|the large|large|instead|period|continued|participation|basic|collaboration|support|foundation|local|final|revised|primary|the same|stage|table|examples|sample|to do|energy|3 weeks|every|normal|part of|before|first|force|close|conditions|until|events|methods|monitoring|surveys|sources|interactions|the software|communications|for all|september|characteristics|rates|a list|list of|numbers|survey|frequency|measured|analysis|phase|a series|series|place|18 months|version|results|while|nearly|average|employed|formal|sector|similar|occupation|student|other|month|after|attempts|estimate|figure|figure 1|reduced|times|system|since|january|definition|total|trusting|recall|observed|statistically|three|the new|almost|already|shown|going|understanding|network|whereas|the major|major|the times|november|problem|changing|timing|possible|original|a major|numerous|eventually|another|highly|regardless|finally|solution|finding|otherwise|there are|consider|status|points|conclusions|individual|calculation|whether|present|cross|detection|conclusion|generating|context|implications|impact|references|statistical|office|publications|together|journal|global|south|united|lewis|review|new york|millennium|phillips|edwards|systematic|watson|special|world|cluster|smart|scaling|london|images|power|bennett|gibbons
+wait all tasks finish start
+current version is 328
+words in is 5495
+ptr = 0
+current version is 328
+words in is 5906
+ptr = 1
+current version is 329
+words in is 4684
+ptr = 2
+current version is 330
+words in is 460
+ptr = 3
+current version is 331
+words in is 3985
+ptr = 4
+current version is 332
+words in is 3635
+ptr = 5
+current version is 333
+words in is 9419
+ptr = 6
+current version is 333
+words in is 9352
+ptr = 7
+current version is 334
+words in is 5676
+ptr = 8
+current version is 335
+words in is 7814
+ptr = 9
+current version is 336
+words in is 5454
+ptr = 10
+current version is 337
+words in is 2920
+ptr = 11
+current version is 338
+words in is 4998
+ptr = 12
+current version is 339
+words in is 8700
+ptr = 13
+current version is 340
+words in is 7581
+ptr = 14
+current version is 341
+words in is 7773
+ptr = 15
+current version is 342
+words in is 4295
+ptr = 16
+current version is 343
+words in is 5863
+ptr = 17
+current version is 343
+words in is 2921
+ptr = 18
+current version is 344
+words in is 6299
+ptr = 19
+current version is 345
+words in is 3966
+ptr = 20
+current version is 346
+words in is 1926
+ptr = 21
+current version is 347
+words in is 13022
+ptr = 22
+current version is 348
+words in is 4779
+ptr = 23
+current version is 349
+words in is 2051
+ptr = 24
+current version is 350
+words in is 4496
+ptr = 25
+current version is 351
+words in is 4323
+ptr = 26
+current version is 352
+words in is 4464
+ptr = 27
+current version is 353
+words in is 8333
+ptr = 28
+current version is 354
+words in is 5916
+ptr = 29
+current version is 355
+words in is 5871
+ptr = 30
+current version is 356
+words in is 11272
+ptr = 31
+current version is 356
+words in is 664
+ptr = 32
+current version is 357
+words in is 6236
+ptr = 33
+current version is 358
+words in is 9978
+ptr = 34
+current version is 359
+words in is 1507
+ptr = 35
+current version is 360
+words in is 7482
+ptr = 36
+current version is 361
+words in is 5445
+ptr = 37
+current version is 362
+words in is 135
+ptr = 38
+current version is 363
+words in is 7019
+ptr = 39
+current version is 364
+words in is 4234
+ptr = 40
+current version is 365
+words in is 8921
+ptr = 41
+current version is 366
+words in is 8423
+ptr = 42
+current version is 367
+words in is 6239
+ptr = 43
+current version is 368
+words in is 4274
+ptr = 44
+current version is 369
+words in is 3943
+ptr = 45
+current version is 370
+words in is 5182
+ptr = 46
+current version is 371
+words in is 5012
+ptr = 47
+current version is 372
+words in is 7618
+ptr = 48
+current version is 373
+words in is 3922
+ptr = 49
+wait all tasks finish end
 introduction|residual|function|independent|1 2 3|1 2 3 4|2 3 4|4 5 6|5 6 7 8|6 7 8|recently|the|studies|comparing|solution|10 11|there|there are|results|another|recent|three|other|similar|between|therefore|various|there is|target|however|whether|smaller|parameters|having|furthermore|quality|based|primary|methods|eighty|stage|starting|of the|university|korea|college|february|criteria|status|standard|number|after|month|group|treatment|baseline|every|laboratory|samples|taken|period|sample|power|analysis|difference|reduction|before|ratio|absorption|index|which|phase|germany|equation|measured|the sum|czech|republic|systems|variation|central|events|transient|failure|statistical|statistical analysis|these|values|student|data analysis|the change|tests|measurements|fisher|exact|significance|institutional|review|characteristics|shown|table|d p|the 2|significant|2 the|total|absolute|effects|while|whereas|first|the present|present|exposure|identified|possible|fluid|whilst|molecular|could|times|third|likely|the same|superior|clearly|known|cause|cells|consistent|range|method|conclusion|relative|special|rates|indices|moran|the netherlands|netherlands|cooperative|huang|williams|davies|makino|foundation|preliminary|choice|calculation|iwamoto|garcia|lopez|brown|automated|e a|basic|science|human|profile
 background|the|cause|human|world|union|increasing|recent|times|to be|2 the|of the|summer|between|approximately|resolving|period|7 days|exposure|transmission|source|especially|field|standard|e g|however|profiles|highly|similar|years|apart|genetic|diversity|horizontal|10 13|since|could|furthermore|genome|recently|power|analysis|comparing|already|environmental|their|three|difference|profile|results|elements|detected|total|identified|function|observed|gamma|class|which|structure|without|integrated|global|element|the same|frames|these|inspection|probably|comparison|upstream|present|initial|other|available|parameters|atlas|figure|figure 1|significant|variation|image|the middle|shown|every|environment|green|black|length|central|colour|scheme|cluster|several|the second|inside|error|based|whether|evolved|population|reconstruction|criteria|methods|likely|whereas|t c|variable|table|the host|studies|number|hypothesis|after|while|later|frame|estimate|the distance|distance|branch|database|average|those|mutation|original|list of|large|considering|first|positions|observation|natural|conclusions|sometimes|samples|though|clearly|another|future|august|part of|public|monitoring|programme|having|quality|germany|for this purpose|primary|rapid|clusters|sample|linear|for all|errors|package|combined|independent|submitted|under|project|matrix|the design|draft|final|academy|grant|references|szymanski|society|centre|summary|report|sources|journal|taylor|p a|distribution|system|detection|mccarthy|molecular|species|press|american|williams|lauer|young|graves|short|evolution|harris|peacock|holmes|the novel|novel|scott|dynamics|clark|lewis|throughput|gilbert|evidence|murray|white|meyer|jones|brown|smith|wilson|phase|mouse|south|signals|information|academic|simpson|parallel|multiple|edwards|glass|reich|stevens|bryan|simple|comparisons|application
 introduction|studies|1 2 3|1 2 3 4|2 3 4|4 5 6|imaging|reductions|the|accepted|standard|however|important|still|tests|being|first|of the|institutional|academic|united|united states|states|variations|system|several|observational|there|comparing|third|overview|choice|initial|those|while|available|whether|techniques|truly|modern|appendix|attempts|rates|korea|methods|cross|group|medical|november|april|office|society|finally|three|median|number|range|table|having|where|total|population|january|december|information|systems|simple|treatment|review|under|analysis|outside|before|for all|measured|definition|which|likely|based|even if|present|since|between|after|point|2 the|results|sample|statistical|statistical analysis|period|interaction|equations|index|department|times|annual|considering|potential|context|values|statistically|significant|version|college|station|characteristics|the same|criteria|these|other|original|primary|sections|report|typical|enhanced|automated|program|phase|image|reconstruction|effective|average|99.7|magnetic|individual|observed|odds ratio|ratio|without|instead|every|difference|points|choosing|fraction|capture|world|regardless|state|approximately|similar|formal|comparison|already|status|reduction|observation|quoted|discrepancy|besides|close|exposure|numbers|future|normal|therefore|consider|quality|phases|calculations|general|known|to be|participation|likewise|standards|recently|project|ministry|republic|science|university|research|nelson|making|schmidt|progress|wright|impact|halpern|in an|center|years|japan|lawrence|correlation|systematic|referring|young|survey|major|atlas|williams|phillips|morris|preliminary|density|wilson|millennium|measurements|frequency|smith|gould|atomic|increasing|source|academy|academy of sciences|sciences|effects|d c|national research council|research council|hinshaw
@@ -455,6 +1835,149 @@ introduction|modern|medical|treatment|physical|present|the|standard|method|after
 introduction|numerous|the|onset|results|of the|could|original|function|present|molecular|transient|cells|forms|highly|which|central|system|these|studies|genetic|6 7 8|7 8 9|human|multiple|10 11|unfortunately|treatment|application|their|short|recent|shown|growth|without|langer|globular|diameter|inside|particles|after|target|known|about|similar|systems|the present|activity|processing|correlation|spectroscopy|morphological|analysis|image|taken|finally|efficiency|model|methods|vector|germany|medium|yield|spectrophotometer|scientific|solution|theoretical|under|temperature|unbound|three|index|potential|final|ratio|where|number|in an|average|whereas|between|scanning|scanning electron|electron|electron microscopy|sample|plate|plates|automatic|united|united kingdom|kingdom|samples|field|emission|electron microscope|upper|mouse|lines|medical|school|standards|fluorescence|time on|density|range|comparing|channel|heidelberg|times|again|reaction|images|continued|other|until|fisher|detected|values|cambridge|imager|science|imaging|white|bottom|switzerland|another|normal|measured|measurements|standard|statistical|statistical analysis|group|one way|to be|statistically|significant|discussion|based|linear|distribution|particle|absorption|together|tests|media|the same|journal|characteristics|various|increasing|shift|reduced|experiments|comparison|finding|enhanced|c c|important|total|intensity|detection|first|available|maximum|limit|horizontal|whether|2 3 4|conclusions|administration|while|partial|possible|already|however|e a|the system|foundation|research|netherlands|center|university|references|environment|influence|properties|vessels|peterson|american|society|classical|nature|release|wagner|a i|cross|vogel|massey|schneider|years|stability|determination|development
 introduction|the|still|conservation|however|environmental|which|shift|distribution|species|geographic|of the|static|dynamic|several|already|their|range|effects|interactions|therefore|distributions|future|envelope|peterson|loyola|recent|modeling|methods|increasing|projected|techniques|e g|model|ensemble|nonetheless|studies|modern|filho|group|the second|world|almost|almost all|influence|fitness|abundance|important|other|especially|diversity|functions|structure|horizontal|vertical|example|population|dynamics|between|observed|about|after|brazil|there|there are|approximately|these|stage|we can|keeping|narrow|based|richness|spatial|location|given|under|original|effective|network|taking|journal|field|surveys|museum|period|point|for each|matrix|considering|inside|cells|total|database|panel|report|function|variables|annual|temperature|standard|variation|the same|three|general|emission|application|method|project|available|statistically|distance|analysis|maximum|entropy|genetic|artificial|without|samples|background|where|known|sample|a set|instead|the set|for all|training|validation|repeating|times|e a|cross|finding|values|receiver|curve|plotting|fraction|various|for this purpose|errors|highly|frequency|weighted|the sum|twenty|finally|s s|number|united|programme|monitoring|even if|if only|could|whether|likely|the present|present|since|average|results|table|similar|central|up to|combined|northern|sections|lower|whereas|south|significant|reduced|green|circles|lines|those|changing|the loss|baseline|comparison|nearly|rates|along|north|western|reduction|discussion|detected|consider|novel|assume|features|choice|stability|individual|smaller|perhaps|the best|probably|robust|medium|unfortunately|scattered|information|natural|spread|interaction|local|intensity|cause|furthermore|expansion|short|close|human|activity|having|critical|criteria|first|caveats|large|assumptions|outside|measured|to be|part of|criterion|variable|clearly|there is|final|simply|earth|the one|shown|references|global|relative|fernando|scott|davis|wright|nature|capture|williams|selection|system|gilman|science|rapid|dawson|jackson|house|review|wiley|american|challenges|opportunities|lopez|hughes|meyer|levin|princeton university|university|university press|press|garcia|century|cambridge|cambridge university|cambridge university press|concepts|right|wilson|oxford|oxford university|evolution|the evolution|coevolution|preto|chapman|quality|extension|hypothesis|garden|molecular|units|wagner|systems|implications|jones|high resolution|carpenter|potential|compute|phillips|data analysis|computers|simulation|statistic|release|griffith|czech|the us|oliveira|ellis|california|santos|phases|characteristics|in an
 introduction|effective|spectrum|potential|effects|therefore|the|limit|rapid|detection|method|methods|based|these|sensitive|highly|development|their|efficiency|classical|element|target|since|important|class|the field|field|superior|properties|stability|later|release|to be|however|spectroscopy|other|techniques|large|range|inverse|of the|system|smaller|the system|linear|measurements|stationary|possible|between|characteristics|comparison|knowledge|curve|report|direct|fitting|statistically|results|the best|section|belgium|calcium|solution|before|package|the netherlands|netherlands|experiments|three|noise|unless|otherwise|under|frequency|organic|stage|after|final|temperature|smoothed|times|optimal|which|discussion|figure|figure 1|nyquist|electron|force|present|structure|probe|occupation|part of|slope|forms|detected|changing|interaction|close|efficient|block|scheme|ratio|model|equation|in an|phase|shown|while|events|molecular|could|determination|figures|2 the|taking|place|slight|systems|the same|standard|multiple|processes|values|whereas|lower|the present|average|squared|data analysis|analysis|simulation|the model|parameters|table|several|significance|dynamic|reduced|correlation|measured|cyclic|information|about|reduction|reaction|the peak|separation|observed|species|performing|being|relative|for all|conclusions|novel|various|though|furthermore|combined|fundamental|studies|support|references|j d|wiley|journal|j e|simultaneous|capture|point|recent|environment|monitoring|bouvier|selection|maximum|cheng|elements|l a|fundamentals|m d|composite|s m|white|lubin|a a|density|huang|application|nature|activity|miller|j c
+wait all tasks finish start
+current version is 374
+words in is 5541
+ptr = 0
+current version is 375
+words in is 4957
+ptr = 1
+current version is 376
+words in is 7958
+ptr = 2
+current version is 377
+words in is 7413
+ptr = 3
+current version is 378
+words in is 3840
+ptr = 4
+current version is 378
+words in is 3540
+ptr = 5
+current version is 379
+words in is 10639
+ptr = 6
+current version is 380
+words in is 6107
+ptr = 7
+current version is 381
+words in is 7936
+ptr = 8
+current version is 381
+words in is 3732
+ptr = 9
+current version is 382
+words in is 6638
+ptr = 10
+current version is 383
+words in is 3078
+ptr = 11
+current version is 384
+words in is 3351
+ptr = 12
+current version is 385
+words in is 6319
+ptr = 13
+current version is 386
+words in is 4580
+ptr = 14
+current version is 387
+words in is 4585
+ptr = 15
+current version is 388
+words in is 4046
+ptr = 16
+current version is 389
+words in is 4307
+ptr = 17
+current version is 390
+words in is 9773
+ptr = 18
+current version is 391
+words in is 8873
+ptr = 19
+current version is 392
+words in is 9870
+ptr = 20
+current version is 393
+words in is 4574
+ptr = 21
+current version is 394
+words in is 10305
+ptr = 22
+current version is 395
+words in is 11840
+ptr = 23
+current version is 396
+words in is 7122
+ptr = 24
+current version is 396
+words in is 6571
+ptr = 25
+current version is 397
+words in is 1915
+ptr = 26
+current version is 398
+words in is 8031
+ptr = 27
+current version is 399
+words in is 4633
+ptr = 28
+current version is 400
+words in is 6263
+ptr = 29
+current version is 401
+words in is 7866
+ptr = 30
+current version is 402
+words in is 4424
+ptr = 31
+current version is 403
+words in is 8073
+ptr = 32
+current version is 404
+words in is 8620
+ptr = 33
+current version is 405
+words in is 5900
+ptr = 34
+current version is 406
+words in is 3519
+ptr = 35
+current version is 407
+words in is 3389
+ptr = 36
+current version is 408
+words in is 5356
+ptr = 37
+current version is 409
+words in is 1076
+ptr = 38
+current version is 410
+words in is 3796
+ptr = 39
+current version is 411
+words in is 6121
+ptr = 40
+current version is 412
+words in is 2998
+ptr = 41
+current version is 413
+words in is 8225
+ptr = 42
+current version is 414
+words in is 2032
+ptr = 43
+current version is 415
+words in is 373
+ptr = 44
+current version is 415
+words in is 6176
+ptr = 45
+current version is 416
+words in is 3408
+ptr = 46
+wait all tasks finish end
 background|studies|critical|evidence|the|reducing|transmission|number|observational|between|treatment|reduced|results|2 the|stage|known|several|there|there is|given|about|times|example|australia|report|their|relevance|of the|united|united kingdom|kingdom|analysis|observed|years|however|statistically|consistent|possible|up to|those|where|without|research|lower|relevant|methods|summary|the university|university|south|brazil|online|after|samples|taken|baseline|sample|the time|april|under|funding|until|calculations|based|primary|to be|power|calculation|consider|which|identified|various|reduction|australian|could|these|therefore|total|statistical|other|table|approximately|even if|recent|having|effective|upper|limit|events|criteria|the other|month|average|still|three|whether|taking|september|public|along|another|later|range|potential|for each|information|participation|promotion|clearly|forms|while|outside|knowledge|context|before|monitoring|the same|tests|every|extra|local|central|laboratory|genetic|human|first|available|similar|finally|qualitative|part of|group|standard|support|discussion|at the end|los alamos|alamos|database|maximum|maximum likelihood|bayesian|data analysis|rates|there are|detection|e g|definition|measured|house|separation|system|cross|contact|exposure|comparison|characteristics|starting|changing|effects|committee|review|national|world|medical|alfred|prince|charles|faculty|state|being|third|the new|measuring|furthermore|criterion|future|period|frequency|finding|together|already|network|survey|development|andrew|project|david|wilson|baker|richard|moore|merlin|centre|taylor|market|council|research council|grant|references|systematic|cohen|santos|mayer|gallant|smith|challenges|hammer|phillips|collins|douglas|representative|lundgren|abstract|probability|mcdonald|states|annual|society|action|c c|molecular|implications|glass|northern|california|assumptions|status
 introduction|the|the difference|difference|between|problem|characteristics|of the|system|before|status|france|almost|population|average|up to|however|where|example|physical|spanish|years|odds ratio|ratio|research|studies|daily|other|furthermore|systems|comparisons|indeed|there|there are|these|there is|variation|integration|national|increasing|the present|present|sample|methods|part of|cross|paris|based|group|place|survey|representative|information|close|relative|the research|independent|committee|activity|their|a list|list of|clearly|without|index|instrumental|state|whether|general|which|first|the second|total|identified|another|visual|seeing|medical|variables|about|occupation|three|white|density|number|department|taken|statistical|statistical analysis|analysis|model|individual|correlation|results|ratios|version|participation|lower|standard|table|almost all|joint|large|period|having|variable|third|figure|figure 1|approximately|contact|whereas|reducing|the model|values|discussion|position|a major|major|estimates|various|numerous|consider|overview|selection|effects|the source|source|the 2|french|similar|profile|observed|finding|could|probability|important|point|probably|consistent|shown|again|to be|limit|finally|hypothesis|likely|still|while|significant|nature|potential|quality|therefore|annual|though|after|development|considering|public|conclusion|scope|especially|growing|already|funding|university|data analysis|points|sources|setting|isabelle|support|references|institut|canada|available|media|review|alonso|allen|surveys|davis|frail|stevens|influence|multiple|primary|smith|in an|district|china|field|mckee|project|function|validation|preliminary|report|method|comparing|united|united states|states|affairs|century|douglas|cohen|global|bull|world|evidence|british|society|standards
 introduction|the|south|central|contact|of the|taking|human|where|effective|vector|transmission|these|however|north|recent|years|range|special|given|close|between|several|research|interaction|the host|system|density|molecular|there|there are|three|while|stage|without|which|cycle|transformations|cells|transform|binary|almost|almost all|other|surrounded|the core|structures|function|their|formation|processes|number|burst|activity|experiments|numbers|reduced|features|there is|enhanced|known|cause|figure|figure 1|release|treatment|growth|furthermore|participation|to be|energy|recently|functions|observation|later|shown|after|therefore|state|possible|detected|measured|reaction|observed|brown|smaller|white|synthesis|present|finding|studies|nature|panel|highly|along|summary|important|profile|similar|about|the same|the major|major|based|particles|exact|support|another|significant|approximately|various|potential|direct|until|genetic|reduction|matrix|reverse|particle|together|a i|maximum|association|the research|group|lower|first|american|the discovery|discovery|length|structure|could|power|series|class|place|evidence|results|interactions|conclusion|systems|increasing|review|deeper|understanding|systematic|clearly|future|acknowledgments|national|centre|public|agency|canada|laboratory|grant|mcgill|university|norman|lopez|journal|administration|silva|gamma|in an|bailey|fluid|the new|world|wilson|london|kluwer academic|academic|morphological|mouse|proceedings|santos|filho|harris|griffiths|relevant|williams|novel|friedman|frequency|medical|oliveira|royal|society|czech|type 2|mukherjee|target|huang|stahl|implications|science|a major|souza|simpson|kumar|differential|fernando|academy|academy of sciences|sciences|united|united states|states|weiss|santiago|influence|nelson|relevance|phase|scanning|characteristics|frank|overview|properties|effects|right|analysis|yoshida|forms|smith|moore|massey|comparison|jackson|schechter
@@ -502,4 +2025,5 @@ the|below|local|district|first|their|because|therefore|example|these|instead|ind
 great|science|primary|knowledge|design|otherwise|support|collaboration|institutions|the|agency|development|johns hopkins|hopkins|school|public|george|washington|university|source|at large|large|journal|other|based|field|range|these|together|multiple|environmental|population|individual|systems|scientific|fundamental|committee|medical|the code|review|point|while|the field|number|challenges|instrumental|forward|feedback
 introduction|the|environmental|of the|environment|industrial|processes|metal|exposure|range|effects|systems|which|basic|nuclear|elements|target|phase|the following|energy|organic|evidence|cells|sensitive|human|these|reduction|shown|however|there|there is|knowledge|about|effective|because|number|other|until|present|therefore|whether|treatment|studies|still|after|results|especially|to be|experiments|molecular|methods|seoul|korea|cambridge|bromide|louis|media|medium|lines|different|table|sources|except for|measuring|identified|estimate|measured|based|solution|reaction|reverse|final|extension|kodak|image|station|total|japan|green|system|forward|parallel|internal|fluorescence|at the end|every|cycle|relative|the 2|method|equation|the same|efficiency|western|primary|temperature|detected|capture|imaging|tokyo|determination|three|times|analysis|medical|statistical|statistical analysis|variables|independent|statistically|one way|multiple|comparisons|student|difference|significant|preliminary|reduced|up to|enhanced|without|being|observed|while|subsequent|their|exposed|whereas|combined|those|highly|fig 8|discussion|4 5 6|several|the other|general|example|known|fully|there are|interactions|potential|could|growth|function|activity|first|reason|various|national|research|foundation|grant|center|project|overview|short|laboratory|models|implications|interaction|hawkins|miller|cheng|mouse|structure|action|significance|novel|element|important|detection|weaver|tsujimoto|griffiths|phillips|young|hamilton|world|schmidt|bailey|shanghai|direct|major|review|information|representative
 introduction|to be|of the|the|world|recent|years|treatment|because|changing|their|transmission|current|based|a major|major|these|context|national|program|laboratory|background|common|report|method|using|fluorescence|methods|significant|undetected|especially|those|numbers|sensitive|samples|which|however|techniques|sophisticated|results|tests|molecular|rapid|potential|large|fully|automated|foundation|innovative|the university|university|new jersey|potentially|reducing|the time|similar|likelihood|still|profile|for each|human|other|power|close|december|detection|having|monitoring|support|performing|numerous|cause|temperature|higher|system|location|annual|review|revision|algorithms|forms|quality|network|initial|opportunities|analysis|public|target|defining|activity|to begin|training|united|united states|states|office|agency|development|projects|systematic|toward|research|studying|different|models|challenges|identified|approximately|recently|reduced|agreement|scheme|sector|systems|example|market|total|first|about|price|scaling|already|after|unless|given|detected|times|likely|where|draft|available|geographic|distribution|technology|central|knowledge|build|possible|yield|to do|parallel|the local|local|evidence|place|frequency|confirmation|up to|until|being|medical|later|the same|another|the software|robust|important|effects|rates|information|number|model|between|since|highly|narrow|instrument|finally|could|there|there is|therefore|there are|point|stage|without|organic|pipeline|future|conclusion|century|possibility|careful|we think|think|funding|project|conclusions|position|department|state|group|references|publications|optimizing|barnes|a b|d e|jones|c c|m p|michael|august|images
+Destroy threads end
 exited normally

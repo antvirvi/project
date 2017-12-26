@@ -1,3 +1,6 @@
+#ifndef _FUNCTIONSH_
+#define _FUNCTIONSH_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,6 +15,7 @@
 #include "top.h"
 #include "bloomfilter.h"
 #include "libraries.h"
+#include "schedule.h"
 
 #ifndef DEL_H
 #define DEL_H
@@ -147,7 +151,7 @@ int deleteTrieNode_cleanup(hash_layer *hash,char **words,int word_number,int cur
 
 
 int check_node(trie_node *node,int current_version);
-int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk * top,int current_version);
+int lookupTrieNode_with_bloom_versioning(void * arguments);//hash_layer *hash,char **words,int number_of_words,topk * top,int current_version);
 
 trie_node *delete_from_backet_versioning(hash_layer *hash,int hash_val,char *word,int *pos);
 int deleteTrieNode_versioning(hash_layer *hash,char **words,int word_number,int current_version);
@@ -159,3 +163,6 @@ trie_node *delete_from_backet_versioning_cleanup(hash_layer *hash,int hash_val,c
 int deleteTrieNode_versioning_cleanup(hash_layer *hash,char **words,int word_number,int current_version);
 int delete_from_node_versioning_cleanup(trie_node *node,int pos,int current_version);
 int delete_ngram_versioning_cleanup(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
+//=======
+#endif
+//>>>>>>> antonis_3

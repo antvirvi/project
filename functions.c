@@ -102,238 +102,6 @@ int init_input(struct index *trie,char * filename){
 
 
 
-/*int test_input(struct index *trie,char * filename)
-{
-
-	int words_in = 0;
-	int A_words_in = 0;
-	int A_word_size=word_size;
-	int A_table_size=table_size;
-	int flag; //1 question, 2 addition, 3 deletion, 4 end of file
-	int a;
-	FILE* fd = fopen(filename, "r"); //opening input file
-
-	if(fd == NULL)
-	{
-		perror("Error opening input file");
-		return -1;
-	}
-
-	topk *top;
-	top=create_top(top);
-	top=init_top(top);
-
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	char *word;
-	int command_error;
-	int count=0;
-	int previous_is_Q=1;
-	int current_version=0;
-	int k;
-	int delete_batch=0;
-
-	int length_array_capacity=10;
-	int last_word=0;
-	int lengths_taken=0;
-
-	int *ptr_lengths=malloc(length_array_capacity*sizeof(int));
-	int *version=malloc(length_array_capacity*sizeof(int));
-	int *start=malloc(length_array_capacity*sizeof(int));
-
-	char **ptr_table = malloc(table_size*sizeof(char *));
-	char **A_ptr_table = malloc(A_table_size*sizeof(char *));
-
-	ngrams_to_delete *d_grams=malloc(sizeof(ngrams_to_delete));
-	init_ngrams_to_delete(d_grams);
-
-	for(a=0;a<table_size;a++){
-		A_ptr_table[a]=malloc(A_word_size*sizeof(char));
-		ptr_table[a]=malloc(word_size*sizeof(char));
-		}
-	words_in = 0;
-	while ((read = getline(&line, &len, fd)) != -1) {
-
-		//words_in = 0;
-		
-		word = strtok (line," \n");
-
-			if(strcmp(word,"Q")==0){
-				flag=1;
-			}
-			else if(strcmp(word,"A")==0){
-				flag=2;
-			}
-			else if(strcmp(word,"D")==0){
-				flag=3;
-			}
-			else if(strcmp(word,"F")==0){
-				words_in=0;
-				word=strtok(NULL,"\n");
-				int k;
-				//print_hash_version(trie->hash);
-				execute_queries(trie->hash,ptr_table,ptr_lengths,version,start,lengths_taken,top);
-				lengths_taken=0;
-				last_word=0;
-				print_print(top);
-				count++;				
-				if(word!=NULL){
-					count++;
-					k=atoi(word);
-					//printf("count is %d",count);
-					print_top(top,k);
-					//if(count==1) break; 		
-				}
-				top=init_top(top);
-				//print_ngrams_to_delete(d_grams);
-				//delete_ngrams(trie->hash,d_grams);
-				//print_hash_version(trie->hash);
-				reset_ngrams_to_delete(d_grams);
-				//if(count==1) break; 		
-				delete_batch=0;
-				continue;
-			}
-			else{
-				continue;
-			}
-			word=strtok(NULL," \n");
-				
-			if(flag==1){
-				//printf("here\n");
-				while(word!=NULL){
-
-					if(words_in==table_size-1){
-					//table_size*=2;
-						ptr_table = realloc(ptr_table,table_size*2*sizeof(char*));
-						if(ptr_table==NULL) exit(-1);
-						for(a=table_size;a<(table_size*2);a++){
-							ptr_table[a]=malloc(word_size*sizeof(char));
-							if(ptr_table[a]==NULL) exit(-1);
-							}
-				//printf("word_size here %d\n",word_size);
-						table_size*=2;
-					}
-					//if(strlen(word)>=word_size){
-						//printf("doubling\n");
-					while(strlen(word)>=word_size){
-						//printf("word_size is %d\n",word_size);
-						word_size=word_size*2;
-						//}
-						for(a=0;a<table_size;a++){
-							ptr_table[a] = realloc(ptr_table[a],word_size*sizeof(char));
-							if(ptr_table[a]==NULL) exit(-1);
-							}
-					}
-						strcpy(ptr_table[words_in],word);	
-					//printf("I wrote in pos %d the string %s\n",words_in,ptr_table[words_in]);			
-						words_in++;				
-						word=strtok(NULL," \n");
-					
-				}
-					}
-				else{
-					A_words_in=0;
-					while(word!=NULL){
-						if(A_words_in==A_table_size-1){
-					//table_size*=2;
-							A_ptr_table = realloc(A_ptr_table,A_table_size*2*sizeof(char*));
-							if(A_ptr_table==NULL) exit(-1);
-							for(a=A_table_size;a<(A_table_size*2);a++){
-								A_ptr_table[a]=malloc(A_word_size*sizeof(char));
-								if(A_ptr_table[a]==NULL) exit(-1);
-								}
-				//printf("word_size here %d\n",word_size);
-							A_table_size*=2;
-						}
-						while(strlen(word)>=A_word_size){
-							A_word_size=A_word_size*2;
-							for(a=0;a<A_table_size;a++){
-								A_ptr_table[a] = realloc(A_ptr_table[a],A_word_size*sizeof(char));
-								if(A_ptr_table[a]==NULL) exit(-1);
-								}
-						}
-						//printf("writing in table pos %d : %s\n",A_words_in,word);
-						strcpy(A_ptr_table[A_words_in],word);	
-						A_words_in++;				
-						word=strtok(NULL," \n");
-						}
-					}		
-
-		switch(flag){
-			case 1 :
-				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
-				//command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); 
-				//if(command_error==-1) printf("%d\n",command_error);
-				//printf("searching with version %d\n",current_version);
-				//here
-				if(lengths_taken==length_array_capacity){
-					length_array_capacity*=2;
-
-					ptr_lengths=realloc(ptr_lengths,length_array_capacity*sizeof(int));
-					start=realloc(start,length_array_capacity*sizeof(int));
-					version=realloc(version,length_array_capacity*sizeof(int));					
-				}
-				//printf("i passed %d , start %d ,words in %d\n ",words_in-last_word,last_word,words_in);
-				ptr_lengths[lengths_taken]=words_in-last_word;
-				start[lengths_taken]=last_word;
-				version[lengths_taken]=current_version;
-
-				last_word=words_in;
-				lengths_taken++;
-				//this
-				command_error=lookupTrieNode_with_bloom_versioning(trie->hash,ptr_table,words_in-1,top,current_version); //kfrm
-								
-				//command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); //kfrm				
-				if(command_error==-1) printf("%d\n",command_error);
-				previous_is_Q=1;
-				break;
-			case 2 :
-				//command_error=insertTrieNode(trie->hash,ptr_table,words_in,current_version);
-				if(previous_is_Q==1){
-					//printf("changed version\n");
-					current_version++;}
-				previous_is_Q=0;
-	
-				command_error=insertTrieNode(trie->hash,A_ptr_table,A_words_in,current_version);
-				A_words_in=0;			
-				break;
-			case 3 :
-
-				for(k=0;k<A_words_in;k++) add_ngram_to_delete(d_grams,A_ptr_table[k],delete_batch);
-				delete_batch++;
-				//printf("deleting word \"%s \" in version %d \n",ptr_table[0],current_version);
-				if(previous_is_Q==1){
-					//printf("changed version\n");
-					current_version++;}
-
-				previous_is_Q=0;
-				//command_error=deleteTrieNode_versioning(trie->hash,ptr_table,words_in,current_version);
-				command_error=deleteTrieNode_versioning(trie->hash,A_ptr_table,A_words_in,current_version);
-				//command_error=deleteTrieNode(trie->hash,ptr_table,words_in);
-				A_words_in=0;			
-				break;
-		
-		}
-		flag=0;	
-}
-	destroy_ngrams_to_delete(d_grams);
-	free(d_grams);
-  	free(line);
-
-	free(ptr_lengths);
-	free(start);
-	free(version);
-
-	erase_top(top);
-	cleanup_A(A_ptr_table,A_table_size);
-	cleanup(ptr_table);
-	fclose(fd);
-	
-return 0;
-
-}*/
-
 int test_input(struct index *trie,char * filename)
 {
 
@@ -369,6 +137,9 @@ int test_input(struct index *trie,char * filename)
 	int length_array_capacity=10;
 	int last_word=0;
 	int lengths_taken=0;
+	int threads_quantity  = 12 ;
+	JobScheduler *JS = initialize_scheduler(threads_quantity);
+	Job *j;
 
 	int *Q_lengths=malloc(length_array_capacity*sizeof(int));
 	int *version=malloc(length_array_capacity*sizeof(int));
@@ -407,6 +178,7 @@ int test_input(struct index *trie,char * filename)
 				word=strtok(NULL,"\n");
 				int k;
 				//print_hash_version(trie->hash);
+				execute_all_jobs(JS);
 				execute_queries(trie->hash,ptr_table,Q_lengths,version,start,lengths_taken,top);
 				lengths_taken=0;
 				last_word=0;
@@ -492,11 +264,6 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				//command_error=search_in_trie(trie->root,ptr_table,words_in-1);
-				//command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); 
-				//if(command_error==-1) printf("%d\n",command_error);
-				//printf("searching with version %d\n",current_version);
-				//here
 				if(lengths_taken==length_array_capacity){
 					length_array_capacity*=2;
 
@@ -509,14 +276,26 @@ int test_input(struct index *trie,char * filename)
 				start[lengths_taken]=last_word;
 				version[lengths_taken]=current_version;
 
+				j = malloc(sizeof(Job));
+				j->opt=lookupTrieNode_with_bloom_versioning;
+
+				
+				q_args* ptr = malloc(sizeof(q_args));
+				ptr->hash = trie->hash;
+				ptr->words = &(ptr_table[start[lengths_taken]]);
+				ptr->number_of_words = Q_lengths[lengths_taken]-1;
+				ptr->top = top;
+				ptr->version = current_version;//version;
+				j->arguments = (void*)ptr;
+				submit_job(JS,j);
+
 				last_word=words_in;
 				lengths_taken++;
 				//this
 				//command_error=lookupTrieNode_with_bloom_versioning(trie->hash,ptr_table,words_in-1,top,current_version); //kfrm
 								
-				//command_error=lookupTrieNode_with_bloom(trie->hash,ptr_table,words_in-1,top); //kfrm				
-				//if(command_error==-1) printf("%d\n",command_error);
 				previous_is_Q=1;
+
 				break;
 			case 2 :
 				//command_error=insertTrieNode(trie->hash,ptr_table,words_in,current_version);
@@ -545,8 +324,12 @@ int test_input(struct index *trie,char * filename)
 		}
 		flag=0;	
 }
+
 	destroy_ngrams_to_delete(d_grams);
 	free(d_grams);
+
+	destroy_threads(JS);
+
   	free(line);
 	free(word_lengths);
 
@@ -567,7 +350,7 @@ int execute_queries(hash_layer *hash,char **ptr_table,int *ptr_lengths,int *vers
 	int i,j;
 	int command_error;
 	for(i=0;i<pos;i++){	
-		command_error=lookupTrieNode_with_bloom_versioning(hash,&(ptr_table[start[i]]),ptr_lengths[i]-1,top,version[i]);
+		//command_error=lookupTrieNode_with_bloom_versioning(hash,&(ptr_table[start[i]]),ptr_lengths[i]-1,top,version[i]);
 	}
 	//printf("results:\n");
 	return 0;
@@ -1041,7 +824,7 @@ int  hash_function(hash_layer *hash, char *word)
 	int hash_value;
     unsigned long hash_int = 5381;
     int c;
-
+	//printf("word is %s\n",word);
     while (c = *word++)
         hash_int = ((hash_int << 5) + hash_int) + c; /* hash * 33 + c */
 	//printf("hash is %ld\n",hash_int);
@@ -1538,6 +1321,7 @@ char * detableize(char * str, char ** table){
 return str;
 }
 
+
 //-------------------------------------versioning delete------------------------------//
 int delete_ngram_versioning(trie_node *root,char **word,int word_number,int number_of_words,int current_version){
 		int error;
@@ -1750,7 +1534,14 @@ int check_node(trie_node *node,int current_version){
 		return SUCCESS;
 }
 
-int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk * top,int current_version){
+int lookupTrieNode_with_bloom_versioning(void * arguments)//hash_layer *hash,char **words,int number_of_words,topk * top,int current_version)
+{
+	q_args *data=(q_args*)arguments;
+	hash_layer *hash=data->hash;
+	char **words=data->words;
+	int number_of_words=data->number_of_words;
+	topk *top=data->top;
+	int current_version=data->version;
 	//size_t bloomfilterbytes = ((M*128)/8);
 	size_t bloomfilterbytes=M*8;
 	//	int multi=number_of_words/M;
@@ -1758,7 +1549,8 @@ int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int numbe
 	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
 	int * bloomfilter = malloc(bloomfilterbytes/8);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
-
+	printf("current version is %d\n",current_version);
+	printf("words in is %d\n",number_of_words);
 	char *str;	
 	int str_size;
 	int word_number;
@@ -1989,4 +1781,11 @@ void print_trie_version(trie_node *node,int level){
 		print_trie_version(&(node->children[i]),level+1);
 	}
 	return;
+}
+
+
+void test(void){
+
+printf("Hello from Test\n");
+
 }

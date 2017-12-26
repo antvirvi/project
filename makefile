@@ -9,11 +9,13 @@ default: project
 #
 
 
-project:  main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o deletion.o
-	$(CC) $(CFLAGS) -o project main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o deletion.o -lm
 
-test_project:  test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o deletion.o
-	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o deletion.o -lm
+project:  main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o deletion.o schedule.o 
+	$(CC) $(CFLAGS) -o project main.o functions.o stack.o static_functions.o bloomfilter.o murmur3.o top.o deletion.o schedule.o  -lm -lpthread
+
+test_project:  test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o deletion.o schedule.o 
+	$(CC) $(CFLAGS) -o test_project test_main.o functions.o stack.o static_functions.o test.o bloomfilter.o murmur3.o top.o deletion.o schedule.o  -lm -lpthread
+
 
 # To create the object file countwords.o, we need the source
 # files countwords.c, scanner.h, and counter.h:
@@ -48,8 +50,14 @@ murmur3.o:  murmur3.c murmur3.h
 top.o:  top.c top.h
 	$(CC) $(CFLAGS) -c top.c
 	
+
 deletion.o:  deletion.c deletion.h
 	$(CC) $(CFLAGS) -c deletion.c	
+
+schedule.o:  schedule.c schedule.h
+	$(CC) $(CFLAGS) -c  schedule.c -lpthread
+	
+
 
 clean: 
 	$(RM) count *.o *~ diffs
@@ -69,6 +77,7 @@ testrun3:
 
 run:
 	time ./project -q small.work -i small.init 
+
 run2:
 	./project -q test.work -i test.init 
 

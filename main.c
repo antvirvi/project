@@ -37,7 +37,6 @@ int main (int argc, char **argv ){
 		}	
 	}
 	
-	int i;
 	printf("Init %s\nQueries %s\n",init_file,query_file);
 
 	struct index *trie=malloc(sizeof(struct index));
