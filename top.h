@@ -51,6 +51,22 @@ typedef struct topk{
 	hashtable *hash_table;
 }topk;
 
+typedef struct kframes_threads{
+int capacity; 	//posa xwrane
+int occupied; 	//posa exoume mesa
+char ** ngrams; //deiktis se pinaka me ta ngrams
+int ngrams_to_free;
+}kframes_threads;
+
+typedef struct topk_threads{
+	kframes_threads * kf;
+	int Q_capacity;
+	//freq * fr;
+	//hashtable *hash_table;
+}topk_threads;
+
+
+
 //__________________________________________ngram table
 int  hash_gram(hashtable *hash_table, char *word);
 
@@ -86,3 +102,9 @@ void quickSort( int *frequency,int *ngram, int l, int r,char **ngrams);
 int resize_hash_for_top(hashtable *hash_,kframes *kf,freq *fr);
 void shrink_buckets_for_top(bucket *bucket_,stack *stack_);
 void sort_in_alphabet(int *frequency,int *ngram,int l,int max,char **ngrams);
+
+//----------------------------------topk for threads----------------------------------------------------//
+topk_threads *  create_top_threads(topk_threads * top);
+topk_threads *  init_top_threads(topk_threads* top);
+topk_threads * add_top_threads(topk_threads * top,char * ngram,int Q_number);
+kframes_threads * extend_top_kf_threads(kframes_threads *kf);

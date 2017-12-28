@@ -20,10 +20,12 @@ typedef struct Job{
 
 typedef struct q_args{
 	struct hash_layer *hash;
-	char **words;
+	char ***words;
 	int number_of_words;
 	topk *top;
 	int version;
+	int start;
+	int Q_number;
 }q_args;
 
 typedef struct Queue{
@@ -42,11 +44,11 @@ pthread_t* tids; // execution threads
 // mutex, condition variable, ...
 }JobScheduler;
 
-pthread_mutex_t T; //stop other threads
-pthread_mutex_t R; //ready for submit jobs
+pthread_mutex_t pool_mutex; //stop other threads
+//pthread_mutex_t R; //ready for submit jobs
 
-pthread_cond_t tcv;
-pthread_cond_t rcv;
+pthread_cond_t pool_is_empty;
+pthread_cond_t pool_is_full;
 
 void pr(void);
 

@@ -26,7 +26,7 @@
 //
 /*extern*/ int buffer_size = 16;
 /*extern*/ int word_size = 8;
-/*extern*/ int table_size = 4;
+/*extern*/ int table_size = 8;
 
 void printtable(char **pt, int num){
 	int a;
@@ -119,9 +119,9 @@ int test_input(struct index *trie,char * filename)
 		return -1;
 	}
 
-	topk *top;
-	top=create_top(top);
-	top=init_top(top);
+	topk_threads *top;
+	top=create_top_threads(top);
+	top=init_top_threads(top);
 
 	char *line = NULL;
 	size_t len = 0;
@@ -137,9 +137,11 @@ int test_input(struct index *trie,char * filename)
 	int length_array_capacity=10;
 	int last_word=0;
 	int lengths_taken=0;
-	int threads_quantity  = 12 ;
+	int threads_quantity  = 2 ;
 	JobScheduler *JS = initialize_scheduler(threads_quantity);
-	Job *j;
+	Job *job_to_append = malloc(sizeof(Job));
+	int Q_number=0;
+	//q_args* job_to_append->arguments = malloc(sizeof(q_args));
 
 	int *Q_lengths=malloc(length_array_capacity*sizeof(int));
 	int *version=malloc(length_array_capacity*sizeof(int));
@@ -157,6 +159,8 @@ int test_input(struct index *trie,char * filename)
 		ptr_table[a]=malloc(word_size*sizeof(char));
 		word_lengths[a]=word_size;
 		}
+	char ***pointer_to_words=malloc(sizeof(char**));
+	*pointer_to_words=ptr_table;
 	words_in = 0;
 	while ((read = getline(&line, &len, fd)) != -1) {
 
@@ -179,25 +183,27 @@ int test_input(struct index *trie,char * filename)
 				int k;
 				//print_hash_version(trie->hash);
 				execute_all_jobs(JS);
-				execute_queries(trie->hash,ptr_table,Q_lengths,version,start,lengths_taken,top);
+				//execute_queries(trie->hash,ptr_table,Q_lengths,version,start,lengths_taken,top);
 				lengths_taken=0;
 				last_word=0;
-				print_print(top);
+				print_print_threads(top,Q_number);
 				count++;				
 				if(word!=NULL){
 					count++;
 					k=atoi(word);
 					//printf("count is %d",count);
-					print_top(top,k);
+					//print_top(top,k);
 					//if(count==1) break; 		
 				}
-				top=init_top(top);
+				//top=init_top(top);
+				top=init_top_threads(top);
 				//print_ngrams_to_delete(d_grams);
 				delete_ngrams(trie->hash,d_grams);
 				//print_hash_version(trie->hash);
 				reset_ngrams_to_delete(d_grams);
 				//if(count==1) break; 		
 				delete_batch=0;
+				Q_number=0;
 				continue;
 			}
 			else{
@@ -212,6 +218,7 @@ int test_input(struct index *trie,char * filename)
 					if(words_in==table_size-1){
 					//table_size*=2;
 						ptr_table = realloc(ptr_table,table_size*2*sizeof(char*));
+						*pointer_to_words=ptr_table;
 						word_lengths = realloc(word_lengths,table_size*2*sizeof(int));
 						if(ptr_table==NULL) exit(-1);
 						for(a=table_size;a<(table_size*2);a++){
@@ -275,22 +282,30 @@ int test_input(struct index *trie,char * filename)
 				Q_lengths[lengths_taken]=words_in-last_word;
 				start[lengths_taken]=last_word;
 				version[lengths_taken]=current_version;
-
-				j = malloc(sizeof(Job));
-				j->opt=lookupTrieNode_with_bloom_versioning;
-
 				
-				q_args* ptr = malloc(sizeof(q_args));
-				ptr->hash = trie->hash;
-				ptr->words = &(ptr_table[start[lengths_taken]]);
-				ptr->number_of_words = Q_lengths[lengths_taken]-1;
-				ptr->top = top;
-				ptr->version = current_version;//version;
-				j->arguments = (void*)ptr;
-				submit_job(JS,j);
+				if(Q_number==top->Q_capacity){
+					extend_top_threads(top,top->Q_capacity*2);
+				}
+				//job_to_append= malloc(sizeof(Job));
+				job_to_append->opt=(lookupTrieNode_with_bloom_versioning_threads);
+				
+				
+				q_args* arguments = malloc(sizeof(q_args));
+				arguments->hash = trie->hash;
+				//start_table=&(ptr_table[start[lengths_taken]]
+				//printf("adding job with word %s\n",(*pointer_to_words)[start[lengths_taken]]);
+				arguments->words = pointer_to_words;//&(ptr_table[start[lengths_taken]]);
+				arguments->number_of_words = Q_lengths[lengths_taken]-1;
+				arguments->top = top;
+				arguments->version = current_version;
+				arguments->start = start[lengths_taken];
+				arguments->Q_number = Q_number;
+				job_to_append->arguments= (void*)arguments;//(void*)ptr;
+				submit_job(JS,job_to_append);
 
 				last_word=words_in;
 				lengths_taken++;
+				Q_number++;
 				//this
 				//command_error=lookupTrieNode_with_bloom_versioning(trie->hash,ptr_table,words_in-1,top,current_version); //kfrm
 								
@@ -327,17 +342,21 @@ int test_input(struct index *trie,char * filename)
 
 	destroy_ngrams_to_delete(d_grams);
 	free(d_grams);
-
-	destroy_threads(JS);
-
+	//free(job_to_append->arguments);
+	free(job_to_append);
   	free(line);
 	free(word_lengths);
 
 	free(Q_lengths);
 	free(start);
 	free(version);
-
-	erase_top(top);
+	free(pointer_to_words);
+	erase_top_threads(top);
+	destroy_threads(JS);
+	free(JS->q->jobs);
+	free(JS->q);
+	free(JS->tids);
+	free(JS);
 	cleanup_A(A_ptr_table,A_table_size);
 	cleanup(ptr_table);
 	fclose(fd);
@@ -350,7 +369,7 @@ int execute_queries(hash_layer *hash,char **ptr_table,int *ptr_lengths,int *vers
 	int i,j;
 	int command_error;
 	for(i=0;i<pos;i++){	
-		//command_error=lookupTrieNode_with_bloom_versioning(hash,&(ptr_table[start[i]]),ptr_lengths[i]-1,top,version[i]);
+		command_error=lookupTrieNode_with_bloom_versioning(hash,ptr_table,ptr_lengths[i]-1,top,version[i],start[i]);
 	}
 	//printf("results:\n");
 	return 0;
@@ -1534,38 +1553,36 @@ int check_node(trie_node *node,int current_version){
 		return SUCCESS;
 }
 
-int lookupTrieNode_with_bloom_versioning(void * arguments)//hash_layer *hash,char **words,int number_of_words,topk * top,int current_version)
+int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk * top,int current_version,int section_start)
 {
-	q_args *data=(q_args*)arguments;
-	hash_layer *hash=data->hash;
-	char **words=data->words;
-	int number_of_words=data->number_of_words;
-	topk *top=data->top;
-	int current_version=data->version;
 	//size_t bloomfilterbytes = ((M*128)/8);
 	size_t bloomfilterbytes=M*8;
 	//	int multi=number_of_words/M;
 	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
 	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
+	//printf("current version is %d\n",current_version);
+	//printf("words in is %d\n",number_of_words);
+	//printf("first word is %s\n",words[section_start]);
+	//return -1;
 	int * bloomfilter = malloc(bloomfilterbytes/8);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
-	printf("current version is %d\n",current_version);
-	printf("words in is %d\n",number_of_words);
 	char *str;	
 	int str_size;
 	int word_number;
 	int exists;
 	int pos;
 	trie_node *node;
-	int start=0;
+	int start=section_start;
 	int ngrams_found=0;
-	while(start!=number_of_words+1) {
-
+	while(start!=section_start+number_of_words+1) {
+		//printf("word %d is %s start %d\n",word_number,words[start],start);
 		str=malloc(20*sizeof(char)); //check this size
 		strcpy(str,"");
 		str_size=20;
 		word_number=start;
 		int check;
+		//printf("word %d is %s\n",word_number,words[start]);
+		//exit(-1);
 		int hash_val=hash_function(hash,words[start]);
 
 		hash_bucket *bucket=&(hash->buckets[hash_val]);
@@ -1592,28 +1609,27 @@ int lookupTrieNode_with_bloom_versioning(void * arguments)//hash_layer *hash,cha
 			if(node->is_final=='y' && check!=ERROR) { //found ngram
 				if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
+						//printf("Found %s\n",str);
 						top=add_top(top,str);
 						ngrams_found++;
 					}
 				}
 			//printf("word_number is %d\n",word_number);
 			word_number++;
-			if(word_number>number_of_words) break;
+			if(word_number>number_of_words+section_start) break;
 			exists=check_exists_in_children(node,words[word_number],&pos);
 			if(exists==0) break;
-			node=&(node->children[pos]);
-			/*if(check_node(node,current_version)==ERROR){
-					exists=0;
-					break;
-			}*/			
+			//printf("word_number is %d\n",word_number);
+			node=&(node->children[pos]);			
 			myappend_pan_with_space(&str,&str_size,words[word_number]);
 		}
 
-		if(exists==1 && word_number<=number_of_words) {
+		if(exists==1 && word_number<=section_start+number_of_words) {
 			check=check_node(node,current_version);
 			if(check!=ERROR){
 			if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
+						//printf("Found %s\n",str);
 						top=add_top(top,str);
 						ngrams_found++;
 			}
@@ -1625,7 +1641,116 @@ int lookupTrieNode_with_bloom_versioning(void * arguments)//hash_layer *hash,cha
 	end_gram_table(top,ngrams_found);
 	int found=SUCCESS;
 	//free(str);
-	free(bloomfilter);	
+	free(bloomfilter);
+	//free(*data);	
+	return found;
+	if(TestAllBits(bloomfilter,bloomfilterbytes)==0) found=-1;
+	if(exists==0) return ERROR;
+	
+	return SUCCESS;	
+
+
+	return 0;
+}
+
+int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer *hash,char **words,int number_of_words,topk * top,int current_version)
+{
+	q_args *data=(q_args*)arguments;
+	hash_layer *hash=data->hash;
+	char **words=*(data->words);
+	int number_of_words=data->number_of_words;
+	topk_threads *top=data->top;
+	int current_version=data->version;
+	int section_start=data->start;
+	int Q_number=data->Q_number;
+	//size_t bloomfilterbytes = ((M*128)/8);
+	size_t bloomfilterbytes=M*8;
+	//	int multi=number_of_words/M;
+	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
+	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
+	printf("current version is %d\n",current_version);
+	printf("words in is %d\n",number_of_words);
+	printf("first word is %s\n",words[section_start]);
+	//return -1;
+	int * bloomfilter = malloc(bloomfilterbytes/8);
+	bloomfilter_init(bloomfilter,bloomfilterbytes);
+	char *str;	
+	int str_size;
+	int word_number;
+	int exists;
+	int pos;
+	trie_node *node;
+	int start=section_start;
+	int ngrams_found=0;
+	while(start!=section_start+number_of_words+1) {
+		//printf("word %d is %s start %d\n",word_number,words[start],start);
+		str=malloc(20*sizeof(char)); //check this size
+		strcpy(str,"");
+		str_size=20;
+		word_number=start;
+		int check;
+		//printf("word %d is %s\n",word_number,words[start]);
+		//exit(-1);
+		int hash_val=hash_function(hash,words[start]);
+
+		hash_bucket *bucket=&(hash->buckets[hash_val]);
+		//exists=check_exists_in_bucket(bucket,words[start],&pos);
+		exists=check_exists_in_bucket(words[start],&pos,bucket->children,bucket->children_number);
+		//printf("exists is %d\n",exists);
+		if(exists==0){ 
+			start++;
+			free(str);
+			continue;
+			}
+		node=&(bucket->children[pos]);
+		/*if(check_node(node,current_version)==ERROR){
+			start++;
+			//printf("refused\n");
+			free(str);
+			continue;
+			}*/
+		//printf("words start %d , %s\n",start,words[start]);
+		myappend_pan(&str,&str_size,words[start]);
+		
+		while(node->number_of_childs!=0) {
+			check=check_node(node,current_version);
+			if(node->is_final=='y' && check!=ERROR) { //found ngram
+				if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
+						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
+						printf("Found %s\n",str);
+						top=add_top_threads(top,str,Q_number);
+						ngrams_found++;
+					}
+				}
+			//printf("word_number is %d\n",word_number);
+			word_number++;
+			if(word_number>number_of_words+section_start) break;
+			exists=check_exists_in_children(node,words[word_number],&pos);
+			if(exists==0) break;
+			//printf("word_number is %d\n",word_number);
+			node=&(node->children[pos]);			
+			myappend_pan_with_space(&str,&str_size,words[word_number]);
+		}
+
+		if(exists==1 && word_number<=section_start+number_of_words) {
+			check=check_node(node,current_version);
+			if(check!=ERROR){
+			if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
+						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
+						printf("Found %s\n",str);
+						top=add_top_threads(top,str,Q_number);
+						ngrams_found++;
+			}
+			}
+		}
+		free(str);
+		start++;
+	}
+	end_gram_table(top,ngrams_found);
+	int found=SUCCESS;
+	//free(str);
+	free(bloomfilter);
+	//free(*data);	
 	return found;
 	if(TestAllBits(bloomfilter,bloomfilterbytes)==0) found=-1;
 	if(exists==0) return ERROR;

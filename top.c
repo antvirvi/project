@@ -451,3 +451,196 @@ topk *  end_gram_table(topk * top,int ngrams_found){ //simeiwnoume oti edw telei
 	return top;
 }
 
+
+//----------------------------------topk for threads----------------------------------------------------//
+
+topk_threads *  create_top_threads(topk_threads * top){
+	int i;
+	top =malloc(sizeof(topk_threads));
+	top->Q_capacity=16;
+	top->kf = malloc(top->Q_capacity*sizeof(kframes_threads));
+	for(i=0;i<top->Q_capacity;i++){
+		top->kf[i].ngrams = malloc(table_ngram_size*sizeof(char *));
+		top->kf[i].capacity = table_ngram_size;
+		top->kf[i].occupied = 0;
+		top->kf[i].ngrams_to_free=0;
+	}
+	/*top->fr = malloc((sizeof(freq)));
+	top->fr->frequency = malloc(table_ngram_size*sizeof(int));
+	top->fr->ngram = malloc(table_ngram_size*sizeof(int));
+	top->fr->unique=0;
+
+	top->hash_table=malloc(sizeof(hashtable));
+	top->hash_table->total_frames=0;
+	top->hash_table->bucket_to_split=0;
+	top->hash_table->split_round=0;
+	top->hash_table->load_factor=0.9;
+	top->hash_table->bucket_capacity=10;
+	top->hash_table->number_of_buckets=C2;
+	top->hash_table->buckets_to_free=C2;
+	top->hash_table->buckets=malloc(top->hash_table->number_of_buckets*sizeof(bucket));
+	bucket *hash_bucket;
+	for(i=0;i<top->hash_table->number_of_buckets;i++){
+		hash_bucket=&(top->hash_table->buckets[i]);
+		hash_bucket->number_of_children=0;
+		hash_bucket->capacity=top->hash_table->bucket_capacity;
+		hash_bucket->children=malloc(hash_bucket->capacity*sizeof(int));
+	}*/
+	
+	return top;
+}
+
+topk_threads *  init_top_threads(topk_threads* top){
+	int i;
+	for(i=0;i<top->Q_capacity;i++)
+		top->kf[i].occupied = 0;
+	/*top->fr->unique=0;
+	top->hash_table->total_frames=0;
+	top->hash_table->bucket_to_split=0;
+	top->hash_table->split_round=0;
+	top->hash_table->number_of_buckets=C2;
+	/bucket *hash_bucket;
+	for(i=0;i<top->hash_table->number_of_buckets;i++){
+		 hash_bucket=&(top->hash_table->buckets[i]);
+		 hash_bucket->number_of_children=0;
+	}
+	*/
+
+	return top;
+	}
+
+topk_threads * add_top_threads(topk_threads * top,char * ngram,int Q_number){ //prosthiki enos n gram stous pinakes
+	kframes_threads *kf=&(top->kf[Q_number]);
+	if(kf->occupied==(kf->capacity)){
+		printf("Double in Q number %d\n",Q_number);
+		kf=extend_top_kf_threads(kf); // check this
+	}
+	//printf("in add to top \"%s\"\n",ngram);
+	int ngram_len=strlen(ngram)+1;
+	int last_position=kf->occupied;
+
+	if(last_position+1>kf->ngrams_to_free){
+		kf->ngrams[last_position] = malloc(ngram_len*sizeof(char));
+		kf->ngrams_to_free+=1;
+	}
+	else{ 
+		kf->ngrams[last_position] = realloc(kf->ngrams[last_position],ngram_len*sizeof(char));
+	}
+
+	memmove(kf->ngrams[last_position],ngram,ngram_len);
+
+
+	//top->fr->frequency[last_position] = 1;
+	//top->fr->ngram[last_position] =last_position;
+	//printf("I added :%s: in frames\n",ngram);
+	kf->occupied++;
+	
+	
+	//add in hash table if its new
+	/*hashtable *hash_=top->hash_table;
+
+	if((hash_->total_frames/((float)hash_->number_of_buckets*hash_->bucket_capacity)) > hash_->load_factor){
+		int resize_error=resize_hash_for_top(hash_,top->kf,top->fr);
+		if(resize_error==-1) return NULL;
+	}	
+	
+	int j=0;
+	int hash_value=hash_gram(top->hash_table,ngram);
+	int last_in_bucket,pos;
+
+	bucket *hash_bucket=&(top->hash_table->buckets[hash_value]);
+	last_in_bucket=hash_bucket->number_of_children;
+	//
+	int pos2;
+	//print_hash_table(top->hash_table,top);
+	
+	for(j=0;j<last_in_bucket;j++){
+		pos=hash_bucket->children[j];
+		pos2=top->fr->ngram[pos];
+		if(strcmp(top->kf->ngrams[pos2],ngram)==0)
+		{
+			top->fr->frequency[pos]++;
+			return top;
+		}
+	}
+	
+	top->fr->ngram[top->fr->unique] =last_position;
+	top->fr->frequency[top->fr->unique] = 1;
+	top->fr->unique++;
+	if(last_in_bucket==hash_bucket->capacity){ 	//overflow bucket
+		hash_bucket->children=realloc(hash_bucket->children,hash_bucket->capacity*2*sizeof(int));
+		hash_bucket->capacity*=2;
+	}
+
+	hash_bucket->children[last_in_bucket]=top->fr->unique-1;//last_position;
+	top->hash_table->total_frames++;
+	hash_bucket->number_of_children++;
+		*/
+	return top;
+}
+
+kframes_threads * extend_top_kf_threads(kframes_threads *kf){
+	
+	kf->capacity *=2 ;
+	kf->ngrams = (char **)realloc(kf->ngrams,kf->capacity*sizeof(char *));
+
+	//top->fr->frequency = realloc(top->fr->frequency,table_ngram_size*sizeof(int));
+	//top->fr->ngram = realloc(top->fr->ngram,table_ngram_size*sizeof(int));
+
+	return kf;
+}
+
+void print_print_threads(topk_threads * top,int Q_used){ //ektypwnei ola ta ngrams me
+	int i;
+	int j;
+	//printf("occupied are %d\n",top->kf->occupied);
+	for(j=0;j<Q_used;j++){
+		printf("Q has %d grams\n",top->kf[j].occupied);
+	if(top->kf[j].occupied==0){
+		printf("-1\n");
+		continue;
+	}
+	for(i=0;i<top->kf[j].occupied-1;i++){
+		printf("%d: ",i);
+		printf("%s|",top->kf[j].ngrams[i]);
+	}
+	i=top->kf[j].occupied-1;
+	printf("%s\n",top->kf[j].ngrams[i]);
+	}
+}
+
+void extend_top_threads(topk_threads *top,int new_capacity){
+	int i;
+	top->kf = realloc(top->kf,new_capacity*sizeof(kframes_threads));
+	for(i=top->Q_capacity;i<new_capacity;i++){
+		top->kf[i].ngrams = malloc(table_ngram_size*sizeof(char *));
+		top->kf[i].capacity = table_ngram_size;
+		top->kf[i].occupied = 0;
+		top->kf[i].ngrams_to_free=0;
+	}
+	top->Q_capacity=new_capacity;
+}
+
+topk_threads *  erase_top_threads(topk_threads * top){
+	int i,j;
+	/*buc,jket *hash_bucket;
+	for(i=0;i<top->hash_table->buckets_to_free;i++){
+		hash_bucket=&(top->hash_table->buckets[i]);
+		free(hash_bucket->children);
+	}
+	free(top->hash_table->buckets);
+	free(top->hash_table);
+
+	free(top->fr->frequency);
+	free(top->fr->ngram);
+	free(top->fr);
+	//printf("to free are %d\n",top->kf->ngrams_to_free);
+	*/
+	for(j=0;j<top->Q_capacity;j++){
+		for(i=0;i<top->kf[j].ngrams_to_free;i++) free(top->kf[j].ngrams[i]);
+		free(top->kf[j].ngrams);
+	}
+	free(top->kf);
+	free(top);
+	return top;
+}
