@@ -595,13 +595,13 @@ void print_print_threads(topk_threads * top,int Q_used){ //ektypwnei ola ta ngra
 	int j;
 	//printf("occupied are %d\n",top->kf->occupied);
 	for(j=0;j<Q_used;j++){
-		printf("Q has %d grams\n",top->kf[j].occupied);
+		//printf("Q has %d grams\n",top->kf[j].occupied);
 	if(top->kf[j].occupied==0){
 		printf("-1\n");
 		continue;
 	}
 	for(i=0;i<top->kf[j].occupied-1;i++){
-		printf("%d: ",i);
+		//printf("%d: ",i);
 		printf("%s|",top->kf[j].ngrams[i]);
 	}
 	i=top->kf[j].occupied-1;

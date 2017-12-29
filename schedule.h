@@ -32,6 +32,7 @@ typedef struct Queue{
 	int queue_capacity;
 	int queue_used;
 	int queue_ptr;
+	int jobs_remain;
 	Job ** jobs;
 }Queue;
 
@@ -45,11 +46,13 @@ pthread_t* tids; // execution threads
 }JobScheduler;
 
 pthread_mutex_t pool_mutex; //stop other threads
+pthread_mutex_t jobs_remain_mutex; //stop other threads
 //pthread_mutex_t R; //ready for submit jobs
 
 pthread_cond_t pool_is_empty;
 pthread_cond_t pool_is_full;
-
+pthread_cond_t jobs_are_done;
+pthread_barrier_t mybarrier;
 void pr(void);
 
 JobScheduler* initialize_scheduler( int execution_threads);
@@ -58,7 +61,7 @@ void submit_job( JobScheduler* sch, Job* j);
 
 void execute_all_jobs( JobScheduler* sch);
 
-void wait_all_tasks_finish(void /*JobScheduler* sch*/); //waits all submitted tasks to finish
+void wait_all_tasks_finish(JobScheduler* sch); //waits all submitted tasks to finish
 
 //OK_SUCCESS destroy_scheduler( JobScheduler* sch);
 #endif

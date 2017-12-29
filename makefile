@@ -69,7 +69,7 @@ testrun:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init 
 
 testrun2:
-	  valgrind --leak-check=yes --track-origins=yes ./project -q test.work -i test.init 
+	  valgrind --leak-check=full ./project -q test.work -i test.init 
 
 
 testrun3:

@@ -137,7 +137,7 @@ int test_input(struct index *trie,char * filename)
 	int length_array_capacity=10;
 	int last_word=0;
 	int lengths_taken=0;
-	int threads_quantity  = 2 ;
+	int threads_quantity  = 50 ;
 	JobScheduler *JS = initialize_scheduler(threads_quantity);
 	Job *job_to_append = malloc(sizeof(Job));
 	int Q_number=0;
@@ -1668,9 +1668,9 @@ int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer 
 	//	int multi=number_of_words/M;
 	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
 	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
-	printf("current version is %d\n",current_version);
-	printf("words in is %d\n",number_of_words);
-	printf("first word is %s\n",words[section_start]);
+	//printf("current version is %d\n",current_version);
+	//printf("words in is %d\n",number_of_words);
+	//printf("first word is %s\n",words[section_start]);
 	//return -1;
 	int * bloomfilter = malloc(bloomfilterbytes/8);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
@@ -1717,7 +1717,7 @@ int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer 
 			if(node->is_final=='y' && check!=ERROR) { //found ngram
 				if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
-						printf("Found %s\n",str);
+						//printf("Found %s\n",str);
 						top=add_top_threads(top,str,Q_number);
 						ngrams_found++;
 					}
@@ -1737,7 +1737,7 @@ int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer 
 			if(check!=ERROR){
 			if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
-						printf("Found %s\n",str);
+						//printf("Found %s\n",str);
 						top=add_top_threads(top,str,Q_number);
 						ngrams_found++;
 			}
