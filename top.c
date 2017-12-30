@@ -1,6 +1,6 @@
 #include "top.h"
 
- int table_ngram_size = 20;
+ int table_ngram_size = 200;
 
 #define RED "\x1b[31m"
 
@@ -457,9 +457,10 @@ topk *  end_gram_table(topk * top,int ngrams_found){ //simeiwnoume oti edw telei
 topk_threads *  create_top_threads(topk_threads * top){
 	int i;
 	top =malloc(sizeof(topk_threads));
-	top->Q_capacity=16;
+	top->Q_capacity=32;
 	top->kf = malloc(top->Q_capacity*sizeof(kframes_threads));
 	for(i=0;i<top->Q_capacity;i++){
+		//printf("table ngram size is %d\n",table_ngram_size);
 		top->kf[i].ngrams = malloc(table_ngram_size*sizeof(char *));
 		top->kf[i].capacity = table_ngram_size;
 		top->kf[i].occupied = 0;
@@ -512,7 +513,7 @@ topk_threads *  init_top_threads(topk_threads* top){
 topk_threads * add_top_threads(topk_threads * top,char * ngram,int Q_number){ //prosthiki enos n gram stous pinakes
 	kframes_threads *kf=&(top->kf[Q_number]);
 	if(kf->occupied==(kf->capacity)){
-		printf("Double in Q number %d\n",Q_number);
+		//printf("Double in Q number %d\n",Q_number);
 		kf=extend_top_kf_threads(kf); // check this
 	}
 	//printf("in add to top \"%s\"\n",ngram);
@@ -595,13 +596,13 @@ void print_print_threads(topk_threads * top,int Q_used){ //ektypwnei ola ta ngra
 	int j;
 	//printf("occupied are %d\n",top->kf->occupied);
 	for(j=0;j<Q_used;j++){
-		//printf("Q has %d grams\n",top->kf[j].occupied);
+		//printf("Q has %d grams and capacity %d\n",top->kf[j].occupied,top->kf[j].capacity);
 	if(top->kf[j].occupied==0){
 		printf("-1\n");
 		continue;
 	}
 	for(i=0;i<top->kf[j].occupied-1;i++){
-		//printf("%d: ",i);
+		//printf("%d %d: ",i,j);
 		printf("%s|",top->kf[j].ngrams[i]);
 	}
 	i=top->kf[j].occupied-1;
@@ -613,12 +614,14 @@ void extend_top_threads(topk_threads *top,int new_capacity){
 	int i;
 	top->kf = realloc(top->kf,new_capacity*sizeof(kframes_threads));
 	for(i=top->Q_capacity;i<new_capacity;i++){
+		//printf("table_ngram_size extend is %d\n",table_ngram_size);
 		top->kf[i].ngrams = malloc(table_ngram_size*sizeof(char *));
 		top->kf[i].capacity = table_ngram_size;
 		top->kf[i].occupied = 0;
 		top->kf[i].ngrams_to_free=0;
 	}
 	top->Q_capacity=new_capacity;
+	//printf("I can hold %d now\n",top->Q_capacity);
 }
 
 topk_threads *  erase_top_threads(topk_threads * top){

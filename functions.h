@@ -151,7 +151,7 @@ int deleteTrieNode_cleanup(hash_layer *hash,char **words,int word_number,int cur
 
 
 int check_node(trie_node *node,int current_version);
-int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk * top,int current_version,int section_start);
+int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk* top,int current_version,int section_start);
 int lookupTrieNode_with_bloom_versioning_threads(void ** arguments);
 
 trie_node *delete_from_backet_versioning(hash_layer *hash,int hash_val,char *word,int *pos);

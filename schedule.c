@@ -41,7 +41,7 @@ int finished_job=0;
 				pthread_mutex_unlock(&pool_mutex);
 				pthread_cond_signal(&pool_is_full);
 			 	args=(void *)q->jobs[my_job]->arguments;
-				//q->jobs[my_job]->opt(args);
+				q->jobs[my_job]->opt(args);
 				free(q->jobs[my_job]->arguments);
 				free(q->jobs[my_job]);
 

@@ -1553,7 +1553,7 @@ int check_node(trie_node *node,int current_version){
 		return SUCCESS;
 }
 
-int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk * top,int current_version,int section_start)
+int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk* top,int current_version,int section_start)
 {
 	//size_t bloomfilterbytes = ((M*128)/8);
 	size_t bloomfilterbytes=M*8;
@@ -1610,6 +1610,7 @@ int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int numbe
 				if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
 						//printf("Found %s\n",str);
+						//top=add_top_threads(top,str,Q_number);
 						top=add_top(top,str);
 						ngrams_found++;
 					}
@@ -1630,6 +1631,7 @@ int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int numbe
 			if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
 						//printf("Found %s\n",str);
+						//top=add_top_threads(top,str,Q_number);
 						top=add_top(top,str);
 						ngrams_found++;
 			}
@@ -1746,7 +1748,7 @@ int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer 
 		free(str);
 		start++;
 	}
-	end_gram_table(top,ngrams_found);
+	//end_gram_table(top,ngrams_found);
 	int found=SUCCESS;
 	//free(str);
 	free(bloomfilter);
