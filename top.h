@@ -61,8 +61,8 @@ int ngrams_to_free;
 typedef struct topk_threads{
 	kframes_threads * kf;
 	int Q_capacity;
-	//freq * fr;
-	//hashtable *hash_table;
+	freq * fr;
+	hashtable *hash_table;
 }topk_threads;
 
 

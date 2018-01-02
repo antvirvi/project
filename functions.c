@@ -39,6 +39,7 @@ int init_input(struct index *trie,char * filename){
 	//printf("\x1b[32m""INIT_INPUT start\n""\x1b[0m");
 	int a;
 	char **ptr_table = malloc(table_size*sizeof(char *));
+	int *word_lens=malloc(table_size*sizeof(int));
 	int words_in = 0;
 
 	FILE* fd = fopen(filename, "r"); //opening input file
@@ -55,10 +56,13 @@ int init_input(struct index *trie,char * filename){
 	ssize_t read;
 	char *word;
 	int static_flag=0;
+	int word_len;
+	int previous_table;
 
-	for(a=0;a<table_size;a++)
+	for(a=0;a<table_size;a++){
+		word_lens[a]=word_size;
 		ptr_table[a]=malloc(word_size*sizeof(char));
-			
+	}			
 	//read first word
 	if((read = getline(&line, &len, fd)) != -1){
 		words_in = 0;
@@ -74,17 +78,21 @@ int init_input(struct index *trie,char * filename){
 		{
 		//printf("Read this word: %s\n",word);
 			if(words_in==table_size){
-				table_size*=2;
+				previous_table=table_size;				
+				table_size=table_size<<1;
 				ptr_table = realloc(ptr_table,table_size*sizeof(char*));
-				for(a=(table_size/2);a<table_size;a++)
+				word_lens=realloc(word_lens,table_size*sizeof(int));
+				for(a=previous_table;a<table_size;a++){
 					ptr_table[a]=malloc(word_size*sizeof(char));
+					word_lens[a]=word_size;
+				}
 			}
-			if(strlen(word)>word_size){
-				word_size*=2;
-				for(a=words_in;a<table_size;a++) //a=0
-					ptr_table[a] = realloc(ptr_table[a],(word_size+1)*sizeof(char));
+			word_len=strlen(word);
+			if(word_len+1>word_lens[words_in]){
+				while(word_len>word_lens[words_in]) word_lens[words_in]=word_lens[words_in]<<1;
+				ptr_table[words_in] = realloc(ptr_table[words_in],(word_lens[words_in]+1)*sizeof(char));
 			}
-		//	ptr_table[words_in] = malloc(word_size*sizeof(char));
+			//printf("words_in %d and word %s can fit %d\n",words_in,word,word_lens[words_in]);
 			strcpy(ptr_table[words_in],word);
 			words_in++;
 			word=strtok(NULL," \n");
@@ -93,6 +101,7 @@ int init_input(struct index *trie,char * filename){
 		//append_trie_node(trie->root,ptr_table,0,words_in-1);
 		insertTrieNode(trie->hash,ptr_table,words_in,0);
 	}
+	free(word_lens);
 	free(line);
 	cleanup(ptr_table);
 	fclose(fd);
@@ -137,15 +146,16 @@ int test_input(struct index *trie,char * filename)
 	int length_array_capacity=10;
 	int last_word=0;
 	int lengths_taken=0;
-	int threads_quantity  = 50 ;
+	int threads_quantity  = 15 ;
 	JobScheduler *JS = initialize_scheduler(threads_quantity);
 	Job *job_to_append = malloc(sizeof(Job));
 	int Q_number=0;
+	int previous_table;
 	//q_args* job_to_append->arguments = malloc(sizeof(q_args));
 
-	int *Q_lengths=malloc(length_array_capacity*sizeof(int));
-	int *version=malloc(length_array_capacity*sizeof(int));
-	int *start=malloc(length_array_capacity*sizeof(int));
+	//int *Q_lengths=malloc(length_array_capacity*sizeof(int));
+	//int *version=malloc(length_array_capacity*sizeof(int));
+	//int *start=malloc(length_array_capacity*sizeof(int));
 
 	char **ptr_table = malloc(table_size*sizeof(char *));
 	char **A_ptr_table = malloc(A_table_size*sizeof(char *));
@@ -187,13 +197,23 @@ int test_input(struct index *trie,char * filename)
 				lengths_taken=0;
 				last_word=0;
 				print_print_threads(top,Q_number);
-				count++;				
+				//count++;				
 				if(word!=NULL){
 					count++;
 					k=atoi(word);
+					int total_ngrams=get_total_ngrams(top,Q_number);
+					char **merged_ngrams=malloc(total_ngrams*sizeof(char*));
+					merge_kframes_threads(top,Q_number,total_ngrams,merged_ngrams);
+					create_threads_hashtable(top,total_ngrams);
+					built_hashtable(top,merged_ngrams,total_ngrams);
+					//printf("printing merged\n");
+					//print_merged(merged_ngrams,total_ngrams);
+					print_top_threads(top,merged_ngrams,total_ngrams,k);
+					erase_hashtable_from_top(top);
+					free(merged_ngrams);
 					//printf("count is %d",count);
 					//print_top(top,k);
-					//if(count==1) break; 		
+					//if(count==1) break ; 		
 				}
 				//top=init_top(top);
 				top=init_top_threads(top);
@@ -216,22 +236,23 @@ int test_input(struct index *trie,char * filename)
 				while(word!=NULL){
 
 					if(words_in==table_size-1){
-					//table_size*=2;
-						ptr_table = realloc(ptr_table,table_size*2*sizeof(char*));
+						previous_table=table_size;
+						table_size=table_size<<1;
+						ptr_table = realloc(ptr_table,table_size*sizeof(char*));
 						*pointer_to_words=ptr_table;
-						word_lengths = realloc(word_lengths,table_size*2*sizeof(int));
+						word_lengths = realloc(word_lengths,table_size*sizeof(int));
 						if(ptr_table==NULL) exit(-1);
-						for(a=table_size;a<(table_size*2);a++){
+						for(a=previous_table;a<table_size;a++){
 							ptr_table[a]=malloc(word_size*sizeof(char));
 							if(ptr_table[a]==NULL) exit(-1);
 							word_lengths[a] =word_size;
 							}
-						table_size*=2;
+						//table_size*=2;
 					}
 					word_len=strlen(word);
 					if(word_len>=word_lengths[words_in]){
 						//printf("doubling\n");
-						while(word_len>=word_lengths[words_in]){ word_lengths[words_in]*=2;}
+						while(word_len>=word_lengths[words_in]){  word_lengths[words_in]=word_lengths[words_in]<<1;}
 						ptr_table[words_in] = realloc(ptr_table[words_in],word_lengths[words_in]*sizeof(char));
 						}	
 						strcpy(ptr_table[words_in],word);
@@ -246,17 +267,19 @@ int test_input(struct index *trie,char * filename)
 					while(word!=NULL){
 						if(A_words_in==A_table_size-1){
 					//table_size*=2;
-							A_ptr_table = realloc(A_ptr_table,A_table_size*2*sizeof(char*));
+							previous_table=A_table_size;
+							A_table_size=A_table_size<<1;
+							A_ptr_table = realloc(A_ptr_table,A_table_size*sizeof(char*));
 							if(A_ptr_table==NULL) exit(-1);
-							for(a=A_table_size;a<(A_table_size*2);a++){
+							for(a=previous_table;a<(A_table_size);a++){
 								A_ptr_table[a]=malloc(A_word_size*sizeof(char));
 								if(A_ptr_table[a]==NULL) exit(-1);
 								}
 				//printf("word_size here %d\n",word_size);
-							A_table_size*=2;
+							//A_table_size*=2;
 						}
 						while(strlen(word)>=A_word_size){
-							A_word_size=A_word_size*2;
+							A_word_size=A_word_size<<1;
 							for(a=0;a<A_table_size;a++){
 								A_ptr_table[a] = realloc(A_ptr_table[a],A_word_size*sizeof(char));
 								if(A_ptr_table[a]==NULL) exit(-1);
@@ -271,7 +294,7 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				if(lengths_taken==length_array_capacity){
+				/*if(lengths_taken==length_array_capacity){
 					length_array_capacity*=2;
 
 					Q_lengths=realloc(Q_lengths,length_array_capacity*sizeof(int));
@@ -282,9 +305,9 @@ int test_input(struct index *trie,char * filename)
 				Q_lengths[lengths_taken]=words_in-last_word;
 				start[lengths_taken]=last_word;
 				version[lengths_taken]=current_version;
-				
+				*/
 				if(Q_number==top->Q_capacity){
-					extend_top_threads(top,top->Q_capacity*2);
+					extend_top_threads(top,top->Q_capacity<<1);
 				}
 				//job_to_append= malloc(sizeof(Job));
 				job_to_append->opt=(lookupTrieNode_with_bloom_versioning_threads);
@@ -292,13 +315,12 @@ int test_input(struct index *trie,char * filename)
 				
 				q_args* arguments = malloc(sizeof(q_args));
 				arguments->hash = trie->hash;
-				//start_table=&(ptr_table[start[lengths_taken]]
-				//printf("adding job with word %s\n",(*pointer_to_words)[start[lengths_taken]]);
-				arguments->words = pointer_to_words;//&(ptr_table[start[lengths_taken]]);
-				arguments->number_of_words = Q_lengths[lengths_taken]-1;
+				
+				arguments->words = pointer_to_words;
+				arguments->number_of_words = words_in-last_word-1;//Q_lengths[lengths_taken]-1;
 				arguments->top = top;
 				arguments->version = current_version;
-				arguments->start = start[lengths_taken];
+				arguments->start = last_word;//start[lengths_taken];
 				arguments->Q_number = Q_number;
 				job_to_append->arguments= (void*)arguments;//(void*)ptr;
 				submit_job(JS,job_to_append);
@@ -347,9 +369,9 @@ int test_input(struct index *trie,char * filename)
   	free(line);
 	free(word_lengths);
 
-	free(Q_lengths);
-	free(start);
-	free(version);
+	//free(Q_lengths);
+	//free(start);
+	//free(version);
 	free(pointer_to_words);
 	erase_top_threads(top);
 	destroy_threads(JS);
@@ -461,8 +483,8 @@ trie_node *create_trie_node(char *word,char is_final){
 
 trie_node *init_trie_node(trie_node *node,char *word,char is_final,int current_version){
 	
-	
-	node->word=malloc(WORD_SIZE*sizeof(char));
+	node->word=malloc((strlen(word)+1)*sizeof(char));
+	//node->word=malloc(WORD_SIZE*sizeof(char));
 	strcpy(node->word,word);
 	
 	node->is_final=is_final;
@@ -562,22 +584,23 @@ int check_exists_in_children(trie_node *node,char *word,int *pos){
 		int upper=node->number_of_childs-1;
 		int compare;
 		//printf("inside check exists\n");
-		//if(upper==-1) return 0; //i made this change
+		if(upper==-1) return 0; //i made this change
 		while(1!=0){
 			//printf("upper %d lower %d pivot %d\n",upper,lower,pivot);
 			if(upper<=lower){
 				pivot=(upper+lower)/2;
+				//pivot=(upper+lower)>>1;
 				compare=strcmp(node->children[pivot].word,word);
 				if(compare==0){
 					*pos=pivot;
 					return 1; //exact match
 				}
-				//printf("compare is %d\n",compare);	
 				*pos=(compare<0)? pivot+1:pivot; //lower+1:lower
 				return 0; //not exact match
 				}
 			else {
-				pivot=(upper+lower)/2;
+				//pivot=(upper+lower)/2;
+				pivot=(upper+lower)>>1;
 				compare=strcmp(node->children[pivot].word,word); // equal=0 children[i]<word: compare<0 children>word : compare>0
 				if(compare==0) {
 					*pos=pivot;
@@ -593,10 +616,14 @@ int append_word(trie_node *node,int pos,char *word,char is_final,int current_ver
 		//printf("inside append_word , pos %d\n",pos);
 		if(node->number_of_childs==node->max_childs){
 				//printf("I have to double the children\n");
-				node->children=realloc(node->children,node->max_childs*2*sizeof(trie_node));
+				node->max_childs=node->max_childs<<1;
+				node->children=realloc(node->children,node->max_childs*sizeof(trie_node));
 				//printf("Done Realloc \n");
-				if(node->children==NULL) return ERROR;
-		        node->max_childs*=2;
+				if(node->children==NULL){
+					node->max_childs=node->max_childs>>1;	
+					return ERROR;
+				}
+		        //node->max_childs*=2;
 				//print_node(&(node->children[0]));	
 		}
 
@@ -776,7 +803,7 @@ void  myappend_pan(char **string,int *str_size, char * word){
 
 	if((*str_size)<=string_len+word_len+1){
 		//*str_size=*str_size*2*((string_len+word_len+1)/ *str_size);
-		(*str_size)=(*str_size)*2;
+		(*str_size)=(*str_size)<<1;
 		while(*str_size<=string_len+word_len+1) *str_size=(*str_size)*2;
 
 		*string=realloc(*string, (*str_size)*sizeof(char));
@@ -965,7 +992,7 @@ int check_exists_in_bucket(char *word,int *pos,trie_node *children,int children_
 			return 0;
 		}
 		int upper=children_number-1;
-		//if(upper==-1) return 0; //i made this change
+		if(upper==-1) return 0; //i made this change
 		while(1!=0){
 			//printf("upper %d lower %d pivot %d\n",upper,lower,pivot);
 			if(upper<=lower){
@@ -980,7 +1007,8 @@ int check_exists_in_bucket(char *word,int *pos,trie_node *children,int children_
 				return 0; //not exact match
 				}
 			else {
-				pivot=(upper+lower)/2;
+				//pivot=(upper+lower)/2;
+				pivot=(upper+lower)>>1;
 				compare=strcmp(children[pivot].word,word); // equal=0 children[i]<word: compare<0 children>word : compare>0
 				if(compare==0) {
 					*pos=pivot;
@@ -1007,7 +1035,7 @@ trie_node* add_to_backet(hash_layer *hash,int hash_val,char *word,char is_final,
 	if(*last==bucket->capacity){ //initializing overflow bucket
 		bucket->children=realloc(bucket->children,2*bucket->children_number*sizeof(trie_node));
 		if(bucket->children==NULL) return NULL;
-		bucket->capacity=bucket->capacity*2;
+		bucket->capacity=bucket->capacity<<1;
 		//printf("I made an overflow at bucket %d\n",hash_val);
 	} 
 
@@ -1075,7 +1103,7 @@ int resize_hash(hash_layer *hash){
 				stack_destroy(stack_); 
 				return ERROR;
 			}
-			new_bucket->capacity=new_bucket->capacity*2;	
+			new_bucket->capacity=new_bucket->capacity<<1;	
 		}
 		memmove(&(new_bucket->children[new_bucket->children_number]),&(bucket->children[i]),sizeof(trie_node)); //copy nod
 		push(stack_,i);		

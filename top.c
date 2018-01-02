@@ -466,27 +466,6 @@ topk_threads *  create_top_threads(topk_threads * top){
 		top->kf[i].occupied = 0;
 		top->kf[i].ngrams_to_free=0;
 	}
-	/*top->fr = malloc((sizeof(freq)));
-	top->fr->frequency = malloc(table_ngram_size*sizeof(int));
-	top->fr->ngram = malloc(table_ngram_size*sizeof(int));
-	top->fr->unique=0;
-
-	top->hash_table=malloc(sizeof(hashtable));
-	top->hash_table->total_frames=0;
-	top->hash_table->bucket_to_split=0;
-	top->hash_table->split_round=0;
-	top->hash_table->load_factor=0.9;
-	top->hash_table->bucket_capacity=10;
-	top->hash_table->number_of_buckets=C2;
-	top->hash_table->buckets_to_free=C2;
-	top->hash_table->buckets=malloc(top->hash_table->number_of_buckets*sizeof(bucket));
-	bucket *hash_bucket;
-	for(i=0;i<top->hash_table->number_of_buckets;i++){
-		hash_bucket=&(top->hash_table->buckets[i]);
-		hash_bucket->number_of_children=0;
-		hash_bucket->capacity=top->hash_table->bucket_capacity;
-		hash_bucket->children=malloc(hash_bucket->capacity*sizeof(int));
-	}*/
 	
 	return top;
 }
@@ -530,63 +509,15 @@ topk_threads * add_top_threads(topk_threads * top,char * ngram,int Q_number){ //
 
 	memmove(kf->ngrams[last_position],ngram,ngram_len);
 
-
-	//top->fr->frequency[last_position] = 1;
-	//top->fr->ngram[last_position] =last_position;
-	//printf("I added :%s: in frames\n",ngram);
 	kf->occupied++;
 	
-	
-	//add in hash table if its new
-	/*hashtable *hash_=top->hash_table;
-
-	if((hash_->total_frames/((float)hash_->number_of_buckets*hash_->bucket_capacity)) > hash_->load_factor){
-		int resize_error=resize_hash_for_top(hash_,top->kf,top->fr);
-		if(resize_error==-1) return NULL;
-	}	
-	
-	int j=0;
-	int hash_value=hash_gram(top->hash_table,ngram);
-	int last_in_bucket,pos;
-
-	bucket *hash_bucket=&(top->hash_table->buckets[hash_value]);
-	last_in_bucket=hash_bucket->number_of_children;
-	//
-	int pos2;
-	//print_hash_table(top->hash_table,top);
-	
-	for(j=0;j<last_in_bucket;j++){
-		pos=hash_bucket->children[j];
-		pos2=top->fr->ngram[pos];
-		if(strcmp(top->kf->ngrams[pos2],ngram)==0)
-		{
-			top->fr->frequency[pos]++;
-			return top;
-		}
-	}
-	
-	top->fr->ngram[top->fr->unique] =last_position;
-	top->fr->frequency[top->fr->unique] = 1;
-	top->fr->unique++;
-	if(last_in_bucket==hash_bucket->capacity){ 	//overflow bucket
-		hash_bucket->children=realloc(hash_bucket->children,hash_bucket->capacity*2*sizeof(int));
-		hash_bucket->capacity*=2;
-	}
-
-	hash_bucket->children[last_in_bucket]=top->fr->unique-1;//last_position;
-	top->hash_table->total_frames++;
-	hash_bucket->number_of_children++;
-		*/
 	return top;
 }
 
 kframes_threads * extend_top_kf_threads(kframes_threads *kf){
 	
-	kf->capacity *=2 ;
+	kf->capacity =kf->capacity<<1 ;
 	kf->ngrams = (char **)realloc(kf->ngrams,kf->capacity*sizeof(char *));
-
-	//top->fr->frequency = realloc(top->fr->frequency,table_ngram_size*sizeof(int));
-	//top->fr->ngram = realloc(top->fr->ngram,table_ngram_size*sizeof(int));
 
 	return kf;
 }
@@ -647,3 +578,221 @@ topk_threads *  erase_top_threads(topk_threads * top){
 	free(top);
 	return top;
 }
+
+char ** merge_kframes_threads(topk_threads *top,int Q_used,int total,char **merged_ngrams){
+	int i,j;
+	int pos=0;
+	for(i=0;i<Q_used;i++){
+		for(j=0;j<top->kf[i].occupied;j++){
+			merged_ngrams[pos]=top->kf[i].ngrams[j];
+			pos++;
+		}
+	}
+	return merged_ngrams; //delete it later
+	
+}
+
+
+void print_merged(char **merged,int total){
+	int i;	
+	for(i=0;i<total;i++){
+		printf("%s|",merged[i]);
+	}
+	printf("\n");
+}
+
+int get_total_ngrams(topk_threads *top,int Q_used){
+	int i;
+	int total_ngrams=0;
+	for(i=0;i<Q_used;i++){
+		total_ngrams+=top->kf[i].occupied;
+	}
+	return total_ngrams;
+}
+
+void create_threads_hashtable(topk_threads *top,int total_ngrams){
+	int i;
+	top->fr = malloc((sizeof(freq)));
+	top->fr->frequency = malloc(total_ngrams*sizeof(int));
+	top->fr->ngram = malloc(total_ngrams*sizeof(int));
+	top->fr->unique=0;
+
+	top->hash_table=malloc(sizeof(hashtable));
+	top->hash_table->total_frames=0;
+	top->hash_table->bucket_to_split=0;
+	top->hash_table->split_round=0;
+	top->hash_table->load_factor=0.9;
+	top->hash_table->bucket_capacity=10;
+	top->hash_table->number_of_buckets=C2;
+	top->hash_table->buckets_to_free=C2;
+	top->hash_table->buckets=malloc(top->hash_table->number_of_buckets*sizeof(bucket));
+	bucket *hash_bucket;
+	for(i=0;i<top->hash_table->number_of_buckets;i++){
+		hash_bucket=&(top->hash_table->buckets[i]);
+		hash_bucket->number_of_children=0;
+		hash_bucket->capacity=top->hash_table->bucket_capacity;
+		hash_bucket->children=malloc(hash_bucket->capacity*sizeof(int));
+	}
+	return ;
+
+}
+
+void built_hashtable(topk_threads *top, char **merged_ngrams,int total_ngrams){
+	int i,j,pos,hash_value;
+	int pos2,last_in_bucket,found;
+	char *ngram;
+	hashtable *hash_=top->hash_table;
+	for(i=0;i<total_ngrams;i++){
+		ngram=merged_ngrams[i];
+		//printf("%s\n",ngram);
+
+		if((hash_->total_frames/((float)hash_->number_of_buckets*hash_->bucket_capacity)) > hash_->load_factor){
+			int resize_error=resize_hash_for_top_threads(hash_,merged_ngrams,top->fr);
+			if(resize_error==-1) return NULL;
+		}	
+		
+		hash_value=hash_gram(top->hash_table,ngram);
+
+		bucket *hash_bucket=&(top->hash_table->buckets[hash_value]);
+		last_in_bucket=hash_bucket->number_of_children;
+	//
+		//print_hash_table(top->hash_table,top);
+		found=0;
+		for(j=0;j<last_in_bucket;j++){
+			pos=hash_bucket->children[j];
+			pos2=top->fr->ngram[pos];
+			if(strcmp(merged_ngrams[pos2],ngram)==0)
+			{	
+				top->fr->frequency[pos]++;
+				found=1;
+				break;
+			}
+		}
+		if(found==1) continue;		
+		
+		top->fr->ngram[top->fr->unique] =i;
+		top->fr->frequency[top->fr->unique] = 1;
+		top->fr->unique++;
+		if(last_in_bucket==hash_bucket->capacity){ 	//overflow bucket
+			hash_bucket->capacity=hash_bucket->capacity<<1;
+			hash_bucket->children=realloc(hash_bucket->children,hash_bucket->capacity*sizeof(int));
+			//hash_bucket->capacity*=2;
+		}
+	
+		hash_bucket->children[last_in_bucket]=top->fr->unique-1;//last_position;
+		top->hash_table->total_frames++;
+		hash_bucket->number_of_children++;
+	
+	}
+}
+
+void erase_hashtable_from_top(topk_threads *top){
+	bucket *hash_bucket;
+	int i;
+	for(i=0;i<top->hash_table->buckets_to_free;i++){
+		hash_bucket=&(top->hash_table->buckets[i]);
+		free(hash_bucket->children);
+	}
+	free(top->hash_table->buckets);
+	free(top->hash_table);
+
+	free(top->fr->frequency);
+	free(top->fr->ngram);
+	free(top->fr);
+	//printf("to free are %d\n",top->kf->ngrams_to_free);
+	return;
+}
+
+void print_top_threads(topk_threads *top, char **merged_ngrams,int total_ngrams,int k){
+
+	int i;
+	int max=k;
+	if(top->fr->unique<max) max=top->fr->unique;//top->kf->occupied;
+	if(max==0) return;
+	quickSort(top->fr->frequency,top->fr->ngram,0,top->fr->unique-1,merged_ngrams);
+	sort_in_alphabet(top->fr->frequency,top->fr->ngram,0,max,merged_ngrams);
+	//print_frequencies_threads(top,merged_ngrams);
+	printf("Top: ");
+	for(i=0;i<max;i++){
+		printf("%s",merged_ngrams[top->fr->ngram[i]]);
+		if(i==k-1)	
+			break;
+		printf("|");
+		}
+printf("\n");
+
+
+
+}
+
+void print_frequencies_threads(topk_threads *top,char **merged){ //ektypwnei ola ta ngrams me
+	int i,pos;
+	for(i=0;i<20;i++){//top->fr->unique gia na ta ektyposei ola
+		pos=top->fr->ngram[i];
+		//printf("pos is %d")
+		printf("word: \"%s\" with freq: %d \n",merged[pos],top->fr->frequency[i]);
+		}
+
+}
+
+int resize_hash_for_top_threads(hashtable *hash_,char **merged_ngrams,freq *fr){
+	bucket *hash_bucket;
+	//printf("free buckets %d , used %d\n",hash_->buckets_to_free,hash_->number_of_buckets);
+	if(hash_->buckets_to_free==hash_->number_of_buckets){
+		hash_->buckets=realloc(hash_->buckets,(hash_->number_of_buckets+1)*sizeof(bucket)); //add bucket lineat
+		if(hash_->buckets==NULL){
+			return -1;
+		}
+		initialize_bucket_for_top(&(hash_->buckets[hash_->number_of_buckets]),hash_->bucket_capacity);
+		hash_->buckets_to_free++;
+	}
+	hash_->number_of_buckets++;
+	
+	int i;
+	bucket *new_bucket=&(hash_->buckets[hash_->number_of_buckets-1]); //pointer to the new bucket
+	new_bucket->number_of_children=0;
+	new_bucket->capacity=hash_->bucket_capacity;
+
+	hash_bucket=&(hash_->buckets[hash_->bucket_to_split]); //re arranging bucket to split
+	int new_hash_val=-1;
+	stack *stack_=init_stack();
+
+	if(hash_bucket->number_of_children==0){
+		hash_->bucket_to_split=(hash_->bucket_to_split+1)%(C2<<hash_->split_round);//without pow
+		if(hash_->bucket_to_split==0 && hash_->number_of_buckets>C2) hash_->split_round++;
+		stack_destroy(stack_); 
+		return 1;
+	} // no need for rearranging bucket
+	
+	int previous=hash_->bucket_to_split;
+	hash_->bucket_to_split=(hash_->bucket_to_split+1)%(C2<<hash_->split_round);// without pow
+	int pos,pos2;
+
+	for(i=0;i<hash_bucket->number_of_children;i++){
+
+		pos=hash_bucket->children[i];
+		pos2=fr->ngram[pos];
+		new_hash_val=hash_gram(hash_,merged_ngrams[pos2]);
+		//printf("new hash val for \' %s\' is %d\n",kf->ngrams[pos2],new_hash_val);
+
+		if(new_hash_val==previous) continue; //if hash value is the same then no need to change bucket
+		if(new_bucket->number_of_children==new_bucket->capacity){	//if new bucket fills then create an overflow bucket
+			new_bucket->children=realloc(new_bucket->children,hash_bucket->capacity*2*sizeof(int));
+			if(new_bucket->children==NULL){
+				stack_destroy(stack_); 
+				return -1;
+			}
+			new_bucket->capacity=new_bucket->capacity*2;	
+		}
+		memmove(&(new_bucket->children[new_bucket->number_of_children]),&(hash_bucket->children[i]),sizeof(int)); //copy nod
+		push(stack_,i);		
+		new_bucket->number_of_children++;	
+	}
+
+	shrink_buckets_for_top(&(hash_->buckets[previous]),stack_);
+	if(hash_->bucket_to_split==0 && hash_->number_of_buckets>C2) hash_->split_round++;
+	stack_destroy(stack_); 
+	return 1;
+}
+
+

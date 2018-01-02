@@ -75,6 +75,9 @@ testrun2:
 testrun3:
 	  valgrind --leak-check=yes ./project -q medium_dynamic.work -i medium_dynamic.init 
 
+make test_large:
+	 valgrind --leak-check=yes --gen-suppressions=yes ./project -q large_dynamic.work -i large_dynamic.init 
+
 run:
 	time ./project -q small.work -i small.init 
 
@@ -85,7 +88,10 @@ run3:
 	time ./project -q medium_dynamic.work -i medium_dynamic.init
 
 run_static:
-	 time ./project -q medium_static.work -i medium_static.init  
+	 time ./project -q medium_static.work -i medium_static.init
+
+run_large:
+	time ./project -q large_dynamic.work -i large_dynamic.init 
 
 pipe:
 	time ./project -q small.work -i small.init > results.txt
