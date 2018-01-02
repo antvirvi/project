@@ -465,11 +465,11 @@ trie_node *create_trie_node(char *word,char is_final){
 	if(strlen(word)+2>WORD_SIZE){
 		node->word=malloc((strlen(word)+2)*sizeof(char));
 		strcpy(node->word,word);
-		memset(node->static_word,0,WORD_SIZE);
+		//memset(node->static_word,0,WORD_SIZE);
 	}
 	else{
-		strcpy(node->static_word,word);
-		node->word=node->static_word;
+		//strcpy(node->static_word,word);
+		//node->word=node->static_word;
 	}
 	node->is_final=is_final;
 	node->number_of_childs=0;

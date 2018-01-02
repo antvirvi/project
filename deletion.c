@@ -23,13 +23,15 @@ void add_ngram_to_delete(ngrams_to_delete *d_grams,char *node,int ngram){
 	}
 	d_grams->length[ngram]++;
 	if(d_grams->nodes_capacity==d_grams->pos){
-			int i;
-			d_grams->nodes_to_delete=realloc(d_grams->nodes_to_delete,d_grams->nodes_capacity*2*sizeof(char*));
-			for(i=d_grams->nodes_capacity;i<d_grams->nodes_capacity*2;i++){
-				d_grams->nodes_to_delete[i]=malloc(d_grams->word_size*sizeof(char));
-			}
-			d_grams->nodes_capacity*=2;
+		int i;
+		d_grams->nodes_to_delete=realloc(d_grams->nodes_to_delete,d_grams->nodes_capacity*2*sizeof(char*));
+		for(i=d_grams->nodes_capacity;i<d_grams->nodes_capacity*2;i++){
+			d_grams->nodes_to_delete[i]=malloc(d_grams->word_size*sizeof(char));
+		}
+		d_grams->nodes_capacity*=2;
 	}
+	int word_len=strlen(node);
+	if(word_len>d_grams->word_size) d_grams->nodes_to_delete[d_grams->pos]=realloc( d_grams->nodes_to_delete[d_grams->pos],word_len+1*sizeof(char));
 	strcpy(d_grams->nodes_to_delete[d_grams->pos],node);
 	d_grams->pos++;
 }

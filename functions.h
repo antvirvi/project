@@ -51,7 +51,7 @@
 //#define STACK_EMPTY -1
 
 typedef struct trie_node{
-	char static_word[WORD_SIZE];
+	//char static_word[WORD_SIZE];
 	char *word;
 	struct trie_node *children;
 	char is_final;
