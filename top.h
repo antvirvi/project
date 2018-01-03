@@ -102,9 +102,19 @@ void quickSort( int *frequency,int *ngram, int l, int r,char **ngrams);
 int resize_hash_for_top(hashtable *hash_,kframes *kf,freq *fr);
 void shrink_buckets_for_top(bucket *bucket_,stack *stack_);
 void sort_in_alphabet(int *frequency,int *ngram,int l,int max,char **ngrams);
+int get_total_ngrams(topk_threads *top,int Q_used);
 
 //----------------------------------topk for threads----------------------------------------------------//
 topk_threads *  create_top_threads(topk_threads * top);
 topk_threads *  init_top_threads(topk_threads* top);
 topk_threads * add_top_threads(topk_threads * top,char * ngram,int Q_number);
 kframes_threads * extend_top_kf_threads(kframes_threads *kf);
+int resize_hash_for_top_threads(hashtable *hash_,char **merged_ngrams,freq *fr);
+void print_print_threads(topk_threads * top,int Q_used);
+char ** merge_kframes_threads(topk_threads *top,int Q_used,int total,char **merged_ngrams);
+void create_threads_hashtable(topk_threads *top,int total_ngrams);
+void built_hashtable(topk_threads *top, char **merged_ngrams,int total_ngrams);
+void erase_hashtable_from_top(topk_threads *top);
+void print_top_threads(topk_threads *top, char **merged_ngrams,int total_ngrams,int k);
+void extend_top_threads(topk_threads *top,int new_capacity);
+topk_threads *  erase_top_threads(topk_threads * top);

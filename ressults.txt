@@ -1,4 +1,0 @@
-valgrind --leak-check=yes ./project -q small.work -i small.init 
-Init small.init
-Queries small.work
-makefile:61: recipe for target 'testrun' failed

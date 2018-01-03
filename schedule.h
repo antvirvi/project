@@ -22,11 +22,20 @@ typedef struct q_args{
 	struct hash_layer *hash;
 	char ***words;
 	int number_of_words;
-	topk *top;
+	topk_threads *top;
 	int version;
 	int start;
 	int Q_number;
 }q_args;
+
+typedef struct q_args_static{
+	struct static_hash_layer *hash;
+	char ***words;
+	int number_of_words;
+	topk_threads *top;
+	int start;
+	int Q_number;
+}q_args_static;
 
 typedef struct Queue{
 	int queue_capacity;
@@ -41,27 +50,19 @@ typedef struct JobScheduler{
 int execution_threads; // number of execution threads
 Queue* q; // a queue that holds submitted jobs / tasks
 pthread_t* tids; // execution threads
-//....
-// mutex, condition variable, ...
 }JobScheduler;
 
 pthread_mutex_t pool_mutex; //stop other threads
 pthread_mutex_t jobs_remain_mutex; //stop other threads
-//pthread_mutex_t R; //ready for submit jobs
 
 pthread_cond_t pool_is_empty;
 pthread_cond_t pool_is_full;
 pthread_cond_t jobs_are_done;
-pthread_barrier_t mybarrier;
-void pr(void);
 
 JobScheduler* initialize_scheduler( int execution_threads);
-
 void submit_job( JobScheduler* sch, Job* j);
-
 void execute_all_jobs( JobScheduler* sch);
-
 void wait_all_tasks_finish(JobScheduler* sch); //waits all submitted tasks to finish
-
-//OK_SUCCESS destroy_scheduler( JobScheduler* sch);
+int destroy_scheduler( JobScheduler* sch);
+void * get_a_job(void* queue);
 #endif

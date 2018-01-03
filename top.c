@@ -557,19 +557,6 @@ void extend_top_threads(topk_threads *top,int new_capacity){
 
 topk_threads *  erase_top_threads(topk_threads * top){
 	int i,j;
-	/*buc,jket *hash_bucket;
-	for(i=0;i<top->hash_table->buckets_to_free;i++){
-		hash_bucket=&(top->hash_table->buckets[i]);
-		free(hash_bucket->children);
-	}
-	free(top->hash_table->buckets);
-	free(top->hash_table);
-
-	free(top->fr->frequency);
-	free(top->fr->ngram);
-	free(top->fr);
-	//printf("to free are %d\n",top->kf->ngrams_to_free);
-	*/
 	for(j=0;j<top->Q_capacity;j++){
 		for(i=0;i<top->kf[j].ngrams_to_free;i++) free(top->kf[j].ngrams[i]);
 		free(top->kf[j].ngrams);
@@ -648,7 +635,7 @@ void built_hashtable(topk_threads *top, char **merged_ngrams,int total_ngrams){
 
 		if((hash_->total_frames/((float)hash_->number_of_buckets*hash_->bucket_capacity)) > hash_->load_factor){
 			int resize_error=resize_hash_for_top_threads(hash_,merged_ngrams,top->fr);
-			if(resize_error==-1) return NULL;
+			if(resize_error==-1) return ;
 		}	
 		
 		hash_value=hash_gram(top->hash_table,ngram);

@@ -11,11 +11,7 @@ Queue * q;
 q = (Queue*)queue;
 int my_job;
 void *args;
-pthread_t self;
-self=pthread_self();
-int finished_job=0;
-//printf("I have pid %d\n",self);
-//pthread_exit(NULL);
+
 	while(1)
 	{		
 			//printf("waiting to be full %d\n",self);
@@ -65,20 +61,18 @@ int finished_job=0;
 
 	}
 }
-//void pr(char * str){printf("Test pr %s\n",str);}
 
-void pr(void){printf("TEST PRINT\n");}
+
 
 
 JobScheduler* initialize_scheduler(int execution_threads){
 	int i;
-	//printf("Start JS init\n");
+
 	pthread_mutex_init(&pool_mutex, NULL);
 	pthread_mutex_init(&jobs_remain_mutex, NULL);
 	pthread_cond_init(&pool_is_empty, NULL);
 	pthread_cond_init(&pool_is_full, NULL);
 	pthread_cond_init(&jobs_are_done,NULL);
-	pthread_barrier_init(&mybarrier, NULL, execution_threads + 1);
 
 	JobScheduler * Scheduler = malloc(sizeof(JobScheduler));
 	Scheduler->execution_threads = execution_threads;
@@ -89,16 +83,13 @@ JobScheduler* initialize_scheduler(int execution_threads){
 	Scheduler->q->jobs_remain = 0;
 	Scheduler->q->jobs = malloc(Scheduler->q->queue_capacity*sizeof(Job * ));
 	Scheduler->tids = malloc(execution_threads*sizeof(pthread_t*));
-	//printf("Thread %d\n",execution_threads);
+
 	pthread_mutex_lock(&pool_mutex);
 	for(i=0;i<execution_threads;i++){
-//	printf("sharknado5_ %p\n",&Scheduler->q);
-		//Scheduler->tids[i] = 
 		pthread_create(&Scheduler->tids[i], NULL, get_a_job, Scheduler->q);
 			
 	}
 	//printf("End JS init\n");
-	//pthread_mutex_lock(&pool_mutex);
 	return Scheduler;
 }
 
@@ -108,35 +99,26 @@ void extend_queue(Queue * q){
 }
 
 void submit_job(JobScheduler* sch, Job* j){
-	//printf("Submit Job init\n");\
-	//j->opt();
+	//printf("Submit Job init\n");
 	if(sch->q->queue_capacity==sch->q->queue_used)
 		extend_queue(sch->q);
 //	sch->q->jobs[sch->q->queue_used] = malloc(sizeof(Job));
 	Job *temp_job=malloc(sizeof(Job));
 	memcpy(temp_job,j,sizeof(Job));
 	sch->q->jobs[sch->q->queue_used]=temp_job;
-	q_args *args=(q_args*)temp_job->arguments;
-	char **ptr=*(args->words);
-//	printf("submited job and there are %d jobs\n",sch->q->queue_used+1);
+
 	sch->q->queue_used++;
 	sch->q->jobs_remain++;
-	//sch->q->jobs[sch->q->queue_used]->opt();
-//	printf("Submit Job end %d\n",sch->q->queue_used);
+	
 }
 
 void execute_all_jobs( JobScheduler* sch){
-	//printf("Execute Jobs init\n");
-	//printf("Submitted jobs count: %3d\n",sch->q->queue_used);
 	wait_all_tasks_finish(sch);
-	//printf("Execute Jobs end\n");
 	return ;
 }
 
 void destroy_threads( JobScheduler* sch){
-	//printf("Destroy threads\n");
-//	printf("Submitted jobs count: %3d\n",sch->q->queue_used);
-	//pthread_mutex_lock(&T);
+	
 	sch->q->queue_used = -1;
 	int i;
 	//printf("signal to destroy \n");
@@ -153,21 +135,9 @@ void destroy_threads( JobScheduler* sch){
 		//printf("success in waiting thread %d\n",i);
 	}
 	
-	//free(sch);
-	//printf("Destroy threads end\n");
 	return ;
 }
 
-/*
-void empty_jobscheduler(JobScheduler * sch){
-
-	int i;
-	pthread_mutex_lock(&T, NULL);
-	pthread_cond_wait(&tcv, NULL);
-	Scheduler->q->queue_used = 0;
-	Scheduler->q->queue_ptr = 0;
-}
-*/
 void wait_all_tasks_finish(JobScheduler* sch){ //waits all submitted tasks to finish
 	//printf("wait for jobs to finish\n");
 	while(sch->q->queue_used!=0){
@@ -175,5 +145,15 @@ void wait_all_tasks_finish(JobScheduler* sch){ //waits all submitted tasks to fi
 		pthread_cond_wait(&pool_is_empty,&pool_mutex);
 	}
 	//printf("jobs finished\n");
+}
+
+int destroy_scheduler( JobScheduler* sch){
+
+	destroy_threads(sch);
+	free(sch->q->jobs);
+	free(sch->q);
+	free(sch->tids);
+	free(sch);
+return 0;
 }
 

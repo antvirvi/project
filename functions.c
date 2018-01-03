@@ -136,14 +136,14 @@ int test_input(struct index *trie,char * filename)
 	size_t len = 0;
 	ssize_t read;
 	char *word;
-	int command_error;
+	//int command_error;
 	int count=0;
 	int previous_is_Q=1;
 	int current_version=0;
 	int k;
 	int delete_batch=0;
 	int word_len;
-	int length_array_capacity=10;
+	//int length_array_capacity=10;
 	int last_word=0;
 	int lengths_taken=0;
 	int threads_quantity  = 15 ;
@@ -294,18 +294,7 @@ int test_input(struct index *trie,char * filename)
 
 		switch(flag){
 			case 1 :
-				/*if(lengths_taken==length_array_capacity){
-					length_array_capacity*=2;
-
-					Q_lengths=realloc(Q_lengths,length_array_capacity*sizeof(int));
-					start=realloc(start,length_array_capacity*sizeof(int));
-					version=realloc(version,length_array_capacity*sizeof(int));					
-				}
-				//printf("i passed %d , start %d ,words in %d\n ",words_in-last_word,last_word,words_in);
-				Q_lengths[lengths_taken]=words_in-last_word;
-				start[lengths_taken]=last_word;
-				version[lengths_taken]=current_version;
-				*/
+				
 				if(Q_number==top->Q_capacity){
 					extend_top_threads(top,top->Q_capacity<<1);
 				}
@@ -341,7 +330,7 @@ int test_input(struct index *trie,char * filename)
 					current_version++;}
 				previous_is_Q=0;
 	
-				command_error=insertTrieNode(trie->hash,A_ptr_table,A_words_in,current_version);
+				insertTrieNode(trie->hash,A_ptr_table,A_words_in,current_version);
 				A_words_in=0;			
 				break;
 			case 3 :
@@ -353,7 +342,7 @@ int test_input(struct index *trie,char * filename)
 
 				previous_is_Q=0;
 				//command_error=deleteTrieNode_versioning(trie->hash,ptr_table,words_in,current_version);
-				command_error=deleteTrieNode_versioning(trie->hash,A_ptr_table,A_words_in,current_version);
+				deleteTrieNode_versioning(trie->hash,A_ptr_table,A_words_in,current_version);
 				//command_error=deleteTrieNode(trie->hash,ptr_table,words_in);
 				A_words_in=0;			
 				break;
@@ -374,11 +363,7 @@ int test_input(struct index *trie,char * filename)
 	//free(version);
 	free(pointer_to_words);
 	erase_top_threads(top);
-	destroy_threads(JS);
-	free(JS->q->jobs);
-	free(JS->q);
-	free(JS->tids);
-	free(JS);
+	destroy_scheduler(JS);
 	cleanup_A(A_ptr_table,A_table_size);
 	cleanup(ptr_table);
 	fclose(fd);
@@ -388,10 +373,11 @@ return 0;
 }
 
 int execute_queries(hash_layer *hash,char **ptr_table,int *ptr_lengths,int *version,int *start,int pos,topk *top){
-	int i,j;
-	int command_error;
+	int i;
+	//int command_error;
 	for(i=0;i<pos;i++){	
-		command_error=lookupTrieNode_with_bloom_versioning(hash,ptr_table,ptr_lengths[i]-1,top,version[i],start[i]);
+		//command_error=
+		lookupTrieNode_with_bloom_versioning(hash,ptr_table,ptr_lengths[i]-1,top,version[i],start[i]);
 	}
 	//printf("results:\n");
 	return 0;
@@ -1898,7 +1884,7 @@ int delete_from_node_cleanup(trie_node *node,int pos,int current_version){
 void delete_ngrams(hash_layer *hash,ngrams_to_delete *d_grams){
 	int i=0;
 	int start=0;
-	int j;
+	//int j;
 	int length;
 	while(d_grams->length[i]!=0){
 		length=d_grams->length[i];

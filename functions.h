@@ -92,6 +92,7 @@ struct index{
 	hash_layer *hash;
 };
 
+void cleanup_A(char ** ptr,int A_table_size);
 void cleanup2(char ** ptr);
 void printtable(char ** pt,int num);
 void printpanos(void);
@@ -164,6 +165,7 @@ trie_node *delete_from_backet_versioning_cleanup(hash_layer *hash,int hash_val,c
 int deleteTrieNode_versioning_cleanup(hash_layer *hash,char **words,int word_number,int current_version);
 int delete_from_node_versioning_cleanup(trie_node *node,int pos,int current_version);
 int delete_ngram_versioning_cleanup(trie_node *root,char **word,int word_number,int number_of_words,int current_version);
+void print_trie_version(trie_node *node,int level);
 //=======
 #endif
 //>>>>>>> antonis_3
