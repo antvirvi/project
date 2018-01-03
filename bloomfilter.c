@@ -4,15 +4,13 @@
 #include <stdlib.h>
 
 int bloomfiltersize(int input_size){
-	int m = 0; //size of bloom filter in bits
 	float p = 0.01; //fault probability. 
-	int k = 6; //hash_functions quantity. we have 3 different hashfunctions each of which returns two results, so 6 hash values
 	int n = input_size; //size of input
 	float a = n*log(1/p);
 	float b = log(2)*log(2);
 	float ab = a/b;
 	int abc = ab;
-	m = ceil(abc);
+	int m = ceil(abc);
 	float  temp = m/64;
 	m = ceil(temp);
 	m *= 64;
@@ -26,8 +24,9 @@ int hashfunctionssize(int input_size){
 	int k = (bloomfiltersize(input_size)/input_size)*log(2);
 //	printf("Panos2 %d\n",k);
 //	return 6;
+	if(k>6) 
+		return 6;
 	return k;
-
 }
 
 void SetBit(int *A, int k){	// 32 is sizeof(int)
@@ -80,69 +79,6 @@ memset(bloom,0,bloom_size/8);
 //TestAllBits(bloom);
 }
 
-/*
-unsigned long hash( char *str,int key,size_t bloom_size){
-    unsigned long hash=0;
-
-	switch(key){
-		case 1 :
-			hash = 5381;		
-			break;
-		case 2 :
-			hash = 8377;			
-			break;
-		case 3 :
-			hash = 6607;			
-			break;
-		case 4 :
-			hash = 10061;			
-			break;
-		case 5 :
-			hash = 9133;			
-			break;
-		case 6 :
-			hash = 5981;			
-			break;
-		case 7 :
-			hash = 3163;			
-			break;
-		case 8 :
-			hash = 7127;			
-			break;
-	}
-    int c;
-
-    while (c = *str++)
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c *//*
-//printf("hash return; %lu\n",hash%M);
-    return hash%bloom_size;
-}
-*/
-/*
-int ModuloByDigits(int previousValue, int modulo)
-    {
-        return ((previousValue * 10) % modulo);
-    }
-    
-
-void mod(char * input){
-        int modulo = 97;
-//        char * input = "100020778788920323232343433";
-        int result = 0;
-        int lastRowValue = 1;
-		char c;
-        for (int i = 0; i < strlen(input); i++){
-		
-            if (i > 0){
-                lastRowValue = ModuloByDigits(lastRowValue, modulo);
-            }
-			c = input[i];
-            result += lastRowValue * (c-48);
-        }
-        result = result % modulo;
-		printf("Input : %s\n",input);
-        printf("Result: %d\n", result);
-}*/
 int mymod(char * input,int mod)
 {
 	int a = 0;
@@ -183,92 +119,130 @@ void hash2(const void *in_string, int *ptr, int key,size_t bloom_size){
 
 
 void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
-/*	int *hashvalue1 = malloc(2*sizeof(int));
-	int *hashvalue2 = malloc(2*sizeof(int));
-	int *hashvalue3 = malloc(2*sizeof(int));
+
+	int lim = hashfunctionssize(bloom_size);
+
+	int *hashvalue1 = malloc(6*sizeof(int));
+//	int *hashvalue2 = malloc(2*sizeof(int));
+//	int *hashvalue3 = malloc(2*sizeof(int));
 
 		hash2(message,hashvalue1,16,bloom_size);
-		hash2(message,hashvalue2,32,bloom_size);
-		hash2(message,hashvalue3,64,bloom_size);
+		hash2(message,hashvalue1+2,32,bloom_size);
+		hash2(message,hashvalue1+4,64,bloom_size);
 
-		SetBit(bloom,hashvalue1[0]);
-		SetBit(bloom,hashvalue1[1]);
 
-		SetBit(bloom,hashvalue2[0]);
-		SetBit(bloom,hashvalue2[1]);
+	switch(lim){
+		case 6 :
+			SetBit(bloom,hashvalue1[5]);
+		case 5	:
+			SetBit(bloom,hashvalue1[4]);
+		case 4	:
+			SetBit(bloom,hashvalue1[3]);
+		case 3	:
+			SetBit(bloom,hashvalue1[2]);
+		case 2	:
+			SetBit(bloom,hashvalue1[1]);
+		case 1	:
+			SetBit(bloom,hashvalue1[0]);
+	}
 
-		SetBit(bloom,hashvalue3[0]);
-		SetBit(bloom,hashvalue3[1]);
-
-	free(hashvalue3);
-	free(hashvalue2);
+//	free(hashvalue3);
+//	free(hashvalue2);
 	free(hashvalue1);
-*/
 
-	int *hashvalue = malloc(2*sizeof(int));
-	int lim = hashfunctionssize(bloom_size);
-	int i;
-	for (i=1;i<=lim;i++){
-		if(i%2){
+
+/*
+	for (i=1;i<=lim/2;i++){
 			hash2(message,hashvalue,i*2,bloom_size);
 			SetBit(bloom,hashvalue[0]);
-		}
-		else
 			SetBit(bloom,hashvalue[1]);
 	}
-	free(hashvalue);
-//printf("freeed\n");
-//return 0;
+	if(lim%2){
+		hash2(message,hashvalue,i*2,bloom_size);
+		SetBit(bloom,hashvalue[0]);
+	}
+	free(hashvalue);*/
 }
 
 
 int bloomfilter_check(char * message,int *bloom,size_t bloom_size){
-/*	int *hashvalue1 = malloc(2*sizeof(uint64_t));
-	int *hashvalue2 = malloc(2*sizeof(uint64_t));
-	int *hashvalue3 = malloc(2*sizeof(uint64_t));
 
-		hash2(message,hashvalue1,16,bloom_size);
-		hash2(message,hashvalue2,32,bloom_size);
-		hash2(message,hashvalue3,64,bloom_size);
-
-		if((TestBit(bloom,hashvalue1[0])==0)
-		  ||(TestBit(bloom,hashvalue1[1])==0)
-		  ||(TestBit(bloom,hashvalue2[0])==0)
-		  ||(TestBit(bloom,hashvalue2[1])==0)
-		  ||(TestBit(bloom,hashvalue3[0])==0)
-		  ||(TestBit(bloom,hashvalue3[1])==0))
-		{
-	//		printf(RED"The string is not storred\n"RESET);
-			free(hashvalue1);
-			free(hashvalue2);
-			free(hashvalue3);
-			return 0;
-		}
-	//returns 0 if there is one bit 0, or 1 if all of them are 1.	
-	free(hashvalue1);
-	free(hashvalue2);
-	free(hashvalue3);
-//printf(YELLOW"The string may be storred\n"RESET);
-return 1;
-*/
-
-
+/*
 	int *hashvalue = malloc(2*sizeof(int));
 	int lim = hashfunctionssize(bloom_size);
 	int i;
-	for (i=1;i<=lim;i++){
-		if(i%2){
+	for (i=1;i<=lim/2;i++){
 			hash2(message,hashvalue,i*2,bloom_size);
-			if(TestBit(bloom,hashvalue[0])==0)
+			if((TestBit(bloom,hashvalue[0])==0)||(TestBit(bloom,hashvalue[1])==0))
 				return 0;
-		}
-		else
-			if(TestBit(bloom,hashvalue[1])==0)	
-				return 0;
+	}
+	if(lim%2){
+		hash2(message,hashvalue,i*2,bloom_size);
+		if(TestBit(bloom,hashvalue[0])==0)
+			return 0;
 	}
 	free(hashvalue);
 return 1;
+*/
+	int lim = hashfunctionssize(bloom_size);
+	int *hashvalue1 = malloc(6*sizeof(int));
+//	int *hashvalue2 = malloc(2*sizeof(int));
+//	int *hashvalue3 = malloc(2*sizeof(int));
 
+		hash2(message,hashvalue1+0,16,bloom_size);
+		hash2(message,hashvalue1+2,32,bloom_size);
+		hash2(message,hashvalue1+4,64,bloom_size);
+
+
+	switch(lim){
+		case 6 :
+			if(TestBit(bloom,hashvalue1[5])==0){
+//				free(hashvalue3);
+//				free(hashvalue2);
+				free(hashvalue1);
+				return 0;
+			}
+				
+		case 5	:
+			if(TestBit(bloom,hashvalue1[4])==0){
+//				free(hashvalue3);
+//				free(hashvalue2);
+				free(hashvalue1);
+				return 0;
+			}
+		case 4	:
+			if(TestBit(bloom,hashvalue1[3])==0){
+//				free(hashvalue3);
+//				free(hashvalue2);
+				free(hashvalue1);
+				return 0;
+			}
+		case 3	:
+			if(TestBit(bloom,hashvalue1[2])==0){
+//				free(hashvalue3);
+//				free(hashvalue2);
+				free(hashvalue1);
+				return 0;
+			}
+		case 2	:
+			if(TestBit(bloom,hashvalue1[1])==0){
+//				free(hashvalue3);
+//				free(hashvalue2);
+				free(hashvalue1);
+				return 0;
+			}
+		case 1	:
+			if(TestBit(bloom,hashvalue1[0])==0){
+//				free(hashvalue3);
+//				free(hashvalue2);
+				free(hashvalue1);
+				return 0;
+			}
+	}
+
+//	free(hashvalue3);
+//	free(hashvalue2);
+	free(hashvalue1);
 
 }
 

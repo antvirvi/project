@@ -65,6 +65,9 @@ clean:
 testrun_cache:
 	  valgrind --tool=cachegrind ./project -q small.work -i small.init 
 
+cache3:
+	  valgrind --tool=cachegrind ./project -q medium_dynamic.work -i medium_dynamic.init 
+
 testrun:
 	  valgrind --leak-check=yes ./project -q small.work -i small.init 
 
