@@ -17,6 +17,7 @@ int bloomfiltersize(int input_size){
 	m = ceil(temp);
 	m *= 64;
 //	printf("Panos %d\n",m);
+//	return 8192;
 	return m;
 }
 
@@ -24,6 +25,7 @@ int hashfunctionssize(int input_size){
 	float p = 0.01; //fault probability. 
 	int k = (bloomfiltersize(input_size)/input_size)*log(2);
 //	printf("Panos2 %d\n",k);
+//	return 6;
 	return k;
 
 }
@@ -78,7 +80,7 @@ memset(bloom,0,bloom_size/8);
 //TestAllBits(bloom);
 }
 
-
+/*
 unsigned long hash( char *str,int key,size_t bloom_size){
     unsigned long hash=0;
 
@@ -111,11 +113,11 @@ unsigned long hash( char *str,int key,size_t bloom_size){
     int c;
 
     while (c = *str++)
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c *//*
 //printf("hash return; %lu\n",hash%M);
     return hash%bloom_size;
 }
-
+*/
 /*
 int ModuloByDigits(int previousValue, int modulo)
     {
@@ -204,13 +206,16 @@ void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
 */
 
 	int *hashvalue = malloc(2*sizeof(int));
-
+	int lim = hashfunctionssize(bloom_size);
 	int i;
-	for (i=1;i<=hashfunctionssize(bloom_size);i++){
-		hash2(message,hashvalue,i*2,bloom_size);		
-		SetBit(bloom,hashvalue[0]);
+	for (i=1;i<=lim;i++){
+		if(i%2){
+			hash2(message,hashvalue,i*2,bloom_size);
+			SetBit(bloom,hashvalue[0]);
+		}
+		else
+			SetBit(bloom,hashvalue[1]);
 	}
-
 	free(hashvalue);
 //printf("freeed\n");
 //return 0;
@@ -218,7 +223,7 @@ void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
 
 
 int bloomfilter_check(char * message,int *bloom,size_t bloom_size){
-	int *hashvalue1 = malloc(2*sizeof(uint64_t));
+/*	int *hashvalue1 = malloc(2*sizeof(uint64_t));
 	int *hashvalue2 = malloc(2*sizeof(uint64_t));
 	int *hashvalue3 = malloc(2*sizeof(uint64_t));
 
@@ -245,5 +250,25 @@ int bloomfilter_check(char * message,int *bloom,size_t bloom_size){
 	free(hashvalue3);
 //printf(YELLOW"The string may be storred\n"RESET);
 return 1;
+*/
+
+
+	int *hashvalue = malloc(2*sizeof(int));
+	int lim = hashfunctionssize(bloom_size);
+	int i;
+	for (i=1;i<=lim;i++){
+		if(i%2){
+			hash2(message,hashvalue,i*2,bloom_size);
+			if(TestBit(bloom,hashvalue[0])==0)
+				return 0;
+		}
+		else
+			if(TestBit(bloom,hashvalue[1])==0)	
+				return 0;
+	}
+	free(hashvalue);
+return 1;
+
+
 }
 
