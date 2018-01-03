@@ -3,6 +3,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int bloomfiltersize(int input_size){
+	int m = 0; //size of bloom filter in bits
+	float p = 0.1; //fault_possibility. this is a percentage/ it is  0.1%
+	int k = 6; //hash_functions quantity. we have 3 different hashfunctions each of which returns two results, so 6 hash values
+	int n = input_size; //size of input
+	float a = n*log(1/p);
+	float b = log(2)*log(2);
+	float ab = a/b;
+	int abc = ab;
+	m = ceil(abc);
+	if (m%2)
+		m++;
+	return m;
+}
+
 void SetBit(int *A, int k){
 	int i = k/32;            // i = array index (use: A[i])
 	int pos = k%32;          // pos = bit position in A[i]
