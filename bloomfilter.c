@@ -5,7 +5,7 @@
 
 int bloomfiltersize(int input_size){
 	int m = 0; //size of bloom filter in bits
-	float p = 0.1; //fault_possibility. this is a percentage/ it is  0.1%
+	float p = 0.01; //fault probability. 
 	int k = 6; //hash_functions quantity. we have 3 different hashfunctions each of which returns two results, so 6 hash values
 	int n = input_size; //size of input
 	float a = n*log(1/p);
@@ -13,12 +13,22 @@ int bloomfiltersize(int input_size){
 	float ab = a/b;
 	int abc = ab;
 	m = ceil(abc);
-	if (m%2)
-		m++;
+	float  temp = m/64;
+	m = ceil(temp);
+	m *= 64;
+//	printf("Panos %d\n",m);
 	return m;
 }
 
-void SetBit(int *A, int k){
+int hashfunctionssize(int input_size){
+	float p = 0.01; //fault probability. 
+	int k = (bloomfiltersize(input_size)/input_size)*log(2);
+//	printf("Panos2 %d\n",k);
+	return k;
+
+}
+
+void SetBit(int *A, int k){	// 32 is sizeof(int)
 	int i = k/32;            // i = array index (use: A[i])
 	int pos = k%32;          // pos = bit position in A[i]
 	unsigned int flag = 1;   // flag = 0000.....00001
@@ -171,7 +181,7 @@ void hash2(const void *in_string, int *ptr, int key,size_t bloom_size){
 
 
 void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
-	int *hashvalue1 = malloc(2*sizeof(int));
+/*	int *hashvalue1 = malloc(2*sizeof(int));
 	int *hashvalue2 = malloc(2*sizeof(int));
 	int *hashvalue3 = malloc(2*sizeof(int));
 
@@ -188,9 +198,21 @@ void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
 		SetBit(bloom,hashvalue3[0]);
 		SetBit(bloom,hashvalue3[1]);
 
-	free(hashvalue1);
-	free(hashvalue2);
 	free(hashvalue3);
+	free(hashvalue2);
+	free(hashvalue1);
+*/
+
+	int *hashvalue = malloc(2*sizeof(int));
+
+	int i;
+	for (i=1;i<=hashfunctionssize(bloom_size);i++){
+		hash2(message,hashvalue,i*2,bloom_size);		
+		SetBit(bloom,hashvalue[0]);
+	}
+
+	free(hashvalue);
+//printf("freeed\n");
 //return 0;
 }
 
