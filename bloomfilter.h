@@ -10,6 +10,12 @@
 #endif
 #include "murmur3.h"
 
+#define  log2 0.6931
+//#define  logp 7 //the log(1/p) when p is 0.001
+#define  logp 5 //the log(1/p) when p is 0.01
+//#define  logp 3 //the log(1/p) when p is 0.1
+#define P 0.001 //probability of false positive
+
 int bloomfiltersize(int input_size);
 void SetBit(int *A, int k);
 void ClearBit(int *A,int k);

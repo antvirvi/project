@@ -1263,7 +1263,7 @@ void print_hash(hash_layer *hash){
 
 int lookupTrieNode_with_bloom(hash_layer *hash,char **words,int number_of_words,topk * top){
 	//size_t bloomfilterbytes = ((M*128)/8);
-	size_t bloomfilterbytes=M*8;
+	size_t bloomfilterbytes=bloomfiltersize(number_of_words)/8;
 		//	int multi=number_of_words/M;
 	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
 	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
@@ -1570,7 +1570,7 @@ int check_node(trie_node *node,int current_version){
 int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk* top,int current_version,int section_start)
 {
 	//size_t bloomfilterbytes = ((M*128)/8);
-	size_t bloomfilterbytes=M*8;
+	size_t bloomfilterbytes=bloomfiltersize(number_of_words)/8;
 	//	int multi=number_of_words/M;
 	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
 	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
@@ -1578,7 +1578,7 @@ int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int numbe
 	//printf("words in is %d\n",number_of_words);
 	//printf("first word is %s\n",words[section_start]);
 	//return -1;
-	int * bloomfilter = malloc(bloomfilterbytes/8);
+	int * bloomfilter = malloc(bloomfilterbytes*8);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
 	char *str;	
 	int str_size;
@@ -1680,7 +1680,8 @@ int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer 
 	int section_start=data->start;
 	int Q_number=data->Q_number;
 	//size_t bloomfilterbytes = ((M*128)/8);
-	size_t bloomfilterbytes=bloomfiltersize(number_of_words)/8;
+	size_t bloomfilterbits =bloomfiltersize(number_of_words); 
+	size_t bloomfilterbytes = bloomfilterbits/8;
 //	size_t bl_size = bloomfiltersize(number_of_words);
 
 	//	int multi=number_of_words/M;
@@ -1702,9 +1703,9 @@ int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer 
 	int ngrams_found=0;
 	while(start!=section_start+number_of_words+1) {
 		//printf("word %d is %s start %d\n",word_number,words[start],start);
-		str=malloc(20*sizeof(char)); //check this size
+		str=malloc(40*sizeof(char)); //check this size
 		strcpy(str,"");
-		str_size=20;
+		str_size=40;
 		word_number=start;
 		int check;
 		//printf("word %d is %s\n",word_number,words[start]);

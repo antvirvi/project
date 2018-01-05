@@ -909,10 +909,11 @@ int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_wo
 //printf("Inside search,number of words is %d\n",number_of_words);
 	
 	//int multi=number_of_words/M;
-	size_t bloomfilterbytes=M*8;
+	size_t bloomfilterbits =bloomfiltersize(number_of_words); 
+	size_t bloomfilterbytes = bloomfilterbits/8;
 	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
 	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
-	int * bloomfilter = malloc(bloomfilterbytes/8);
+	int * bloomfilter = malloc(bloomfilterbytes);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
 
 
@@ -1022,10 +1023,11 @@ int lookup_static_TrieNode_threads(void ** arguments){//static_hash_layer *hash,
 	int Q_number=data->Q_number;
 
 	//int multi=number_of_words/M;
-	size_t bloomfilterbytes=M*8;
+	size_t bloomfilterbits =bloomfiltersize(number_of_words); 
+	size_t bloomfilterbytes = bloomfilterbits/8;
 	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
 	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
-	int * bloomfilter = malloc(bloomfilterbytes/8);
+	int * bloomfilter = malloc(bloomfilterbytes);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
 
 
