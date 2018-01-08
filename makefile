@@ -86,7 +86,7 @@ test_large_static:
 
 
 run:
-	time ./project -q small.work -i small.init 
+	time  ./project -q small.work -i small.init 
 
 run2:
 	./project -q test.work -i test.init 
@@ -101,7 +101,10 @@ run_large:
 	time ./project -q large_dynamic.work -i large_dynamic.init 
 
 run_large_static:
-	 time ./project -q large_static.work -i large_static.init
+	 time  ./project -q large_static.work -i large_static.init
+
+run_tests:
+	./test_project
 
 pipe:
 	time ./project -q small.work -i small.init > results.txt

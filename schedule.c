@@ -134,6 +134,11 @@ void destroy_threads( JobScheduler* sch){
 		}
 		//printf("success in waiting thread %d\n",i);
 	}
+	pthread_mutex_destroy(&pool_mutex);
+	pthread_mutex_destroy(&jobs_remain_mutex);
+	pthread_cond_destroy(&pool_is_full);
+	pthread_cond_destroy(&pool_is_empty);
+	pthread_cond_destroy(&jobs_are_done);
 	
 	return ;
 }

@@ -3,6 +3,7 @@
 #include <time.h>
 
 
+
 int main (int argc, char **argv )
 {
 	int i;
@@ -31,6 +32,8 @@ int main (int argc, char **argv )
 //-----------------------done testing stativ------------------//
 	strcpy(file_name,"unit_test.work");
 	if(tests_from_file(trie,file_name)<0) return -1;
+	test_versioning(trie->hash);
+	print_hash_version(trie->hash);
 	free(static_trie);
 
 	destroyLinearHash(trie->hash); //in all the cases i have to delete it

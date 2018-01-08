@@ -3,8 +3,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void SetBit(int *A, int k){
-	int i = k/32;            // i = array index (use: A[i])
+int bloomfiltersize(int input_size){
+	float m;
+	m = (float)input_size*logp;
+	m/=((log2)*(log2));
+	int temp = ceil(m);
+	int ret = temp/8;
+
+	
+	ret = (ret+1)<<3;// *8;
+	return (ret<<2);
+}
+
+
+
+int hashfunctionssize(int input_size){
+	float k = bloomfiltersize(input_size)*log2;
+	k/=(float)input_size;
+	int ret = k;
+
+	if(k>8) {
+		return 8;
+	}
+	return k;
+}
+
+
+void SetBit(int *A, int k){	// 32 is sizeof(int)
+	int i =k/32;//k>>5;            // i = array index (use: A[i])
 	int pos = k%32;          // pos = bit position in A[i]
 	unsigned int flag = 1;   // flag = 0000.....00001
 	flag = flag << pos;      // flag = 0000...010...000   (shifted k positions)
@@ -12,7 +38,7 @@ void SetBit(int *A, int k){
 }
 
 void ClearBit(int *A,int k){
-	int i = k/32;
+	int i = k/32;//>>5;///32;
 	int pos = k%32;
 	unsigned int flag = 1;  // flag = 0000.....00001
 	flag = flag << pos;     // flag = 0000...010...000   (shifted k positions)
@@ -22,7 +48,7 @@ void ClearBit(int *A,int k){
 
 
 int TestBit(int *A,int k){
-	int i = k/32;
+	int i = k/32;//>>5; ///32;
 	int pos = k%32;
 	unsigned int flag = 1;  // flag = 0000.....00001
 	flag = flag << pos;     // flag = 0000...010...000   (shifted k positions)
@@ -48,74 +74,10 @@ return 0; //sigoura den uparxei
 
 
 
-void bloomfilter_init(int * bloom,size_t bloom_size){
-memset(bloom,0,bloom_size/8);
-//TestAllBits(bloom);
+void bloomfilter_init(int * bloom,size_t bloom_bytes){
+	memset(bloom,0,bloom_bytes);
 }
 
-
-unsigned long hash( char *str,int key,size_t bloom_size){
-    unsigned long hash=0;
-
-	switch(key){
-		case 1 :
-			hash = 5381;		
-			break;
-		case 2 :
-			hash = 8377;			
-			break;
-		case 3 :
-			hash = 6607;			
-			break;
-		case 4 :
-			hash = 10061;			
-			break;
-		case 5 :
-			hash = 9133;			
-			break;
-		case 6 :
-			hash = 5981;			
-			break;
-		case 7 :
-			hash = 3163;			
-			break;
-		case 8 :
-			hash = 7127;			
-			break;
-	}
-    int c;
-
-    while (c = *str++)
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
-//printf("hash return; %lu\n",hash%M);
-    return hash%bloom_size;
-}
-
-/*
-int ModuloByDigits(int previousValue, int modulo)
-    {
-        return ((previousValue * 10) % modulo);
-    }
-    
-
-void mod(char * input){
-        int modulo = 97;
-//        char * input = "100020778788920323232343433";
-        int result = 0;
-        int lastRowValue = 1;
-		char c;
-        for (int i = 0; i < strlen(input); i++){
-		
-            if (i > 0){
-                lastRowValue = ModuloByDigits(lastRowValue, modulo);
-            }
-			c = input[i];
-            result += lastRowValue * (c-48);
-        }
-        result = result % modulo;
-		printf("Input : %s\n",input);
-        printf("Result: %d\n", result);
-}*/
 int mymod(char * input,int mod)
 {
 	int a = 0;
@@ -130,9 +92,9 @@ int mymod(char * input,int mod)
 		else 
 			c = (input[a]-'0');
 		
-		ret += (c*16);
+		ret += (c<<4); //*16
 		ret = ret % mod;
-		dec +=(c*16);
+		dec +=(c<<4); //*16
 printf("%d %s %d %d\n",ret, input, dec, mod);
 	}
 
@@ -156,57 +118,55 @@ void hash2(const void *in_string, int *ptr, int key,size_t bloom_size){
 
 
 void bloomfilter_add(char * message,int *bloom,size_t bloom_size){
-	int *hashvalue1 = malloc(2*sizeof(int));
-	int *hashvalue2 = malloc(2*sizeof(int));
-	int *hashvalue3 = malloc(2*sizeof(int));
 
-		hash2(message,hashvalue1,16,bloom_size);
-		hash2(message,hashvalue2,32,bloom_size);
-		hash2(message,hashvalue3,64,bloom_size);
+	int lim = hashfunctionssize(bloom_size);
 
-		SetBit(bloom,hashvalue1[0]);
-		SetBit(bloom,hashvalue1[1]);
+	int *hashvalue1 = malloc(16*sizeof(int));
 
-		SetBit(bloom,hashvalue2[0]);
-		SetBit(bloom,hashvalue2[1]);
-
-		SetBit(bloom,hashvalue3[0]);
-		SetBit(bloom,hashvalue3[1]);
-
+		hash2(message,hashvalue1,41,bloom_size);
+		hash2(message,hashvalue1+2,283,bloom_size);
+		hash2(message,hashvalue1+4,131,bloom_size);
+		hash2(message,hashvalue1+6,907,bloom_size);
+		if(lim>8){
+			hash2(message,hashvalue1+8,211,bloom_size);
+			hash2(message,hashvalue1+10,853,bloom_size);
+			hash2(message,hashvalue1+12,59,bloom_size);
+			hash2(message,hashvalue1+14,997,bloom_size);
+		}
+int i;
+for(i=0;i<lim;i++){
+	SetBit(bloom,hashvalue1[i]);
+}
 	free(hashvalue1);
-	free(hashvalue2);
-	free(hashvalue3);
-//return 0;
 }
 
 
 int bloomfilter_check(char * message,int *bloom,size_t bloom_size){
-	int *hashvalue1 = malloc(2*sizeof(uint64_t));
-	int *hashvalue2 = malloc(2*sizeof(uint64_t));
-	int *hashvalue3 = malloc(2*sizeof(uint64_t));
 
-		hash2(message,hashvalue1,16,bloom_size);
-		hash2(message,hashvalue2,32,bloom_size);
-		hash2(message,hashvalue3,64,bloom_size);
+	int lim = hashfunctionssize(bloom_size);
+	int *hashvalue1 = malloc(16*sizeof(int));
 
-		if((TestBit(bloom,hashvalue1[0])==0)
-		  ||(TestBit(bloom,hashvalue1[1])==0)
-		  ||(TestBit(bloom,hashvalue2[0])==0)
-		  ||(TestBit(bloom,hashvalue2[1])==0)
-		  ||(TestBit(bloom,hashvalue3[0])==0)
-		  ||(TestBit(bloom,hashvalue3[1])==0))
-		{
-	//		printf(RED"The string is not storred\n"RESET);
-			free(hashvalue1);
-			free(hashvalue2);
-			free(hashvalue3);
-			return 0;
+		hash2(message,hashvalue1,41,bloom_size);
+		hash2(message,hashvalue1+2,283,bloom_size);
+		hash2(message,hashvalue1+4,131,bloom_size);
+		hash2(message,hashvalue1+6,907,bloom_size);
+		if(lim>8){
+			hash2(message,hashvalue1+8,211,bloom_size);
+			hash2(message,hashvalue1+10,853,bloom_size);
+			hash2(message,hashvalue1+12,59,bloom_size);
+			hash2(message,hashvalue1+14,997,bloom_size);
 		}
-	//returns 0 if there is one bit 0, or 1 if all of them are 1.	
+int i;
+for(i=lim-1; i>=0; i--){
+	if(TestBit(bloom,hashvalue1[i])==0){
+		free(hashvalue1);
+	return 0;
+	}
+
+}
 	free(hashvalue1);
-	free(hashvalue2);
-	free(hashvalue3);
-//printf(YELLOW"The string may be storred\n"RESET);
-return 1;
+	return 1;
+
+
 }
 

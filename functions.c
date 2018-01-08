@@ -146,7 +146,7 @@ int test_input(struct index *trie,char * filename)
 	//int length_array_capacity=10;
 	int last_word=0;
 	int lengths_taken=0;
-	int threads_quantity  = 15 ;
+	int threads_quantity  = 128 ;
 	JobScheduler *JS = initialize_scheduler(threads_quantity);
 	Job *job_to_append = malloc(sizeof(Job));
 	int Q_number=0;
@@ -218,7 +218,7 @@ int test_input(struct index *trie,char * filename)
 				//top=init_top(top);
 				top=init_top_threads(top);
 				//print_ngrams_to_delete(d_grams);
-				delete_ngrams(trie->hash,d_grams);
+				//delete_ngrams(trie->hash,d_grams);
 				//print_hash_version(trie->hash);
 				reset_ngrams_to_delete(d_grams);
 				//if(count==1) break; 		
@@ -468,7 +468,6 @@ trie_node *create_trie_node(char *word,char is_final){
 }
 
 trie_node *init_trie_node(trie_node *node,char *word,char is_final,int current_version){
-	
 	node->word=malloc((strlen(word)+1)*sizeof(char));
 	//node->word=malloc(WORD_SIZE*sizeof(char));
 	strcpy(node->word,word);
@@ -569,8 +568,14 @@ int check_exists_in_children(trie_node *node,char *word,int *pos){
 		int lower=0;
 		int upper=node->number_of_childs-1;
 		int compare;
+
 		//printf("inside check exists\n");
 		if(upper==-1) return 0; //i made this change
+		//compare=strcmp(node->children[0].word,word); // equal=0 children[i]<word: compare<0 children>word : compare>0
+		//if(compare==0) {
+			//*pos=0;
+			//return 1; //exact match
+			//}
 		while(1!=0){
 			//printf("upper %d lower %d pivot %d\n",upper,lower,pivot);
 			if(upper<=lower){
@@ -1413,23 +1418,18 @@ int deleteTrieNode_versioning(hash_layer *hash,char **words,int word_number,int 
 	node=delete_from_backet_versioning(hash,hash_val,words[0],&pos); //node gets the value of the first trie node
 	if(node==NULL) return ERROR;
 	if(word_number>1){ 
-		//printf("deleting more words\n");
 		error=delete_ngram_versioning(node,words,1,word_number-1,current_version);
-		//printf("error is %d\n",error);
 		if(error==ERROR){
 			//printf("not succeded %d\n",error);
 			return error;
 		}
 		//node->D_version=current_version; //check that
-		//printf("number of childs is %d , deleted is %d\n",node->number_of_childs,node->children_deleted);
 		if(node->number_of_childs - node->children_deleted!=0 || node->is_final=='y') return 2;
 		node->D_version=current_version; //check that
 		return SUCCESS;
 	}
 	if(node->is_final=='n') return ERROR;
 	if(node->number_of_childs-node->children_deleted!=0){
-		
-		//printf("node i am deleting version is %s\n",node->word);
 		//node->is_final='n';
 		node->D_version=current_version;
 		return 2;
@@ -1569,17 +1569,11 @@ int check_node(trie_node *node,int current_version){
 
 int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int number_of_words,topk* top,int current_version,int section_start)
 {
-	//size_t bloomfilterbytes = ((M*128)/8);
-	size_t bloomfilterbytes=M*8;
-	//	int multi=number_of_words/M;
-	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
-	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
-	//printf("current version is %d\n",current_version);
-	//printf("words in is %d\n",number_of_words);
-	//printf("first word is %s\n",words[section_start]);
-	//return -1;
-	int * bloomfilter = malloc(bloomfilterbytes/8);
+	size_t bloomfilterbits =bloomfiltersize(number_of_words); 
+	size_t bloomfilterbytes = bloomfilterbits/8;
+	int * bloomfilter = malloc(bloomfilterbytes);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
+
 	char *str;	
 	int str_size;
 	int word_number;
@@ -1609,27 +1603,18 @@ int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int numbe
 			continue;
 			}
 		node=&(bucket->children[pos]);
-		/*if(check_node(node,current_version)==ERROR){
-			start++;
-			//printf("refused\n");
-			free(str);
-			continue;
-			}*/
-		//printf("words start %d , %s\n",start,words[start]);
 		myappend_pan(&str,&str_size,words[start]);
 		
 		while(node->number_of_childs!=0) {
 			check=check_node(node,current_version);
-			if(node->is_final=='y' && check!=ERROR) { //found ngram
+			if(node->is_final=='y' && check!=ERROR) { 
 				if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
-						//printf("Found %s\n",str);
 						//top=add_top_threads(top,str,Q_number);
 						top=add_top(top,str);
 						ngrams_found++;
 					}
 				}
-			//printf("word_number is %d\n",word_number);
 			word_number++;
 			if(word_number>number_of_words+section_start) break;
 			exists=check_exists_in_children(node,words[word_number],&pos);
@@ -1644,7 +1629,6 @@ int lookupTrieNode_with_bloom_versioning(hash_layer *hash,char **words,int numbe
 			if(check!=ERROR){
 			if(bloomfilter_check(str,bloomfilter,bloomfilterbytes)==0){
 						bloomfilter_add(str,bloomfilter,bloomfilterbytes);
-						//printf("Found %s\n",str);
 						//top=add_top_threads(top,str,Q_number);
 						top=add_top(top,str);
 						ngrams_found++;
@@ -1680,16 +1664,11 @@ int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer 
 	int section_start=data->start;
 	int Q_number=data->Q_number;
 	//size_t bloomfilterbytes = ((M*128)/8);
-	size_t bloomfilterbytes=M*8;
-	//	int multi=number_of_words/M;
-	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
-	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
-	//printf("current version is %d\n",current_version);
-	//printf("words in is %d\n",number_of_words);
-	//printf("first word is %s\n",words[section_start]);
-	//return -1;
-	int * bloomfilter = malloc(bloomfilterbytes/8);
+	size_t bloomfilterbits =bloomfiltersize(number_of_words); 
+	size_t bloomfilterbytes = bloomfilterbits/8;
+	int * bloomfilter = malloc(bloomfilterbytes);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
+
 	char *str;	
 	int str_size;
 	int word_number;
@@ -1719,13 +1698,6 @@ int lookupTrieNode_with_bloom_versioning_threads(void ** arguments)//hash_layer 
 			continue;
 			}
 		node=&(bucket->children[pos]);
-		/*if(check_node(node,current_version)==ERROR){
-			start++;
-			//printf("refused\n");
-			free(str);
-			continue;
-			}*/
-		//printf("words start %d , %s\n",start,words[start]);
 		myappend_pan(&str,&str_size,words[start]);
 		
 		while(node->number_of_childs!=0) {

@@ -1,4 +1,10 @@
 #include "test.h"
+#include <stdlib.h>
+#include "fcntl.h"
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdio.h>
 
 
 int init_test_input(struct index *trie,char * filename,char *command){
@@ -98,7 +104,7 @@ void test_delete(struct index *trie,char **words_to_check ,int words_size,int ex
 	}
 
 void test_add(struct index *trie,char **words_to_check ,int words_size,int expected_result){
-		insertTrieNode(trie->hash,words_to_check,words_size);
+		insertTrieNode(trie->hash,words_to_check,words_size,0);
 		int found=test_if_exists(trie,words_to_check ,words_size);
 		if(found!=FOUND) printf("Ngram was not added\n");
 	}
@@ -261,6 +267,7 @@ int test_if_exists_static(struct static_index *trie,char **words ,int words_size
 	//printf("Inside check if exists\n");
 	int i;
 	char *temp_word=malloc(WORD_SIZE*sizeof(char));
+	int word_size=WORD_SIZE;
 	
 	static_trie_node *node;
 	int found=NOT_FOUND;
@@ -283,7 +290,7 @@ int test_if_exists_static(struct static_index *trie,char **words ,int words_size
 			node_word=1;
 			}
 		else {
-			get_i_word(node,node_word,temp_word);
+			temp_word=get_i_word(node,node_word,temp_word,&word_size);
 			
 			if(strcmp(temp_word,words[i])==0) found=FOUND;
 			else found=NOT_FOUND; 
@@ -446,12 +453,9 @@ int test_top(void){
 	topk * top;
 	top = create_top(top);
 	top = init_top(top);
-	if (top->kf->capacity!=20){
-		printf("Error in init/create top\n");
-		flag++;
-		}
+	int previous_capacity=top->kf->capacity;
 	top = extend_top(top);
-	if (top->kf->capacity!=40){
+	if (top->kf->capacity!=previous_capacity*2){
 		printf("Error in extend top\n");
 		flag++;
 		}
@@ -491,4 +495,106 @@ int test_top(void){
 	}
 	if(flag==0)
 		printf("No errors\n");
+	
+	erase_top(top);
 }
+
+void test_versioning(hash_layer *hash){
+	int i;
+	
+	int results=open("cout.log",O_CREAT | O_RDWR,0600);
+	if(results==-1){
+		printf("error in opening");
+		return;	
+	}
+	//rewind(results);
+	int save_out=dup(fileno(stdout));
+	if(dup2(results,fileno(stdout))==-1){
+		printf("error in redirecting stdout");
+		return;	
+	}
+
+	topk * top;
+	top = create_top(top);
+	top = init_top(top);
+
+	char **test_version=malloc(10*sizeof(char*));
+	int *versions=malloc(10*sizeof(int));
+	for(i=0;i<10;i++){
+		test_version[i]=malloc(50*sizeof(char));
+	}
+	strcpy(test_version[0],"panos");
+	versions[0]=0;
+	
+	strcpy(test_version[1],"eats");
+	versions[1]=1;
+
+	strcpy(test_version[2],"a");
+	versions[2]=2;
+	strcpy(test_version[3],"lot");
+	versions[3]=3;
+
+	strcpy(test_version[4],"of");
+	versions[4]=4;
+
+	for(i=0;i<5;i++){
+			insertTrieNode(hash,test_version,i+1,i);
+	}
+	for(i=0;i<5;i++){
+		lookupTrieNode_with_bloom_versioning(hash,test_version,i+1,top,i,0);
+	}
+	for(i=0;i<5;i++){
+		deleteTrieNode_versioning(hash,test_version,i+1,5);
+	}
+	for(i=0;i<5;i++){
+		lookupTrieNode_with_bloom_versioning(hash,test_version,i+1,top,5,0);
+	}
+
+	print_print(top);
+	
+	fflush(stdout);
+	close(results);
+	dup2(save_out,fileno(stdout));
+	close(save_out);
+	if(check_identical_files("cout.log","expected_r.log")==1){
+		printf("No errors in versioning\n");	
+	}
+	else printf("There are errors in versioning\n");	
+	free(versions);
+	for(i=0;i<10;i++){
+		free(test_version[i]);
+	}
+	free(test_version);
+	erase_top(top);
+}
+
+int check_identical_files(char *filename1,char *filename2){
+	FILE *f1 = fopen(filename1, "r");
+ 	if (!f1) { printf("file %s doesnt_exist",filename1); return 0; }
+ 	FILE *f2 = fopen(filename2, "r");
+ 	if (!f2) { printf("file %s doesnt_exist",filename2); return 0; }
+ 	int samefile = 1;
+ 	int c1, c2;
+	c1 = getc(f1);
+	c2 = getc(f2);
+ 	while (samefile && (c1!= EOF) || c2!= EOF){
+    	if (c1 != c2){
+			samefile = 0;
+			printf("error in letter \"%c\" \"%c\"\n",c1,c2 );
+			//return samefile;
+		}
+	c1 = getc(f1);
+	c2 = getc(f2);
+	}
+ 	fclose (f1), fclose (f2);
+	return samefile;
+}
+
+
+
+
+
+
+
+
+

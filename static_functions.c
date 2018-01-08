@@ -908,11 +908,9 @@ void shrink_static_buckets(static_hash_bucket *bucket,stack *stack_){
 int lookup_static_TrieNode(static_hash_layer *hash,char **words,int number_of_words,topk_threads *top,int Q_number){
 //printf("Inside search,number of words is %d\n",number_of_words);
 	
-	//int multi=number_of_words/M;
-	size_t bloomfilterbytes=M*8;
-	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
-	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
-	int * bloomfilter = malloc(bloomfilterbytes/8);
+	size_t bloomfilterbits =bloomfiltersize(number_of_words); 
+	size_t bloomfilterbytes = bloomfilterbits/8;
+	int * bloomfilter = malloc(bloomfilterbytes);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
 
 
@@ -1021,11 +1019,9 @@ int lookup_static_TrieNode_threads(void ** arguments){//static_hash_layer *hash,
 	int section_start=data->start;
 	int Q_number=data->Q_number;
 
-	//int multi=number_of_words/M;
-	size_t bloomfilterbytes=M*8;
-	//if(multi!=0) bloomfilterbytes = (M *(2<<(multi-1)));
-	//printf("multi is %d with bytes %d with words %d\n",multi,bloomfilterbytes,number_of_words);
-	int * bloomfilter = malloc(bloomfilterbytes/8);
+	size_t bloomfilterbits =bloomfiltersize(number_of_words); 
+	size_t bloomfilterbytes = bloomfilterbits/8;
+	int * bloomfilter = malloc(bloomfilterbytes);
 	bloomfilter_init(bloomfilter,bloomfilterbytes);
 
 
@@ -1121,28 +1117,7 @@ int lookup_static_TrieNode_threads(void ** arguments){//static_hash_layer *hash,
 	return SUCCESS;	
 
 }
-/*int check_in_static_paths(paths *paths_, stack *stack_,static_hash_layer *hash){//trie_node *root){//initialize paths in -1
-	//printf("inside check in paths\n");
-	int number=get_stack_number(stack_);
-	int found=0;
-	int pos,i,j;
-	for(i=0;i<paths_->words_in;i++){
-		for(j=0;j<number;j++){
-			pos=get_stack_elements(stack_,j);
-			if(paths_->paths_array[i][j]!=pos){
-				break;
-			} //if it finds it continue with the next word
-		}
-		if(j==number) {found=1; break;} //if it doesnt find one node f the path then leave
- 			
-	}
-	if(found==0) {
-		add_to_paths(paths_,stack_); //add to paths and print it
-		print_nodes_from_static_hash(hash,stack_);
-	}
-	return found;
-}
-*/
+
 void print_nodes_from_static_hash(static_hash_layer *hash,stack *stack_){
 	print_stack(stack_);
 	
